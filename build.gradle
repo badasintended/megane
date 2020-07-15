@@ -8,6 +8,10 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 version = "${project.mod}+minecraft-${project.minecraft}"
 
+repositories {
+    maven { url "https://maven.tehnut.info" }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft}"
     mappings "net.fabricmc:yarn:${yarn}:v2"
@@ -15,8 +19,16 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric}"
 
+    modImplementation "mcp.mobius.waila:Hwyla:${hwyla}"
+
+    modApi "teamreborn:energy:${trEnergy}"
+
     modRuntime "io.github.prospector:modmenu:${modmenu}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${rei}"
+
+    modRuntime("TechReborn:TechReborn-1.16:${techreborn}") {
+        exclude module: "energy"
+    }
 }
 
 if (enableDatabreaker.toBoolean()) {

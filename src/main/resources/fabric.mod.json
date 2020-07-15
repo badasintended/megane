@@ -1,28 +1,31 @@
 {
   "schemaVersion": 1,
-  "id"           : "needle",
+  "id"           : "megane",
   "version"      : "${version}",
-  "name"         : "Example Mod",
-  "description"  : "This is an example description! Tell everyone what your mod is about!",
+  "name"         : "megane",
+  "description"  : "all the detail you can think of",
   "authors"      : ["deirn"],
   "contact"      : {
-    "homepage": "https://github.com/badasintended/needle",
-    "sources" : "https://github.com/badasintended/needle",
-    "issues"  : "https://github.com/badasintended/needle/issues"
+    "homepage": "https://github.com/badasintended/megane",
+    "sources" : "https://github.com/badasintended/megane",
+    "issues"  : "https://github.com/badasintended/megane/issues"
   },
   "license"      : "MIT",
-  "icon"         : "assets/needle/icon.png",
+  "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
-  "entrypoints"  : {
-    "main"  : ["badasintended.needle.Mod"],
-    "client": ["badasintended.needle.ModClient"]
-  },
+  "entrypoints"  : {},
   "mixins"       : [
-    "needle.mixins.json"
+    "megane.mixins.json"
   ],
   "depends"      : {
     "fabricloader": ">=0.7.4",
     "fabric"      : "*",
     "minecraft"   : "1.16.x"
+  },
+  "custom"       : {
+    "waila:plugins": {
+      "id"         : "megane:plugin",
+      "initializer": "badasintended.megane.Megane"
+    }
   }
 }

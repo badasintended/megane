@@ -1,9 +1,12 @@
 {
   "required"          : true,
   "minVersion"        : "0.8",
-  "package"           : "badasintended.needle.mixin",
+  "package"           : "badasintended.megane.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins"            : [],
+  "mixins"            : [
+    "BlockAccessor",
+    "BlockSettingsAccessor"
+  ],
   "client"            : [],
   "injectors"         : {
     "defaultRequire": 1
