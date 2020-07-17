@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id"           : "megane",
   "version"      : "${version}",
-  "name"         : "megane",
+  "name"         : "waila.megane",
   "description"  : "all the detail you can think of",
   "authors"      : ["deirn"],
   "contact"      : {
@@ -11,21 +11,24 @@
     "issues"  : "https://github.com/badasintended/megane/issues"
   },
   "license"      : "MIT",
-  "icon"         : "assets/megane/icon.png",
+  "icon"         : "assets/waila_megane/icon.png",
   "environment"  : "*",
-  "entrypoints"  : {},
+  "entrypoints"  : {
+    "main": ["badasintended.megane.Megane"]
+  },
   "mixins"       : [
     "megane.mixins.json"
   ],
   "depends"      : {
     "fabricloader": ">=0.7.4",
     "fabric"      : "*",
-    "minecraft"   : "1.16.x"
+    "minecraft"   : "1.16.x",
+    "waila"       : "*"
   },
   "custom"       : {
     "waila:plugins": {
       "id"         : "megane:plugin",
-      "initializer": "badasintended.megane.Megane"
+      "initializer": "badasintended.megane.PluginMegane"
     }
   }
 }

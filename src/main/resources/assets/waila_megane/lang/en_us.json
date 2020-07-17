@@ -1,0 +1,20 @@
+{
+  "config.waila.plugin_megane"               : "megane",
+  "config.waila.plugin_megane.effective_tool": "Effective Tool",
+  "config.waila.plugin_megane.inventory"     : "Inventory",
+  "config.waila.plugin_megane.energy"        : "Energy",
+  "waila.megane.tool"                        : "Tool: ",
+  "waila.megane.tier"                        : "Tier: ",
+  "waila.megane.energy"                      : "Energy: %s/%s %s",
+  "waila.megane.tools.any"                   : "Any",
+  "waila.megane.tools.axe"                   : "Axe",
+  "waila.megane.tools.pickaxe"               : "Pickaxe",
+  "waila.megane.tools.shears"                : "Shears",
+  "waila.megane.tools.shovel"                : "Shovel",
+  "waila.megane.tools.hoe"                   : "Hoe",
+  "waila.megane.tiers.wood"                  : "Wood",
+  "waila.megane.tiers.stone"                 : "Stone",
+  "waila.megane.tiers.iron"                  : "Iron",
+  "waila.megane.tiers.diamond"               : "Diamond",
+  "waila.megane.tiers.netherite"             : "Netherite"
+}
