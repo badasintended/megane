@@ -21,10 +21,10 @@ public class InventoryComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.Config.INVENTORY)) {
+        if (config.get(PluginMegane.INVENTORY)) {
             CompoundTag data = accessor.getServerData();
             if (data.getBoolean(key("hasInventory"))) {
-                tooltip.add(new RenderableTextComponent(PluginMegane.Render.INVENTORY, data));
+                tooltip.add(new RenderableTextComponent(PluginMegane.INVENTORY, data));
             }
         }
     }

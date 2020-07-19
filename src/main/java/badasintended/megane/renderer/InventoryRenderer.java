@@ -2,8 +2,9 @@ package badasintended.megane.renderer;
 
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.item.ItemRenderer;
+import mcp.mobius.waila.overlay.DisplayUtil;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Item;
@@ -17,6 +18,7 @@ import java.util.*;
 
 import static badasintended.megane.Utils.key;
 
+@Environment(EnvType.CLIENT)
 public class InventoryRenderer implements ITooltipRenderer {
 
     public static final InventoryRenderer INSTANCE = new InventoryRenderer();
@@ -62,10 +64,8 @@ public class InventoryRenderer implements ITooltipRenderer {
 
         combinedStacks.sort(Comparator.comparing(ItemStack::getCount, Comparator.reverseOrder()));
 
-        ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-
         for (int i = 0; i < combinedStacks.size(); i++) {
-            itemRenderer.renderGuiItemIcon(combinedStacks.get(i), x + (18 * i), y);
+            DisplayUtil.renderStack(matrices, x + (18 * i), y, combinedStacks.get(i));
         }
     }
 

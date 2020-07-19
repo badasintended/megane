@@ -7,7 +7,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
 import static badasintended.megane.Utils.key;
-import static badasintended.megane.api.EnergyTooltipRegistry.*;
+import static badasintended.megane.api.registry.EnergyTooltipRegistry.*;
 
 public class RegisteredEnergyData implements IServerDataProvider<BlockEntity> {
 
@@ -18,11 +18,12 @@ public class RegisteredEnergyData implements IServerDataProvider<BlockEntity> {
 
     @Override
     public void appendServerData(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
-        if (valid(blockEntity)) {
+        Class<? extends BlockEntity> registeredClass = getRegisteredClass(blockEntity);
+        if (registeredClass != null) {
             data.putBoolean(key("hasEnergy"), true);
-            data.putString(key("energyUnit"), getUnit(blockEntity));
-            data.putDouble(key("storedEnergy"), getStored(blockEntity));
-            data.putDouble(key("maxEnergy"), getMax(blockEntity));
+            data.putString(key("energyUnit"), getUnit(registeredClass));
+            data.putDouble(key("storedEnergy"), getStored(registeredClass, blockEntity));
+            data.putDouble(key("maxEnergy"), getMax(registeredClass, blockEntity));
         }
     }
 

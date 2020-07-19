@@ -22,7 +22,7 @@ public class TeamRebornEnergyData implements IServerDataProvider<BlockEntity> {
         if (Energy.valid(blockEntity)) {
             EnergyHandler energy = Energy.of(blockEntity);
             data.putBoolean(key("hasEnergy"), true);
-            data.putString(key("energyUnit"), "E");
+            data.putString(key("energyUnit"), "EU");
             data.putDouble(key("storedEnergy"), energy.getEnergy());
             data.putDouble(key("maxEnergy"), energy.getMaxStored());
         }

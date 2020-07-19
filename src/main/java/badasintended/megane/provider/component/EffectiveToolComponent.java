@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import static badasintended.megane.Utils.format;
-import static badasintended.megane.Utils.tlText;
+import static badasintended.megane.Utils.tl;
 
 public class EffectiveToolComponent implements IComponentProvider {
 
@@ -31,7 +31,7 @@ public class EffectiveToolComponent implements IComponentProvider {
 
     private static final BaseText UNKNOWN = new LiteralText("unknown");
     private static final BaseText EMPTY = new LiteralText("");
-    private static final MutableText ANY = tlText("tools.any");
+    private static final MutableText ANY = tl("tools.any");
 
     private static final Map<Tag<Item>, ItemStack> TOOLS = new LinkedHashMap<>();
     private static final Map<Tag<Item>, MutableText> TOOL_NAMES = new HashMap<>();
@@ -45,16 +45,16 @@ public class EffectiveToolComponent implements IComponentProvider {
         TOOLS.put(FabricToolTags.SHOVELS, new ItemStack(Items.WOODEN_SHOVEL));
         TOOLS.put(FabricToolTags.HOES, new ItemStack(Items.WOODEN_HOE));
 
-        TOOL_NAMES.put(FabricToolTags.AXES, tlText("tools.axe"));
-        TOOL_NAMES.put(FabricToolTags.PICKAXES, tlText("tools.pickaxe"));
-        TOOL_NAMES.put(FabricToolTags.SHOVELS, tlText("tools.shovel"));
-        TOOL_NAMES.put(FabricToolTags.HOES, tlText("tools.hoe"));
+        TOOL_NAMES.put(FabricToolTags.AXES, tl("tools.axe"));
+        TOOL_NAMES.put(FabricToolTags.PICKAXES, tl("tools.pickaxe"));
+        TOOL_NAMES.put(FabricToolTags.SHOVELS, tl("tools.shovel"));
+        TOOL_NAMES.put(FabricToolTags.HOES, tl("tools.hoe"));
 
-        PICKAXE_TIER.put(Items.WOODEN_PICKAXE, tlText("tiers.wood"));
-        PICKAXE_TIER.put(Items.STONE_PICKAXE, tlText("tiers.stone"));
-        PICKAXE_TIER.put(Items.IRON_PICKAXE, tlText("tiers.iron"));
-        PICKAXE_TIER.put(Items.DIAMOND_PICKAXE, tlText("tiers.diamond"));
-        PICKAXE_TIER.put(Items.NETHERITE_PICKAXE, tlText("tiers.netherite"));
+        PICKAXE_TIER.put(Items.WOODEN_PICKAXE, tl("tiers.wood"));
+        PICKAXE_TIER.put(Items.STONE_PICKAXE, tl("tiers.stone"));
+        PICKAXE_TIER.put(Items.IRON_PICKAXE, tl("tiers.iron"));
+        PICKAXE_TIER.put(Items.DIAMOND_PICKAXE, tl("tiers.diamond"));
+        PICKAXE_TIER.put(Items.NETHERITE_PICKAXE, tl("tiers.netherite"));
     }
 
     private EffectiveToolComponent() {
@@ -62,11 +62,12 @@ public class EffectiveToolComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.Config.EFFECTIVE_TOOL)) {
+        if (config.get(PluginMegane.EFFECTIVE_TOOL)) {
             BlockState state = accessor.getBlockState();
             AbstractBlock.Settings blockSettings = ((BlockAccessor) accessor.getBlock()).getSettings();
             BlockSettingsAccessor blockSettingsAccessor = (BlockSettingsAccessor) blockSettings;
 
+            boolean toolRequired = blockSettingsAccessor.getToolRequired();
             Tag<Item> effectiveTool = null;
             MutableText toolName = UNKNOWN;
 
@@ -103,16 +104,16 @@ public class EffectiveToolComponent implements IComponentProvider {
                 }
                 if (item instanceof PickaxeItem) {
                     color = (((PickaxeItem) item).getMaterial().getMiningLevel() >= tier) ? Formatting.GREEN : Formatting.RED;
-                } else color = Formatting.RED;
-                toolTier.append(" (").append(tlText("tier")).append(tierText).append(")").formatted(color);
+                } else color = toolRequired ? Formatting.RED : Formatting.GREEN;
+                toolTier.append(" (").append(tl("tier")).append(tierText).append(")").formatted(color);
             } else {
                 if (effectiveTool.contains(item)) color = Formatting.GREEN;
                 else color = Formatting.RED;
             }
 
-            if (!blockSettingsAccessor.getToolRequired()) color = Formatting.GREEN;
+            if (!toolRequired) color = Formatting.GREEN;
 
-            tooltip.add(tlText("tool").append(format(toolName, color)).append(toolTier));
+            tooltip.add(tl("tool").append(format(toolName, color)).append(toolTier));
         }
     }
 
