@@ -1,4 +1,4 @@
-# megane [![1][1]][6]  [![2][2]][4]  [![3][3]][5] <img src="src/main/resources/assets/waila_megane/icon.png" align="right"/>
+# megane [![1][1]][6]  [![2][2]][4]  [![3][3]][5] <img src="src/main/resources/assets/megane/icon.png" align="right"/>
 
 [![Fabric API](https://images2.imgbox.com/8e/38/bfInI5qv_o.png)][8]
 
