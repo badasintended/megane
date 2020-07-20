@@ -1,0 +1,48 @@
+plugins {
+    id 'fabric-loom' version '0.4-SNAPSHOT'
+    id 'maven-publish'
+}
+
+archivesBaseName = "megane-astromine"
+version = "1.0-SNAPSHOT"
+
+apply from: "../base.gradle"
+
+repositories {
+    maven {
+        name = "Onyx Studios"
+        url = "https://maven.onyxstudios.dev"
+    }
+    maven {
+        name = "Spinnery"
+        url = "https://dl.bintray.com/spinnery/Spinnery"
+    }
+    maven {
+        name = "JitPack"
+        url = "https://jitpack.io"
+    }
+    maven {
+        name = "Fabric"
+        url = "https://maven.fabricmc.net/"
+    }
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com"
+    }
+    maven {
+        name = "BuildCraft"
+        url = "https://mod-buildcraft.com/maven"
+    }
+    maven {
+        name = "SonaType"
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://dl.bintray.com/ladysnake/libs'
+    }
+}
+
+dependencies {
+    modImplementation "com.github.Chainmail-Studios:Astromine:a6e6194f1f"
+}

@@ -25,6 +25,9 @@ public class InventoryRenderer implements ITooltipRenderer {
 
     private static final Dimension ZERO = new Dimension();
 
+    private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(0, ItemStack.EMPTY);
+    private Set<Item> items = new LinkedHashSet<>();
+
     private InventoryRenderer() {
     }
 
@@ -32,30 +35,20 @@ public class InventoryRenderer implements ITooltipRenderer {
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
         int size = data.getInt(key("invSize"));
 
-        DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
+        stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
         Inventories.fromTag(data.getCompound(key("inventory")), stacks);
 
-        Set<Item> items = new LinkedHashSet<>();
+        items = new LinkedHashSet<>();
         stacks.forEach(stack -> {
             if (!stack.isEmpty()) items.add(stack.getItem());
         });
 
         if (items.size() == 0) return ZERO;
-        return new Dimension(18 * items.size(), 18);
+        return new Dimension(18 * Math.min(items.size(), 9), 18 * (items.size() / 9 + 1));
     }
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
-        int size = data.getInt(key("invSize"));
-
-        DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
-        Inventories.fromTag(data.getCompound(key("inventory")), stacks);
-
-        Set<Item> items = new HashSet<>();
-        stacks.forEach(stack -> {
-            if (!stack.isEmpty()) items.add(stack.getItem());
-        });
-
         List<ItemStack> combinedStacks = new ArrayList<>();
         items.forEach(item -> {
             int count = stacks.stream().filter(stack -> stack.getItem() == item).mapToInt(ItemStack::getCount).sum();
@@ -65,7 +58,7 @@ public class InventoryRenderer implements ITooltipRenderer {
         combinedStacks.sort(Comparator.comparing(ItemStack::getCount, Comparator.reverseOrder()));
 
         for (int i = 0; i < combinedStacks.size(); i++) {
-            DisplayUtil.renderStack(matrices, x + (18 * i), y, combinedStacks.get(i));
+            DisplayUtil.renderStack(matrices, x + (18 * (i % 9)), y + (18 * (i / 9)), combinedStacks.get(i));
         }
     }
 

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-astromine",
+  "version"      : "${version}",
+  "name"         : "megane-astromine",
+  "description"  : "megane registries for astromine",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "environment"  : "*",
+  "entrypoints"  : {
+    "megane": ["badasintended.megane.module.MeganeAstromine"]
+  },
+  "depends"      : {
+    "megane"   : "*",
+    "astromine": "*"
+  },
+  "custom"       : {
+    "modmenu:parent": "megane"
+  }
+}

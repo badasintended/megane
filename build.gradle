@@ -10,6 +10,10 @@ version = "${project.mod}+minecraft-${project.minecraft}"
 
 repositories {
     maven { url "https://maven.tehnut.info" }
+    maven {
+        name = "BuildCraft"
+        url = "https://mod-buildcraft.com/maven"
+    }
 }
 
 dependencies {
@@ -21,7 +25,7 @@ dependencies {
 
     modImplementation "mcp.mobius.waila:Hwyla:${hwyla}"
 
-    modApi "teamreborn:energy:${trEnergy}"
+    modImplementation "teamreborn:energy:${trEnergy}"
 
     modRuntime "io.github.prospector:modmenu:${modmenu}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${rei}"

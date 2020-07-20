@@ -24,10 +24,13 @@ public class BarRenderer implements ITooltipRenderer {
 
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##");
     private static final Identifier TEXTURE = id("textures/bar.png");
+    private static final Dimension ZERO = new Dimension();
 
     static {
         FORMAT.setRoundingMode(RoundingMode.DOWN);
     }
+
+    private int align = 0;
 
     private BarRenderer() {
     }
@@ -38,17 +41,23 @@ public class BarRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
+        if (data.getBoolean(key("reset"))) {
+            align = 0;
+            return ZERO;
+        }
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         String prefix = data.getString(key("prefix"));
         if (data.getBoolean(key("translate"))) prefix = I18n.translate(prefix);
         prefix += ": ";
         int prefixWidth = textRenderer.getWidth(prefix);
         int textWidth = textRenderer.getWidth(data.getString(key("text")));
-        return new Dimension(prefixWidth + Math.max(textWidth, 100), 13);
+        align = Math.max(prefixWidth, align);
+        return new Dimension(align + Math.max(textWidth, 100), 13);
     }
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
+        if (data.getBoolean(key("reset"))) return;
         double filled = data.getDouble(key("filled"));
         double max = data.getDouble(key("max"));
 
@@ -60,15 +69,14 @@ public class BarRenderer implements ITooltipRenderer {
         String prefix = data.getString(key("prefix"));
         if (data.getBoolean(key("translate"))) prefix = I18n.translate(prefix);
         prefix += ": ";
-        int prefixWidth = textRenderer.getWidth(prefix);
         textRenderer.drawWithShadow(matrices, prefix, x, y + 2, 0xFFAAAAAA);
 
-        drawTexture(matrices, TEXTURE, x + prefixWidth, y, 100, 11, 0, 0, 1F, 0.5F, color);
-        drawTexture(matrices, TEXTURE, x + prefixWidth, y, (int) (ratio * 100), 11, 0, 0.5F, ratio, 1F, color);
+        drawTexture(matrices, TEXTURE, x + align, y, 100, 11, 0, 0, 1F, 0.5F, color);
+        drawTexture(matrices, TEXTURE, x + align, y, (int) (ratio * 100), 11, 0, 0.5F, ratio, 1F, color);
 
         String text = data.getString(key("text"));
         int textWidth = textRenderer.getWidth(text);
-        textRenderer.draw(matrices, text, x + prefixWidth + Math.max((100 - textWidth) / 2F, 0F), y + 2, 0xFFAAAAAA);
+        textRenderer.draw(matrices, text, x + align + Math.max((100 - textWidth) / 2F, 0F), y + 2, 0xFFAAAAAA);
     }
 
 }

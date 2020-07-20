@@ -1,9 +1,6 @@
 package badasintended.megane;
 
-import badasintended.megane.provider.component.EffectiveToolComponent;
-import badasintended.megane.provider.component.EnergyComponent;
-import badasintended.megane.provider.component.FluidComponent;
-import badasintended.megane.provider.component.InventoryComponent;
+import badasintended.megane.provider.component.*;
 import badasintended.megane.provider.data.InventoryData;
 import badasintended.megane.provider.data.RegisteredEnergyData;
 import badasintended.megane.provider.data.RegisteredFluidData;
@@ -14,6 +11,8 @@ import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.TooltipPosition;
 import net.minecraft.block.Block;
+import net.minecraft.block.CauldronBlock;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.util.Identifier;
 
 import static badasintended.megane.Utils.hasMod;
@@ -40,10 +39,14 @@ public class PluginMegane implements IWailaPlugin {
         r.registerTooltipRenderer(BAR, BarRenderer.INSTANCE);
 
         // Component
+        r.registerComponentProvider(BarResetComponent.INSTANCE, TooltipPosition.BODY, Block.class);
+        r.registerComponentProvider(EffectiveToolComponent.INSTANCE, TooltipPosition.BODY, Block.class);
         r.registerComponentProvider(EnergyComponent.INSTANCE, TooltipPosition.BODY, Block.class);
         r.registerComponentProvider(FluidComponent.INSTANCE, TooltipPosition.BODY, Block.class);
-        r.registerComponentProvider(EffectiveToolComponent.INSTANCE, TooltipPosition.BODY, Block.class);
         r.registerComponentProvider(InventoryComponent.INSTANCE, TooltipPosition.BODY, Block.class);
+
+        r.registerComponentProvider(CauldronComponent.INSTANCE, TooltipPosition.BODY, CauldronBlock.class);
+        r.registerComponentProvider(ComposterComponent.INSTANCE, TooltipPosition.BODY, ComposterBlock.class);
 
         // Server Data
         r.registerBlockDataProvider(InventoryData.INSTANCE, Block.class);

@@ -91,7 +91,6 @@ public final class Utils {
 
         buffer.begin(7, VertexFormats.POSITION_COLOR_TEXTURE);
 
-
         buffer.vertex(matrices.peek().getModel(), x, y + h, 0).color(r, g, b, a).texture(u0, v1).next();
         buffer.vertex(matrices.peek().getModel(), x + w, y + h, 0).color(r, g, b, a).texture(u1, v1).next();
         buffer.vertex(matrices.peek().getModel(), x + w, y, 0).color(r, g, b, a).texture(u1, v0).next();

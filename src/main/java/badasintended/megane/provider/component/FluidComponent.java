@@ -19,7 +19,6 @@ public class FluidComponent implements IComponentProvider {
     private static final CompoundTag TAG = new CompoundTag();
 
     static {
-        TAG.putInt(key("color"), 0xFF0D0D59);
         TAG.putBoolean(key("translate"), false);
     }
 
@@ -34,12 +33,15 @@ public class FluidComponent implements IComponentProvider {
                 for (int i = 0; i < data.getInt(key("fluidSlotCount")); i++) {
 
                     double filled = data.getDouble(key("fluid" + i));
+                    if (filled == 0) continue;
+
                     double max = data.getDouble(key("maxFluid" + i));
 
                     TAG.putDouble(key("filled"), filled);
                     TAG.putDouble(key("max"), max);
                     TAG.putString(key("text"), String.format("%s/%s B", filled, max));
                     TAG.putString(key("prefix"), data.getString(key("fluidName" + i)));
+                    TAG.putInt(key("color"), data.getInt(key("fluidColor" + i)));
                     tooltip.add(new RenderableTextComponent(PluginMegane.BAR, TAG));
                 }
             }

@@ -29,6 +29,7 @@ public class RegisteredFluidData implements IServerDataProvider<BlockEntity> {
                 data.putString(key("fluidName" + i), getFluidName(registeredClass, blockEntity, i));
                 data.putDouble(key("fluid" + i), getStored(registeredClass, blockEntity, i));
                 data.putDouble(key("maxFluid" + i), getMax(registeredClass, blockEntity, i));
+                data.putInt(key("fluidColor" + i), getFluidColor(registeredClass, blockEntity, i));
             }
         }
     }
