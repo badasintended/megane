@@ -5,21 +5,16 @@
   "name"         : "megane-techreborn",
   "description"  : "megane registries for techreborn",
   "authors"      : ["deirn"],
-  "contact"      : {
-    "homepage": "https://github.com/badasintended/megane",
-    "sources" : "https://github.com/badasintended/megane",
-    "issues"  : "https://github.com/badasintended/megane/issues"
-  },
-  "license": "MIT",
-  "environment": "*",
-  "entrypoints": {
+  "license"      : "MIT",
+  "environment"  : "*",
+  "entrypoints"  : {
     "megane": ["badasintended.megane.module.MeganeTechReborn"]
   },
-  "depends": {
-    "megane": "*",
+  "depends"      : {
+    "megane"    : "*",
     "techreborn": "*"
   },
-  "custom": {
+  "custom"       : {
     "modmenu:parent": "megane"
   }
 }
