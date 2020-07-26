@@ -1,0 +1,19 @@
+plugins {
+    id 'fabric-loom' version '0.4-SNAPSHOT'
+    id 'maven-publish'
+}
+
+archivesBaseName = "megane-indrev"
+
+apply from: "../base.gradle"
+
+repositories {
+    maven { url "https://server.bbkr.space/artifactory/libs-release" }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    modImplementation "io.github.cottonmc:LibGui:2.2.0+1.16.1"
+    modApi "teamreborn:energy:0.1.0"
+    modImplementation("com.github.GabrielOlvH:Industrial-Revolution:0dc0ecb3ef") { transitive = false }
+}

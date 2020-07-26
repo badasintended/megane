@@ -2,6 +2,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 group = "com.github.badasintended"
+version = 1.0
 
 repositories {
     maven { url "https://maven.tehnut.info" }
@@ -13,9 +14,9 @@ dependencies {
     mappings "net.fabricmc:yarn:1.16.1+build.21:v2"
     modCompile "net.fabricmc:fabric-loader:0.9.0+build.204"
 
-    modImplementation("com.github.badasintended:megane:+") {
-        exclude module: "energy"
-    }
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.14.1+build.372-1.16"
+
+    modImplementation("com.github.badasintended:megane:+") { transitive = false }
 }
 
 processResources {
@@ -67,7 +68,7 @@ publishing {
     // select the repositories you want to publish to
     repositories {
         // uncomment to publish to the local maven
-        // mavenLocal()
+        mavenLocal()
     }
 }
 

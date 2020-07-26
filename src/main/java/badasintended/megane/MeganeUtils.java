@@ -6,22 +6,28 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.texture.TextureManager;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public final class Utils {
+public final class MeganeUtils {
 
     public static final String MODID = "megane";
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     private static final NavigableMap<Long, String> SUFFIXES = new TreeMap<>();
 
@@ -78,8 +84,7 @@ public final class Utils {
     ) {
         RenderSystem.enableBlend();
 
-        TextureManager textureManager = MinecraftClient.getInstance().getTextureManager();
-        textureManager.bindTexture(id);
+        MinecraftClient.getInstance().getTextureManager().bindTexture(id);
 
         int a = (color & 0xFF000000) >> 24;
         int r = (color & 0xFF0000) >> 16;
@@ -98,6 +103,12 @@ public final class Utils {
 
         tessellator.draw();
         RenderSystem.disableBlend();
+    }
+
+    public static String fluidName(Fluid fluid) {
+        Identifier id = Registry.FLUID.getId(fluid);
+        String tlKey = String.format("block.%s.%s", id.getNamespace(), id.getPath());
+        return I18n.hasTranslation(tlKey) ? I18n.translate(tlKey) : StringUtils.capitalize(id.getPath().replace('_', ' '));
     }
 
 }

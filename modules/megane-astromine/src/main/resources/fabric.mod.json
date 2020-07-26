@@ -3,7 +3,6 @@
   "id"           : "megane-astromine",
   "version"      : "${version}",
   "name"         : "megane-astromine",
-  "description"  : "megane registries for astromine",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "environment"  : "*",

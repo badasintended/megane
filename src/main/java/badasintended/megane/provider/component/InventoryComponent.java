@@ -1,6 +1,6 @@
 package badasintended.megane.provider.component;
 
-import badasintended.megane.PluginMegane;
+import badasintended.megane.Megane;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.IPluginConfig;
@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 
 public class InventoryComponent implements IComponentProvider {
 
@@ -21,10 +21,10 @@ public class InventoryComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.INVENTORY)) {
+        if (config.get(Megane.INVENTORY)) {
             CompoundTag data = accessor.getServerData();
-            if (data.getBoolean(key("hasInventory"))) {
-                tooltip.add(new RenderableTextComponent(PluginMegane.INVENTORY, data));
+            if (data.getBoolean(key("hasInventory")) && data.getInt(key("percentage")) == 0 && data.getInt("progress") == 0) {
+                tooltip.add(new RenderableTextComponent(Megane.INVENTORY, data));
             }
         }
     }

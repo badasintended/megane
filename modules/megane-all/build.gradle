@@ -1,0 +1,19 @@
+plugins {
+    id 'fabric-loom' version '0.4-SNAPSHOT'
+    id 'maven-publish'
+}
+
+archivesBaseName = "megane-all"
+
+apply from: "../base.gradle"
+
+dependencies {
+    include "com.github.badasintended:megane:+"
+
+    file("..").eachDir {dir ->
+        if (dir.name != "megane-all") {
+            modApi("com.github.badasintended:${dir.name}:+") { transitive = false }
+            include "com.github.badasintended:${dir.name}:+"
+        }
+    }
+}

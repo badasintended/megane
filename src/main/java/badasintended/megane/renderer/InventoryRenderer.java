@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 
 @Environment(EnvType.CLIENT)
 public class InventoryRenderer implements ITooltipRenderer {
@@ -58,7 +58,7 @@ public class InventoryRenderer implements ITooltipRenderer {
         combinedStacks.sort(Comparator.comparing(ItemStack::getCount, Comparator.reverseOrder()));
 
         for (int i = 0; i < combinedStacks.size(); i++) {
-            DisplayUtil.renderStack(matrices, x + (18 * (i % 9)), y + (18 * (i / 9)), combinedStacks.get(i));
+            DisplayUtil.renderStack(matrices, x + (18 * (i % 9)) + 1, y + (18 * (i / 9)) + 1, combinedStacks.get(i));
         }
     }
 

@@ -14,8 +14,7 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "main"  : ["badasintended.megane.Megane"],
-    "megane": ["badasintended.megane.debug.VanillaRegistry"]
+    "main"  : ["badasintended.megane.Megane"]
   },
   "mixins"       : [
     "megane.mixins.json"
@@ -29,7 +28,7 @@
   "custom"       : {
     "waila:plugins": {
       "id"         : "megane:plugin",
-      "initializer": "badasintended.megane.PluginMegane"
+      "initializer": "badasintended.megane.Megane"
     }
   }
 }

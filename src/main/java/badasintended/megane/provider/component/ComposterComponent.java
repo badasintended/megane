@@ -1,6 +1,6 @@
 package badasintended.megane.provider.component;
 
-import badasintended.megane.PluginMegane;
+import badasintended.megane.Megane;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.IPluginConfig;
@@ -12,7 +12,7 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 
 public class ComposterComponent implements IComponentProvider {
 
@@ -28,13 +28,13 @@ public class ComposterComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.FLUID)) {
+        if (config.get(Megane.FLUID)) {
             BlockState state = accessor.getBlockState();
             int level = state.get(ComposterBlock.LEVEL);
             TAG.putDouble(key("filled"), level);
             TAG.putDouble(key("max"), 7);
             TAG.putString(key("text"), String.valueOf(level));
-            tooltip.add(new RenderableTextComponent(PluginMegane.BAR, TAG));
+            tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
         }
     }
 

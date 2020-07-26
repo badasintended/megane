@@ -1,13 +1,15 @@
 package badasintended.megane.api.registry;
 
 import net.minecraft.block.entity.BlockEntity;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @SuppressWarnings("unchecked")
-public class EnergyTooltipRegistry {
+public final class EnergyTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, String> UNIT = new HashMap<>();
     private static final Map<Class<? extends BlockEntity>, Function<? extends BlockEntity, Double>> STORED = new HashMap<>();
@@ -21,6 +23,7 @@ public class EnergyTooltipRegistry {
      * @param stored function to return stored energy
      * @param max    function to return tank capacity
      */
+    @SuppressWarnings("unused")
     public static <T extends BlockEntity> void register(Class<T> clazz, String unit, Function<T, Double> stored, Function<T, Double> max) {
         UNIT.put(clazz, unit);
         STORED.put(clazz, stored);
@@ -30,6 +33,8 @@ public class EnergyTooltipRegistry {
     /**
      * @return the blockEntity class is registered energy provider.
      */
+    @Nullable
+    @ApiStatus.Internal
     public static <T extends BlockEntity> Class<T> getRegisteredClass(T blockEntity) {
         Class<?> clazz = blockEntity.getClass();
         boolean containsKey = UNIT.containsKey(clazz);
@@ -46,6 +51,7 @@ public class EnergyTooltipRegistry {
     /**
      * @return energy unit.
      */
+    @ApiStatus.Internal
     public static <T extends BlockEntity> String getUnit(Class<T> clazz) {
         return UNIT.get(clazz);
     }
@@ -60,6 +66,7 @@ public class EnergyTooltipRegistry {
     /**
      * @return energy capacity.
      */
+    @ApiStatus.Internal
     public static <T extends BlockEntity, V extends BlockEntity> double getMax(Class<T> clazz, V blockEntity) {
         return ((Function<T, Double>) MAX.get(clazz)).apply((T) blockEntity);
     }

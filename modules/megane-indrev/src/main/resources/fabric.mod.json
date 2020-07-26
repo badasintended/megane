@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-indrev",
+  "version"      : "${version}",
+  "name"         : "megane-indrev",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "environment"  : "*",
+  "entrypoints"  : {
+    "megane": ["badasintended.megane.module.MeganeIndustrialRevolution"]
+  },
+  "depends"      : {
+    "megane": "*",
+    "indrev": "*"
+  },
+  "custom"       : {
+    "modmenu:parent": "megane"
+  }
+}

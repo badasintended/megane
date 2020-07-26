@@ -1,6 +1,6 @@
 package badasintended.megane.provider.component;
 
-import badasintended.megane.PluginMegane;
+import badasintended.megane.Megane;
 import badasintended.megane.mixin.BlockAccessor;
 import badasintended.megane.mixin.BlockSettingsAccessor;
 import mcp.mobius.waila.api.IComponentProvider;
@@ -22,8 +22,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static badasintended.megane.Utils.format;
-import static badasintended.megane.Utils.tl;
+import static badasintended.megane.MeganeUtils.format;
+import static badasintended.megane.MeganeUtils.tl;
 
 public class EffectiveToolComponent implements IComponentProvider {
 
@@ -62,7 +62,7 @@ public class EffectiveToolComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.EFFECTIVE_TOOL)) {
+        if (config.get(Megane.EFFECTIVE_TOOL)) {
             BlockState state = accessor.getBlockState();
             AbstractBlock.Settings blockSettings = ((BlockAccessor) accessor.getBlock()).getSettings();
             BlockSettingsAccessor blockSettingsAccessor = (BlockSettingsAccessor) blockSettings;

@@ -1,6 +1,6 @@
 package badasintended.megane.provider.component;
 
-import badasintended.megane.PluginMegane;
+import badasintended.megane.Megane;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.IPluginConfig;
@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 
 public class FluidComponent implements IComponentProvider {
 
@@ -20,6 +20,7 @@ public class FluidComponent implements IComponentProvider {
 
     static {
         TAG.putBoolean(key("translate"), false);
+        TAG.putInt(key("color"), 0xFF0D0D59);
     }
 
     private FluidComponent() {
@@ -27,22 +28,22 @@ public class FluidComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.FLUID)) {
+        if (config.get(Megane.FLUID)) {
             CompoundTag data = accessor.getServerData();
             if (data.getBoolean(key("hasFluid"))) {
                 for (int i = 0; i < data.getInt(key("fluidSlotCount")); i++) {
 
-                    double filled = data.getDouble(key("fluid" + i));
-                    if (filled == 0) continue;
+                    double stored = data.getDouble(key("storedFluid" + i));
+                    if (stored == 0) continue;
 
                     double max = data.getDouble(key("maxFluid" + i));
 
-                    TAG.putDouble(key("filled"), filled);
+                    TAG.putDouble(key("stored"), stored);
                     TAG.putDouble(key("max"), max);
-                    TAG.putString(key("text"), String.format("%s/%s B", filled, max));
+                    TAG.putString(key("text"), String.format("%s/%s B", stored, max));
                     TAG.putString(key("prefix"), data.getString(key("fluidName" + i)));
-                    TAG.putInt(key("color"), data.getInt(key("fluidColor" + i)));
-                    tooltip.add(new RenderableTextComponent(PluginMegane.BAR, TAG));
+
+                    tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
                 }
             }
         }

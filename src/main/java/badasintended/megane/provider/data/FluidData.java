@@ -6,14 +6,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 import static badasintended.megane.api.registry.FluidTooltipRegistry.*;
 
-public class RegisteredFluidData implements IServerDataProvider<BlockEntity> {
+public class FluidData implements IServerDataProvider<BlockEntity> {
 
-    public static final RegisteredFluidData INSTANCE = new RegisteredFluidData();
+    public static final FluidData INSTANCE = new FluidData();
 
-    private RegisteredFluidData() {
+    private FluidData() {
     }
 
     @Override
@@ -27,9 +27,8 @@ public class RegisteredFluidData implements IServerDataProvider<BlockEntity> {
 
             for (int i = 0; i < slotCount; i++) {
                 data.putString(key("fluidName" + i), getFluidName(registeredClass, blockEntity, i));
-                data.putDouble(key("fluid" + i), getStored(registeredClass, blockEntity, i));
+                data.putDouble(key("storedFluid" + i), getStored(registeredClass, blockEntity, i));
                 data.putDouble(key("maxFluid" + i), getMax(registeredClass, blockEntity, i));
-                data.putInt(key("fluidColor" + i), getFluidColor(registeredClass, blockEntity, i));
             }
         }
     }

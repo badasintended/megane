@@ -1,6 +1,6 @@
 package badasintended.megane.provider.component;
 
-import badasintended.megane.PluginMegane;
+import badasintended.megane.Megane;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.IPluginConfig;
@@ -10,8 +10,8 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.Utils.key;
-import static badasintended.megane.Utils.suffix;
+import static badasintended.megane.MeganeUtils.key;
+import static badasintended.megane.MeganeUtils.suffix;
 
 public class EnergyComponent implements IComponentProvider {
 
@@ -30,7 +30,7 @@ public class EnergyComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (config.get(PluginMegane.ENERGY)) {
+        if (config.get(Megane.ENERGY)) {
             CompoundTag data = accessor.getServerData();
 
             if (data.getBoolean(key("hasEnergy"))) {
@@ -54,10 +54,10 @@ public class EnergyComponent implements IComponentProvider {
                     maxString = sneaking ? String.valueOf(max) : suffix((long) max);
                 }
 
-                TAG.putDouble(key("filled"), stored);
+                TAG.putDouble(key("stored"), stored);
                 TAG.putDouble(key("max"), max);
                 TAG.putString(key("text"), String.format("%s/%s %s", storedString, maxString, data.getString(key("energyUnit"))));
-                tooltip.add(new RenderableTextComponent(PluginMegane.BAR, TAG));
+                tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
             }
         }
     }

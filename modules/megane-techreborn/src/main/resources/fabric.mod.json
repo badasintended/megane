@@ -3,7 +3,6 @@
   "id"           : "megane-techreborn",
   "version"      : "${version}",
   "name"         : "megane-techreborn",
-  "description"  : "megane registries for techreborn",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "environment"  : "*",

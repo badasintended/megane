@@ -6,14 +6,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 import static badasintended.megane.api.registry.EnergyTooltipRegistry.*;
 
 public class RegisteredEnergyData implements IServerDataProvider<BlockEntity> {
 
     public static final RegisteredEnergyData INSTANCE = new RegisteredEnergyData();
 
-    public RegisteredEnergyData() {
+    private RegisteredEnergyData() {
     }
 
     @Override

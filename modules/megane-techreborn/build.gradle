@@ -4,7 +4,6 @@ plugins {
 }
 
 archivesBaseName = "megane-techreborn"
-version = "1.0-SNAPSHOT"
 
 apply from: "../base.gradle"
 

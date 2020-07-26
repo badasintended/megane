@@ -15,7 +15,7 @@ import java.awt.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import static badasintended.megane.Utils.*;
+import static badasintended.megane.MeganeUtils.*;
 
 @Environment(EnvType.CLIENT)
 public class BarRenderer implements ITooltipRenderer {
@@ -58,10 +58,10 @@ public class BarRenderer implements ITooltipRenderer {
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
         if (data.getBoolean(key("reset"))) return;
-        double filled = data.getDouble(key("filled"));
+        double stored = data.getDouble(key("stored"));
         double max = data.getDouble(key("max"));
 
-        float ratio = max == 0 ? 1F : (float) format(filled / max);
+        float ratio = max == 0 ? 1F : (float) format(stored / max);
 
         int color = data.getInt(key("color"));
 

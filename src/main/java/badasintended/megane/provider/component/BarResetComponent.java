@@ -1,6 +1,6 @@
 package badasintended.megane.provider.component;
 
-import badasintended.megane.PluginMegane;
+import badasintended.megane.Megane;
 import mcp.mobius.waila.api.IComponentProvider;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.IPluginConfig;
@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 
 public class BarResetComponent implements IComponentProvider {
 
@@ -27,7 +27,7 @@ public class BarResetComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        tooltip.add(new RenderableTextComponent(PluginMegane.BAR, TAG));
+        tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
     }
 
 }

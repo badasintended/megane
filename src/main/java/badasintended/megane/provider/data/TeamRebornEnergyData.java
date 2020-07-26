@@ -8,13 +8,13 @@ import net.minecraft.world.World;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHandler;
 
-import static badasintended.megane.Utils.key;
+import static badasintended.megane.MeganeUtils.key;
 
 public class TeamRebornEnergyData implements IServerDataProvider<BlockEntity> {
 
     public static final TeamRebornEnergyData INSTANCE = new TeamRebornEnergyData();
 
-    public TeamRebornEnergyData() {
+    private TeamRebornEnergyData() {
     }
 
     @Override
