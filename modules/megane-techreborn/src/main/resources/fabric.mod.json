@@ -2,10 +2,8 @@
   "schemaVersion": 1,
   "id"           : "megane-techreborn",
   "version"      : "${version}",
-  "name"         : "megane-techreborn",
   "authors"      : ["deirn"],
   "license"      : "MIT",
-  "environment"  : "*",
   "entrypoints"  : {
     "megane": ["badasintended.megane.module.MeganeTechReborn"]
   },

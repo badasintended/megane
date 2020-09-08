@@ -11,23 +11,16 @@ import java.util.function.Function;
 @SuppressWarnings("unchecked")
 public final class EnergyTooltipRegistry {
 
-    private static final Map<Class<? extends BlockEntity>, String> UNIT = new HashMap<>();
-    private static final Map<Class<? extends BlockEntity>, Function<? extends BlockEntity, Double>> STORED = new HashMap<>();
-    private static final Map<Class<? extends BlockEntity>, Function<? extends BlockEntity, Double>> MAX = new HashMap<>();
+    private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
 
     /**
      * Register new BlockEntity class that has energy on it.
      *
-     * @param clazz  highest class, any subclass will automatically get registered.
-     * @param unit   function to return the energy unit
-     * @param stored function to return stored energy
-     * @param max    function to return tank capacity
+     * @param clazz highest class, any subclass will automatically get registered.
      */
     @SuppressWarnings("unused")
-    public static <T extends BlockEntity> void register(Class<T> clazz, String unit, Function<T, Double> stored, Function<T, Double> max) {
-        UNIT.put(clazz, unit);
-        STORED.put(clazz, stored);
-        MAX.put(clazz, max);
+    public static <T extends BlockEntity> void register(Class<T> clazz, Provider<T> provider) {
+        ENTRIES.put(clazz, provider);
     }
 
     /**
@@ -35,40 +28,39 @@ public final class EnergyTooltipRegistry {
      */
     @Nullable
     @ApiStatus.Internal
-    public static <T extends BlockEntity> Class<T> getRegisteredClass(T blockEntity) {
+    public static <T extends BlockEntity> Provider<T> get(T blockEntity) {
         Class<?> clazz = blockEntity.getClass();
-        boolean containsKey = UNIT.containsKey(clazz);
+        boolean containsKey = ENTRIES.containsKey(clazz);
 
         if (!containsKey) do {
             clazz = clazz.getSuperclass();
-            containsKey = UNIT.containsKey(clazz);
+            containsKey = ENTRIES.containsKey(clazz);
         } while (!containsKey && clazz != BlockEntity.class);
 
-        if (containsKey) return (Class<T>) clazz;
+        if (containsKey) return (Provider<T>) ENTRIES.get(clazz);
         return null;
     }
 
-    /**
-     * @return energy unit.
-     */
-    @ApiStatus.Internal
-    public static <T extends BlockEntity> String getUnit(Class<T> clazz) {
-        return UNIT.get(clazz);
-    }
+    public interface Provider<T extends BlockEntity> {
 
-    /**
-     * @return stored energy.
-     */
-    public static <T extends BlockEntity, V extends BlockEntity> double getStored(Class<T> clazz, V blockEntity) {
-        return ((Function<T, Double>) STORED.get(clazz)).apply((T) blockEntity);
-    }
+        static <T extends BlockEntity> Provider<T> of(Function<T, Double> stored, Function<T, Double> max) {
+            return new Provider<T>() {
+                @Override
+                public double getStored(T t) {
+                    return stored.apply(t);
+                }
 
-    /**
-     * @return energy capacity.
-     */
-    @ApiStatus.Internal
-    public static <T extends BlockEntity, V extends BlockEntity> double getMax(Class<T> clazz, V blockEntity) {
-        return ((Function<T, Double>) MAX.get(clazz)).apply((T) blockEntity);
+                @Override
+                public double getMax(T t) {
+                    return max.apply(t);
+                }
+            };
+        }
+
+        double getStored(T t);
+
+        double getMax(T t);
+
     }
 
 }

@@ -5,7 +5,6 @@
   "name"         : "megane-astromine",
   "authors"      : ["deirn"],
   "license"      : "MIT",
-  "environment"  : "*",
   "entrypoints"  : {
     "megane": ["badasintended.megane.module.MeganeAstromine"]
   },

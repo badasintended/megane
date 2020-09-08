@@ -5,7 +5,6 @@
   "name"         : "megane-indrev",
   "authors"      : ["deirn"],
   "license"      : "MIT",
-  "environment"  : "*",
   "entrypoints"  : {
     "megane": ["badasintended.megane.module.MeganeIndustrialRevolution"]
   },

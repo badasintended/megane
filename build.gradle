@@ -6,15 +6,12 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-version = "${project.mod}+minecraft-${project.minecraft}"
+version = "${project.mod}+${project.minecraft}"
 
 repositories {
     maven { url "https://maven.tehnut.info" }
-    maven { url "https://mod-buildcraft.com/maven" }
     maven { url "https://jitpack.io" }
-
-    maven { url "https://dl.bintray.com/ladysnake/libs" }
-    maven { url "https://server.bbkr.space/artifactory/libs-release" }
+    maven { url "https://mod-buildcraft.com/maven" }
 }
 
 dependencies {
@@ -24,7 +21,12 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric}"
 
     modImplementation "mcp.mobius.waila:Hwyla:${hwyla}"
+
     modImplementation "teamreborn:energy:${trEnergy}"
+    include "teamreborn:energy:${trEnergy}"
+
+    modCompile "alexiil.mc.lib:libblockattributes-fluids:${lba}"
+    include "alexiil.mc.lib:libblockattributes-fluids:${lba}"
 
     modApi "org.jetbrains:annotations:19.0.0"
 }
@@ -37,6 +39,13 @@ if (enableDatabreaker.toBoolean()) {
         modRuntime("com.github.SuperCoder7979:databreaker:${databreaker}") {
             exclude module: "fabric-loader"
         }
+    }
+}
+
+sourceSets {
+    test {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
     }
 }
 

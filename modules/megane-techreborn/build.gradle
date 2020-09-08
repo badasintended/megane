@@ -8,5 +8,5 @@ archivesBaseName = "megane-techreborn"
 apply from: "../base.gradle"
 
 dependencies {
-    modImplementation "TechReborn:TechReborn-1.16:3.4.3+build.80"
+    modImplementation "TechReborn:TechReborn-1.16:3.5.2+build.110"
 }

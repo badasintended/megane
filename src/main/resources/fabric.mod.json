@@ -3,7 +3,7 @@
   "id"           : "megane",
   "version"      : "${version}",
   "name"         : "megane",
-  "description"  : "all the detail you can think of",
+  "description"  : "a WAILA/HWYLA plugin that shows more detailed information such as energy, fluids, items, etc.",
   "authors"      : ["deirn"],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
@@ -14,7 +14,7 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "main"  : ["badasintended.megane.Megane"]
+    "main": ["badasintended.megane.Megane"]
   },
   "mixins"       : [
     "megane.mixins.json"

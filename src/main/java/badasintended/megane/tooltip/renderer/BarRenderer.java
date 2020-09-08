@@ -1,9 +1,7 @@
-package badasintended.megane.renderer;
+package badasintended.megane.tooltip.renderer;
 
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.resource.language.I18n;
@@ -17,7 +15,6 @@ import java.text.DecimalFormat;
 
 import static badasintended.megane.MeganeUtils.*;
 
-@Environment(EnvType.CLIENT)
 public class BarRenderer implements ITooltipRenderer {
 
     public static final BarRenderer INSTANCE = new BarRenderer();
@@ -35,33 +32,55 @@ public class BarRenderer implements ITooltipRenderer {
     private BarRenderer() {
     }
 
-    private static double format(double n) {
-        return Double.parseDouble(FORMAT.format(n));
+    private float format(double n) {
+        return Float.parseFloat(FORMAT.format(n));
+    }
+
+    private String getValString(CompoundTag data) {
+        double stored = Math.max(data.getDouble(key("stored")), 0);
+        double max = Math.max(data.getDouble(key("max")), 0);
+        String unit = data.getString(key("unit"));
+        boolean verbose = data.getBoolean(key("verbose"));
+
+        String storedString;
+        if (stored < 0 || stored == Double.MAX_VALUE) {
+            storedString = "∞";
+        } else {
+            storedString = verbose ? String.valueOf(stored) : suffix((long) stored);
+        }
+
+        String maxString;
+        if (max < 0 || max == Double.MAX_VALUE) {
+            maxString = "∞";
+        } else {
+            maxString = verbose ? String.valueOf(max) : suffix((long) max);
+        }
+
+        return storedString + "/" + maxString + " " + unit;
+    }
+
+    public void resetAlign() {
+        align = 0;
     }
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        if (data.getBoolean(key("reset"))) {
-            align = 0;
-            return ZERO;
-        }
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         String prefix = data.getString(key("prefix"));
         if (data.getBoolean(key("translate"))) prefix = I18n.translate(prefix);
         prefix += ": ";
         int prefixWidth = textRenderer.getWidth(prefix);
-        int textWidth = textRenderer.getWidth(data.getString(key("text")));
+        int textWidth = textRenderer.getWidth(getValString(data));
         align = Math.max(prefixWidth, align);
         return new Dimension(align + Math.max(textWidth, 100), 13);
     }
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
-        if (data.getBoolean(key("reset"))) return;
-        double stored = data.getDouble(key("stored"));
-        double max = data.getDouble(key("max"));
+        double stored = Math.max(data.getDouble(key("stored")), 0);
+        double max = Math.max(data.getDouble(key("max")), 0);
 
-        float ratio = max == 0 ? 1F : (float) format(stored / max);
+        float ratio = max == 0 ? 1F : format(stored / max);
 
         int color = data.getInt(key("color"));
 
@@ -74,7 +93,7 @@ public class BarRenderer implements ITooltipRenderer {
         drawTexture(matrices, TEXTURE, x + align, y, 100, 11, 0, 0, 1F, 0.5F, color);
         drawTexture(matrices, TEXTURE, x + align, y, (int) (ratio * 100), 11, 0, 0.5F, ratio, 1F, color);
 
-        String text = data.getString(key("text"));
+        String text = getValString(data);
         int textWidth = textRenderer.getWidth(text);
         textRenderer.draw(matrices, text, x + align + Math.max((100 - textWidth) / 2F, 0F), y + 2, 0xFFAAAAAA);
     }

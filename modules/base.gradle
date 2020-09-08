@@ -1,20 +1,28 @@
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+def stdout = new ByteArrayOutputStream()
+exec {
+    executable = "git"
+    args = ["rev-list", "--abbrev-commit", "-1", "HEAD", "."]
+    standardOutput = stdout
+}
+
 group = "com.github.badasintended"
-version = 1.0
+version = "0+${stdout.toString().trim()}"
 
 repositories {
+    maven { url "https://www.cursemaven.com" }
     maven { url "https://maven.tehnut.info" }
     mavenLocal()
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.16.1"
-    mappings "net.fabricmc:yarn:1.16.1+build.21:v2"
-    modCompile "net.fabricmc:fabric-loader:0.9.0+build.204"
+    minecraft "com.mojang:minecraft:1.16.2"
+    mappings "net.fabricmc:yarn:1.16.2+build.46:v2"
+    modCompile "net.fabricmc:fabric-loader:0.9.3+build.207"
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.14.1+build.372-1.16"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.20.1+build.401-1.16"
 
     modImplementation("com.github.badasintended:megane:+") { transitive = false }
 }
@@ -73,5 +81,5 @@ publishing {
 }
 
 wrapper {
-    gradleVersion = '6.5.1'
+    gradleVersion = '6.6'
 }

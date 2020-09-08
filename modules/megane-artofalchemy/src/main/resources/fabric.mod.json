@@ -10,7 +10,7 @@
     "megane": ["badasintended.megane.module.MeganeArtOfAlchemy"]
   },
   "depends"      : {
-    "megane": "*",
+    "megane"      : "*",
     "artofalchemy": "*"
   },
   "custom"       : {

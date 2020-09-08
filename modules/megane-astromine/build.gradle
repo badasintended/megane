@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     modApi "teamreborn:energy:0.1.0"
-    modImplementation("com.github.Chainmail-Studios:Astromine:a6e6194f1f") { transitive = false }
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.4.2"
+    modImplementation "curse.maven:astromine-core:3048299"
+    modImplementation "curse.maven:astromine-foundations:3048316"
+    modImplementation "curse.maven:astromine-technologies:3048302"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
 }

@@ -1,6 +1,10 @@
 package badasintended.megane;
 
+import badasintended.megane.config.MeganeConfig;
+import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
+import mcp.mobius.waila.Waila;
+import mcp.mobius.waila.utils.JsonConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
@@ -28,6 +32,13 @@ public final class MeganeUtils {
 
     public static final String MODID = "megane";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+
+    public static final JsonConfig<MeganeConfig> CONFIG = new JsonConfig<>(Waila.MODID + "/" + MODID, MeganeConfig.class)
+        .withGson(new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
+            .create()
+        );
 
     private static final NavigableMap<Long, String> SUFFIXES = new TreeMap<>();
 
@@ -82,8 +93,8 @@ public final class MeganeUtils {
         int x, int y, int w, int h,
         float u0, float v0, float u1, float v1, int color
     ) {
+        matrices.push();
         RenderSystem.enableBlend();
-
         MinecraftClient.getInstance().getTextureManager().bindTexture(id);
 
         int a = (color & 0xFF000000) >> 24;
@@ -103,11 +114,12 @@ public final class MeganeUtils {
 
         tessellator.draw();
         RenderSystem.disableBlend();
+        matrices.pop();
     }
 
     public static String fluidName(Fluid fluid) {
         Identifier id = Registry.FLUID.getId(fluid);
-        String tlKey = String.format("block.%s.%s", id.getNamespace(), id.getPath());
+        String tlKey = "block." + id.getNamespace() + "." + id.getPath();
         return I18n.hasTranslation(tlKey) ? I18n.translate(tlKey) : StringUtils.capitalize(id.getPath().replace('_', ' '));
     }
 

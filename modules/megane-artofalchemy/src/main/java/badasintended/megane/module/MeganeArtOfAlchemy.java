@@ -15,15 +15,15 @@ public class MeganeArtOfAlchemy implements MeganeApi {
         FluidTooltipRegistry.register(
             BlockEntityDissolver.class, b -> 1,
             (b, i) -> I18n.translate("fluid.artofalchemy.alkahest"),
-            (b, i) -> b.getPropertyDelegate().get(0) / 1000.0,
-            (b, i) -> b.getTankSize() / 1000.0
+            (b, i) -> (double) b.getPropertyDelegate().get(0),
+            (b, i) -> (double) b.getTankSize()
         );
 
         ProgressTooltipRegistry.register(
             BlockEntityCalcinator.class, b -> 2, b -> 1,
             ImplementedInventory::getStack,
             (b, i) -> b.getStack(i + 2),
-            b -> (int) (double) (b.getPropertyDelegate().get(2) / b.getOperationTime() * 100)
+            b -> (int) (b.getPropertyDelegate().get(2) / (float) b.getOperationTime() * 100F)
         );
     }
 

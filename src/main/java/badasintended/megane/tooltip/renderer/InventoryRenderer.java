@@ -1,10 +1,8 @@
-package badasintended.megane.renderer;
+package badasintended.megane.tooltip.renderer;
 
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import mcp.mobius.waila.overlay.DisplayUtil;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Item;
@@ -16,9 +14,9 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
+import static badasintended.megane.MeganeUtils.CONFIG;
 import static badasintended.megane.MeganeUtils.key;
 
-@Environment(EnvType.CLIENT)
 public class InventoryRenderer implements ITooltipRenderer {
 
     public static final InventoryRenderer INSTANCE = new InventoryRenderer();
@@ -33,6 +31,7 @@ public class InventoryRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
+        int row = CONFIG.get().inventory.getMaxRow();
         int size = data.getInt(key("invSize"));
 
         stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
@@ -44,11 +43,12 @@ public class InventoryRenderer implements ITooltipRenderer {
         });
 
         if (items.size() == 0) return ZERO;
-        return new Dimension(18 * Math.min(items.size(), 9), 18 * (items.size() / 9 + 1));
+        return new Dimension(18 * Math.min(items.size(), row), 18 * (items.size() / row + 1));
     }
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
+        int row = CONFIG.get().inventory.getMaxRow();
         List<ItemStack> combinedStacks = new ArrayList<>();
         items.forEach(item -> {
             int count = stacks.stream().filter(stack -> stack.getItem() == item).mapToInt(ItemStack::getCount).sum();
@@ -58,7 +58,7 @@ public class InventoryRenderer implements ITooltipRenderer {
         combinedStacks.sort(Comparator.comparing(ItemStack::getCount, Comparator.reverseOrder()));
 
         for (int i = 0; i < combinedStacks.size(); i++) {
-            DisplayUtil.renderStack(matrices, x + (18 * (i % 9)) + 1, y + (18 * (i / 9)) + 1, combinedStacks.get(i));
+            DisplayUtil.renderStack(matrices, x + (18 * (i % row)) + 1, y + (18 * (i / row)) + 1, combinedStacks.get(i));
         }
     }
 

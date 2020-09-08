@@ -7,6 +7,9 @@
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "environment"  : "*",
+  "depends"      : {
+    "waila": "*"
+  },
   "custom"       : {
     "modmenu:api": true
   }

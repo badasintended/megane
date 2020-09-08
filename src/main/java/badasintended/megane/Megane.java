@@ -1,84 +1,68 @@
 package badasintended.megane;
 
-import badasintended.megane.api.MeganeApi;
-import badasintended.megane.provider.component.*;
-import badasintended.megane.provider.data.*;
-import badasintended.megane.renderer.BarRenderer;
-import badasintended.megane.renderer.InventoryRenderer;
-import badasintended.megane.renderer.ProgressRenderer;
+import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.tooltip.component.*;
+import badasintended.megane.tooltip.data.*;
+import badasintended.megane.tooltip.renderer.BarRenderer;
+import badasintended.megane.tooltip.renderer.InventoryRenderer;
+import badasintended.megane.tooltip.renderer.ProgressRenderer;
 import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
-import mcp.mobius.waila.api.TooltipPosition;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.CauldronBlock;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
+import java.util.Arrays;
+
 import static badasintended.megane.MeganeUtils.*;
+import static mcp.mobius.waila.api.TooltipPosition.BODY;
 
 public class Megane implements IWailaPlugin, ModInitializer {
 
     public static final Identifier INVENTORY = id("inventory");
-    public static final Identifier EFFECTIVE_TOOL = id("effective_tool");
-    public static final Identifier ENERGY = id("energy");
     public static final Identifier BAR = id("bar");
-    public static final Identifier FLUID = id("fluid");
-    public static final Identifier ENTITY_INFO = id("armor");
     public static final Identifier PROGRESS = id("progress");
+
+    private static final Class<Block> BLOCK = Block.class;
 
     @Override
     public void register(IRegistrar r) {
-        // Config
-        r.addConfig(EFFECTIVE_TOOL, true);
-        r.addConfig(INVENTORY, true);
-        r.addConfig(PROGRESS, true);
-        r.addConfig(ENERGY, true);
-        r.addConfig(FLUID, true);
-        r.addConfig(ENTITY_INFO, true);
-
         // Renderer
         r.registerTooltipRenderer(INVENTORY, InventoryRenderer.INSTANCE);
         r.registerTooltipRenderer(BAR, BarRenderer.INSTANCE);
         r.registerTooltipRenderer(PROGRESS, ProgressRenderer.INSTANCE);
 
         // Component
-        r.registerComponentProvider(BarResetComponent.INSTANCE, TooltipPosition.BODY, Block.class);
-        r.registerComponentProvider(EffectiveToolComponent.INSTANCE, TooltipPosition.BODY, Block.class);
-        r.registerComponentProvider(EnergyComponent.INSTANCE, TooltipPosition.BODY, Block.class);
-        r.registerComponentProvider(FluidComponent.INSTANCE, TooltipPosition.BODY, Block.class);
-        r.registerComponentProvider(InventoryComponent.INSTANCE, TooltipPosition.BODY, Block.class);
-        r.registerComponentProvider(ProgressComponent.INSTANCE, TooltipPosition.BODY, Block.class);
+        r.registerComponentProvider(BarResetComponent.INSTANCE, BODY, BLOCK);
+        // r.registerComponentProvider(EffectiveToolComponent.INSTANCE, BODY, BLOCK);
+        r.registerComponentProvider(EnergyComponent.INSTANCE, BODY, BLOCK);
+        r.registerComponentProvider(FluidComponent.INSTANCE, BODY, BLOCK);
+        r.registerComponentProvider(InventoryComponent.INSTANCE, BODY, BLOCK);
+        r.registerComponentProvider(ProgressComponent.INSTANCE, BODY, BLOCK);
 
-        r.registerComponentProvider(CauldronComponent.INSTANCE, TooltipPosition.BODY, CauldronBlock.class);
-        r.registerComponentProvider(ComposterComponent.INSTANCE, TooltipPosition.BODY, ComposterBlock.class);
-
-        r.registerComponentProvider(EntityInfoComponent.INSTANCE, TooltipPosition.BODY, LivingEntity.class);
+        r.registerComponentProvider(CauldronComponent.INSTANCE, BODY, CauldronBlock.class);
+        r.registerComponentProvider(ComposterComponent.INSTANCE, BODY, ComposterBlock.class);
 
         // Server Data
-        r.registerBlockDataProvider(InventoryData.INSTANCE, Block.class);
-        r.registerBlockDataProvider(RegisteredEnergyData.INSTANCE, Block.class);
-        r.registerBlockDataProvider(FluidData.INSTANCE, Block.class);
-        r.registerBlockDataProvider(ProgressData.INSTANCE, Block.class);
+        if (hasMod("team_reborn_energy")) r.registerBlockDataProvider(TrEnergyData.INSTANCE, BLOCK);
+        if (hasMod("libblockattributes_fluids")) r.registerBlockDataProvider(LbaFluidData.INSTANCE, BLOCK);
 
-        r.registerEntityDataProvider(EntityInfoData.INSTANCE, LivingEntity.class);
-
-        // Conditional Server Data
-        if (hasMod("team_reborn_energy")) r.registerBlockDataProvider(TeamRebornEnergyData.INSTANCE, Block.class);
+        r.registerBlockDataProvider(InventoryData.INSTANCE, BLOCK);
+        r.registerBlockDataProvider(EnergyData.INSTANCE, BLOCK);
+        r.registerBlockDataProvider(FluidData.INSTANCE, BLOCK);
+        r.registerBlockDataProvider(ProgressData.INSTANCE, BLOCK);
     }
 
     @Override
     public void onInitialize() {
-        FabricLoader.getInstance().getEntrypointContainers("megane", MeganeApi.class).forEach(val -> {
-            MeganeApi entry = val.getEntrypoint();
-            boolean satisfied = entry.modDependencies().length == 0;
-            for (String modId : entry.modDependencies()) {
-                satisfied = hasMod(modId);
-            }
+        FabricLoader.getInstance().getEntrypointContainers("megane", MeganeEntrypoint.class).forEach(val -> {
+            MeganeEntrypoint entry = val.getEntrypoint();
+            boolean satisfied = entry.dependencies().length == 0 || Arrays.stream(entry.dependencies()).allMatch(MeganeUtils::hasMod);
             if (satisfied) entry.initialize();
-            LOGGER.info(String.format("%sabling module %s", satisfied ? "En" : "Dis", entry.getClass().getName()));
+            LOGGER.info("[megane] {}abling module {} from {}", satisfied ? "En" : "Dis", entry.getClass().getName(), val.getProvider().getMetadata().getId());
         });
     }
 

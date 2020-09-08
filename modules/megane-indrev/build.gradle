@@ -9,11 +9,10 @@ apply from: "../base.gradle"
 
 repositories {
     maven { url "https://server.bbkr.space/artifactory/libs-release" }
-    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    modImplementation "io.github.cottonmc:LibGui:2.2.0+1.16.1"
+    modImplementation "io.github.cottonmc:LibGui:3.0.0-beta.1+1.16.2-rc2"
     modApi "teamreborn:energy:0.1.0"
-    modImplementation("com.github.GabrielOlvH:Industrial-Revolution:0dc0ecb3ef") { transitive = false }
+    modImplementation "curse.maven:indrev:3050516"
 }

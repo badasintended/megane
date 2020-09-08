@@ -1,9 +1,8 @@
-package badasintended.megane.renderer;
+package badasintended.megane.tooltip.renderer;
 
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import mcp.mobius.waila.overlay.DisplayUtil;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -37,7 +36,6 @@ public class ProgressRenderer implements ITooltipRenderer {
             DisplayUtil.renderStack(matrices, x + (i * 18), y + 1, ItemStack.fromTag(data.getCompound(key("input" + i))));
         }
 
-        MinecraftClient.getInstance().getTextureManager().bindTexture(ARROW);
         drawTexture(matrices, ARROW, x + 2 + (inputCount * 18), y + 1, 22, 16, 0, 0.5F, 1, 1, 0xFFFFFFFF);
         drawTexture(matrices, ARROW, x + 2 + (inputCount * 18), y + 1, progressPixel, 16, 0, 0, progressPixel / 22F, 0.5F, 0xFFFFFFFF);
 
