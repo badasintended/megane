@@ -18,7 +18,7 @@ file("../../gradle.properties").withInputStream { props.load(it) }
 group = "com.github.badasintended"
 archivesBaseName = "megane-all"
 
-def baseVersion = "${props.getProperty("mod")}+${props.getProperty("minecraft")}"
+def baseVersion = props.getProperty("mod")
 version = "$baseVersion-${stdout.toString().trim()}"
 
 dependencies {

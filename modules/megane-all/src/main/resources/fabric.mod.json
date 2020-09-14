@@ -3,7 +3,7 @@
   "id"           : "megane-all",
   "version"      : "${version}",
   "name"         : "megane-all",
-  "description"  : "megane, bundled with all modules",
+  "description"  : "hwyla plugin that shows more tooltip than you'll ever want, bundled with all modules.",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "environment"  : "*",

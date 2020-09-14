@@ -3,7 +3,7 @@
   "id"           : "megane",
   "version"      : "${version}",
   "name"         : "megane",
-  "description"  : "a WAILA/HWYLA plugin that shows more detailed information such as energy, fluids, items, etc.",
+  "description"  : "hwyla plugin that shows more tooltip than you'll ever want",
   "authors"      : ["deirn"],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",

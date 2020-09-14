@@ -8,8 +8,13 @@ exec {
     standardOutput = stdout
 }
 
+def props = new Properties()
+file("../../gradle.properties").withInputStream { props.load(it) }
+
 group = "com.github.badasintended"
 version = "0+${stdout.toString().trim()}"
+
+def megane = props.getProperty("mod")
 
 repositories {
     maven { url "https://www.cursemaven.com" }
@@ -17,13 +22,13 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.16.2"
-    mappings "net.fabricmc:yarn:1.16.2+build.46:v2"
-    modCompile "net.fabricmc:fabric-loader:0.9.3+build.207"
+    minecraft "com.mojang:minecraft:${props.getProperty("minecraft")}"
+    mappings "net.fabricmc:yarn:${props.getProperty("yarn")}:v2"
+    modCompile "net.fabricmc:fabric-loader:${props.getProperty("loader")}"
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.20.1+build.401-1.16"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${props.getProperty("fabric")}"
 
-    modImplementation("com.github.badasintended:megane:+") { transitive = false }
+    modImplementation("com.github.badasintended:megane:${megane}") { transitive = false }
 }
 
 processResources {
