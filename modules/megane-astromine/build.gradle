@@ -14,8 +14,8 @@ repositories {
 
 dependencies {
     modApi "teamreborn:energy:0.1.0"
-    modImplementation "curse.maven:astromine-core:3048299"
-    modImplementation "curse.maven:astromine-foundations:3048316"
-    modImplementation "curse.maven:astromine-technologies:3048302"
+    modImplementation "curse.maven:astromine-core:3052366"
+    modImplementation "curse.maven:astromine-foundations:3052368"
+    modImplementation "curse.maven:astromine-technologies:3052369"
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
 }

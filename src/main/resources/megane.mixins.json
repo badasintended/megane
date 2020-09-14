@@ -3,11 +3,8 @@
   "minVersion"        : "0.8",
   "package"           : "badasintended.megane.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins"            : [
-    "BlockAccessor",
-    "BlockSettingsAccessor"
-  ],
-  "client"            : [],
+  "mixins"            : ["MinecraftServerMixin"],
+  "client"            : ["GuiConfigPluginsMixin"],
   "injectors"         : {
     "defaultRequire": 1
   }

@@ -1,26 +1,26 @@
-package badasintended.megane;
+package badasintended.megane.util;
 
 import badasintended.megane.config.MeganeConfig;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mcp.mobius.waila.Waila;
 import mcp.mobius.waila.utils.JsonConfig;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,22 +51,11 @@ public final class MeganeUtils {
         SUFFIXES.put(1000000000000000000L, "E");
     }
 
-    public static MutableText tl(String key, Object... args) {
-        return new TranslatableText("waila.megane." + key, args);
-    }
-
-    public static MutableText format(String text, Formatting... format) {
-        return format(new LiteralText(text), format);
-    }
-
-    public static MutableText format(MutableText text, Formatting... format) {
-        return text.setStyle(Style.EMPTY.withFormatting(format));
-    }
-
     public static String key(String key) {
         return MODID + ".data." + key;
     }
 
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     public static String suffix(long value) {
         if (value == Long.MIN_VALUE) return suffix(Long.MIN_VALUE + 1);
         if (value < 0) return "-" + suffix(-value);
@@ -88,6 +77,7 @@ public final class MeganeUtils {
         return FabricLoader.getInstance().isModLoaded(id);
     }
 
+    @Environment(EnvType.CLIENT)
     public static void drawTexture(
         MatrixStack matrices, Identifier id,
         int x, int y, int w, int h,
@@ -117,10 +107,27 @@ public final class MeganeUtils {
         matrices.pop();
     }
 
-    public static String fluidName(Fluid fluid) {
+    public static Text fluidName(Fluid fluid) {
         Identifier id = Registry.FLUID.getId(fluid);
-        String tlKey = "block." + id.getNamespace() + "." + id.getPath();
-        return I18n.hasTranslation(tlKey) ? I18n.translate(tlKey) : StringUtils.capitalize(id.getPath().replace('_', ' '));
+        return new TranslatableText("block." + id.getNamespace() + "." + id.getPath());
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void drawStack(ItemStack stack, int x, int y) {
+        ItemRenderer item = MinecraftClient.getInstance().getItemRenderer();
+        TextRenderer text = MinecraftClient.getInstance().textRenderer;
+
+        item.renderInGui(stack, x, y);
+        item.renderGuiItemOverlay(text, stack, x, y);
+    }
+
+    public static MeganeConfig config() {
+        return CONFIG.get();
+    }
+
+    public static void reloadConfig() {
+        CONFIG.invalidate();
+        LOGGER.info("[megane] Loaded Config.");
     }
 
 }

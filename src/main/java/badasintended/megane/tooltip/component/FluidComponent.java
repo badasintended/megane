@@ -10,8 +10,8 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.MeganeUtils.CONFIG;
-import static badasintended.megane.MeganeUtils.key;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class FluidComponent implements IComponentProvider {
 
@@ -21,17 +21,16 @@ public class FluidComponent implements IComponentProvider {
 
     static {
         TAG.putBoolean(key("translate"), false);
-        TAG.putInt(key("color"), 0xFF0D0D59);
         TAG.putString(key("unit"), "mB");
     }
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!CONFIG.get().fluid.isEnabled()) return;
+        if (!config().fluid.isEnabled()) return;
 
         CompoundTag data = accessor.getServerData();
         if (data.getBoolean(key("hasFluid"))) {
-            boolean sneaking = accessor.getPlayer().isSneaking();
+            boolean expand = accessor.getPlayer().isSneaking() && config().fluid.isExpandWhenSneak();
 
             for (int i = 0; i < data.getInt(key("fluidSlotCount")); i++) {
 
@@ -40,9 +39,10 @@ public class FluidComponent implements IComponentProvider {
 
                 double max = data.getDouble(key("maxFluid" + i));
 
+                TAG.putInt(key("color"), config().fluid.getBarColor());
                 TAG.putDouble(key("stored"), stored);
                 TAG.putDouble(key("max"), max);
-                TAG.putBoolean(key("verbose"), sneaking);
+                TAG.putBoolean(key("verbose"), expand);
                 TAG.putString(key("prefix"), data.getString(key("fluidName" + i)));
 
                 tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));

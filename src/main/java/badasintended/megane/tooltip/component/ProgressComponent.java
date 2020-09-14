@@ -10,8 +10,8 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.MeganeUtils.CONFIG;
-import static badasintended.megane.MeganeUtils.key;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class ProgressComponent implements IComponentProvider {
 
@@ -19,7 +19,7 @@ public class ProgressComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!CONFIG.get().progress.isEnabled()) return;
+        if (!config().progress.isEnabled()) return;
 
         CompoundTag data = accessor.getServerData();
 

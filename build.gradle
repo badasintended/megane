@@ -18,15 +18,13 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft}"
     mappings "net.fabricmc:yarn:${yarn}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric}"
 
     modImplementation "mcp.mobius.waila:Hwyla:${hwyla}"
-
     modImplementation "teamreborn:energy:${trEnergy}"
-    include "teamreborn:energy:${trEnergy}"
+    modImplementation("alexiil.mc.lib:libblockattributes-fluids:${lba}") { exclude group: "net.fabricmc.fabric-api" }
+    modImplementation("io.github.prospector:modmenu:${modmenu}") { exclude group: "net.fabricmc.fabric-api" }
 
-    modCompile "alexiil.mc.lib:libblockattributes-fluids:${lba}"
-    include "alexiil.mc.lib:libblockattributes-fluids:${lba}"
+    modRuntime "net.fabricmc.fabric-api:fabric-api:${fabric}"
 
     modApi "org.jetbrains:annotations:19.0.0"
 }

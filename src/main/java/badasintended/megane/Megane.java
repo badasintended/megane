@@ -6,6 +6,7 @@ import badasintended.megane.tooltip.data.*;
 import badasintended.megane.tooltip.renderer.BarRenderer;
 import badasintended.megane.tooltip.renderer.InventoryRenderer;
 import badasintended.megane.tooltip.renderer.ProgressRenderer;
+import badasintended.megane.util.MeganeUtils;
 import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.ModInitializer;
@@ -17,7 +18,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
 
-import static badasintended.megane.MeganeUtils.*;
+import static badasintended.megane.util.MeganeUtils.*;
 import static mcp.mobius.waila.api.TooltipPosition.BODY;
 
 public class Megane implements IWailaPlugin, ModInitializer {
@@ -37,7 +38,6 @@ public class Megane implements IWailaPlugin, ModInitializer {
 
         // Component
         r.registerComponentProvider(BarResetComponent.INSTANCE, BODY, BLOCK);
-        // r.registerComponentProvider(EffectiveToolComponent.INSTANCE, BODY, BLOCK);
         r.registerComponentProvider(EnergyComponent.INSTANCE, BODY, BLOCK);
         r.registerComponentProvider(FluidComponent.INSTANCE, BODY, BLOCK);
         r.registerComponentProvider(InventoryComponent.INSTANCE, BODY, BLOCK);
@@ -47,12 +47,14 @@ public class Megane implements IWailaPlugin, ModInitializer {
         r.registerComponentProvider(ComposterComponent.INSTANCE, BODY, ComposterBlock.class);
 
         // Server Data
+        r.registerBlockDataProvider(InventoryData.INSTANCE, BLOCK);
+
+        r.registerBlockDataProvider(EnergyData.INSTANCE, BLOCK);
         if (hasMod("team_reborn_energy")) r.registerBlockDataProvider(TrEnergyData.INSTANCE, BLOCK);
+
+        r.registerBlockDataProvider(FluidData.INSTANCE, BLOCK);
         if (hasMod("libblockattributes_fluids")) r.registerBlockDataProvider(LbaFluidData.INSTANCE, BLOCK);
 
-        r.registerBlockDataProvider(InventoryData.INSTANCE, BLOCK);
-        r.registerBlockDataProvider(EnergyData.INSTANCE, BLOCK);
-        r.registerBlockDataProvider(FluidData.INSTANCE, BLOCK);
         r.registerBlockDataProvider(ProgressData.INSTANCE, BLOCK);
     }
 

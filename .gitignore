@@ -28,6 +28,8 @@ bin/
 
 run/
 
+logs/
+modules/*/logs/
 modules/*/gradle
 modules/*/gradlew
 modules/*/gradlew.bat

@@ -14,14 +14,14 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "main": ["badasintended.megane.Megane"]
+    "main"   : ["badasintended.megane.Megane"],
+    "modmenu": ["badasintended.megane.config.MeganeModMenu"]
   },
   "mixins"       : [
     "megane.mixins.json"
   ],
   "depends"      : {
     "fabricloader": ">=0.7.4",
-    "fabric"      : "*",
     "minecraft"   : "1.16.x",
     "waila"       : "*"
   },

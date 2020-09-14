@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "unused"})
 public final class EnergyTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
@@ -18,14 +18,10 @@ public final class EnergyTooltipRegistry {
      *
      * @param clazz highest class, any subclass will automatically get registered.
      */
-    @SuppressWarnings("unused")
     public static <T extends BlockEntity> void register(Class<T> clazz, Provider<T> provider) {
         ENTRIES.put(clazz, provider);
     }
 
-    /**
-     * @return the blockEntity class is registered energy provider.
-     */
     @Nullable
     @ApiStatus.Internal
     public static <T extends BlockEntity> Provider<T> get(T blockEntity) {
@@ -37,7 +33,11 @@ public final class EnergyTooltipRegistry {
             containsKey = ENTRIES.containsKey(clazz);
         } while (!containsKey && clazz != BlockEntity.class);
 
-        if (containsKey) return (Provider<T>) ENTRIES.get(clazz);
+        if (containsKey) {
+            Provider<T> provider = (Provider<T>) ENTRIES.get(clazz);
+            ENTRIES.putIfAbsent(blockEntity.getClass(), provider);
+            return provider;
+        }
         return null;
     }
 

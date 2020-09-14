@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHandler;
 
-import static badasintended.megane.MeganeUtils.key;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class TrEnergyData extends EnergyData {
 

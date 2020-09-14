@@ -13,7 +13,7 @@ import java.awt.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import static badasintended.megane.MeganeUtils.*;
+import static badasintended.megane.util.MeganeUtils.*;
 
 public class BarRenderer implements ITooltipRenderer {
 
@@ -21,20 +21,12 @@ public class BarRenderer implements ITooltipRenderer {
 
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##");
     private static final Identifier TEXTURE = id("textures/bar.png");
-    private static final Dimension ZERO = new Dimension();
 
     static {
         FORMAT.setRoundingMode(RoundingMode.DOWN);
     }
 
     private int align = 0;
-
-    private BarRenderer() {
-    }
-
-    private float format(double n) {
-        return Float.parseFloat(FORMAT.format(n));
-    }
 
     private String getValString(CompoundTag data) {
         double stored = Math.max(data.getDouble(key("stored")), 0);
@@ -80,13 +72,12 @@ public class BarRenderer implements ITooltipRenderer {
         double stored = Math.max(data.getDouble(key("stored")), 0);
         double max = Math.max(data.getDouble(key("max")), 0);
 
-        float ratio = max == 0 ? 1F : format(stored / max);
+        float ratio = max == 0 ? 1F : Math.min((float) (stored / max), 1F);
 
         int color = data.getInt(key("color"));
 
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         String prefix = data.getString(key("prefix"));
-        if (data.getBoolean(key("translate"))) prefix = I18n.translate(prefix);
         prefix += ": ";
         textRenderer.drawWithShadow(matrices, prefix, x, y + 2, 0xFFAAAAAA);
 

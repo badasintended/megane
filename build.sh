@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+clear
 rm -rf "out/modules"
 mkdir -p "out/modules"
 

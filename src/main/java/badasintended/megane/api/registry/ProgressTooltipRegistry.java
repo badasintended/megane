@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "unused"})
 public final class ProgressTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
@@ -21,7 +21,6 @@ public final class ProgressTooltipRegistry {
      *
      * @param clazz highest class, any subclass will automatically get registered.
      */
-    @SuppressWarnings("unused")
     public static <T extends BlockEntity> void register(Class<T> clazz, Provider<T> provider) {
         ENTRIES.put(clazz, provider);
     }
@@ -37,7 +36,11 @@ public final class ProgressTooltipRegistry {
             containsKey = ENTRIES.containsKey(clazz);
         } while (!containsKey && clazz != BlockEntity.class);
 
-        if (containsKey) return (Provider<T>) ENTRIES.get(clazz);
+        if (containsKey) {
+            Provider<T> provider = (Provider<T>) ENTRIES.get(clazz);
+            ENTRIES.putIfAbsent(blockEntity.getClass(), provider);
+            return provider;
+        }
         return null;
     }
 

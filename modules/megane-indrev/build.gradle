@@ -9,10 +9,12 @@ apply from: "../base.gradle"
 
 repositories {
     maven { url "https://server.bbkr.space/artifactory/libs-release" }
+    maven { url "https://mod-buildcraft.com/maven" }
 }
 
 dependencies {
     modImplementation "io.github.cottonmc:LibGui:3.0.0-beta.1+1.16.2-rc2"
     modApi "teamreborn:energy:0.1.0"
     modImplementation "curse.maven:indrev:3050516"
+    modImplementation "alexiil.mc.lib:libblockattributes-fluids:0.8.1"
 }

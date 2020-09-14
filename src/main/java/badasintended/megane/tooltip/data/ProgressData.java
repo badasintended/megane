@@ -5,19 +5,23 @@ import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
-import static badasintended.megane.MeganeUtils.CONFIG;
-import static badasintended.megane.MeganeUtils.key;
 import static badasintended.megane.api.registry.ProgressTooltipRegistry.get;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class ProgressData implements IServerDataProvider<BlockEntity> {
 
     public static final ProgressData INSTANCE = new ProgressData();
 
     @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void appendServerData(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
-        if (!CONFIG.get().progress.isEnabled()) return;
+        if (!config().progress.isEnabled() || config().progress.getBlacklist().contains(Registry.BLOCK.getId(blockEntity.getCachedState().getBlock()))) {
+            return;
+        }
 
         ProgressTooltipRegistry.Provider provider = get(blockEntity);
         if (provider != null) {

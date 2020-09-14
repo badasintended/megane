@@ -2,7 +2,6 @@ package badasintended.megane.tooltip.renderer;
 
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
-import mcp.mobius.waila.overlay.DisplayUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -10,16 +9,13 @@ import net.minecraft.util.Identifier;
 
 import java.awt.*;
 
-import static badasintended.megane.MeganeUtils.*;
+import static badasintended.megane.util.MeganeUtils.*;
 
 public class ProgressRenderer implements ITooltipRenderer {
 
     private static final Identifier ARROW = id("textures/arrow.png");
 
     public static final ProgressRenderer INSTANCE = new ProgressRenderer();
-
-    private ProgressRenderer() {
-    }
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
@@ -33,14 +29,20 @@ public class ProgressRenderer implements ITooltipRenderer {
         int progressPixel = (int) (data.getInt(key("percentage")) / 100F * 22);
 
         for (int i = 0; i < inputCount; i++) {
-            DisplayUtil.renderStack(matrices, x + (i * 18), y + 1, ItemStack.fromTag(data.getCompound(key("input" + i))));
+            ItemStack stack = ItemStack.fromTag(data.getCompound(key("input" + i)));
+            if (stack.isEmpty()) {
+                inputCount--;
+                i--;
+            } else {
+                drawStack(stack, x + (i * 18), y + 1);
+            }
         }
 
         drawTexture(matrices, ARROW, x + 2 + (inputCount * 18), y + 1, 22, 16, 0, 0.5F, 1, 1, 0xFFFFFFFF);
         drawTexture(matrices, ARROW, x + 2 + (inputCount * 18), y + 1, progressPixel, 16, 0, 0, progressPixel / 22F, 0.5F, 0xFFFFFFFF);
 
         for (int i = 0; i < outputCount; i++) {
-            DisplayUtil.renderStack(matrices, x + (inputCount * 18) + 26 + (i * 18), y + 1, ItemStack.fromTag(data.getCompound(key("output" + i))));
+            drawStack(ItemStack.fromTag(data.getCompound(key("output" + i))), x + (inputCount * 18) + 26 + (i * 18), y + 1);
         }
     }
 

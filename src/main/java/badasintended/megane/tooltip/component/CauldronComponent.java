@@ -7,13 +7,14 @@ import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CauldronBlock;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static badasintended.megane.MeganeUtils.CONFIG;
-import static badasintended.megane.MeganeUtils.key;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class CauldronComponent implements IComponentProvider {
 
@@ -23,18 +24,17 @@ public class CauldronComponent implements IComponentProvider {
 
     static {
         TAG.putInt(key("color"), 0xFF0D0D59);
-        TAG.putString(key("prefix"), "waila.megane.level");
-        TAG.putBoolean(key("translate"), true);
     }
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!CONFIG.get().fluid.isEnabled()) return;
+        if (!config().fluid.isEnabled()) return;
 
         BlockState state = accessor.getBlockState();
         int level = state.get(CauldronBlock.LEVEL);
         TAG.putDouble(key("filled"), level);
         TAG.putDouble(key("max"), 3);
+        TAG.putString(key("prefix"), I18n.translate("waila.megane.level"));
         TAG.putString(key("text"), String.valueOf(level));
         tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
     }
