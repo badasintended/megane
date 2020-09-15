@@ -24,9 +24,13 @@ public class InventoryRenderer implements ITooltipRenderer {
     private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(0, ItemStack.EMPTY);
     private final Set<Item> items = new LinkedHashSet<>();
 
+    private int w;
+    private int h;
+
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        int row = config().inventory.getRowSize();
+        w = config().inventory.getMaxWidth();
+        h = config().inventory.getMaxHeight();
         int size = data.getInt(key("invSize"));
 
         stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
@@ -38,12 +42,11 @@ public class InventoryRenderer implements ITooltipRenderer {
         });
 
         if (items.size() == 0) return ZERO;
-        return new Dimension(18 * Math.min(items.size(), row), 18 * (items.size() / row + 1) + 2);
+        return new Dimension(18 * Math.min(items.size(), w), 18 * Math.min(items.size() / w + 1, h) + 2);
     }
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
-        int row = config().inventory.getRowSize();
         List<ItemStack> combinedStacks = new ArrayList<>();
         items.forEach(item -> {
             int count = stacks.stream().filter(stack -> stack.getItem() == item).mapToInt(ItemStack::getCount).sum();
@@ -52,8 +55,8 @@ public class InventoryRenderer implements ITooltipRenderer {
 
         combinedStacks.sort(Comparator.comparing(ItemStack::getCount, Comparator.reverseOrder()));
 
-        for (int i = 0; i < combinedStacks.size(); i++) {
-            drawStack(combinedStacks.get(i), x + (18 * (i % row)) + 1, y + (18 * (i / row)) + 1);
+        for (int i = 0; i < Math.min(combinedStacks.size(), config().inventory.getMaxHeight() * w); i++) {
+            drawStack(combinedStacks.get(i), x + (18 * (i % w)) + 1, y + (18 * (i / w)) + 1);
         }
     }
 

@@ -49,7 +49,8 @@ public class MeganeConfigScreen extends GuiOptions {
             public OptionsListWidget getOptions() {
                 OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
                 options.add(toggleBool("enabled", config().inventory.isEnabled(), config().inventory::setEnabled));
-                options.add(input("inventory.rowSize", config().inventory.getRowSize(), config().inventory::setRowSize, s -> s.matches("^[0-9]*$")));
+                options.add(input("inventory.maxWidth", config().inventory.getMaxWidth(), config().inventory::setMaxWidth, s -> s.matches("^[0-9]*$")));
+                options.add(input("inventory.maxHeight", config().inventory.getMaxHeight(), config().inventory::setMaxHeight, s -> s.matches("^[0-9]*$")));
                 options.add(button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().inventory.getBlacklist()))));
                 return options;
             }

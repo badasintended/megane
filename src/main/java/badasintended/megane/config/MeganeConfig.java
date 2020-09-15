@@ -18,15 +18,20 @@ public class MeganeConfig {
 
     public static class Inventory {
         private boolean enabled = true;
-        private int rowSize = 9;
+        private int maxWidth = 9;
+        private int maxHeight = 3;
         private Set<Identifier> blacklist = new HashSet<>();
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
         }
 
-        public void setRowSize(int rowSize) {
-            this.rowSize = rowSize;
+        public void setMaxWidth(int maxWidth) {
+            this.maxWidth = maxWidth;
+        }
+
+        public void setMaxHeight(int maxHeight) {
+            this.maxHeight = maxHeight;
         }
 
         public void setBlacklist(Set<Identifier> blacklist) {
@@ -37,8 +42,12 @@ public class MeganeConfig {
             return enabled;
         }
 
-        public int getRowSize() {
-            return rowSize;
+        public int getMaxWidth() {
+            return maxWidth;
+        }
+
+        public int getMaxHeight() {
+            return maxHeight;
         }
 
         public Set<Identifier> getBlacklist() {
