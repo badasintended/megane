@@ -9,7 +9,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 def stdout = new ByteArrayOutputStream()
 exec {
     executable = "git"
-    args = ["describe", "--tags", "--always", "--first-parent"]
+    args = ["describe", "--always", "--first-parent"]
     standardOutput = stdout
 }
 def props = new Properties()
