@@ -6,7 +6,7 @@ megane also add an API for other mod creator to add that tooltip.
 - Team Reborn's [Energy][12] support
 - Partial [LibBlockAttributes][13] fluid support*
 
-\*uses `FLUID_INV_VIEV` getter, which some mods may not implement it
+\*uses `FIXED_INV_VIEV` getter, which some mods may not implement it
 
 ## For players
 ### Configuration
