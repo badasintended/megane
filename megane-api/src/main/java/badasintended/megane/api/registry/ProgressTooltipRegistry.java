@@ -1,8 +1,9 @@
 package badasintended.megane.api.registry;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.text.Text;
+import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -10,13 +11,13 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@SuppressWarnings({"unchecked", "unused"})
-public final class FluidTooltipRegistry {
+@SuppressWarnings({"unchecked"})
+public final class ProgressTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
 
     /**
-     * Register BlockEntity class that has fluid storage on it.
+     * Register BlockEntity Class that has some sort of processing in it, like furnace.
      *
      * @param clazz highest class, any subclass will automatically get registered.
      */
@@ -45,37 +46,38 @@ public final class FluidTooltipRegistry {
 
     public interface Provider<T extends BlockEntity> {
 
-        static <T extends BlockEntity> Provider<T> of(Function<T, Integer> slotCount, BiFunction<T, Integer, Text> name, BiFunction<T, Integer, Double> stored, BiFunction<T, Integer, Double> max) {
+        static <T extends BlockEntity> Provider<T> of(Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, BiFunction<T, Integer, ItemStack> stack, Function<T, Integer> percentage) {
             return new Provider<T>() {
                 @Override
-                public int getSlotCount(T t) {
-                    return slotCount.apply(t);
+                public int[] getInputSlots(T t) {
+                    return inputSlots.apply(t);
                 }
 
                 @Override
-                public Text getFluidName(T t, int slot) {
-                    return name.apply(t, slot);
+                public int[] getOutputSlots(T t) {
+                    return outputSlots.apply(t);
                 }
 
                 @Override
-                public double getStored(T t, int slot) {
-                    return stored.apply(t, slot);
+                public @NotNull ItemStack getStack(T t, int slot) {
+                    return stack.apply(t, slot);
                 }
 
                 @Override
-                public double getMax(T t, int slot) {
-                    return max.apply(t, slot);
+                public int getPercentage(T t) {
+                    return percentage.apply(t);
                 }
             };
         }
 
-        int getSlotCount(T t);
+        int[] getInputSlots(T t);
 
-        Text getFluidName(T t, int slot);
+        int[] getOutputSlots(T t);
 
-        double getStored(T t, int slot);
+        @NotNull
+        ItemStack getStack(T t, int slot);
 
-        double getMax(T t, int slot);
+        int getPercentage(T t);
 
     }
 

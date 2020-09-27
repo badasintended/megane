@@ -1,20 +1,22 @@
 package badasintended.megane.api.registry;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@SuppressWarnings({"unchecked", "unused"})
-public final class EnergyTooltipRegistry {
+@SuppressWarnings({"unchecked"})
+public final class FluidTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
 
     /**
-     * Register new BlockEntity class that has energy on it.
+     * Register BlockEntity class that has fluid storage on it.
      *
      * @param clazz highest class, any subclass will automatically get registered.
      */
@@ -43,23 +45,37 @@ public final class EnergyTooltipRegistry {
 
     public interface Provider<T extends BlockEntity> {
 
-        static <T extends BlockEntity> Provider<T> of(Function<T, Double> stored, Function<T, Double> max) {
+        static <T extends BlockEntity> Provider<T> of(Function<T, Integer> slotCount, BiFunction<T, Integer, Text> name, BiFunction<T, Integer, Double> stored, BiFunction<T, Integer, Double> max) {
             return new Provider<T>() {
                 @Override
-                public double getStored(T t) {
-                    return stored.apply(t);
+                public int getSlotCount(T t) {
+                    return slotCount.apply(t);
                 }
 
                 @Override
-                public double getMax(T t) {
-                    return max.apply(t);
+                public Text getFluidName(T t, int slot) {
+                    return name.apply(t, slot);
+                }
+
+                @Override
+                public double getStored(T t, int slot) {
+                    return stored.apply(t, slot);
+                }
+
+                @Override
+                public double getMax(T t, int slot) {
+                    return max.apply(t, slot);
                 }
             };
         }
 
-        double getStored(T t);
+        int getSlotCount(T t);
 
-        double getMax(T t);
+        Text getFluidName(T t, int slot);
+
+        double getStored(T t, int slot);
+
+        double getMax(T t, int slot);
 
     }
 

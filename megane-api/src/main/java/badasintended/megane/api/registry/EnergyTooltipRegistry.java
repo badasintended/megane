@@ -1,23 +1,20 @@
 package badasintended.megane.api.registry;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@SuppressWarnings({"unchecked", "unused"})
-public final class ProgressTooltipRegistry {
+@SuppressWarnings({"unchecked"})
+public final class EnergyTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
 
     /**
-     * Register BlockEntity Class that has some sort of processing in it, like furnace.
+     * Register new BlockEntity class that has energy on it.
      *
      * @param clazz highest class, any subclass will automatically get registered.
      */
@@ -46,38 +43,23 @@ public final class ProgressTooltipRegistry {
 
     public interface Provider<T extends BlockEntity> {
 
-        static <T extends BlockEntity> Provider<T> of(Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, BiFunction<T, Integer, ItemStack> stack, Function<T, Integer> percentage) {
+        static <T extends BlockEntity> Provider<T> of(Function<T, Double> stored, Function<T, Double> max) {
             return new Provider<T>() {
                 @Override
-                public int[] getInputSlots(T t) {
-                    return inputSlots.apply(t);
+                public double getStored(T t) {
+                    return stored.apply(t);
                 }
 
                 @Override
-                public int[] getOutputSlots(T t) {
-                    return outputSlots.apply(t);
-                }
-
-                @Override
-                public @NotNull ItemStack getStack(T t, int slot) {
-                    return stack.apply(t, slot);
-                }
-
-                @Override
-                public int getPercentage(T t) {
-                    return percentage.apply(t);
+                public double getMax(T t) {
+                    return max.apply(t);
                 }
             };
         }
 
-        int[] getInputSlots(T t);
+        double getStored(T t);
 
-        int[] getOutputSlots(T t);
-
-        @NotNull
-        ItemStack getStack(T t, int slot);
-
-        int getPercentage(T t);
+        double getMax(T t);
 
     }
 
