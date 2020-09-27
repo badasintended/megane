@@ -8,3 +8,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+include 'megane-api'
+include 'megane-runtime'
+include 'megane-impl'

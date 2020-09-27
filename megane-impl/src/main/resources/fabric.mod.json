@@ -1,9 +1,8 @@
 {
   "schemaVersion": 1,
-  "id"           : "megane",
+  "id"           : "megane-impl",
   "version"      : "${version}",
-  "name"         : "megane",
-  "description"  : "hwyla plugin that shows more tooltip than you'll ever want",
+  "description"  : "for some mods",
   "authors"      : ["deirn"],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
@@ -14,11 +13,16 @@
   "icon"         : "pack.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "modmenu": ["badasintended.megane.runtime.MeganeModMenu"]
+    "megane": [
+      "badasintended.megane.impl.MeganeAstromine",
+      "badasintended.megane.impl.MeganeIndustrialRevolution",
+      "badasintended.megane.impl.MeganeTechReborn"
+    ]
   },
   "depends"      : {
-    "fabricloader": ">=0.7.4",
-    "minecraft"   : "1.16.x",
-    "waila"       : "*"
+    "megane-api": "*"
+  },
+  "custom"       : {
+    "modmenu:parent": "megane"
   }
 }

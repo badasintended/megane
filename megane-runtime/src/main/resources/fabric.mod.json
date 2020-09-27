@@ -1,9 +1,8 @@
 {
   "schemaVersion": 1,
-  "id"           : "megane",
+  "id"           : "megane-runtime",
   "version"      : "${version}",
-  "name"         : "megane",
-  "description"  : "hwyla plugin that shows more tooltip than you'll ever want",
+  "description"  : "for things to work",
   "authors"      : ["deirn"],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
@@ -14,11 +13,22 @@
   "icon"         : "pack.png",
   "environment"  : "*",
   "entrypoints"  : {
+    "main"   : ["badasintended.megane.runtime.MeganeInit"],
     "modmenu": ["badasintended.megane.runtime.MeganeModMenu"]
   },
+  "mixins"       : [
+    "megane.mixins.json"
+  ],
   "depends"      : {
     "fabricloader": ">=0.7.4",
     "minecraft"   : "1.16.x",
     "waila"       : "*"
+  },
+  "custom"       : {
+    "waila:plugins" : {
+      "id"         : "megane:plugin",
+      "initializer": "badasintended.megane.runtime.MeganeWaila"
+    },
+    "modmenu:parent": "megane"
   }
 }

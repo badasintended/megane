@@ -1,0 +1,14 @@
+repositories {
+    maven { url "https://maven.tehnut.info" }
+    maven { url "https://jitpack.io" }
+    maven { url "https://mod-buildcraft.com/maven" }
+}
+
+dependencies {
+    implementation project(":megane-api")
+
+    modImplementation "mcp.mobius.waila:Hwyla:${rootProject.hwyla}"
+    modImplementation "teamreborn:energy:${rootProject.trEnergy}"
+    modImplementation("alexiil.mc.lib:libblockattributes-fluids:${rootProject.lba}") { exclude group: "net.fabricmc.fabric-api" }
+    modImplementation("io.github.prospector:modmenu:${rootProject.modmenu}") { exclude group: "net.fabricmc.fabric-api" }
+}

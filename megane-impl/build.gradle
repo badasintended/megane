@@ -1,0 +1,22 @@
+repositories {
+    maven { url "https://server.bbkr.space/artifactory/libs-release" }
+    maven { url "https://mod-buildcraft.com/maven" }
+    maven { url "https://dl.bintray.com/ladysnake/libs" }
+    maven { url "https://www.cursemaven.com" }
+}
+
+dependencies {
+    implementation project(":megane-api")
+
+    modCompileOnly "io.github.cottonmc:LibGui:3.0.0-beta.1+1.16.2-rc2"
+    modCompileOnly "teamreborn:energy:0.1.0"
+    modCompileOnly "curse.maven:indrev:3050516"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.1"
+
+    modCompileOnly "TechReborn:TechReborn-1.16:3.5.4+build.122"
+
+    modCompileOnly "curse.maven:astromine-core:3060262"
+    modCompileOnly "curse.maven:astromine-foundations:3060264"
+    modCompileOnly "curse.maven:astromine-technologies:3060265"
+    modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
+}

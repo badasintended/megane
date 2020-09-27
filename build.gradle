@@ -1,101 +1,99 @@
 plugins {
-    id 'fabric-loom' version '0.4-SNAPSHOT'
     id 'maven-publish'
+    id 'fabric-loom' version '0.4-SNAPSHOT' apply false
 }
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
 
 version = project.mod
 
-repositories {
-    maven { url "https://maven.tehnut.info" }
-    maven { url "https://jitpack.io" }
-    maven { url "https://mod-buildcraft.com/maven" }
-}
+allprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'fabric-loom'
 
-dependencies {
-    minecraft "com.mojang:minecraft:${minecraft}"
-    mappings "net.fabricmc:yarn:${yarn}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${loader}"
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-    modImplementation "mcp.mobius.waila:Hwyla:${hwyla}"
-    modImplementation "teamreborn:energy:${trEnergy}"
-    modImplementation("alexiil.mc.lib:libblockattributes-fluids:${lba}") { exclude group: "net.fabricmc.fabric-api" }
-    modImplementation("io.github.prospector:modmenu:${modmenu}") { exclude group: "net.fabricmc.fabric-api" }
-
-    modRuntime "net.fabricmc.fabric-api:fabric-api:${fabric}"
-
-    modApi "org.jetbrains:annotations:19.0.0"
-}
-
-if (enableDatabreaker.toBoolean()) {
-    repositories {
-        maven { url = "https://jitpack.io" }
-    }
     dependencies {
-        modRuntime("com.github.SuperCoder7979:databreaker:${databreaker}") {
-            exclude module: "fabric-loader"
+        minecraft "com.mojang:minecraft:${rootProject.minecraft}"
+        mappings "net.fabricmc:yarn:${rootProject.yarn}:v2"
+        modImplementation "net.fabricmc:fabric-loader:${rootProject.loader}"
+
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric}"
+
+        modApi "org.jetbrains:annotations:19.0.0"
+    }
+
+    afterEvaluate {
+        processResources {
+            inputs.property "version", project.version
+
+            from(sourceSets.main.resources.srcDirs) {
+                include "fabric.mod.json"
+                expand "version": project.version
+            }
+
+            from(sourceSets.main.resources.srcDirs) {
+                exclude "fabric.mod.json"
+            }
+        }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+subprojects {
+    group = "${rootProject.group}.${rootProject.archivesBaseName}"
+    archivesBaseName = name
+    version = rootProject.version
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                afterEvaluate {
+                    artifact(file("${project.buildDir}/libs/$archivesBaseName-${version}.jar")) {
+                        builtBy remapJar
+                    }
+                    artifact(sourcesJar) {
+                        builtBy remapSourcesJar
+                    }
+                }
+            }
         }
     }
 }
 
-sourceSets {
-    test {
-        compileClasspath += main.compileClasspath
-        runtimeClasspath += main.runtimeClasspath
-    }
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
-        expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
-    }
-}
-
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = "sources"
-    from sourceSets.main.allSource
-}
-
-jar {
-    from "LICENSE"
-}
-
-// configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
+            artifact(file("${project.buildDir}/libs/$archivesBaseName-${version}.jar")) {
                 builtBy remapJar
             }
             artifact(sourcesJar) {
                 builtBy remapSourcesJar
             }
+            pom.withXml {
+                def depsNode = asNode().appendNode("dependencies")
+                subprojects.each {
+                    def depNode = depsNode.appendNode("dependency")
+                    depNode.appendNode("groupId", it.group)
+                    depNode.appendNode("artifactId", it.name)
+                    depNode.appendNode("version", it.version)
+                    depNode.appendNode("scope", "compile")
+                }
+            }
         }
     }
+}
 
-    // select the repositories you want to publish to
-    repositories {
-        // uncomment to publish to the local maven
-        mavenLocal()
+subprojects.each { remapJar.dependsOn("${it.path}:remapJar") }
+
+dependencies {
+    afterEvaluate {
+        subprojects.each {
+            compile it
+            include it
+        }
     }
 }
