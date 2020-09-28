@@ -14,7 +14,7 @@ public class BarResetComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        BarRenderer.INSTANCE.resetAlign();
+        BarRenderer.getInstance().resetAlign();
     }
 
 }

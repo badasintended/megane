@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.collection.DefaultedList;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.List;
@@ -17,7 +18,7 @@ import static badasintended.megane.util.MeganeUtils.*;
 
 public class InventoryRenderer implements ITooltipRenderer {
 
-    public static final InventoryRenderer INSTANCE = new InventoryRenderer();
+    private static InventoryRenderer instance = null;
 
     private static final Dimension ZERO = new Dimension();
 
@@ -26,6 +27,15 @@ public class InventoryRenderer implements ITooltipRenderer {
 
     private int w;
     private int h;
+
+    public InventoryRenderer() {
+        instance = this;
+    }
+
+    @Nullable
+    public static InventoryRenderer getInstance() {
+        return instance;
+    }
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {

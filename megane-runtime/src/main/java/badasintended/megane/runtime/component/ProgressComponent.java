@@ -1,15 +1,14 @@
 package badasintended.megane.runtime.component;
 
 import badasintended.megane.runtime.MeganeWaila;
-import badasintended.megane.util.MeganeUtils;
-import mcp.mobius.waila.api.IComponentProvider;
-import mcp.mobius.waila.api.IDataAccessor;
-import mcp.mobius.waila.api.IPluginConfig;
-import mcp.mobius.waila.api.RenderableTextComponent;
+import mcp.mobius.waila.api.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 
 import java.util.List;
+
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class ProgressComponent implements IComponentProvider {
 
@@ -17,11 +16,11 @@ public class ProgressComponent implements IComponentProvider {
 
     @Override
     public void appendBody(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
-        if (!MeganeUtils.config().progress.isEnabled()) return;
+        if (!config().progress.isEnabled()) return;
 
         CompoundTag data = accessor.getServerData();
 
-        if (data.getBoolean(MeganeUtils.key("hasProgress")) && data.getInt(MeganeUtils.key("percentage")) > 0) {
+        if (data.getBoolean(key("hasProgress")) && data.getInt(key("percentage")) > 0) {
             tooltip.add(new RenderableTextComponent(MeganeWaila.PROGRESS, data));
         }
     }

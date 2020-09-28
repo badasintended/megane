@@ -23,9 +23,9 @@ public class MeganeWaila implements IWailaPlugin {
     @Override
     public void register(IRegistrar r) {
         // Renderer
-        r.registerTooltipRenderer(INVENTORY, InventoryRenderer.INSTANCE);
-        r.registerTooltipRenderer(BAR, BarRenderer.INSTANCE);
-        r.registerTooltipRenderer(PROGRESS, ProgressRenderer.INSTANCE);
+        r.registerTooltipRenderer(INVENTORY, new InventoryRenderer());
+        r.registerTooltipRenderer(BAR, new BarRenderer());
+        r.registerTooltipRenderer(PROGRESS, new ProgressRenderer());
 
         // Component
         r.registerComponentProvider(BarResetComponent.INSTANCE, BODY, BLOCK);

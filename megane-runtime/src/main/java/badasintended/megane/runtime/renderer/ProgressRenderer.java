@@ -13,9 +13,17 @@ import static badasintended.megane.util.MeganeUtils.*;
 
 public class ProgressRenderer implements ITooltipRenderer {
 
+    private static ProgressRenderer instance = null;
+
     private static final Identifier ARROW = id("textures/arrow.png");
 
-    public static final ProgressRenderer INSTANCE = new ProgressRenderer();
+    public ProgressRenderer() {
+        instance = this;
+    }
+
+    public static ProgressRenderer getInstance() {
+        return instance;
+    }
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
