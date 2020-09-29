@@ -20,16 +20,17 @@ For energy bar colors and units, `megane` value determines what's the default va
 1. First of all, add megane as your dependency
    ```gradle
    repositories {
-       maven { url "https://jitpack.io" }
+       maven { url "https://dl.bintray.com/badasintended/fabric" }
        maven { url "https://maven.tehnut.info" } // HWYLA maven
    }
 
    dependencies {
-       modImplementation("com.github.badasintended:megane:<VERSION>") { transitive = false }
+       modImplementation "com.github.badasintended.megane:megane-api:<VERSION>"
+       modRuntime "com.github.badasintended.megane:megane-runtime:<VERSION>"
        modRuntime "mcp.mobius.waila:Hwyla:<HWYLA>" // Optional
    }
    ```
-   [![](https://jitpack.io/v/badasintended/megane.svg)](https://jitpack.io/#badasintended/megane)    
+   [![Bintray](https://img.shields.io/bintray/v/badasintended/fabric/megane)](https://bintray.com/badasintended/fabric/megane)
    you can get HWYLA version from it's [curseforge][11]
 
 2. Make a class that implements `MeganeEntrypoint`
