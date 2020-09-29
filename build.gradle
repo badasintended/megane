@@ -52,6 +52,9 @@ subprojects {
         publications {
             mavenJava(MavenPublication) {
                 afterEvaluate {
+                    artifact(jar) {
+                        builtBy remapJar
+                    }
                     artifact(file("${project.buildDir}/libs/$archivesBaseName-${version}.jar")) {
                         builtBy remapJar
                     }
@@ -67,6 +70,9 @@ subprojects {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            artifact(jar) {
+                builtBy remapJar
+            }
             artifact(file("${project.buildDir}/libs/$archivesBaseName-${version}.jar")) {
                 builtBy remapJar
             }
