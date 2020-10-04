@@ -22,12 +22,17 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    repositories {
+        maven { url "https://maven.tehnut.info" }
+    }
+
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft}"
         mappings "net.fabricmc:yarn:${rootProject.yarn}:v2"
         modImplementation "net.fabricmc:fabric-loader:${rootProject.loader}"
 
         modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric}"
+        modImplementation "mcp.mobius.waila:Hwyla:${rootProject.hwyla}"
 
         modApi "org.jetbrains:annotations:19.0.0"
     }

@@ -12,6 +12,9 @@
   "license"      : "MIT",
   "icon"         : "pack.png",
   "environment"  : "*",
+  "depends"      : {
+    "waila": "*"
+  },
   "custom"       : {
     "modmenu:parent": "megane"
   }

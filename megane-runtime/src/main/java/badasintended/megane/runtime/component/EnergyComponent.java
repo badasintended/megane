@@ -33,7 +33,7 @@ public class EnergyComponent implements IComponentProvider {
 
             boolean expand = accessor.getPlayer().isSneaking() && energy.isExpandWhenSneak();
 
-            TAG.putString(key("prefix"), I18n.translate("waila.megane.energy"));
+            TAG.putString(key("prefix"), I18n.translate("megane.energy"));
             TAG.putInt(key("color"), energy.getColors().getOrDefault(namespace, energy.getColors().getOrDefault(MODID, 0xFF710C00)));
             TAG.putDouble(key("stored"), stored);
             TAG.putDouble(key("max"), max);

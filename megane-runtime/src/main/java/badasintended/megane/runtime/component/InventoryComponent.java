@@ -19,7 +19,7 @@ public class InventoryComponent implements IComponentProvider {
         if (!config().inventory.isEnabled()) return;
 
         CompoundTag data = accessor.getServerData();
-        if (data.getBoolean(key("hasInventory")) && data.getInt(key("percentage")) == 0 && data.getInt("progress") == 0) {
+        if (data.getBoolean(key("hasInventory")) && data.getInt(key("percentage")) == 0 && data.getInt("progress") == 0 && !config().progress.isShowWhenZero()) {
             tooltip.add(new RenderableTextComponent(MeganeWaila.INVENTORY, data));
         }
     }

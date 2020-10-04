@@ -28,7 +28,7 @@ public class BlacklistConfigScreen extends GuiOptions {
     public OptionsListWidget getOptions() {
         OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30, CONFIG::save);
         this.set.forEach(value -> options.add(new SetEntry(this, options, value, this.set)));
-        options.add(new OptionsEntryButton("config.waila.megane.add", new ButtonWidget(0, 0, 100, 20, null, w ->
+        options.add(new OptionsEntryButton("config.megane.add", new ButtonWidget(0, 0, 100, 20, null, w ->
             options.children().add(options.children().size() - 1, new SetEntry(this, options, null, set))
         )));
         return options;
@@ -44,6 +44,7 @@ public class BlacklistConfigScreen extends GuiOptions {
             this.value = value;
             this.textField = new TextFieldWidget(client.textRenderer, 0, 0, 200, 18, new LiteralText(""));
             this.textField.setTextPredicate(s -> s.matches("^[a-z0-9/_.-]*$") || s.matches("^[a-z0-9_.-]*:[a-z0-9/._-]*$"));
+            this.textField.setMaxLength(256);
             if (value != null) this.textField.setText(value.toString());
             this.textField.setChangedListener(s -> {
                 set.remove(this.value);

@@ -14,7 +14,10 @@ import java.awt.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import static badasintended.megane.util.MeganeUtils.*;
+import static badasintended.megane.runtime.util.RuntimeUtils.drawTexture;
+import static badasintended.megane.runtime.util.RuntimeUtils.suffix;
+import static badasintended.megane.util.MeganeUtils.id;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class BarRenderer implements ITooltipRenderer {
 
@@ -39,8 +42,8 @@ public class BarRenderer implements ITooltipRenderer {
     private int align = 0;
 
     private String getValString(CompoundTag data) {
-        double stored = Math.max(data.getDouble(key("stored")), 0);
-        double max = Math.max(data.getDouble(key("max")), 0);
+        double stored = data.getDouble(key("stored"));
+        double max = data.getDouble(key("max"));
         String unit = data.getString(key("unit"));
         boolean verbose = data.getBoolean(key("verbose"));
 
@@ -52,7 +55,7 @@ public class BarRenderer implements ITooltipRenderer {
         }
 
         String maxString;
-        if (max < 0 || max == Double.MAX_VALUE) {
+        if (max <= 0 || max == Double.MAX_VALUE) {
             maxString = "∞";
         } else {
             maxString = verbose ? String.valueOf(max) : suffix((long) max);
@@ -96,7 +99,9 @@ public class BarRenderer implements ITooltipRenderer {
 
         String text = getValString(data);
         int textWidth = textRenderer.getWidth(text);
-        textRenderer.draw(matrices, text, x + align + Math.max((100 - textWidth) / 2F, 0F), y + 2, 0xFFAAAAAA);
+        float textX = x + align + Math.max((100 - textWidth) / 2F, 0F);
+        float textY = y + 2;
+        textRenderer.draw(matrices, text, textX, textY, 0xFFAAAAAA);
     }
 
 }

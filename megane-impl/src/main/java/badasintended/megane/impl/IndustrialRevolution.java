@@ -4,30 +4,17 @@ import badasintended.megane.api.MeganeEntrypoint;
 import badasintended.megane.api.registry.FluidTooltipRegistry;
 import badasintended.megane.api.registry.ProgressTooltipRegistry;
 import me.steven.indrev.blockentities.MachineBlockEntity;
-import me.steven.indrev.blockentities.crafters.*;
+import me.steven.indrev.blockentities.crafters.CraftingMachineBlockEntity;
 import me.steven.indrev.blockentities.storage.TankBlockEntity;
-import me.steven.indrev.components.FluidComponent;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.screen.PropertyDelegate;
 
-import java.util.function.Function;
-
-public class MeganeIndustrialRevolution implements MeganeEntrypoint {
+public class IndustrialRevolution implements MeganeEntrypoint {
 
     private static final String[] DEP = new String[]{"indrev"};
 
     @Override
     public String[] dependencies() {
         return DEP;
-    }
-
-    private <T extends BlockEntity> void fluid(Class<T> clazz, Function<T, FluidComponent> getter) {
-        FluidTooltipRegistry.register(clazz, FluidTooltipRegistry.Provider.of(
-            t -> getter.apply(t).getTankCount(),
-            (t, i) -> getter.apply(t).getInvFluid(i).getName(),
-            (t, i) -> (double) getter.apply(t).getInvFluid(i).getAmount_F().asInt(1000),
-            (t, i) -> (double) getter.apply(t).getMaxAmount_F(i).asInt(1000)
-        ));
     }
 
     @Override
@@ -45,10 +32,20 @@ public class MeganeIndustrialRevolution implements MeganeEntrypoint {
             }
         ));
 
-        fluid(FluidInfuserBlockEntity.class, MachineBlockEntity::getFluidComponent);
-        fluid(CondenserBlockEntity.class, MachineBlockEntity::getFluidComponent);
-        fluid(SmelterBlockEntity.class, MachineBlockEntity::getFluidComponent);
-        fluid(TankBlockEntity.class, TankBlockEntity::getFluidComponent);
+        FluidTooltipRegistry.register(MachineBlockEntity.class, FluidTooltipRegistry.Provider.of(
+            t -> t.getFluidComponent() != null,
+            t -> t.getFluidComponent().getTankCount(),
+            (t, i) -> t.getFluidComponent().getInvFluid(i).getName(),
+            (t, i) -> (double) t.getFluidComponent().getInvFluid(i).getAmount_F().asInt(1000),
+            (t, i) -> (double) t.getFluidComponent().getMaxAmount_F(i).asInt(1000)
+        ));
+
+        FluidTooltipRegistry.register(TankBlockEntity.class, FluidTooltipRegistry.Provider.of(
+            t -> t.getFluidComponent().getTankCount(),
+            (t, i) -> t.getFluidComponent().getInvFluid(i).getName(),
+            (t, i) -> (double) t.getFluidComponent().getInvFluid(i).getAmount_F().asInt(1000),
+            (t, i) -> (double) t.getFluidComponent().getMaxAmount_F(i).asInt(1000)
+        ));
     }
 
 }

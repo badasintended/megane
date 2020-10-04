@@ -9,7 +9,10 @@ import net.minecraft.util.Identifier;
 
 import java.awt.*;
 
-import static badasintended.megane.util.MeganeUtils.*;
+import static badasintended.megane.runtime.util.RuntimeUtils.drawStack;
+import static badasintended.megane.runtime.util.RuntimeUtils.drawTexture;
+import static badasintended.megane.util.MeganeUtils.id;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class ProgressRenderer implements ITooltipRenderer {
 

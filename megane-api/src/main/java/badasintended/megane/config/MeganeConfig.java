@@ -4,10 +4,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MeganeConfig {
 
@@ -16,7 +13,16 @@ public class MeganeConfig {
     public final Fluid fluid = new Fluid();
     public final Progress progress = new Progress();
 
-    public static class Inventory {
+    public interface Base {
+
+        boolean isEnabled();
+
+        Set<Identifier> getBlacklist();
+
+    }
+
+    public static class Inventory implements Base {
+
         private boolean enabled = true;
         private int maxWidth = 9;
         private int maxHeight = 3;
@@ -38,6 +44,7 @@ public class MeganeConfig {
             this.blacklist = blacklist;
         }
 
+        @Override
         public boolean isEnabled() {
             return enabled;
         }
@@ -50,12 +57,15 @@ public class MeganeConfig {
             return maxHeight;
         }
 
+        @Override
         public Set<Identifier> getBlacklist() {
             return blacklist;
         }
+
     }
 
-    public static class Energy {
+    public static class Energy implements Base {
+
         private boolean enabled = true;
         private boolean expandWhenSneak = true;
         private Map<String, Integer> colors = new HashMap<>();
@@ -63,13 +73,19 @@ public class MeganeConfig {
         private Set<Identifier> blacklist = new HashSet<>();
 
         public Energy() {
-            units.put("assets/megane", "E");
+            units.put("megane", "E");
             units.put("indrev", "LF");
+            units.put("appliedenergistics2", "AE");
+            units.put("modern_industrialization", "EU");
 
-            colors.put("assets/megane", 0xFF710C00);
+            colors.put("megane", 0xFF710C00);
             colors.put("astromine", 0xFF356D95);
             colors.put("techreborn", 0xFF800800);
             colors.put("indrev", 0xFF3B4ADE);
+            colors.put("appliedenergistics2", 0xFF64099F);
+            colors.put("modern_industrialization", 0xFFB70000);
+
+            blacklist.add(new Identifier("appliedenergistics2", "energy_acceptor"));
         }
 
         public void setEnabled(boolean enabled) {
@@ -92,6 +108,7 @@ public class MeganeConfig {
             this.blacklist = blacklist;
         }
 
+        @Override
         public boolean isEnabled() {
             return enabled;
         }
@@ -108,12 +125,15 @@ public class MeganeConfig {
             return colors;
         }
 
+        @Override
         public Set<Identifier> getBlacklist() {
             return blacklist;
         }
+
     }
 
-    public static class Fluid {
+    public static class Fluid implements Base {
+
         private boolean enabled = true;
         private boolean expandWhenSneak = true;
         private int barColor = 0xFF0D0D59;
@@ -135,6 +155,7 @@ public class MeganeConfig {
             this.blacklist = blacklist;
         }
 
+        @Override
         public boolean isEnabled() {
             return enabled;
         }
@@ -147,13 +168,17 @@ public class MeganeConfig {
             return barColor;
         }
 
+        @Override
         public Set<Identifier> getBlacklist() {
             return blacklist;
         }
+
     }
 
-    public static class Progress {
+    public static class Progress implements Base {
+
         private boolean enabled = true;
+        private boolean showWhenZero = false;
         private Set<Identifier> blacklist = new HashSet<>();
 
         public Progress() {
@@ -165,17 +190,28 @@ public class MeganeConfig {
             this.enabled = enabled;
         }
 
+        public void setShowWhenZero(boolean showWhenZero) {
+            this.showWhenZero = showWhenZero;
+        }
+
         public void setBlacklist(Set<Identifier> blacklist) {
             this.blacklist = blacklist;
         }
 
+        @Override
         public boolean isEnabled() {
             return enabled;
         }
 
+        public boolean isShowWhenZero() {
+            return showWhenZero;
+        }
+
+        @Override
         public Set<Identifier> getBlacklist() {
             return blacklist;
         }
+
     }
 
 }

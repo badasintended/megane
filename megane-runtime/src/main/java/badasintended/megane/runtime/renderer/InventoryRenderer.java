@@ -14,7 +14,9 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-import static badasintended.megane.util.MeganeUtils.*;
+import static badasintended.megane.runtime.util.RuntimeUtils.drawStack;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class InventoryRenderer implements ITooltipRenderer {
 

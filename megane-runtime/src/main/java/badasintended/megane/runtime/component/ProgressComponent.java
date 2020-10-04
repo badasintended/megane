@@ -19,8 +19,7 @@ public class ProgressComponent implements IComponentProvider {
         if (!config().progress.isEnabled()) return;
 
         CompoundTag data = accessor.getServerData();
-
-        if (data.getBoolean(key("hasProgress")) && data.getInt(key("percentage")) > 0) {
+        if (data.getBoolean(key("hasProgress")) && (data.getInt(key("percentage")) > 0 || config().progress.isShowWhenZero())) {
             tooltip.add(new RenderableTextComponent(MeganeWaila.PROGRESS, data));
         }
     }

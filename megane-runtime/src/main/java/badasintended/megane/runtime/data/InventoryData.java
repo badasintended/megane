@@ -1,6 +1,6 @@
 package badasintended.megane.runtime.data;
 
-import mcp.mobius.waila.api.IServerDataProvider;
+import badasintended.megane.api.registry.InventoryTooltipRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -9,24 +9,53 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+import static badasintended.megane.api.registry.InventoryTooltipRegistry.get;
 import static badasintended.megane.util.MeganeUtils.config;
 import static badasintended.megane.util.MeganeUtils.key;
 
-public class InventoryData implements IServerDataProvider<BlockEntity> {
+public class InventoryData extends BaseData {
 
     public static final InventoryData INSTANCE = new InventoryData();
 
-    @Override
-    public void appendServerData(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
-        if (!config().inventory.isEnabled() || config().inventory.getBlacklist().contains(Registry.BLOCK.getId(blockEntity.getCachedState().getBlock()))) {
-            return;
+    public InventoryData() {
+        super(() -> config().inventory);
+        appenders.add(new Registered());
+        appenders.add(new Hopper());
+    }
+
+    public static class Registered implements Appender {
+
+        @Override
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+            InventoryTooltipRegistry.Provider provider = get(blockEntity);
+            if (provider == null || !provider.hasInventory(blockEntity)) return false;
+
+            data.putBoolean(key("hasInventory"), true);
+            int size = provider.size(blockEntity);
+            data.putInt(key("invSize"), size);
+            DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
+
+            for (int i = 0; i < size; i++) {
+                stacks.set(i, provider.getStack(blockEntity, i));
+            }
+            CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
+
+            data.put(key("inventory"), invTag);
+            return true;
         }
 
-        Inventory inventory = HopperBlockEntity.getInventoryAt(world, blockEntity.getPos());
-        if (inventory != null) {
+    }
+
+    public static class Hopper implements Appender {
+
+        @Override
+        public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+            Inventory inventory = HopperBlockEntity.getInventoryAt(world, blockEntity.getPos());
+            if (inventory == null) return false;
+
             data.putBoolean(key("hasInventory"), true);
             int size = inventory.size();
             data.putInt(key("invSize"), size);
@@ -38,7 +67,9 @@ public class InventoryData implements IServerDataProvider<BlockEntity> {
             CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
 
             data.put(key("inventory"), invTag);
+            return true;
         }
+
     }
 
 }

@@ -1,0 +1,17 @@
+{
+  "required"          : true,
+  "minVersion"        : "0.8",
+  "package"           : "badasintended.megane.impl.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins"            : [
+    "appeng.MixinTileWailaDataProvider",
+    "fabricfurnaces.AccessorBaseFurnaceEntity",
+    "modern_industrialization.AccessorCreativeTankBlockEntity",
+    "modern_industrialization.AccessorMachineBlockEntity",
+    "modern_industrialization.AccessorTankBlockEntity"
+  ],
+  "client"            : [],
+  "injectors"         : {
+    "defaultRequire": 1
+  }
+}

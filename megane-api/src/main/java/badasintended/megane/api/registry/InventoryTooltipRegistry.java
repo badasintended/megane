@@ -2,22 +2,18 @@ package badasintended.megane.api.registry;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public final class ProgressTooltipRegistry {
+public final class InventoryTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
 
-    /**
-     * Register BlockEntity Class that has some sort of processing in it, like furnace.
-     *
-     * @param clazz highest class, any subclass will automatically get registered.
-     */
     public static <T extends BlockEntity> void register(Class<T> clazz, Provider<T> provider) {
         ENTRIES.put(clazz, provider);
     }
@@ -44,49 +40,34 @@ public final class ProgressTooltipRegistry {
 
     public interface Provider<T extends BlockEntity> {
 
-        static <T extends BlockEntity> Provider<T> of(Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, BiFunction<T, Integer, ItemStack> stack, Function<T, Integer> percentage) {
-            return of(t -> true, inputSlots, outputSlots, stack, percentage);
+        static <T extends BlockEntity> Provider<T> of(Function<T, Integer> size, BiFunction<T, Integer, ItemStack> stack) {
+            return of(t -> true, size, stack);
         }
 
-        static <T extends BlockEntity> Provider<T> of(Function<T, Boolean> hasProgress, Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, BiFunction<T, Integer, ItemStack> stack, Function<T, Integer> percentage) {
+        static <T extends BlockEntity> Provider<T> of(Function<T, Boolean> hasInventory, Function<T, Integer> size, BiFunction<T, Integer, ItemStack> stack) {
             return new Provider<T>() {
                 @Override
-                public boolean hasProgress(T t) {
-                    return hasProgress.apply(t);
+                public boolean hasInventory(T t) {
+                    return hasInventory.apply(t);
                 }
 
                 @Override
-                public int[] getInputSlots(T t) {
-                    return inputSlots.apply(t);
+                public int size(T t) {
+                    return size.apply(t);
                 }
 
                 @Override
-                public int[] getOutputSlots(T t) {
-                    return outputSlots.apply(t);
-                }
-
-                @Override
-                public @NotNull ItemStack getStack(T t, int slot) {
+                public ItemStack getStack(T t, int slot) {
                     return stack.apply(t, slot);
-                }
-
-                @Override
-                public int getPercentage(T t) {
-                    return percentage.apply(t);
                 }
             };
         }
 
-        boolean hasProgress(T t);
+        boolean hasInventory(T t);
 
-        int[] getInputSlots(T t);
+        int size(T t);
 
-        int[] getOutputSlots(T t);
-
-        @NotNull
         ItemStack getStack(T t, int slot);
-
-        int getPercentage(T t);
 
     }
 

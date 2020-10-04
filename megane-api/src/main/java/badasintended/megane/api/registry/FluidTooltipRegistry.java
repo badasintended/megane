@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@SuppressWarnings({"unchecked"})
 public final class FluidTooltipRegistry {
 
     private static final Map<Class<? extends BlockEntity>, Provider<?>> ENTRIES = new HashMap<>();
@@ -26,6 +25,7 @@ public final class FluidTooltipRegistry {
 
     @Nullable
     @ApiStatus.Internal
+    @SuppressWarnings({"unchecked"})
     public static <T extends BlockEntity> Provider<T> get(T blockEntity) {
         Class<?> clazz = blockEntity.getClass();
         boolean containsKey = ENTRIES.containsKey(clazz);
@@ -46,7 +46,16 @@ public final class FluidTooltipRegistry {
     public interface Provider<T extends BlockEntity> {
 
         static <T extends BlockEntity> Provider<T> of(Function<T, Integer> slotCount, BiFunction<T, Integer, Text> name, BiFunction<T, Integer, Double> stored, BiFunction<T, Integer, Double> max) {
+            return of(t -> true, slotCount, name, stored, max);
+        }
+
+        static <T extends BlockEntity> Provider<T> of(Function<T, Boolean> hasFluid, Function<T, Integer> slotCount, BiFunction<T, Integer, Text> name, BiFunction<T, Integer, Double> stored, BiFunction<T, Integer, Double> max) {
             return new Provider<T>() {
+                @Override
+                public boolean hasFluid(T t) {
+                    return hasFluid.apply(t);
+                }
+
                 @Override
                 public int getSlotCount(T t) {
                     return slotCount.apply(t);
@@ -68,6 +77,8 @@ public final class FluidTooltipRegistry {
                 }
             };
         }
+
+        boolean hasFluid(T t);
 
         int getSlotCount(T t);
 

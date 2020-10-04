@@ -40,7 +40,7 @@ public class MapConfigScreen<K, V> extends GuiOptions {
     public OptionsListWidget getOptions() {
         OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30, CONFIG::save);
         this.map.forEach((key, val) -> options.add(new PairEntry(this, options, keyStr.apply(key), valStr.apply(val), mapApplier, keyPredicate, valPredicate)));
-        options.add(new OptionsEntryButton("config.waila.megane.add", new ButtonWidget(0, 0, 100, 20, null, w ->
+        options.add(new OptionsEntryButton("config.megane.add", new ButtonWidget(0, 0, 100, 20, null, w ->
             options.children().add(options.children().size() - 1, new PairEntry(this, options, "", "", mapApplier, keyPredicate, valPredicate))
         )));
         return options;
@@ -60,6 +60,7 @@ public class MapConfigScreen<K, V> extends GuiOptions {
             this.keyTextField = new TextFieldWidget(client.textRenderer, 0, 0, 100, 18, new LiteralText(""));
             this.keyTextField.setTextPredicate(keyPredicate);
             this.keyTextField.setText(key);
+            this.keyTextField.setMaxLength(256);
             this.keyTextField.setChangedListener(s -> {
                 String prev = this.key;
                 this.key = s;
@@ -70,6 +71,7 @@ public class MapConfigScreen<K, V> extends GuiOptions {
             this.valTextField = new TextFieldWidget(client.textRenderer, 0, 0, 100, 18, new LiteralText(""));
             this.valTextField.setTextPredicate(valPredicate);
             this.valTextField.setText(val);
+            this.valTextField.setMaxLength(256);
             this.valTextField.setChangedListener(s -> {
                 String prev = this.key;
                 this.val = s;

@@ -27,7 +27,7 @@ public class MeganeConfigScreen extends GuiOptions {
     }
 
     private static String tlKey(String type) {
-        return "config.waila.megane." + type;
+        return "config.megane." + type;
     }
 
     private static OptionsEntryButton button(String type, ButtonWidget.PressAction pressAction) {
@@ -97,6 +97,7 @@ public class MeganeConfigScreen extends GuiOptions {
             public OptionsListWidget getOptions() {
                 OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
                 options.add(toggleBool("enabled", config().progress.isEnabled(), config().progress::setEnabled));
+                options.add(toggleBool("showWhenZero", config().progress.isShowWhenZero(), config().progress::setShowWhenZero));
                 options.add(button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), config().progress.getBlacklist()))));
                 return options;
             }

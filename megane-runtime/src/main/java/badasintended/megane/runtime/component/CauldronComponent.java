@@ -1,10 +1,7 @@
 package badasintended.megane.runtime.component;
 
 import badasintended.megane.runtime.MeganeWaila;
-import mcp.mobius.waila.api.IComponentProvider;
-import mcp.mobius.waila.api.IDataAccessor;
-import mcp.mobius.waila.api.IPluginConfig;
-import mcp.mobius.waila.api.RenderableTextComponent;
+import mcp.mobius.waila.api.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CauldronBlock;
 import net.minecraft.client.resource.language.I18n;
@@ -32,10 +29,9 @@ public class CauldronComponent implements IComponentProvider {
 
         BlockState state = accessor.getBlockState();
         int level = state.get(CauldronBlock.LEVEL);
-        TAG.putDouble(key("filled"), level);
+        TAG.putDouble(key("stored"), level);
         TAG.putDouble(key("max"), 3);
-        TAG.putString(key("prefix"), I18n.translate("waila.megane.level"));
-        TAG.putString(key("text"), String.valueOf(level));
+        TAG.putString(key("prefix"), I18n.translate("megane.level"));
         tooltip.add(new RenderableTextComponent(MeganeWaila.BAR, TAG));
     }
 

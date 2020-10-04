@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id"           : "megane-impl",
   "version"      : "${version}",
-  "description"  : "for some mods",
+  "description"  : "implementation for\n• Applied Energistics 2\n• Astromine\n• Fabric Furnaces\n• Industrial Revolution\n• Modern Industrialization\n• Tech Reborn",
   "authors"      : ["deirn"],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
@@ -12,11 +12,15 @@
   "license"      : "MIT",
   "icon"         : "pack.png",
   "environment"  : "*",
+  "mixins"       : ["megane-impl.mixins.json"],
   "entrypoints"  : {
     "megane": [
-      "badasintended.megane.impl.MeganeAstromine",
-      "badasintended.megane.impl.MeganeIndustrialRevolution",
-      "badasintended.megane.impl.MeganeTechReborn"
+      "badasintended.megane.impl.AppliedEnergistics2",
+      "badasintended.megane.impl.Astromine",
+      "badasintended.megane.impl.FabricFurnaces",
+      "badasintended.megane.impl.IndustrialRevolution",
+      "badasintended.megane.impl.ModernIndustrialization",
+      "badasintended.megane.impl.TechReborn"
     ]
   },
   "depends"      : {

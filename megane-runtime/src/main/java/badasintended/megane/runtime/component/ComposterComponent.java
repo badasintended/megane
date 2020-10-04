@@ -29,10 +29,9 @@ public class ComposterComponent implements IComponentProvider {
 
         BlockState state = accessor.getBlockState();
         int level = state.get(ComposterBlock.LEVEL);
-        TAG.putDouble(key("filled"), level);
+        TAG.putDouble(key("stored"), level);
         TAG.putDouble(key("max"), 7);
-        TAG.putString(key("prefix"), I18n.translate("waila.megane.level"));
-        TAG.putString(key("text"), String.valueOf(level));
+        TAG.putString(key("prefix"), I18n.translate("megane.level"));
         tooltip.add(new RenderableTextComponent(MeganeWaila.BAR, TAG));
     }
 
