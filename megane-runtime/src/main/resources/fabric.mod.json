@@ -10,11 +10,11 @@
     "issues"  : "https://github.com/badasintended/megane/issues"
   },
   "license"      : "MIT",
-  "icon"         : "pack.png",
+  "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
     "main"   : ["badasintended.megane.runtime.MeganeInit"],
-    "modmenu": ["badasintended.megane.runtime.MeganeModMenu"]
+    "modmenu": ["badasintended.megane.runtime.config.MeganeModMenu"]
   },
   "mixins"       : [
     "megane-runtime.mixins.json"

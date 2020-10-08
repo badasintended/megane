@@ -1,6 +1,6 @@
 package badasintended.megane.runtime.mixin;
 
-import badasintended.megane.runtime.screen.MeganeConfigScreen;
+import badasintended.megane.runtime.config.screen.MeganeConfigScreen;
 import mcp.mobius.waila.gui.GuiConfigPlugins;
 import mcp.mobius.waila.gui.config.OptionsEntryButton;
 import mcp.mobius.waila.gui.config.OptionsListWidget;

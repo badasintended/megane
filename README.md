@@ -1,4 +1,4 @@
-# megane [![1][1]][6]  [![2][2]][4]  [![3][3]][5] [![14][14]][15] <img src="src/main/resources/pack.png" align="right"/>
+# megane [![1][1]][6]  [![2][2]][4]  [![3][3]][5] [![14][14]][15] <img src="megane-runtime/src/main/resources/assets/megane/icon.png" align="right"/>
 
 megane is a [HWYLA][11] plugin that adds useful tooltips such as energy, fluid volumes, and inventory contents.    
 megane also add an API for other mod creator to add that tooltip.

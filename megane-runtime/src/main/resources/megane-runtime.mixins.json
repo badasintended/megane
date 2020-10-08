@@ -3,7 +3,7 @@
   "minVersion"        : "0.8",
   "package"           : "badasintended.megane.runtime.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins"            : ["MinecraftServerMixin"],
+  "mixins"            : ["BeaconBlockEntityAccessor", "MinecraftServerMixin"],
   "client"            : ["GuiConfigPluginsMixin"],
   "injectors"         : {
     "defaultRequire": 1

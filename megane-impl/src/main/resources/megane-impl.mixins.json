@@ -6,6 +6,7 @@
   "mixins"            : [
     "appeng.MixinTileWailaDataProvider",
     "fabricfurnaces.AccessorBaseFurnaceEntity",
+    "minecraft.AccessorHorseBaseEntity",
     "modern_industrialization.AccessorCreativeTankBlockEntity",
     "modern_industrialization.AccessorMachineBlockEntity",
     "modern_industrialization.AccessorTankBlockEntity"

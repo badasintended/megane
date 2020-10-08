@@ -8,21 +8,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.collection.DefaultedList;
-import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.List;
 import java.util.*;
 
 import static badasintended.megane.runtime.util.RuntimeUtils.drawStack;
-import static badasintended.megane.util.MeganeUtils.config;
 import static badasintended.megane.util.MeganeUtils.key;
 
 public class InventoryRenderer implements ITooltipRenderer {
-
-    private static InventoryRenderer instance = null;
-
-    private static final Dimension ZERO = new Dimension();
 
     private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(0, ItemStack.EMPTY);
     private final Set<Item> items = new LinkedHashSet<>();
@@ -30,19 +24,10 @@ public class InventoryRenderer implements ITooltipRenderer {
     private int w;
     private int h;
 
-    public InventoryRenderer() {
-        instance = this;
-    }
-
-    @Nullable
-    public static InventoryRenderer getInstance() {
-        return instance;
-    }
-
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        w = config().inventory.getMaxWidth();
-        h = config().inventory.getMaxHeight();
+        w = data.getInt(key("maxWidth"));
+        h = data.getInt(key("maxHeight"));
         int size = data.getInt(key("invSize"));
 
         stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
@@ -53,7 +38,7 @@ public class InventoryRenderer implements ITooltipRenderer {
             if (!stack.isEmpty()) items.add(stack.getItem());
         });
 
-        if (items.size() == 0) return ZERO;
+        if (items.size() == 0) return new Dimension();
         return new Dimension(18 * Math.min(items.size(), w), 18 * Math.min(items.size() / w + 1, h) + 2);
     }
 
@@ -67,8 +52,8 @@ public class InventoryRenderer implements ITooltipRenderer {
 
         combinedStacks.sort(Comparator.comparing(ItemStack::getCount, Comparator.reverseOrder()));
 
-        for (int i = 0; i < Math.min(combinedStacks.size(), config().inventory.getMaxHeight() * w); i++) {
-            drawStack(combinedStacks.get(i), x + (18 * (i % w)) + 1, y + (18 * (i / w)) + 1);
+        for (int i = 0; i < Math.min(combinedStacks.size(), w * h); i++) {
+            drawStack(combinedStacks.get(i), x + (18 * (i % w)) + 1, y + (18 * (i / w)));
         }
     }
 

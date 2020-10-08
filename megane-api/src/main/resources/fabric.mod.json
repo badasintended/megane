@@ -10,7 +10,7 @@
     "issues"  : "https://github.com/badasintended/megane/issues"
   },
   "license"      : "MIT",
-  "icon"         : "pack.png",
+  "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "depends"      : {
     "waila": "*"

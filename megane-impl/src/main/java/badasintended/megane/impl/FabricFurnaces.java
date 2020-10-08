@@ -1,11 +1,14 @@
 package badasintended.megane.impl;
 
 import badasintended.megane.api.MeganeEntrypoint;
-import badasintended.megane.api.registry.ProgressTooltipRegistry;
+import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.mixin.fabricfurnaces.AccessorBaseFurnaceEntity;
-import badasintended.megane.impl.util.Arrays;
+import badasintended.megane.impl.util.A;
 import draylar.fabricfurnaces.entity.BaseFurnaceEntity;
 import net.minecraft.inventory.Inventory;
+
+import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
+
 
 public class FabricFurnaces implements MeganeEntrypoint {
 
@@ -18,8 +21,8 @@ public class FabricFurnaces implements MeganeEntrypoint {
 
     @Override
     public void initialize() {
-        ProgressTooltipRegistry.register(BaseFurnaceEntity.class, ProgressTooltipRegistry.Provider.of(
-            t -> Arrays.A_01, t -> Arrays.A_2, Inventory::getStack,
+        PROGRESS.register(BaseFurnaceEntity.class, ProgressProvider.of(
+            t -> A.A_01, t -> A.A_2, Inventory::getStack,
             t -> {
                 double total = t.getCookTime();
                 if (total <= 0) return 0;

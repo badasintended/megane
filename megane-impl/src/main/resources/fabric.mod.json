@@ -10,7 +10,7 @@
     "issues"  : "https://github.com/badasintended/megane/issues"
   },
   "license"      : "MIT",
-  "icon"         : "pack.png",
+  "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "mixins"       : ["megane-impl.mixins.json"],
   "entrypoints"  : {
@@ -19,6 +19,7 @@
       "badasintended.megane.impl.Astromine",
       "badasintended.megane.impl.FabricFurnaces",
       "badasintended.megane.impl.IndustrialRevolution",
+      "badasintended.megane.impl.Minecraft",
       "badasintended.megane.impl.ModernIndustrialization",
       "badasintended.megane.impl.TechReborn"
     ]

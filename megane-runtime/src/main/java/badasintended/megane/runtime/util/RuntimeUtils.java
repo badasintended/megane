@@ -15,7 +15,10 @@ import java.util.*;
 
 public class RuntimeUtils {
 
-    public static final NavigableMap<Long, String> SUFFIXES = new TreeMap<>();
+    private static final NavigableMap<Long, String> SUFFIXES = new TreeMap<>();
+    private static final NavigableMap<Integer, String> ROMAN = new TreeMap<>();
+
+    public static int align = 0;
 
     static {
         SUFFIXES.put(1000L, "K");
@@ -24,6 +27,20 @@ public class RuntimeUtils {
         SUFFIXES.put(1000000000000L, "T");
         SUFFIXES.put(1000000000000000L, "P");
         SUFFIXES.put(1000000000000000000L, "E");
+
+        ROMAN.put(1000, "M");
+        ROMAN.put(900, "CM");
+        ROMAN.put(500, "D");
+        ROMAN.put(400, "CD");
+        ROMAN.put(100, "C");
+        ROMAN.put(90, "XC");
+        ROMAN.put(50, "L");
+        ROMAN.put(40, "XL");
+        ROMAN.put(10, "X");
+        ROMAN.put(9, "IX");
+        ROMAN.put(5, "V");
+        ROMAN.put(4, "IV");
+        ROMAN.put(1, "I");
     }
 
     @Environment(EnvType.CLIENT)
@@ -97,6 +114,20 @@ public class RuntimeUtils {
         long truncated = value / (divideBy / 10);
         boolean hasDecimal = truncated < 100 && (truncated / 10d) != (truncated / 10);
         return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
+    }
+
+    public static String toRoman(int value) {
+        if (value >= 4000) return String.valueOf(value);
+        int l = ROMAN.floorKey(value);
+        if (value == l) {
+            return ROMAN.get(value);
+        }
+        return ROMAN.get(l) + toRoman(value - l);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static TextRenderer textRenderer() {
+        return MinecraftClient.getInstance().textRenderer;
     }
 
 }
