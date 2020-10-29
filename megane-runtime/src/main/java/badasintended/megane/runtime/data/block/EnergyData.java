@@ -1,7 +1,6 @@
 package badasintended.megane.runtime.data.block;
 
 import badasintended.megane.api.provider.EnergyProvider;
-import badasintended.megane.api.registry.TooltipRegistry;
 import badasintended.megane.runtime.data.Appender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -10,6 +9,8 @@ import net.minecraft.world.World;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHandler;
 
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
+import static badasintended.megane.runtime.util.RuntimeUtils.errorData;
 import static badasintended.megane.util.MeganeUtils.*;
 
 public class EnergyData extends BlockData {
@@ -28,12 +29,17 @@ public class EnergyData extends BlockData {
         @Override
         @SuppressWarnings({"rawtypes", "unchecked"})
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
-            EnergyProvider energyProvider = TooltipRegistry.ENERGY.get(blockEntity);
-            if (energyProvider == null || !energyProvider.hasEnergy(blockEntity)) return false;
-            data.putBoolean(key("hasEnergy"), true);
-            data.putDouble(key("storedEnergy"), energyProvider.getStored(blockEntity));
-            data.putDouble(key("maxEnergy"), energyProvider.getMax(blockEntity));
-            return true;
+            try {
+                EnergyProvider energyProvider = ENERGY.get(blockEntity);
+                if (energyProvider == null || !energyProvider.hasEnergy(blockEntity)) return false;
+                data.putBoolean(key("hasEnergy"), true);
+                data.putDouble(key("storedEnergy"), energyProvider.getStored(blockEntity));
+                data.putDouble(key("maxEnergy"), energyProvider.getMax(blockEntity));
+                return true;
+            } catch (Exception e) {
+                errorData(ENERGY, blockEntity, e);
+                return false;
+            }
         }
 
     }

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(MachineBlockEntity.class)
-public interface AccessorMachineBlockEntity {
+public interface AMachineBlockEntity {
 
     @Accessor
     MachineFactory getFactory();

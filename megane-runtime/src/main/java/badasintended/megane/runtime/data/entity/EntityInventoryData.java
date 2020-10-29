@@ -1,7 +1,6 @@
 package badasintended.megane.runtime.data.entity;
 
 import badasintended.megane.api.provider.InventoryProvider;
-import badasintended.megane.api.registry.TooltipRegistry;
 import badasintended.megane.runtime.data.Appender;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.Inventories;
@@ -11,6 +10,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
+import static badasintended.megane.api.registry.TooltipRegistry.ENTITY_INVENTORY;
+import static badasintended.megane.runtime.util.RuntimeUtils.errorData;
 import static badasintended.megane.util.MeganeUtils.config;
 import static badasintended.megane.util.MeganeUtils.key;
 
@@ -26,21 +27,26 @@ public class EntityInventoryData extends EntityData {
         @Override
         @SuppressWarnings({"rawtypes", "unchecked"})
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity livingEntity) {
-            InventoryProvider provider = TooltipRegistry.ENTITY_INVENTORY.get(livingEntity);
-            if (provider == null || !provider.hasInventory(livingEntity)) return false;
+            try {
+                InventoryProvider provider = ENTITY_INVENTORY.get(livingEntity);
+                if (provider == null || !provider.hasInventory(livingEntity)) return false;
 
-            data.putBoolean(key("hasInventory"), true);
-            int size = provider.size(livingEntity);
-            data.putInt(key("invSize"), size);
-            DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
+                data.putBoolean(key("hasInventory"), true);
+                int size = provider.size(livingEntity);
+                data.putInt(key("invSize"), size);
+                DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
 
-            for (int i = 0; i < size; i++) {
-                stacks.set(i, provider.getStack(livingEntity, i));
+                for (int i = 0; i < size; i++) {
+                    stacks.set(i, provider.getStack(livingEntity, i));
+                }
+                CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
+
+                data.put(key("inventory"), invTag);
+                return true;
+            } catch (Exception e) {
+                errorData(ENTITY_INVENTORY, livingEntity, e);
+                return false;
             }
-            CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
-
-            data.put(key("inventory"), invTag);
-            return true;
         }
 
     }

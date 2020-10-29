@@ -1,5 +1,6 @@
 package badasintended.megane.runtime.util;
 
+import badasintended.megane.api.registry.TooltipRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
+
+import static badasintended.megane.util.MeganeUtils.LOGGER;
 
 public class RuntimeUtils {
 
@@ -128,6 +131,14 @@ public class RuntimeUtils {
     @Environment(EnvType.CLIENT)
     public static TextRenderer textRenderer() {
         return MinecraftClient.getInstance().textRenderer;
+    }
+
+    public static <K, T extends K> void errorData(TooltipRegistry<K, ?> registry, T target, Exception e) {
+        registry.nulls.add(target.getClass());
+        registry.getEntries().remove(target.getClass());
+        LOGGER.error("Error occurred when accessing registered data");
+        LOGGER.error("Target: {}", target.getClass().getName());
+        e.printStackTrace();
     }
 
 }

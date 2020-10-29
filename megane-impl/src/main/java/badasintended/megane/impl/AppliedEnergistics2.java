@@ -13,11 +13,9 @@ import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class AppliedEnergistics2 implements MeganeEntrypoint {
 
-    private static final String[] DEP = new String[]{"appliedenergistics2"};
-
     @Override
     public String[] dependencies() {
-        return DEP;
+        return new String[]{"appliedenergistics2"};
     }
 
     @Override

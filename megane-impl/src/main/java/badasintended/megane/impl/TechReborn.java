@@ -24,11 +24,9 @@ public class TechReborn implements MeganeEntrypoint {
     private static final int[] A_6789AB = new int[]{6, 7, 8, 9, 10, 11};
     private static final int[] A_9 = new int[]{9};
 
-    private static final String[] DEP = new String[]{"techreborn"};
-
     @Override
     public String[] dependencies() {
-        return DEP;
+        return new String[]{"techreborn"};
     }
 
     @Override

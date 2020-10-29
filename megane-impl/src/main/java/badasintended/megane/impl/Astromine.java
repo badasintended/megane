@@ -14,11 +14,9 @@ import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class Astromine implements MeganeEntrypoint {
 
-    private static final String[] DEP = new String[]{"astromine-technologies"};
-
     @Override
     public String[] dependencies() {
-        return DEP;
+        return new String[]{"astromine-technologies"};
     }
 
     private <T extends ComponentEnergyInventoryBlockEntity> void progressItem(Class<T> clazz, int[] input, int[] output, Function<T, Double> progress) {

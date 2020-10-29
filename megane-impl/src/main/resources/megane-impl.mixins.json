@@ -4,12 +4,13 @@
   "package"           : "badasintended.megane.impl.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins"            : [
-    "appeng.MixinTileWailaDataProvider",
-    "fabricfurnaces.AccessorBaseFurnaceEntity",
-    "minecraft.AccessorHorseBaseEntity",
-    "modern_industrialization.AccessorCreativeTankBlockEntity",
-    "modern_industrialization.AccessorMachineBlockEntity",
-    "modern_industrialization.AccessorTankBlockEntity"
+    "ae2.MTileWailaDataProvider",
+    "fabricfurnaces.ABaseFurnaceEntity",
+    "minecraft.AHorseBaseEntity",
+    "modern_industrialization.ACreativeTankBlockEntity",
+    "modern_industrialization.AMachineBlockEntity",
+    "modern_industrialization.AMultiblockMachineBlockEntity",
+    "modern_industrialization.ATankBlockEntity"
   ],
   "client"            : [],
   "injectors"         : {

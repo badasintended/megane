@@ -1,4 +1,4 @@
-package badasintended.megane.impl.mixin.appeng;
+package badasintended.megane.impl.mixin.ae2;
 
 import appeng.integration.modules.waila.BaseWailaDataProvider;
 import appeng.integration.modules.waila.TileWailaDataProvider;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(TileWailaDataProvider.class)
-public class MixinTileWailaDataProvider {
+public class MTileWailaDataProvider {
 
     @Final
     @Shadow

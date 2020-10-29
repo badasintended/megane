@@ -1,12 +1,12 @@
 package badasintended.megane.api.provider;
 
-import badasintended.megane.api.registry.BaseTooltipRegistry;
+import badasintended.megane.api.registry.TooltipRegistry;
 import net.minecraft.text.Text;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public interface FluidProvider<T> extends BaseTooltipRegistry.Provider<T> {
+public interface FluidProvider<T> extends TooltipRegistry.Provider<T> {
 
     static <T> FluidProvider<T> of(Function<T, Integer> slotCount, BiFunction<T, Integer, Text> name, BiFunction<T, Integer, Double> stored, BiFunction<T, Integer, Double> max) {
         return of(t -> true, slotCount, name, stored, max);

@@ -32,8 +32,8 @@ allprojects {
         modImplementation "net.fabricmc:fabric-loader:${rootProject.loader}"
 
         modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric}"
-        modImplementation "mcp.mobius.waila:Hwyla:${rootProject.hwyla}"
 
+        modApi "mcp.mobius.waila:Hwyla:${rootProject.hwyla}"
         modApi "org.jetbrains:annotations:19.0.0"
     }
 

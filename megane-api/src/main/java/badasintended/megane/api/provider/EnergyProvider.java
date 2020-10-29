@@ -1,10 +1,10 @@
 package badasintended.megane.api.provider;
 
-import badasintended.megane.api.registry.BaseTooltipRegistry;
+import badasintended.megane.api.registry.TooltipRegistry;
 
 import java.util.function.Function;
 
-public interface EnergyProvider<T> extends BaseTooltipRegistry.Provider<T> {
+public interface EnergyProvider<T> extends TooltipRegistry.Provider<T> {
 
     static <T> EnergyProvider<T> of(Function<T, Double> stored, Function<T, Double> max) {
         return of(t -> true, stored, max);

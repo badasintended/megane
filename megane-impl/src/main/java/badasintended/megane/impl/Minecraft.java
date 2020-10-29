@@ -2,7 +2,7 @@ package badasintended.megane.impl;
 
 import badasintended.megane.api.MeganeEntrypoint;
 import badasintended.megane.api.provider.InventoryProvider;
-import badasintended.megane.impl.mixin.minecraft.AccessorHorseBaseEntity;
+import badasintended.megane.impl.mixin.minecraft.AHorseBaseEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
@@ -32,7 +32,7 @@ public class Minecraft implements MeganeEntrypoint {
         ));
 
         ENTITY_INVENTORY.register(AbstractDonkeyEntity.class, InventoryProvider.of(
-            t -> ((AccessorHorseBaseEntity) t).getInvSize() - 1, (t, i) -> ((AccessorHorseBaseEntity) t).getItems().getStack(i + 1)
+            t -> ((AHorseBaseEntity) t).getInvSize() - 1, (t, i) -> ((AHorseBaseEntity) t).getItems().getStack(i + 1)
         ));
     }
 
