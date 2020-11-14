@@ -1,5 +1,7 @@
 package badasintended.megane.runtime.config.screen;
 
+import java.util.Set;
+
 import mcp.mobius.waila.gui.GuiOptions;
 import mcp.mobius.waila.gui.config.OptionsEntryButton;
 import mcp.mobius.waila.gui.config.OptionsListWidget;
@@ -10,8 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.util.Set;
 
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 

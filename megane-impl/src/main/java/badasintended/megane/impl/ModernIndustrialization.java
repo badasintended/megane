@@ -1,7 +1,14 @@
 package badasintended.megane.impl;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import aztech.modern_industrialization.blocks.creativetank.CreativeTankBlockEntity;
 import aztech.modern_industrialization.blocks.tank.TankBlockEntity;
+import aztech.modern_industrialization.fluid.CraftingFluid;
 import aztech.modern_industrialization.inventory.ConfigurableFluidStack;
 import aztech.modern_industrialization.inventory.ConfigurableItemStack;
 import aztech.modern_industrialization.machines.impl.MachineBlockEntity;
@@ -9,17 +16,28 @@ import aztech.modern_industrialization.machines.impl.MachineFactory;
 import aztech.modern_industrialization.machines.impl.multiblock.HatchBlockEntity;
 import aztech.modern_industrialization.machines.impl.multiblock.MultiblockMachineBlockEntity;
 import badasintended.megane.api.MeganeEntrypoint;
-import badasintended.megane.api.provider.*;
-import badasintended.megane.impl.mixin.modern_industrialization.*;
+import badasintended.megane.api.provider.EnergyProvider;
+import badasintended.megane.api.provider.FluidInfoProvider;
+import badasintended.megane.api.provider.FluidProvider;
+import badasintended.megane.api.provider.InventoryProvider;
+import badasintended.megane.api.provider.ProgressProvider;
+import badasintended.megane.impl.mixin.modern_industrialization.ACreativeTankBlockEntity;
+import badasintended.megane.impl.mixin.modern_industrialization.AMachineBlockEntity;
+import badasintended.megane.impl.mixin.modern_industrialization.AMultiblockMachineBlockEntity;
+import badasintended.megane.impl.mixin.modern_industrialization.ATankBlockEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static badasintended.megane.api.registry.TooltipRegistry.*;
+import static badasintended.megane.api.registry.TooltipRegistry.BLOCK_INVENTORY;
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
+import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
+import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
+import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 import static badasintended.megane.util.MeganeUtils.intRange;
 
 public class ModernIndustrialization implements MeganeEntrypoint {
@@ -39,20 +57,22 @@ public class ModernIndustrialization implements MeganeEntrypoint {
 
         FLUID.register(MachineBlockEntity.class, FluidProvider.of(
             t -> t.getFluidStacks().size(),
-            (t, i) -> t.getFluidStacks().get(i).getFluid().name,
+            (t, i) -> t.getFluidStacks().get(i).getFluid().getRawFluid(),
             (t, i) -> (double) t.getFluidStacks().get(i).getAmount(),
             (t, i) -> (double) t.getFluidStacks().get(i).getCapacity()
         ));
 
         FLUID.register(TankBlockEntity.class, FluidProvider.of(
             t -> 1,
-            (t, i) -> ((ATankBlockEntity) t).getFluid().name,
+            (t, i) -> ((ATankBlockEntity) t).getFluid().getRawFluid(),
             (t, i) -> (double) ((ATankBlockEntity) t).getAmount(),
             (t, i) -> (double) ((ATankBlockEntity) t).getCapacity()
         ));
 
         FLUID.register(CreativeTankBlockEntity.class, FluidProvider.of(
-            t -> 1, (t, i) -> ((ACreativeTankBlockEntity) t).getFluid().name, (t, i) -> -1D, (t, i) -> -1D
+            t -> 1,
+            (t, i) -> ((ACreativeTankBlockEntity) t).getFluid().getRawFluid(),
+            (t, i) -> -1D, (t, i) -> -1D
         ));
 
         BLOCK_INVENTORY.register(MachineBlockEntity.class, InventoryProvider.of(
@@ -108,9 +128,10 @@ public class ModernIndustrialization implements MeganeEntrypoint {
                 return fluids.size();
             }
 
+            @Nullable
             @Override
-            public Text getFluidName(MultiblockMachineBlockEntity t, int i) {
-                return fluids.get(i).getFluid().name;
+            public Fluid getFluid(MultiblockMachineBlockEntity multiblockMachineBlockEntity, int slot) {
+                return fluids.get(slot).getFluid().getRawFluid();
             }
 
             @Override
@@ -144,6 +165,12 @@ public class ModernIndustrialization implements MeganeEntrypoint {
                 return stacks.get(i).getStack();
             }
         });
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void initializeClient() {
+        FLUID_INFO.register(CraftingFluid.class, FluidInfoProvider.of(f -> f.color, f -> f.key.name));
     }
 
 }

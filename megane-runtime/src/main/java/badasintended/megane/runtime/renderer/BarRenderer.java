@@ -1,5 +1,9 @@
 package badasintended.megane.runtime.renderer;
 
+import java.awt.Dimension;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.resource.language.I18n;
@@ -7,13 +11,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 
-import java.awt.*;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
-import static badasintended.megane.runtime.util.RuntimeUtils.*;
+import static badasintended.megane.runtime.util.RuntimeUtils.align;
+import static badasintended.megane.runtime.util.RuntimeUtils.drawTexture;
+import static badasintended.megane.runtime.util.RuntimeUtils.getBrightness;
+import static badasintended.megane.runtime.util.RuntimeUtils.suffix;
+import static badasintended.megane.runtime.util.RuntimeUtils.textRenderer;
 import static badasintended.megane.util.MeganeUtils.id;
 import static badasintended.megane.util.MeganeUtils.key;
+import static net.minecraft.client.gui.DrawableHelper.fill;
 
 public class BarRenderer implements ITooltipRenderer {
 
@@ -64,16 +69,29 @@ public class BarRenderer implements ITooltipRenderer {
 
         float ratio = max == 0 ? 1F : ((float) Math.floor((Math.min((float) (stored / max), 1F)) * 100)) / 100F;
 
-        int color = data.getInt(key("color"));
-
         String prefix = data.getString(key("prefix"));
         textRenderer().drawWithShadow(matrices, prefix, x, y + 2, 0xFFAAAAAA);
 
         int colon = textRenderer().getWidth(": ");
         textRenderer().drawWithShadow(matrices, ": ", x + align, y + 2, 0xFFAAAAAA);
 
-        drawTexture(matrices, TEXTURE, x + align + colon, y, 100, 11, 0, 0, 1F, 0.5F, color);
-        drawTexture(matrices, TEXTURE, x + align + colon, y, (int) (ratio * 100), 11, 0, 0.5F, ratio, 1F, color);
+        int color = data.getInt(key("color"));
+
+        int barX = x + align + colon;
+        drawTexture(matrices, TEXTURE, barX, y, 100, 11, 0, 0, 1F, 0.5F, color);
+        drawTexture(matrices, TEXTURE, barX, y, (int) (ratio * 100), 11, 0, 0.5F, ratio, 1F, color);
+
+        double brightness = getBrightness(color);
+        int overlay = 0;
+
+        if (brightness < 0.25) overlay = 0x08FFFFFF;
+        else if (brightness > 0.90) overlay = 0x80000000;
+        else if (brightness > 0.80) overlay = 0x70000000;
+        else if (brightness > 0.70) overlay = 0x60000000;
+        else if (brightness > 0.60) overlay = 0x50000000;
+        else if (brightness > 0.50) overlay = 0x40000000;
+
+        fill(matrices, barX, y, barX + 100, y + 11, overlay);
 
         String text = getValString(data);
         int textWidth = textRenderer().getWidth(text);

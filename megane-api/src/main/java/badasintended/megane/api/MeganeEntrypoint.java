@@ -1,16 +1,22 @@
 package badasintended.megane.api;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 public interface MeganeEntrypoint {
 
-    String[] EMPTY_DEP = new String[0];
-
     default String[] dependencies() {
-        return EMPTY_DEP;
+        return new String[0];
     }
 
     /**
      * Register your tooltips here plz.
      */
-    void initialize();
+    default void initialize() {
+    }
+
+    @Environment(EnvType.CLIENT)
+    default void initializeClient() {
+    }
 
 }

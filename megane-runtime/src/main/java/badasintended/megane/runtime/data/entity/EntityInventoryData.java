@@ -3,11 +3,10 @@ package badasintended.megane.runtime.data.entity;
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.runtime.data.Appender;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import static badasintended.megane.api.registry.TooltipRegistry.ENTITY_INVENTORY;
@@ -34,14 +33,13 @@ public class EntityInventoryData extends EntityData {
                 data.putBoolean(key("hasInventory"), true);
                 int size = provider.size(livingEntity);
                 data.putInt(key("invSize"), size);
-                DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
 
                 for (int i = 0; i < size; i++) {
-                    stacks.set(i, provider.getStack(livingEntity, i));
+                    ItemStack stack = provider.getStack(livingEntity, i);
+                    data.putInt(key("itemId" + i), Registry.ITEM.getRawId(stack.getItem()));
+                    data.putInt(key("itemCount" + i), stack.getCount());
+                    data.put(key("itemTag" + i), stack.getOrCreateTag());
                 }
-                CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
-
-                data.put(key("inventory"), invTag);
                 return true;
             } catch (Exception e) {
                 errorData(ENTITY_INVENTORY, livingEntity, e);

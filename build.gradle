@@ -12,7 +12,7 @@ plugins {
     id 'fabric-loom' version '0.4-SNAPSHOT' apply false
 }
 
-version = project.mod
+version = "${project.mod}+${project.minecraft}"
 
 allprojects {
     apply plugin: 'maven-publish'

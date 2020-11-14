@@ -1,12 +1,18 @@
 package badasintended.megane.config;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.*;
-
+@SuppressWarnings("unused")
 public class MeganeConfig {
+
+    public int configVersion = 0;
 
     public final Inventory inventory = new Inventory();
     public final Inventory entityInventory = new Inventory();
@@ -89,7 +95,7 @@ public class MeganeConfig {
     public static class Energy implements Base {
 
         private boolean enabled = true;
-        private boolean expandWhenSneak = true;
+        private boolean expandWhenSneak = false;
         private Map<String, Integer> colors = new HashMap<>();
         private Map<String, String> units = new HashMap<>();
         private Set<Identifier> blacklist = new HashSet<>();
@@ -100,12 +106,12 @@ public class MeganeConfig {
             units.put("appliedenergistics2", "AE");
             units.put("modern_industrialization", "EU");
 
-            colors.put("megane", 0xFF710C00);
-            colors.put("astromine", 0xFF356D95);
-            colors.put("techreborn", 0xFF800800);
-            colors.put("indrev", 0xFF3B4ADE);
-            colors.put("appliedenergistics2", 0xFF64099F);
-            colors.put("modern_industrialization", 0xFFB70000);
+            colors.put("megane", 0x710C00);
+            colors.put("astromine", 0x356D95);
+            colors.put("techreborn", 0x800800);
+            colors.put("indrev", 0x3B4ADE);
+            colors.put("appliedenergistics2", 0x64099F);
+            colors.put("modern_industrialization", 0xB70000);
 
             blacklist.add(new Identifier("appliedenergistics2", "energy_acceptor"));
         }
@@ -157,7 +163,7 @@ public class MeganeConfig {
     public static class Fluid implements Base {
 
         private boolean enabled = true;
-        private boolean expandWhenSneak = true;
+        private boolean expandWhenSneak = false;
         private int barColor = 0xFF0D0D59;
         private Set<Identifier> blacklist = new HashSet<>();
 

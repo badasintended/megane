@@ -15,12 +15,12 @@
   "config.megane.inventory.blacklist"  : "Inventory Blacklist",
   "config.megane.energy"               : "Energy",
   "config.megane.energy.color"         : "Bar Colors",
-  "config.megane.energy.color_desc"    : "AARRGGBB",
+  "config.megane.energy.color_desc"    : "RRGGBB",
   "config.megane.energy.unit"          : "Units",
   "config.megane.energy.blacklist"     : "Energy Blacklist",
   "config.megane.fluid"                : "Fluid",
-  "config.megane.fluid.color"          : "Bar Color",
-  "config.megane.fluid.color_desc"     : "AARRGGBB",
+  "config.megane.fluid.color"          : "Default Bar Color",
+  "config.megane.fluid.color_desc"     : "RRGGBB",
   "config.megane.fluid.blacklist"      : "Fluid Blacklist",
   "config.megane.progress"             : "Progress",
   "config.megane.progress.showWhenZero": "Show when 0%",
@@ -38,5 +38,8 @@
   "config.megane.spawnEgg"             : "Spawn Egg Icon",
   "megane.energy"                      : "Energy",
   "megane.level"                       : "Level",
-  "megane.owner"                       : "Owner"
+  "megane.owner"                       : "Owner",
+  "megane.fluid.unknown"               : "Unknown Fluid",
+  "megane.configToast.title"           : "Megane Config Reset",
+  "megane.configToast.desc"            : "Found version %d, not %d"
 }

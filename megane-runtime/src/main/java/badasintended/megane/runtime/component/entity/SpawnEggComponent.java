@@ -1,6 +1,8 @@
 package badasintended.megane.runtime.component.entity;
 
-import mcp.mobius.waila.api.*;
+import mcp.mobius.waila.api.IEntityAccessor;
+import mcp.mobius.waila.api.IEntityComponentProvider;
+import mcp.mobius.waila.api.IPluginConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 

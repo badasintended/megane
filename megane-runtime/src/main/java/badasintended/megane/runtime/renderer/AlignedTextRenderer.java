@@ -1,11 +1,11 @@
 package badasintended.megane.runtime.renderer;
 
+import java.awt.Dimension;
+
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.CompoundTag;
-
-import java.awt.*;
 
 import static badasintended.megane.runtime.util.RuntimeUtils.align;
 import static badasintended.megane.runtime.util.RuntimeUtils.textRenderer;

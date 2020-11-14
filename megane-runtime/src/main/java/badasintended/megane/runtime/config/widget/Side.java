@@ -1,6 +1,8 @@
 package badasintended.megane.runtime.config.widget;
 
-import net.minecraft.text.*;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 public enum Side {

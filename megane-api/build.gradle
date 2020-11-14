@@ -1,7 +1,0 @@
-repositories {
-    maven { url "https://maven.tehnut.info" }
-}
-
-dependencies {
-    modImplementation "mcp.mobius.waila:Hwyla:${rootProject.hwyla}"
-}

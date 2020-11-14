@@ -1,5 +1,7 @@
 package badasintended.megane.runtime.renderer;
 
+import java.awt.Dimension;
+
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.MinecraftClient;
@@ -9,8 +11,6 @@ import net.minecraft.client.texture.StatusEffectSpriteManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.nbt.CompoundTag;
-
-import java.awt.*;
 
 import static badasintended.megane.runtime.util.RuntimeUtils.textRenderer;
 import static badasintended.megane.util.MeganeUtils.key;
@@ -43,7 +43,7 @@ public class StatusEffectRenderer implements ITooltipRenderer {
                 Sprite sprite = manager.getSprite(statusEffect);
                 MinecraftClient.getInstance().getTextureManager().bindTexture(sprite.getAtlas().getId());
                 DrawableHelper.drawSprite(matrices, x + 20 * i, y, 0, 18, 18, sprite);
-                textRenderer().drawWithShadow(matrices, lv, x + 20 + (20 * i) - textRenderer().getWidth(lv), y + 20 - textRenderer().fontHeight, 0xFFFFFFFF);
+                textRenderer().drawWithShadow(matrices, lv, x + 20 + (20 * i) - textRenderer().getWidth(lv), y + 20 - textRenderer().fontHeight, 0xFFFFFF);
             } else {
                 size--;
                 i--;

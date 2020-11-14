@@ -1,16 +1,19 @@
 package badasintended.megane.runtime.component.block;
 
+import java.util.List;
+
 import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.MeganeWaila;
-import mcp.mobius.waila.api.*;
+import mcp.mobius.waila.api.IDataAccessor;
+import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 
-import java.util.List;
-
-import static badasintended.megane.util.MeganeUtils.*;
+import static badasintended.megane.util.MeganeUtils.MODID;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class EnergyComponent extends BlockComponent {
 
@@ -21,7 +24,7 @@ public class EnergyComponent extends BlockComponent {
     }
 
     @Override
-    protected void append(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
+    protected void append(List<Text> tooltip, IDataAccessor accessor) {
         MeganeConfig.Energy energy = config().energy;
         CompoundTag data = accessor.getServerData();
 

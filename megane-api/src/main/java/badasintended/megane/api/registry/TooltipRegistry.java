@@ -1,64 +1,50 @@
 package badasintended.megane.api.registry;
 
-import badasintended.megane.api.provider.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import badasintended.megane.api.provider.EnergyProvider;
+import badasintended.megane.api.provider.FluidInfoProvider;
+import badasintended.megane.api.provider.FluidProvider;
+import badasintended.megane.api.provider.InventoryProvider;
+import badasintended.megane.api.provider.ProgressProvider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
-import org.jetbrains.annotations.ApiStatus;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+public class TooltipRegistry {
 
-@SuppressWarnings("unchecked")
-public class TooltipRegistry<T, P extends TooltipRegistry.Provider<? extends T>> {
+    public static final BaseTooltipRegistry<BlockEntity, EnergyProvider<? extends BlockEntity>> ENERGY = new BaseTooltipRegistry<>(BlockEntity.class);
+    public static final BaseTooltipRegistry<BlockEntity, FluidProvider<? extends BlockEntity>> FLUID = new BaseTooltipRegistry<>(BlockEntity.class);
+    public static final BaseTooltipRegistry<BlockEntity, InventoryProvider<? extends BlockEntity>> BLOCK_INVENTORY = new BaseTooltipRegistry<>(BlockEntity.class);
+    public static final BaseTooltipRegistry<LivingEntity, InventoryProvider<? extends LivingEntity>> ENTITY_INVENTORY = new BaseTooltipRegistry<>(LivingEntity.class);
+    public static final BaseTooltipRegistry<BlockEntity, ProgressProvider<? extends BlockEntity>> PROGRESS = new BaseTooltipRegistry<>(BlockEntity.class);
 
-    public static final TooltipRegistry<BlockEntity, EnergyProvider<? extends BlockEntity>> ENERGY = new TooltipRegistry<>(BlockEntity.class);
-    public static final TooltipRegistry<BlockEntity, FluidProvider<? extends BlockEntity>> FLUID = new TooltipRegistry<>(BlockEntity.class);
-    public static final TooltipRegistry<BlockEntity, InventoryProvider<? extends BlockEntity>> BLOCK_INVENTORY = new TooltipRegistry<>(BlockEntity.class);
-    public static final TooltipRegistry<LivingEntity, InventoryProvider<? extends LivingEntity>> ENTITY_INVENTORY = new TooltipRegistry<>(LivingEntity.class);
-    public static final TooltipRegistry<BlockEntity, ProgressProvider<? extends BlockEntity>> PROGRESS = new TooltipRegistry<>(BlockEntity.class);
+    @Environment(EnvType.CLIENT)
+    public static final FluidInfoRegistry FLUID_INFO = new FluidInfoRegistry();
 
-    protected final Map<Class<? extends T>, P> entries = new HashMap<>();
-    public final Set<Class<?>> nulls = new HashSet<>();
+    @Environment(EnvType.CLIENT)
+    public static class FluidInfoRegistry extends BaseTooltipRegistry<Fluid, FluidInfoProvider<? extends Fluid>> {
 
-    private final Class<T> tClass;
+        private final Map<Fluid, FluidInfoProvider<? extends Fluid>> objEntries = new HashMap<>();
 
-    private TooltipRegistry(Class<T> tClass) {
-        this.tClass = tClass;
-    }
-
-    @ApiStatus.Internal
-    public Map<Class<? extends T>, P> getEntries() {
-        return entries;
-    }
-
-    public <K extends T> void register(Class<K> clazz, Provider<K> provider) {
-        getEntries().put(clazz, (P) provider);
-    }
-
-    @Nullable
-    @ApiStatus.Internal
-    public P get(T v) {
-        if (nulls.contains(v.getClass())) return null;
-
-        Class<?> clazz = v.getClass();
-        boolean containsKey = getEntries().containsKey(clazz);
-
-        if (!containsKey) do {
-            clazz = clazz.getSuperclass();
-            containsKey = getEntries().containsKey(clazz);
-        } while (!containsKey && clazz != tClass);
-
-        if (containsKey) {
-            P provider = getEntries().get(clazz);
-            getEntries().putIfAbsent((Class<? extends T>) v.getClass(), provider);
-            return provider;
+        private FluidInfoRegistry() {
+            super(Fluid.class);
         }
 
-        nulls.add(v.getClass());
-        return null;
-    }
+        public void register(Fluid fluid, int color, Text name) {
+            objEntries.put(fluid, FluidInfoProvider.of(color, name));
+        }
 
-    public interface Provider<T> {
+        @Nullable
+        @Override
+        public FluidInfoProvider<? extends Fluid> get(Fluid fluid) {
+            return objEntries.containsKey(fluid) ? objEntries.get(fluid) : super.get(fluid);
+        }
 
     }
 

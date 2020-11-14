@@ -1,15 +1,27 @@
 package badasintended.megane.impl;
 
+import java.util.function.Function;
+
 import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.util.A;
 import com.github.chainmailstudios.astromine.common.block.entity.base.ComponentEnergyFluidBlockEntity;
 import com.github.chainmailstudios.astromine.common.block.entity.base.ComponentEnergyInventoryBlockEntity;
-import com.github.chainmailstudios.astromine.technologies.common.block.entity.*;
+import com.github.chainmailstudios.astromine.common.fluid.ExtendedFluid;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.AlloySmelterBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.ElectricSmelterBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.ElectrolyzerBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.FluidMixerBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.LiquidGeneratorBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.PresserBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.SolidGeneratorBlockEntity;
+import com.github.chainmailstudios.astromine.technologies.common.block.entity.TrituratorBlockEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemStack;
 
-import java.util.function.Function;
-
+import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class Astromine implements MeganeEntrypoint {
@@ -47,6 +59,12 @@ public class Astromine implements MeganeEntrypoint {
         progressFluid(FluidMixerBlockEntity.class, b -> b.progress / b.limit);
         progressFluid(LiquidGeneratorBlockEntity.class, b -> b.progress / b.limit);
         progressFluid(ElectrolyzerBlockEntity.class, b -> b.progress / b.limit);
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void initializeClient() {
+        FLUID_INFO.register(ExtendedFluid.class, FluidInfoProvider.of(ExtendedFluid::getTintColor, t -> t.getBlock().getName()));
     }
 
 }

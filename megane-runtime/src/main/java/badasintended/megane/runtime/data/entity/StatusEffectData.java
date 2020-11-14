@@ -1,5 +1,8 @@
 package badasintended.megane.runtime.data.entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import badasintended.megane.runtime.data.Appender;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -7,9 +10,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static badasintended.megane.util.MeganeUtils.config;
 import static badasintended.megane.util.MeganeUtils.key;

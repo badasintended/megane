@@ -1,14 +1,20 @@
 package badasintended.megane.impl;
 
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import me.steven.indrev.blockentities.MachineBlockEntity;
 import me.steven.indrev.blockentities.crafters.CraftingMachineBlockEntity;
 import me.steven.indrev.blockentities.storage.TankBlockEntity;
+import me.steven.indrev.fluids.BaseFluid;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.screen.PropertyDelegate;
 
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
+import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class IndustrialRevolution implements MeganeEntrypoint {
@@ -38,17 +44,23 @@ public class IndustrialRevolution implements MeganeEntrypoint {
         FLUID.register(MachineBlockEntity.class, FluidProvider.of(
             t -> t.getFluidComponent() != null,
             t -> t.getFluidComponent().getTankCount(),
-            (t, i) -> t.getFluidComponent().getInvFluid(i).getName(),
+            (t, i) -> t.getFluidComponent().getInvFluid(i).getRawFluid(),
             (t, i) -> (double) t.getFluidComponent().getInvFluid(i).getAmount_F().asInt(1000),
             (t, i) -> (double) t.getFluidComponent().getMaxAmount_F(i).asInt(1000)
         ));
 
         FLUID.register(TankBlockEntity.class, FluidProvider.of(
             t -> t.getFluidComponent().getTankCount(),
-            (t, i) -> t.getFluidComponent().getInvFluid(i).getName(),
+            (t, i) -> t.getFluidComponent().getInvFluid(i).getRawFluid(),
             (t, i) -> (double) t.getFluidComponent().getInvFluid(i).getAmount_F().asInt(1000),
             (t, i) -> (double) t.getFluidComponent().getMaxAmount_F(i).asInt(1000)
         ));
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void initializeClient() {
+        FLUID_INFO.register(BaseFluid.class, FluidInfoProvider.of(f -> FluidKeys.get(f).renderColor, f -> FluidKeys.get(f).name));
     }
 
 }

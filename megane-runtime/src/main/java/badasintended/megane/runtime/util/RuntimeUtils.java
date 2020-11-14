@@ -1,18 +1,25 @@
 package badasintended.megane.runtime.util;
 
-import badasintended.megane.api.registry.TooltipRegistry;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
+
+import badasintended.megane.api.registry.BaseTooltipRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
-import java.util.*;
+import net.minecraft.util.registry.Registry;
 
 import static badasintended.megane.util.MeganeUtils.LOGGER;
 
@@ -20,6 +27,9 @@ public class RuntimeUtils {
 
     private static final NavigableMap<Long, String> SUFFIXES = new TreeMap<>();
     private static final NavigableMap<Integer, String> ROMAN = new TreeMap<>();
+
+    public static int oldConfigVersion = 0;
+    public static boolean showUpdatedConfigToast = false;
 
     public static int align = 0;
 
@@ -47,6 +57,12 @@ public class RuntimeUtils {
     }
 
     @Environment(EnvType.CLIENT)
+    public static String fluidName(Fluid fluid) {
+        Identifier id = Registry.FLUID.getId(fluid);
+        return I18n.translate("block." + id.getNamespace() + "." + id.getPath());
+    }
+
+    @Environment(EnvType.CLIENT)
     public static void drawTexture(
         MatrixStack matrices, Identifier id,
         int x, int y, int w, int h,
@@ -56,7 +72,7 @@ public class RuntimeUtils {
         RenderSystem.enableBlend();
         MinecraftClient.getInstance().getTextureManager().bindTexture(id);
 
-        int a = getA(color);
+        int a = 0xFF;
         int r = getR(color);
         int g = getG(color);
         int b = getB(color);
@@ -85,10 +101,6 @@ public class RuntimeUtils {
         item.renderGuiItemOverlay(text, stack, x, y);
     }
 
-    public static int getA(int aarrggbb) {
-        return (aarrggbb >> 24) & 0xFF;
-    }
-
     public static int getR(int aarrggbb) {
         return (aarrggbb >> 16) & 0xFF;
     }
@@ -101,8 +113,16 @@ public class RuntimeUtils {
         return aarrggbb & 0xFF;
     }
 
-    public static boolean isDark(int aarrggbb) {
-        return 1 - (0.299 * getR(aarrggbb) + 0.587 * getG(aarrggbb) + 0.114 * getB(aarrggbb)) / 255 > 0.5;
+    public static double getBrightness(int color) {
+        return (0.299 * getR(color) + 0.587 * getG(color) + 0.114 * getB(color)) / 255.0;
+    }
+
+    public static boolean tooDark(int color) {
+        return 1 - (0.299 * getR(color) + 0.587 * getG(color) + 0.114 * getB(color)) / 255 > 0.85;
+    }
+
+    public static boolean isLight(int color) {
+        return 1 - (0.299 * getR(color) + 0.587 * getG(color) + 0.114 * getB(color)) / 255 <= 0.5;
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
@@ -133,7 +153,7 @@ public class RuntimeUtils {
         return MinecraftClient.getInstance().textRenderer;
     }
 
-    public static <K, T extends K> void errorData(TooltipRegistry<K, ?> registry, T target, Exception e) {
+    public static <K, T extends K> void errorData(BaseTooltipRegistry<K, ?> registry, T target, Exception e) {
         registry.nulls.add(target.getClass());
         registry.getEntries().remove(target.getClass());
         LOGGER.error("Error occurred when accessing registered data");

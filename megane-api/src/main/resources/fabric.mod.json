@@ -3,7 +3,9 @@
   "id"           : "megane-api",
   "version"      : "${version}",
   "description"  : "for other mod to use",
-  "authors"      : ["deirn"],
+  "authors"      : [
+    "deirn"
+  ],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
     "sources" : "https://github.com/badasintended/megane",

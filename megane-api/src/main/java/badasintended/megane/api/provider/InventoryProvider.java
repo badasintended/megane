@@ -1,13 +1,13 @@
 package badasintended.megane.api.provider;
 
-import badasintended.megane.api.registry.TooltipRegistry;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public interface InventoryProvider<T> extends TooltipRegistry.Provider<T> {
+import badasintended.megane.api.registry.BaseTooltipRegistry;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+public interface InventoryProvider<T> extends BaseTooltipRegistry.Provider<T> {
 
     static <T> InventoryProvider<T> of(Function<T, Integer> size, BiFunction<T, Integer, ItemStack> stack) {
         return of(t -> true, size, stack);

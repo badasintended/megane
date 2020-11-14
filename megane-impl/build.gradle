@@ -8,17 +8,17 @@ repositories {
 dependencies {
     implementation project(":megane-api")
 
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.2"
-    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.2"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.4"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.4"
 
-    modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.2"
+    modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.4"
 
-    modCompileOnly "io.github.cottonmc:LibGui:3.2.1+1.16.3"
+    modCompileOnly "io.github.cottonmc:LibGui:3.2.2+1.16.3"
 
     modCompileOnly "teamreborn:energy:0.1.0"
     modCompileOnly "TechReborn:TechReborn-1.16:3.6.1+build.143"
 
-    modCompileOnly "curse.maven:applied-energistics-2:3060182"
+    modCompileOnly "curse.maven:applied-energistics-2:3100394"
 
     modCompileOnly "curse.maven:astromine-core:3080151"
     modCompileOnly "curse.maven:astromine-foundations:3080153"
@@ -26,7 +26,11 @@ dependencies {
 
     modCompileOnly "curse.maven:fabric-furnaces:3049271"
 
-    modCompileOnly "curse.maven:indrev:3057205"
+    modCompileOnly "curse.maven:indrev:3104356"
 
-    modCompileOnly "curse.maven:modern-industrialization:3094367"
+    modCompileOnly "curse.maven:modern-industrialization:3105236"
+
+    modCompileOnly "curse.maven:art-of-alchemy:3106070"
+
+    modCompileOnly "curse.maven:kibe:3108967"
 }

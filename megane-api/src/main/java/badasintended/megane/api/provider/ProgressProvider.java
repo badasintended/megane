@@ -1,13 +1,13 @@
 package badasintended.megane.api.provider;
 
-import badasintended.megane.api.registry.TooltipRegistry;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public interface ProgressProvider<T> extends TooltipRegistry.Provider<T> {
+import badasintended.megane.api.registry.BaseTooltipRegistry;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+public interface ProgressProvider<T> extends BaseTooltipRegistry.Provider<T> {
 
     static <T> ProgressProvider<T> of(Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, BiFunction<T, Integer, ItemStack> stack, Function<T, Integer> percentage) {
         return of(t -> true, inputSlots, outputSlots, stack, percentage);

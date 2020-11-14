@@ -2,17 +2,23 @@ package badasintended.megane.runtime.data.block;
 
 import alexiil.mc.lib.attributes.fluid.FixedFluidInvView;
 import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import alexiil.mc.lib.attributes.misc.NullVariant;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.runtime.data.Appender;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
 import static badasintended.megane.runtime.util.RuntimeUtils.errorData;
-import static badasintended.megane.util.MeganeUtils.*;
+import static badasintended.megane.util.MeganeUtils.LOGGER;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.hasMod;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class FluidData extends BlockData {
 
@@ -37,13 +43,20 @@ public class FluidData extends BlockData {
                 data.putBoolean(key("hasFluid"), true);
 
                 int slotCount = provider.getSlotCount(blockEntity);
-                data.putInt(key("fluidSlotCount"), slotCount);
 
                 for (int i = 0; i < slotCount; i++) {
-                    data.putString(key("fluidName" + i), provider.getFluidName(blockEntity, i).getString());
+                    Fluid fluid = provider.getFluid(blockEntity, i);
+                    if (fluid == null) {
+                        slotCount--;
+                        i--;
+                        continue;
+                    }
+                    data.putInt(key("fluid" + i), Registry.FLUID.getRawId(fluid));
                     data.putDouble(key("storedFluid" + i), provider.getStored(blockEntity, i));
                     data.putDouble(key("maxFluid" + i), provider.getMax(blockEntity, i));
                 }
+
+                data.putInt(key("fluidSlotCount"), slotCount);
                 return true;
             } catch (Exception e) {
                 errorData(FLUID, blockEntity, e);
@@ -62,12 +75,22 @@ public class FluidData extends BlockData {
             data.putBoolean(key("hasFluid"), true);
             data.putBoolean(key("translate"), false);
             int slotCount = attribute.getTankCount();
-            data.putInt(key("fluidSlotCount"), slotCount);
             for (int i = 0; i < slotCount; i++) {
-                data.putString(key("fluidName" + i), attribute.getInvFluid(i).getName().getString());
-                data.putDouble(key("storedFluid" + i), attribute.getInvFluid(i).amount().asInt(1000));
+                FluidVolume invFluid = attribute.getInvFluid(i);
+
+                Fluid fluid = invFluid.getRawFluid();
+                if (fluid == null) {
+                    slotCount--;
+                    i--;
+                    continue;
+                }
+
+                data.putInt(key("fluid" + i), Registry.FLUID.getRawId(fluid));
+                data.putDouble(key("storedFluid" + i), invFluid.amount().asInt(1000));
                 data.putDouble(key("maxFluid" + i), attribute.getMaxAmount_F(i).asInt(1000));
             }
+
+            data.putInt(key("fluidSlotCount"), slotCount);
             return true;
         }
 

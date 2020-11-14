@@ -1,12 +1,12 @@
 package badasintended.megane.runtime.component.entity;
 
+import java.util.List;
+
 import badasintended.megane.runtime.MeganeWaila;
 import mcp.mobius.waila.api.IEntityAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
-
-import java.util.List;
 
 import static badasintended.megane.runtime.util.RuntimeUtils.toRoman;
 import static badasintended.megane.util.MeganeUtils.config;
@@ -19,7 +19,7 @@ public class StatusEffectComponent extends EntityComponent {
     }
 
     @Override
-    protected void body(List<Text> tooltip, IEntityAccessor accessor) {
+    protected void append(List<Text> tooltip, IEntityAccessor accessor) {
         CompoundTag data = accessor.getServerData();
 
         for (int i = 0; i < data.getInt(key("effectSize")); i++) {

@@ -1,14 +1,16 @@
-package badasintended.megane.impl.mixin.ae2;
+package badasintended.megane.impl.mixin.appliedenergistics2;
+
+import java.util.List;
 
 import appeng.integration.modules.waila.BaseWailaDataProvider;
 import appeng.integration.modules.waila.TileWailaDataProvider;
 import appeng.integration.modules.waila.tile.PowerStorageWailaDataProvider;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.List;
 
 @Mixin(TileWailaDataProvider.class)
 public class MTileWailaDataProvider {

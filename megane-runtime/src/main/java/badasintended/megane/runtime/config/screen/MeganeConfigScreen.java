@@ -1,5 +1,8 @@
 package badasintended.megane.runtime.config.screen;
 
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 import badasintended.megane.runtime.config.widget.Side;
 import badasintended.megane.runtime.config.widget.SidedEntry;
 import badasintended.megane.util.MeganeUtils;
@@ -13,10 +16,10 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-import static badasintended.megane.runtime.config.widget.Side.*;
+import static badasintended.megane.runtime.config.widget.Side.AND;
+import static badasintended.megane.runtime.config.widget.Side.CLIENT;
+import static badasintended.megane.runtime.config.widget.Side.PLUS;
+import static badasintended.megane.runtime.config.widget.Side.SERVER;
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 import static badasintended.megane.util.MeganeUtils.config;
 

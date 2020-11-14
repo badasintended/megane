@@ -1,4 +1,4 @@
-package badasintended.megane.impl.mixin.fabricfurnaces;
+package badasintended.megane.impl.mixin.fabric_furnaces;
 
 import draylar.fabricfurnaces.entity.BaseFurnaceEntity;
 import org.spongepowered.asm.mixin.Mixin;

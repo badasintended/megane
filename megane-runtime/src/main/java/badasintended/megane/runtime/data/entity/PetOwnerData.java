@@ -1,5 +1,11 @@
 package badasintended.megane.runtime.data.entity;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.UUID;
+
 import badasintended.megane.runtime.data.Appender;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,9 +15,6 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-
-import java.net.URL;
-import java.util.*;
 
 import static badasintended.megane.util.MeganeUtils.config;
 import static badasintended.megane.util.MeganeUtils.key;

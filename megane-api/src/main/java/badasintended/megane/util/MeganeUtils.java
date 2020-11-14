@@ -18,6 +18,8 @@ public final class MeganeUtils {
     public static final String MODID = "megane";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
+    public static final int CONFIG_VERSION = 1;
+
     public static final JsonConfig<MeganeConfig> CONFIG = new JsonConfig<>(Waila.MODID + "/" + MODID, MeganeConfig.class)
         .withGson(new GsonBuilder()
             .setPrettyPrinting()

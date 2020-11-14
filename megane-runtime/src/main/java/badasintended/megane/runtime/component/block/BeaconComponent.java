@@ -1,11 +1,12 @@
 package badasintended.megane.runtime.component.block;
 
+import java.util.List;
+
 import badasintended.megane.runtime.MeganeWaila;
-import mcp.mobius.waila.api.*;
+import mcp.mobius.waila.api.IDataAccessor;
+import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
-
-import java.util.List;
 
 import static badasintended.megane.runtime.util.RuntimeUtils.toRoman;
 import static badasintended.megane.util.MeganeUtils.config;
@@ -18,7 +19,7 @@ public class BeaconComponent extends BlockComponent {
     }
 
     @Override
-    protected void append(List<Text> tooltip, IDataAccessor accessor, IPluginConfig config) {
+    protected void append(List<Text> tooltip, IDataAccessor accessor) {
         CompoundTag data = accessor.getServerData();
 
         for (int i = 0; i < data.getInt(key("effectSize")); i++) {

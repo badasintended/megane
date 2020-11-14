@@ -2,13 +2,14 @@ package badasintended.megane.runtime.data.block;
 
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.runtime.data.Appender;
-import net.minecraft.block.entity.*;
-import net.minecraft.inventory.Inventories;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EnderChestBlockEntity;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import static badasintended.megane.api.registry.TooltipRegistry.BLOCK_INVENTORY;
@@ -36,14 +37,13 @@ public class BlockInventoryData extends BlockData {
                 data.putBoolean(key("hasInventory"), true);
                 int size = provider.size(blockEntity);
                 data.putInt(key("invSize"), size);
-                DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
 
                 for (int i = 0; i < size; i++) {
-                    stacks.set(i, provider.getStack(blockEntity, i));
+                    ItemStack stack = provider.getStack(blockEntity, i);
+                    data.putInt(key("itemId" + i), Registry.ITEM.getRawId(stack.getItem()));
+                    data.putInt(key("itemCount" + i), stack.getCount());
+                    data.put(key("itemTag" + i), stack.getOrCreateTag());
                 }
-                CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
-
-                data.put(key("inventory"), invTag);
                 return true;
             } catch (Exception e) {
                 errorData(BLOCK_INVENTORY, blockEntity, e);
@@ -68,14 +68,14 @@ public class BlockInventoryData extends BlockData {
             data.putBoolean(key("hasInventory"), true);
             int size = inventory.size();
             data.putInt(key("invSize"), size);
-            DefaultedList<ItemStack> stacks = DefaultedList.ofSize(size, ItemStack.EMPTY);
 
             for (int i = 0; i < size; i++) {
-                stacks.set(i, inventory.getStack(i));
+                ItemStack stack = inventory.getStack(i);
+                data.putInt(key("itemId" + i), Registry.ITEM.getRawId(stack.getItem()));
+                data.putInt(key("itemCount" + i), stack.getCount());
+                data.put(key("itemTag" + i), stack.getOrCreateTag());
             }
-            CompoundTag invTag = Inventories.toTag(new CompoundTag(), stacks);
 
-            data.put(key("inventory"), invTag);
             return true;
         }
 

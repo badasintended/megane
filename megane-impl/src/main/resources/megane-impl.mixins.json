@@ -3,17 +3,17 @@
   "minVersion"        : "0.8",
   "package"           : "badasintended.megane.impl.mixin",
   "compatibilityLevel": "JAVA_8",
+  "injectors"         : {
+    "defaultRequire": 1
+  },
   "mixins"            : [
-    "ae2.MTileWailaDataProvider",
-    "fabricfurnaces.ABaseFurnaceEntity",
+    "appliedenergistics2.MTileWailaDataProvider",
+    "artofalchemy.AProgress",
+    "fabric_furnaces.ABaseFurnaceEntity",
     "minecraft.AHorseBaseEntity",
     "modern_industrialization.ACreativeTankBlockEntity",
     "modern_industrialization.AMachineBlockEntity",
     "modern_industrialization.AMultiblockMachineBlockEntity",
     "modern_industrialization.ATankBlockEntity"
-  ],
-  "client"            : [],
-  "injectors"         : {
-    "defaultRequire": 1
-  }
+  ]
 }

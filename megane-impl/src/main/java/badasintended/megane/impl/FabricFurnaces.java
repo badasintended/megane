@@ -2,7 +2,7 @@ package badasintended.megane.impl;
 
 import badasintended.megane.api.MeganeEntrypoint;
 import badasintended.megane.api.provider.ProgressProvider;
-import badasintended.megane.impl.mixin.fabricfurnaces.ABaseFurnaceEntity;
+import badasintended.megane.impl.mixin.fabric_furnaces.ABaseFurnaceEntity;
 import badasintended.megane.impl.util.A;
 import draylar.fabricfurnaces.entity.BaseFurnaceEntity;
 import net.minecraft.inventory.Inventory;

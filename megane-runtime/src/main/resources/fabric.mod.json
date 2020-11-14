@@ -3,7 +3,12 @@
   "id"           : "megane-runtime",
   "version"      : "${version}",
   "description"  : "for things to work",
-  "authors"      : ["deirn"],
+  "authors"      : [
+    "deirn"
+  ],
+  "contributors" : [
+    "qsefthuopq - Chinese Translator"
+  ],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
     "sources" : "https://github.com/badasintended/megane",
@@ -13,8 +18,12 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "main"   : ["badasintended.megane.runtime.MeganeInit"],
-    "modmenu": ["badasintended.megane.runtime.config.MeganeModMenu"]
+    "main"   : [
+      "badasintended.megane.runtime.MeganeInit"
+    ],
+    "modmenu": [
+      "badasintended.megane.runtime.config.MeganeModMenu"
+    ]
   },
   "mixins"       : [
     "megane-runtime.mixins.json"

@@ -11,7 +11,10 @@ import team.reborn.energy.EnergyHandler;
 
 import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
 import static badasintended.megane.runtime.util.RuntimeUtils.errorData;
-import static badasintended.megane.util.MeganeUtils.*;
+import static badasintended.megane.util.MeganeUtils.LOGGER;
+import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.hasMod;
+import static badasintended.megane.util.MeganeUtils.key;
 
 public class EnergyData extends BlockData {
 
