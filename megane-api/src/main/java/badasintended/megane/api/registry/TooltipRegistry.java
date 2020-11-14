@@ -10,6 +10,7 @@ import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
@@ -24,8 +25,15 @@ public class TooltipRegistry {
     public static final BaseTooltipRegistry<LivingEntity, InventoryProvider<? extends LivingEntity>> ENTITY_INVENTORY = new BaseTooltipRegistry<>(LivingEntity.class);
     public static final BaseTooltipRegistry<BlockEntity, ProgressProvider<? extends BlockEntity>> PROGRESS = new BaseTooltipRegistry<>(BlockEntity.class);
 
-    @Environment(EnvType.CLIENT)
-    public static final FluidInfoRegistry FLUID_INFO = new FluidInfoRegistry();
+    /**
+     * only available on client, will throws NPE when used on server
+     **/
+    public static final FluidInfoRegistry FLUID_INFO;
+
+    static {
+        EnvType env = FabricLoader.getInstance().getEnvironmentType();
+        FLUID_INFO = env == EnvType.CLIENT ? new FluidInfoRegistry() : null;
+    }
 
     @Environment(EnvType.CLIENT)
     public static class FluidInfoRegistry extends BaseTooltipRegistry<Fluid, FluidInfoProvider<? extends Fluid>> {

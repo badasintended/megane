@@ -2,7 +2,7 @@ package badasintended.megane.impl;
 
 import java.util.function.Function;
 
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.util.A;
@@ -24,12 +24,7 @@ import net.minecraft.item.ItemStack;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
-public class Astromine implements MeganeEntrypoint {
-
-    @Override
-    public String[] dependencies() {
-        return new String[]{"astromine-technologies"};
-    }
+public class Astromine implements MeganeModule {
 
     private <T extends ComponentEnergyInventoryBlockEntity> void progressItem(Class<T> clazz, int[] input, int[] output, Function<T, Double> progress) {
         PROGRESS.register(clazz, ProgressProvider.of(

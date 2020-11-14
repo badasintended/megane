@@ -1,6 +1,6 @@
 package badasintended.megane.impl;
 
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.mixin.fabric_furnaces.ABaseFurnaceEntity;
 import badasintended.megane.impl.util.A;
@@ -10,12 +10,7 @@ import net.minecraft.inventory.Inventory;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 
-public class FabricFurnaces implements MeganeEntrypoint {
-
-    @Override
-    public String[] dependencies() {
-        return new String[]{"fabric-furnaces"};
-    }
+public class FabricFurnaces implements MeganeModule {
 
     @Override
     public void initialize() {

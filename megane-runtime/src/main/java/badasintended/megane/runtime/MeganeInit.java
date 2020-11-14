@@ -2,15 +2,15 @@ package badasintended.megane.runtime;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.Arrays;
 
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.config.MeganeConfig;
-import badasintended.megane.util.MeganeUtils;
 import mcp.mobius.waila.Waila;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.metadata.CustomValue;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 
 import static badasintended.megane.runtime.util.RuntimeUtils.oldConfigVersion;
 import static badasintended.megane.runtime.util.RuntimeUtils.showUpdatedConfigToast;
@@ -19,6 +19,7 @@ import static badasintended.megane.util.MeganeUtils.CONFIG_VERSION;
 import static badasintended.megane.util.MeganeUtils.LOGGER;
 import static badasintended.megane.util.MeganeUtils.MODID;
 import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.hasMod;
 
 public class MeganeInit implements ModInitializer {
 
@@ -54,18 +55,31 @@ public class MeganeInit implements ModInitializer {
             CONFIG.save();
         }
 
-        loader.getEntrypointContainers("megane", MeganeEntrypoint.class).forEach(val -> {
-            MeganeEntrypoint entry = val.getEntrypoint();
-            String[] deps = entry.dependencies();
-            boolean satisfied = deps.length == 0 || Arrays.stream(deps).allMatch(MeganeUtils::hasMod);
-            String className = entry.getClass().getName();
-            String id = val.getProvider().getMetadata().getId();
-            if (satisfied) {
-                entry.initialize();
-                if (loader.getEnvironmentType() == EnvType.CLIENT) entry.initializeClient();
-                LOGGER.info("[megane] Loaded {} from {}", className, id);
-            } else {
-                LOGGER.warn("[megane] {} from {} needs {} to load", className, id, deps);
+        loader.getAllMods().forEach(mod -> {
+            ModMetadata metadata = mod.getMetadata();
+            String id = metadata.getId();
+            if (metadata.containsCustomValue("megane:modules")) {
+                metadata.getCustomValue("megane:modules").getAsArray().forEach(value -> {
+                    boolean satisfied = true;
+                    String className;
+                    if (value.getType() == CustomValue.CvType.OBJECT) {
+                        CustomValue.CvObject object = value.getAsObject();
+                        className = object.get("init").getAsString();
+                        if (object.containsKey("deps")) for (CustomValue dep : object.get("deps").getAsArray()) {
+                            satisfied = satisfied && hasMod(dep.getAsString());
+                        }
+                    } else {
+                        className = value.getAsString();
+                    }
+                    if (satisfied) try {
+                        MeganeModule entry = (MeganeModule) Class.forName(className).newInstance();
+                        entry.initialize();
+                        if (loader.getEnvironmentType() == EnvType.CLIENT) entry.initializeClient();
+                        LOGGER.info("[megane] Loaded {} from {}", className, id);
+                    } catch (Exception e) {
+                        //
+                    }
+                });
             }
         });
     }

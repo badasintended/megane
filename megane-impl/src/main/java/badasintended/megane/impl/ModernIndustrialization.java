@@ -15,7 +15,7 @@ import aztech.modern_industrialization.machines.impl.MachineBlockEntity;
 import aztech.modern_industrialization.machines.impl.MachineFactory;
 import aztech.modern_industrialization.machines.impl.multiblock.HatchBlockEntity;
 import aztech.modern_industrialization.machines.impl.multiblock.MultiblockMachineBlockEntity;
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
@@ -40,12 +40,7 @@ import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 import static badasintended.megane.util.MeganeUtils.intRange;
 
-public class ModernIndustrialization implements MeganeEntrypoint {
-
-    @Override
-    public String[] dependencies() {
-        return new String[]{"modern_industrialization"};
-    }
+public class ModernIndustrialization implements MeganeModule {
 
     @Override
     public void initialize() {

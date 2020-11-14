@@ -1,6 +1,6 @@
 package badasintended.megane.impl;
 
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.mixin.artofalchemy.AProgress;
@@ -26,15 +26,10 @@ import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 import static badasintended.megane.util.MeganeUtils.id;
 
-public class ArtOfAlchemy implements MeganeEntrypoint {
+public class ArtOfAlchemy implements MeganeModule {
 
     private static final Fluid FAKE_ESSENTIA = new EmptyFluid();
     private static final Text ESSENTIA_NAME = new TranslatableText("essentia.artofalchemy");
-
-    @Override
-    public String[] dependencies() {
-        return new String[]{"artofalchemy"};
-    }
 
     @Override
     public void initialize() {

@@ -1,6 +1,6 @@
 package badasintended.megane.impl;
 
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.impl.mixin.minecraft.AHorseBaseEntity;
@@ -22,7 +22,7 @@ import static badasintended.megane.api.registry.TooltipRegistry.BLOCK_INVENTORY;
 import static badasintended.megane.api.registry.TooltipRegistry.ENTITY_INVENTORY;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 
-public class Minecraft implements MeganeEntrypoint {
+public class Minecraft implements MeganeModule {
 
     private static final Text WATER_NAME = new TranslatableText("block.minecraft.water");
     private static final Text LAVA_NAME = new TranslatableText("block.minecraft.lava");

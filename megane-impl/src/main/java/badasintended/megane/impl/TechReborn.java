@@ -1,6 +1,6 @@
 package badasintended.megane.impl;
 
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.util.A;
@@ -58,16 +58,11 @@ import static techreborn.init.ModFluids.SULFURIC_ACID;
 import static techreborn.init.ModFluids.TRITIUM;
 import static techreborn.init.ModFluids.WOLFRAMIUM;
 
-public class TechReborn implements MeganeEntrypoint {
+public class TechReborn implements MeganeModule {
 
     private static final int[] A_012345 = new int[]{0, 1, 2, 3, 4, 5};
     private static final int[] A_6789AB = new int[]{6, 7, 8, 9, 10, 11};
     private static final int[] A_9 = new int[]{9};
-
-    @Override
-    public String[] dependencies() {
-        return new String[]{"techreborn"};
-    }
 
     @Override
     @SuppressWarnings({"ConstantConditions", "deprecation"})

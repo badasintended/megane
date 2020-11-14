@@ -17,23 +17,45 @@
   "mixins"       : [
     "megane-impl.mixins.json"
   ],
-  "entrypoints"  : {
-    "megane": [
-      "badasintended.megane.impl.AppliedEnergistics2",
-      "badasintended.megane.impl.Astromine",
-      "badasintended.megane.impl.ArtOfAlchemy",
-      "badasintended.megane.impl.FabricFurnaces",
-      "badasintended.megane.impl.IndustrialRevolution",
-      "badasintended.megane.impl.Kibe",
-      "badasintended.megane.impl.Minecraft",
-      "badasintended.megane.impl.ModernIndustrialization",
-      "badasintended.megane.impl.TechReborn"
-    ]
-  },
   "depends"      : {
     "megane-api": "*"
   },
   "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.Minecraft",
+      {
+        "deps": ["appliedenergistics2"],
+        "init": "badasintended.megane.impl.AppliedEnergistics2"
+      },
+      {
+        "deps": ["artofalchemy"],
+        "init": "badasintended.megane.impl.Astromine"
+      },
+      {
+        "deps": ["astromine-technologies"],
+        "init": "badasintended.megane.impl.ArtOfAlchemy"
+      },
+      {
+        "deps": ["fabric-furnaces"],
+        "init": "badasintended.megane.impl.FabricFurnaces"
+      },
+      {
+        "deps": ["indrev"],
+        "init": "badasintended.megane.impl.IndustrialRevolution"
+      },
+      {
+        "deps": ["kibe"],
+        "init": "badasintended.megane.impl.Kibe"
+      },
+      {
+        "deps": ["modern_industrialization"],
+        "init": "badasintended.megane.impl.ModernIndustrialization"
+      },
+      {
+        "deps": ["techreborn"],
+        "init": "badasintended.megane.impl.TechReborn"
+      }
+    ],
     "modmenu:parent": "megane"
   }
 }

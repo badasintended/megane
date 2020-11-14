@@ -1,7 +1,7 @@
 package badasintended.megane.impl;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
@@ -17,14 +17,9 @@ import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
-public class IndustrialRevolution implements MeganeEntrypoint {
+public class IndustrialRevolution implements MeganeModule {
 
     private static final String[] DEP = new String[]{"indrev"};
-
-    @Override
-    public String[] dependencies() {
-        return DEP;
-    }
 
     @Override
     @SuppressWarnings("ConstantConditions")

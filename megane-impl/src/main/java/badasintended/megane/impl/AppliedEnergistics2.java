@@ -3,7 +3,7 @@ package badasintended.megane.impl;
 import appeng.api.networking.energy.IAEPowerStorage;
 import appeng.tile.AEBaseBlockEntity;
 import appeng.tile.misc.InscriberBlockEntity;
-import badasintended.megane.api.MeganeEntrypoint;
+import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.util.A;
@@ -11,12 +11,7 @@ import badasintended.megane.impl.util.A;
 import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
-public class AppliedEnergistics2 implements MeganeEntrypoint {
-
-    @Override
-    public String[] dependencies() {
-        return new String[]{"appliedenergistics2"};
-    }
+public class AppliedEnergistics2 implements MeganeModule {
 
     @Override
     public void initialize() {
