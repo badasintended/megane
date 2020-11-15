@@ -29,11 +29,11 @@
       },
       {
         "deps": ["artofalchemy"],
-        "init": "badasintended.megane.impl.Astromine"
+        "init": "badasintended.megane.impl.ArtOfAlchemy"
       },
       {
         "deps": ["astromine-technologies"],
-        "init": "badasintended.megane.impl.ArtOfAlchemy"
+		"init": "badasintended.megane.impl.Astromine",
       },
       {
         "deps": ["fabric-furnaces"],
