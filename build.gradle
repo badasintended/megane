@@ -12,7 +12,12 @@ plugins {
     id 'fabric-loom' version '0.4-SNAPSHOT' apply false
 }
 
-version = "${project.mod}+${project.minecraft}"
+def versionEnv = System.getenv("MOD_VERSION")
+if (versionEnv == null || versionEnv.isBlank()) {
+    versionEnv = "SNAPSHOT"
+}
+
+version = "${versionEnv}+${project.minecraft}"
 
 allprojects {
     apply plugin: 'maven-publish'
