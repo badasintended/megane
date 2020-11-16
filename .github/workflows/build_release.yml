@@ -26,4 +26,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["./build/libs/*[0-9.].jar", ".megane-*/build/libs/*[0-9.].jar"]'
+          asset_paths: '["./build/libs/*[0-9.].jar", "./megane-*/build/libs/*[0-9.].jar"]'
