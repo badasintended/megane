@@ -9,7 +9,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import static badasintended.megane.api.registry.TooltipRegistry.BLOCK_INVENTORY;
@@ -40,9 +39,7 @@ public class BlockInventoryData extends BlockData {
 
                 for (int i = 0; i < size; i++) {
                     ItemStack stack = provider.getStack(blockEntity, i);
-                    data.putInt(key("itemId" + i), Registry.ITEM.getRawId(stack.getItem()));
-                    data.putInt(key("itemCount" + i), stack.getCount());
-                    data.put(key("itemTag" + i), stack.getOrCreateTag());
+                    data.put(key("item" + i), stack.toTag(new CompoundTag()));
                 }
                 return true;
             } catch (Exception e) {
@@ -71,9 +68,7 @@ public class BlockInventoryData extends BlockData {
 
             for (int i = 0; i < size; i++) {
                 ItemStack stack = inventory.getStack(i);
-                data.putInt(key("itemId" + i), Registry.ITEM.getRawId(stack.getItem()));
-                data.putInt(key("itemCount" + i), stack.getCount());
-                data.put(key("itemTag" + i), stack.getOrCreateTag());
+                data.put(key("item" + i), stack.toTag(new CompoundTag()));
             }
 
             return true;
