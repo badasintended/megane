@@ -6,6 +6,7 @@ import mcp.mobius.waila.gui.config.OptionsEntryButton;
 import mcp.mobius.waila.gui.config.OptionsListWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.text.LiteralText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,7 +17,7 @@ public class MGuiConfigPlugins {
 
     @Inject(method = "getOptions", at = @At("TAIL"), remap = false)
     private void add(CallbackInfoReturnable<OptionsListWidget> cir) {
-        cir.getReturnValue().children().add(0, new OptionsEntryButton("config.waila.megane", new ButtonWidget(0, 0, 100, 20, null, w ->
+        cir.getReturnValue().children().add(0, new OptionsEntryButton("config.waila.megane", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             MinecraftClient.getInstance().openScreen(new MeganeConfigScreen((GuiConfigPlugins) (Object) this))
         )));
     }

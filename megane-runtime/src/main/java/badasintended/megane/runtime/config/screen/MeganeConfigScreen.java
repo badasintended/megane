@@ -13,6 +13,7 @@ import mcp.mobius.waila.gui.config.value.OptionsEntryValueBoolean;
 import mcp.mobius.waila.gui.config.value.OptionsEntryValueInput;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -42,7 +43,7 @@ public class MeganeConfigScreen extends GuiOptions {
     }
 
     private static OptionsEntryButton button(String type, ButtonWidget.PressAction pressAction) {
-        return new OptionsEntryButton(tlKey(type), new ButtonWidget(0, 0, 100, 20, null, pressAction));
+        return new OptionsEntryButton(tlKey(type), new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, pressAction));
     }
 
     private static OptionsEntryValueBoolean bool(String type, boolean value, Consumer<Boolean> consumer) {
