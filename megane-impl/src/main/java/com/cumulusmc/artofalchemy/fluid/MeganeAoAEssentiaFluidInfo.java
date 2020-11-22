@@ -2,6 +2,8 @@ package com.cumulusmc.artofalchemy.fluid;
 
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.util.MeganeUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -12,6 +14,7 @@ import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
  * but i can't really explain why other mod
  * need to access this other than megane
  */
+@Environment(EnvType.CLIENT)
 public class MeganeAoAEssentiaFluidInfo {
 
     private static final Text ALKAHEST_NAME = new TranslatableText("fluid.artofalchemy.alkahest");
