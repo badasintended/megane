@@ -23,7 +23,7 @@ public class ArtOfAlchemy implements MeganeModule {
     @Override
     public void initialize() {
         FLUID.register(BlockEntityDissolver.class, FluidProvider.of(
-            t -> 2, (t, i) -> AoAFluids.ALKAHEST,
+            t -> 1, (t, i) -> AoAFluids.ALKAHEST,
             (t, i) -> (double) t.getAlkahest(),
             (t, i) -> (double) t.getTankSize()
         ));
