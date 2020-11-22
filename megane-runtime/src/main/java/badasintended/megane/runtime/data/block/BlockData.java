@@ -30,7 +30,8 @@ public abstract class BlockData implements IServerDataProvider<BlockEntity> {
         }
 
         for (Appender<BlockEntity> appender : appenders) {
-            if (appender.append(data, player, world, blockEntity)) break;
+            if (appender.append(data, player, world, blockEntity))
+                break;
         }
     }
 

@@ -18,7 +18,8 @@ public class FabricFurnaces implements MeganeModule {
             t -> A.A_01, t -> A.A_2, Inventory::getStack,
             t -> {
                 double total = t.getCookTime();
-                if (total <= 0) return 0;
+                if (total <= 0)
+                    return 0;
                 return (int) ((double) ((ABaseFurnaceEntity) t).getCookTimeProgress() / total * 100);
             }
         ));

@@ -31,7 +31,8 @@ public class BlockInventoryData extends BlockData {
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
             try {
                 InventoryProvider provider = BLOCK_INVENTORY.get(blockEntity);
-                if (provider == null || !provider.hasInventory(blockEntity)) return false;
+                if (provider == null || !provider.hasInventory(blockEntity))
+                    return false;
 
                 data.putBoolean(key("hasInventory"), true);
                 int size = provider.size(blockEntity);
@@ -60,7 +61,8 @@ public class BlockInventoryData extends BlockData {
             } else {
                 inventory = HopperBlockEntity.getInventoryAt(world, blockEntity.getPos());
             }
-            if (inventory == null) return false;
+            if (inventory == null)
+                return false;
 
             data.putBoolean(key("hasInventory"), true);
             int size = inventory.size();

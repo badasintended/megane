@@ -31,7 +31,8 @@ public class InventoryRenderer implements ITooltipRenderer {
         stacks.clear();
         for (int i = 0; i < size; i++) {
             ItemStack stack = ItemStack.fromTag(data.getCompound(key("item" + i)));
-            if (stack.isEmpty()) continue;
+            if (stack.isEmpty())
+                continue;
             Optional<ItemStack> optional = stacks
                 .stream()
                 .filter(j -> j.getItem() == stack.getItem() && j.getOrCreateTag().equals(stack.getOrCreateTag()))
@@ -45,7 +46,8 @@ public class InventoryRenderer implements ITooltipRenderer {
 
         stacks.sort(Comparator.comparingInt(ItemStack::getCount).reversed());
 
-        if (stacks.size() == 0) return new Dimension();
+        if (stacks.size() == 0)
+            return new Dimension();
         return new Dimension(18 * Math.min(stacks.size(), w), 18 * Math.min(stacks.size() / w + 1, h) + 2);
     }
 

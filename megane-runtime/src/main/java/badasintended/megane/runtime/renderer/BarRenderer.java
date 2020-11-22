@@ -55,7 +55,8 @@ public class BarRenderer implements ITooltipRenderer {
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
         String prefix = data.getString(key("prefix"));
-        if (data.getBoolean(key("translate"))) prefix = I18n.translate(prefix);
+        if (data.getBoolean(key("translate")))
+            prefix = I18n.translate(prefix);
         int prefixWidth = textRenderer().getWidth(prefix);
         int textWidth = textRenderer().getWidth(getValString(data));
         align = Math.max(prefixWidth, align);
@@ -84,12 +85,18 @@ public class BarRenderer implements ITooltipRenderer {
         double brightness = getBrightness(color);
         int overlay = 0;
 
-        if (brightness < 0.25) overlay = 0x08FFFFFF;
-        else if (brightness > 0.90) overlay = 0x80000000;
-        else if (brightness > 0.80) overlay = 0x70000000;
-        else if (brightness > 0.70) overlay = 0x60000000;
-        else if (brightness > 0.60) overlay = 0x50000000;
-        else if (brightness > 0.50) overlay = 0x40000000;
+        if (brightness < 0.25)
+            overlay = 0x08FFFFFF;
+        else if (brightness > 0.90)
+            overlay = 0x80000000;
+        else if (brightness > 0.80)
+            overlay = 0x70000000;
+        else if (brightness > 0.70)
+            overlay = 0x60000000;
+        else if (brightness > 0.60)
+            overlay = 0x50000000;
+        else if (brightness > 0.50)
+            overlay = 0x40000000;
 
         fill(matrices, barX, y, barX + 100, y + 11, overlay);
 

@@ -34,7 +34,8 @@ public class EnergyData extends BlockData {
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
             try {
                 EnergyProvider energyProvider = ENERGY.get(blockEntity);
-                if (energyProvider == null || !energyProvider.hasEnergy(blockEntity)) return false;
+                if (energyProvider == null || !energyProvider.hasEnergy(blockEntity))
+                    return false;
                 data.putBoolean(key("hasEnergy"), true);
                 data.putDouble(key("storedEnergy"), energyProvider.getStored(blockEntity));
                 data.putDouble(key("maxEnergy"), energyProvider.getMax(blockEntity));

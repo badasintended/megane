@@ -39,7 +39,8 @@ public class FluidComponent extends BlockComponent {
             for (int i = 0; i < data.getInt(key("fluidSlotCount")); i++) {
 
                 double stored = data.getDouble(key("storedFluid" + i));
-                if (stored == 0) continue;
+                if (stored == 0)
+                    continue;
 
                 double max = data.getDouble(key("maxFluid" + i));
 

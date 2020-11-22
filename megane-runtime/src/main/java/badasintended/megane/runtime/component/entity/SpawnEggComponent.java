@@ -12,7 +12,8 @@ public class SpawnEggComponent implements IEntityComponentProvider {
 
     @Override
     public ItemStack getDisplayItem(IEntityAccessor accessor, IPluginConfig config) {
-        if (!config().getSpawnEgg()) return ItemStack.EMPTY;
+        if (!config().getSpawnEgg())
+            return ItemStack.EMPTY;
         return new ItemStack(SpawnEggItem.forEntity(accessor.getEntity().getType()));
     }
 

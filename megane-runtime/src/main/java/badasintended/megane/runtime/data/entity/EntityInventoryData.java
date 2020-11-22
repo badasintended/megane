@@ -27,7 +27,8 @@ public class EntityInventoryData extends EntityData {
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity livingEntity) {
             try {
                 InventoryProvider provider = ENTITY_INVENTORY.get(livingEntity);
-                if (provider == null || !provider.hasInventory(livingEntity)) return false;
+                if (provider == null || !provider.hasInventory(livingEntity))
+                    return false;
 
                 data.putBoolean(key("hasInventory"), true);
                 int size = provider.size(livingEntity);

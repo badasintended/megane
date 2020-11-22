@@ -27,7 +27,8 @@ public class StatusEffectRenderer implements ITooltipRenderer {
                 i--;
             }
         }
-        if (size <= 0) return new Dimension();
+        if (size <= 0)
+            return new Dimension();
         return new Dimension(size * 20, 20);
     }
 

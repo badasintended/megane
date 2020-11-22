@@ -1,5 +1,5 @@
 name: head
-on: 
+on:
   push:
     branches:
       - '**'

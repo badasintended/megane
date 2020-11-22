@@ -38,7 +38,8 @@ public class FluidData extends BlockData {
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
             try {
                 FluidProvider provider = FLUID.get(blockEntity);
-                if (provider == null || !provider.hasFluid(blockEntity)) return false;
+                if (provider == null || !provider.hasFluid(blockEntity))
+                    return false;
 
                 data.putBoolean(key("hasFluid"), true);
 
@@ -71,7 +72,8 @@ public class FluidData extends BlockData {
         @Override
         public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
             FixedFluidInvView attribute = FluidAttributes.FIXED_INV_VIEW.getFirst(world, blockEntity.getPos());
-            if (attribute instanceof NullVariant) return false;
+            if (attribute instanceof NullVariant)
+                return false;
             data.putBoolean(key("hasFluid"), true);
             data.putBoolean(key("translate"), false);
             int slotCount = attribute.getTankCount();

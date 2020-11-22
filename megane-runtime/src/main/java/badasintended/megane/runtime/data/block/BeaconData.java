@@ -30,7 +30,8 @@ public class BeaconData extends BlockData {
                 if (primary == secondary) {
                     data.putInt(key("effectSize"), 1);
                     data.putInt(key("effectId0"), primary);
-                    if (config().effect.getLevel()) data.putInt(key("effectLv0"), 2);
+                    if (config().effect.getLevel())
+                        data.putInt(key("effectLv0"), 2);
                 } else {
                     data.putInt(key("effectSize"), 2);
                     data.putInt(key("effectId0"), primary);

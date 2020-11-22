@@ -45,11 +45,13 @@ public class BlacklistConfigScreen extends GuiOptions {
             this.textField = new TextFieldWidget(client.textRenderer, 0, 0, 200, 18, new LiteralText(""));
             this.textField.setTextPredicate(s -> s.matches("^[a-z0-9/_.-]*$") || s.matches("^[a-z0-9_.-]*:[a-z0-9/._-]*$"));
             this.textField.setMaxLength(256);
-            if (value != null) this.textField.setText(value.toString());
+            if (value != null)
+                this.textField.setText(value.toString());
             this.textField.setChangedListener(s -> {
                 set.remove(this.value);
                 this.value = new Identifier(s);
-                if (!this.value.getPath().isEmpty()) set.add(this.value);
+                if (!this.value.getPath().isEmpty())
+                    set.add(this.value);
             });
 
             this.removeButton = new ButtonWidget(0, 0, 18, 18, new LiteralText("X"), w -> {

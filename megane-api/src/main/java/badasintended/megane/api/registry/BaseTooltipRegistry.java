@@ -33,15 +33,17 @@ public class BaseTooltipRegistry<T, P extends BaseTooltipRegistry.Provider<? ext
     @Nullable
     @ApiStatus.Internal
     public P get(T v) {
-        if (nulls.contains(v.getClass())) return null;
+        if (nulls.contains(v.getClass()))
+            return null;
 
         Class<?> clazz = v.getClass();
         boolean containsKey = getEntries().containsKey(clazz);
 
-        if (!containsKey) do {
-            clazz = clazz.getSuperclass();
-            containsKey = getEntries().containsKey(clazz);
-        } while (!containsKey && clazz != tClass);
+        if (!containsKey)
+            do {
+                clazz = clazz.getSuperclass();
+                containsKey = getEntries().containsKey(clazz);
+            } while (!containsKey && clazz != tClass);
 
         if (containsKey) {
             P provider = getEntries().get(clazz);
@@ -55,6 +57,7 @@ public class BaseTooltipRegistry<T, P extends BaseTooltipRegistry.Provider<? ext
 
     @SuppressWarnings("unused")
     public interface Provider<T> {
+
     }
 
 }

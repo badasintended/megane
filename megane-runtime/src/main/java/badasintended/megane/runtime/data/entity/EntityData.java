@@ -30,7 +30,8 @@ public abstract class EntityData implements IServerDataProvider<LivingEntity> {
         }
 
         for (Appender<LivingEntity> appender : appenders) {
-            if (appender.append(data, player, world, entity)) break;
+            if (appender.append(data, player, world, entity))
+                break;
         }
     }
 

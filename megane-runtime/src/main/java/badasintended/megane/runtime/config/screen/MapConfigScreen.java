@@ -64,7 +64,8 @@ public class MapConfigScreen<K, V> extends GuiOptions {
             this.keyTextField.setChangedListener(s -> {
                 String prev = this.key;
                 this.key = s;
-                if (!this.key.isEmpty() && !this.val.isEmpty()) consumer.apply(prev, this.key, this.val);
+                if (!this.key.isEmpty() && !this.val.isEmpty())
+                    consumer.apply(prev, this.key, this.val);
             });
             screen.addListener(this.keyTextField);
 
@@ -75,7 +76,8 @@ public class MapConfigScreen<K, V> extends GuiOptions {
             this.valTextField.setChangedListener(s -> {
                 String prev = this.key;
                 this.val = s;
-                if (!this.key.isEmpty() && !this.val.isEmpty()) consumer.apply(prev, this.key, this.val);
+                if (!this.key.isEmpty() && !this.val.isEmpty())
+                    consumer.apply(prev, this.key, this.val);
             });
             screen.addListener(this.valTextField);
 

@@ -40,7 +40,8 @@ public class PetOwnerData extends EntityData {
             } else if (livingEntity instanceof TameableEntity) {
                 ownerUuid = ((TameableEntity) livingEntity).getOwnerUuid();
             }
-            if (ownerUuid == null) return false;
+            if (ownerUuid == null)
+                return false;
 
             data.putBoolean(key("hasOwner"), true);
 

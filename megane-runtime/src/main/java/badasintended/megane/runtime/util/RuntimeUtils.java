@@ -127,9 +127,12 @@ public class RuntimeUtils {
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     public static String suffix(long value) {
-        if (value == Long.MIN_VALUE) return suffix(Long.MIN_VALUE + 1);
-        if (value < 0) return "-" + suffix(-value);
-        if (value < 1000) return Long.toString(value);
+        if (value == Long.MIN_VALUE)
+            return suffix(Long.MIN_VALUE + 1);
+        if (value < 0)
+            return "-" + suffix(-value);
+        if (value < 1000)
+            return Long.toString(value);
 
         Map.Entry<Long, String> e = SUFFIXES.floorEntry(value);
         Long divideBy = e.getKey();
@@ -140,7 +143,8 @@ public class RuntimeUtils {
     }
 
     public static String toRoman(int value) {
-        if (value >= 4000) return String.valueOf(value);
+        if (value >= 4000)
+            return String.valueOf(value);
         int l = ROMAN.floorKey(value);
         if (value == l) {
             return ROMAN.get(value);
