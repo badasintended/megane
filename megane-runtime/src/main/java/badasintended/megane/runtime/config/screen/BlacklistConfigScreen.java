@@ -28,7 +28,7 @@ public class BlacklistConfigScreen extends GuiOptions {
     public OptionsListWidget getOptions() {
         OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30, CONFIG::save);
         this.set.forEach(value -> options.add(new SetEntry(this, options, value, this.set)));
-        options.add(new OptionsEntryButton("config.megane.add", new ButtonWidget(0, 0, 100, 20, null, w ->
+        options.add(new OptionsEntryButton("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             options.children().add(options.children().size() - 1, new SetEntry(this, options, null, set))
         )));
         return options;
