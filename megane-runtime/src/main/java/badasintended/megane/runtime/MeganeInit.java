@@ -2,6 +2,7 @@ package badasintended.megane.runtime;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.config.MeganeConfig;
@@ -58,7 +59,7 @@ public class MeganeInit implements ModInitializer {
 
         loader.getAllMods().forEach(mod -> {
             ModMetadata metadata = mod.getMetadata();
-            String id = metadata.getId();
+            String modId = metadata.getId();
             if (metadata.containsCustomValue("megane:modules")) {
                 metadata.getCustomValue("megane:modules").getAsArray().forEach(value -> {
                     boolean satisfied = true;
@@ -73,15 +74,20 @@ public class MeganeInit implements ModInitializer {
                     } else {
                         className = value.getAsString();
                     }
+                    satisfied = satisfied && config().modules
+                        .computeIfAbsent(modId, s -> new HashMap<>())
+                        .computeIfAbsent(className, s -> true);
+                    CONFIG.save();
                     if (satisfied)
                         try {
                             MeganeModule entry = (MeganeModule) Class.forName(className).newInstance();
                             entry.initialize();
                             if (loader.getEnvironmentType() == EnvType.CLIENT)
                                 entry.initializeClient();
-                            LOGGER.info("[megane] Loaded {} from {}", className, id);
+                            LOGGER.info("[megane] Loaded {} from {}", className, modId);
                         } catch (Exception e) {
-                            //
+                            LOGGER.error("[megane] error when loading {} from {}", className, modId);
+                            e.printStackTrace();
                         }
                 });
             }

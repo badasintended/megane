@@ -14,6 +14,8 @@ public class MeganeConfig {
 
     public int configVersion = 0;
 
+    public final HashMap<String, HashMap<String, Boolean>> modules = new HashMap<>();
+
     public final Inventory inventory = new Inventory();
     public final Inventory entityInventory = new Inventory();
     public final Energy energy = new Energy();
