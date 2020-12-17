@@ -18,19 +18,19 @@ dependencies {
     modCompileOnly "teamreborn:energy:0.1.0"
     modCompileOnly "TechReborn:TechReborn-1.16:3.6.1+build.143"
 
-    modCompileOnly "curse.maven:applied-energistics-2:3100394"
+    modCompileOnly "curse.maven:applied-energistics-2-223794:3117933"
 
-    modCompileOnly "curse.maven:astromine-core:3080151"
-    modCompileOnly "curse.maven:astromine-foundations:3080153"
-    modCompileOnly "curse.maven:astromine-technologies:3080154"
+    modCompileOnly "curse.maven:astromine-core-405058:3080151"
+    modCompileOnly "curse.maven:astromine-foundations-404374:3080153"
+    modCompileOnly "curse.maven:astromine-technologies-404376:3080154"
 
-    modCompileOnly "curse.maven:fabric-furnaces:3049271"
+    modCompileOnly "curse.maven:fabric-furnaces-315534:3049271"
 
-    modCompileOnly "curse.maven:indrev:3104356"
+    modCompileOnly "curse.maven:indrev-391708:3124805"
 
-    modCompileOnly "curse.maven:modern-industrialization:3105236"
+    modCompileOnly "curse.maven:modern-industrialization-405388:3121758"
 
-    modCompileOnly "curse.maven:art-of-alchemy:3106070"
+    modCompileOnly "curse.maven:art-of-alchemy-415339:3106070"
 
-    modCompileOnly "curse.maven:kibe:3108967"
+    modCompileOnly "curse.maven:kibe-388832:3108967"
 }
