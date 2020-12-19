@@ -9,6 +9,7 @@ import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.impl.util.A;
 
 import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class AppliedEnergistics2 implements MeganeModule {
@@ -25,6 +26,11 @@ public class AppliedEnergistics2 implements MeganeModule {
             t -> A.A_012, t -> A.A_3, (t, i) -> t.getInternalInventory().getInvStack(i),
             InscriberBlockEntity::getProcessingTime
         ));
+    }
+
+    @Override
+    public void initializeClient() {
+        ENERGY_INFO.register("appliedenergistics2", 0x64099F, "AE");
     }
 
 }

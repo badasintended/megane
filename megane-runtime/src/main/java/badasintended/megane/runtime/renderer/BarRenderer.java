@@ -11,13 +11,19 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 
+import static badasintended.megane.runtime.util.Keys.B_COLOR;
+import static badasintended.megane.runtime.util.Keys.B_LONG;
+import static badasintended.megane.runtime.util.Keys.B_MAX;
+import static badasintended.megane.runtime.util.Keys.B_PREFIX;
+import static badasintended.megane.runtime.util.Keys.B_STORED;
+import static badasintended.megane.runtime.util.Keys.B_TL;
+import static badasintended.megane.runtime.util.Keys.B_UNIT;
 import static badasintended.megane.runtime.util.RuntimeUtils.align;
 import static badasintended.megane.runtime.util.RuntimeUtils.drawTexture;
 import static badasintended.megane.runtime.util.RuntimeUtils.getBrightness;
 import static badasintended.megane.runtime.util.RuntimeUtils.suffix;
 import static badasintended.megane.runtime.util.RuntimeUtils.textRenderer;
 import static badasintended.megane.util.MeganeUtils.id;
-import static badasintended.megane.util.MeganeUtils.key;
 import static net.minecraft.client.gui.DrawableHelper.fill;
 
 public class BarRenderer implements ITooltipRenderer {
@@ -30,10 +36,10 @@ public class BarRenderer implements ITooltipRenderer {
     }
 
     private String getValString(CompoundTag data) {
-        double stored = data.getDouble(key("stored"));
-        double max = data.getDouble(key("max"));
-        String unit = data.getString(key("unit"));
-        boolean verbose = data.getBoolean(key("verbose"));
+        double stored = data.getDouble(B_STORED);
+        double max = data.getDouble(B_MAX);
+        String unit = data.getString(B_UNIT);
+        boolean verbose = data.getBoolean(B_LONG);
 
         String storedString;
         if (stored < 0 || stored == Double.MAX_VALUE) {
@@ -54,8 +60,8 @@ public class BarRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        String prefix = data.getString(key("prefix"));
-        if (data.getBoolean(key("translate")))
+        String prefix = data.getString(B_PREFIX);
+        if (data.getBoolean(B_TL))
             prefix = I18n.translate(prefix);
         int prefixWidth = textRenderer().getWidth(prefix);
         int textWidth = textRenderer().getWidth(getValString(data));
@@ -65,18 +71,18 @@ public class BarRenderer implements ITooltipRenderer {
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
-        double stored = Math.max(data.getDouble(key("stored")), 0);
-        double max = Math.max(data.getDouble(key("max")), 0);
+        double stored = Math.max(data.getDouble(B_STORED), 0);
+        double max = Math.max(data.getDouble(B_MAX), 0);
 
         float ratio = max == 0 ? 1F : ((float) Math.floor((Math.min((float) (stored / max), 1F)) * 100)) / 100F;
 
-        String prefix = data.getString(key("prefix"));
+        String prefix = data.getString(B_PREFIX);
         textRenderer().drawWithShadow(matrices, prefix, x, y + 2, 0xFFAAAAAA);
 
         int colon = textRenderer().getWidth(": ");
         textRenderer().drawWithShadow(matrices, ": ", x + align, y + 2, 0xFFAAAAAA);
 
-        int color = data.getInt(key("color"));
+        int color = data.getInt(B_COLOR);
 
         int barX = x + align + colon;
         drawTexture(matrices, TEXTURE, barX, y, 100, 11, 0, 0, 1F, 0.5F, color);

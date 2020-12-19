@@ -18,7 +18,7 @@ public final class MeganeUtils {
     public static final String MODID = "megane";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final int CONFIG_VERSION = 1;
+    public static final int CONFIG_VERSION = 2;
 
     public static final JsonConfig<MeganeConfig> CONFIG = new JsonConfig<>(Waila.MODID + "/" + MODID, MeganeConfig.class)
         .withGson(new GsonBuilder()
@@ -27,12 +27,12 @@ public final class MeganeUtils {
             .create()
         );
 
-    public static String key(String key) {
-        return MODID + ".data." + key;
+    public static Identifier id(String path) {
+        return id(MODID, path);
     }
 
-    public static Identifier id(String path) {
-        return new Identifier(MODID, path);
+    public static Identifier id(String namespace, String path) {
+        return new Identifier(namespace, path);
     }
 
     public static boolean hasMod(String id) {

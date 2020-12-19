@@ -33,10 +33,6 @@ public class Minecraft implements MeganeModule {
             t -> 1, (t, i) -> t.getRecord()
         ));
 
-        BLOCK_INVENTORY.register(JukeboxBlockEntity.class, InventoryProvider.of(
-            t -> 1, (t, i) -> t.getRecord()
-        ));
-
         BLOCK_INVENTORY.register(CampfireBlockEntity.class, InventoryProvider.of(
             t -> t.getItemsBeingCooked().size(), (t, i) -> t.getItemsBeingCooked().get(i)
         ));

@@ -35,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static badasintended.megane.api.registry.TooltipRegistry.BLOCK_INVENTORY;
 import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
@@ -166,6 +167,7 @@ public class ModernIndustrialization implements MeganeModule {
     @Environment(EnvType.CLIENT)
     public void initializeClient() {
         FLUID_INFO.register(CraftingFluid.class, FluidInfoProvider.of(f -> f.color, f -> f.key.name));
+        ENERGY_INFO.register("modern_industrialization", 0xB70000, "EU");
     }
 
 }

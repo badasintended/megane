@@ -19,6 +19,7 @@ import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.init.ModFluids;
 
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
@@ -161,6 +162,8 @@ public class TechReborn implements MeganeModule {
         fc(SULFURIC_ACID, 0x86888B);
         fc(TRITIUM, 0xAF1618);
         fc(WOLFRAMIUM, 0x291F35);
+
+        ENERGY_INFO.register("techreborn", 0x800800, "E");
     }
 
 }

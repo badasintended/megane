@@ -9,8 +9,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
+import static badasintended.megane.runtime.util.Keys.S_ID;
+import static badasintended.megane.runtime.util.Keys.S_LV;
+import static badasintended.megane.runtime.util.Keys.S_SIZE;
 import static badasintended.megane.util.MeganeUtils.config;
-import static badasintended.megane.util.MeganeUtils.key;
 
 public class BeaconData extends BlockData {
 
@@ -28,14 +30,14 @@ public class BeaconData extends BlockData {
                 int primary = StatusEffect.getRawId(beacon.getPrimary());
                 int secondary = StatusEffect.getRawId(beacon.getSecondary());
                 if (primary == secondary) {
-                    data.putInt(key("effectSize"), 1);
-                    data.putInt(key("effectId0"), primary);
+                    data.putInt(S_SIZE, 1);
+                    data.putInt(S_ID + 0, primary);
                     if (config().effect.getLevel())
-                        data.putInt(key("effectLv0"), 2);
+                        data.putInt(S_LV + 0, 2);
                 } else {
-                    data.putInt(key("effectSize"), 2);
-                    data.putInt(key("effectId0"), primary);
-                    data.putInt(key("effectId1"), secondary);
+                    data.putInt(S_SIZE, 2);
+                    data.putInt(S_ID + 1, primary);
+                    data.putInt(S_LV + 1, secondary);
                 }
                 return true;
             }

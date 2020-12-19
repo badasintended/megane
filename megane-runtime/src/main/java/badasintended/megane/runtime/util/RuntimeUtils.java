@@ -18,12 +18,15 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import static badasintended.megane.util.MeganeUtils.LOGGER;
 
 public class RuntimeUtils {
+
+    public static final CompoundTag EMPTY_TAG = new CompoundTag();
 
     private static final NavigableMap<Long, String> SUFFIXES = new TreeMap<>();
     private static final NavigableMap<Integer, String> ROMAN = new TreeMap<>();
@@ -115,14 +118,6 @@ public class RuntimeUtils {
 
     public static double getBrightness(int color) {
         return (0.299 * getR(color) + 0.587 * getG(color) + 0.114 * getB(color)) / 255.0;
-    }
-
-    public static boolean tooDark(int color) {
-        return 1 - (0.299 * getR(color) + 0.587 * getG(color) + 0.114 * getB(color)) / 255 > 0.85;
-    }
-
-    public static boolean isLight(int color) {
-        return 1 - (0.299 * getR(color) + 0.587 * getG(color) + 0.114 * getB(color)) / 255 <= 0.5;
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")

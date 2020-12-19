@@ -13,13 +13,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.screen.PropertyDelegate;
 
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class IndustrialRevolution implements MeganeModule {
-
-    private static final String[] DEP = new String[]{"indrev"};
 
     @Override
     @SuppressWarnings("ConstantConditions")
@@ -56,6 +55,7 @@ public class IndustrialRevolution implements MeganeModule {
     @Environment(EnvType.CLIENT)
     public void initializeClient() {
         FLUID_INFO.register(BaseFluid.class, FluidInfoProvider.of(f -> FluidKeys.get(f).renderColor, f -> FluidKeys.get(f).name));
+        ENERGY_INFO.register("indrev", 0x3B4ADE, "LF");
     }
 
 }

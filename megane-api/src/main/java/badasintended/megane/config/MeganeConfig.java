@@ -7,16 +7,16 @@ import java.util.Set;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
-@SuppressWarnings("unused")
+import static badasintended.megane.util.MeganeUtils.id;
+
 public class MeganeConfig {
 
     public int configVersion = 0;
 
     public final HashMap<String, HashMap<String, Boolean>> modules = new HashMap<>();
 
-    public final Inventory inventory = new Inventory();
+    public final BlockInventory inventory = new BlockInventory();
     public final Inventory entityInventory = new Inventory();
     public final Energy energy = new Energy();
     public final Fluid fluid = new Fluid();
@@ -51,15 +51,49 @@ public class MeganeConfig {
 
     }
 
+    public interface Registry {
+
+        boolean isForceRegistry();
+
+        void setForceRegistry(boolean forceRegistry);
+
+    }
+
+    public static class BlockInventory extends Inventory implements Registry {
+
+        private boolean forceRegistry = false;
+
+        @Override
+        public void setForceRegistry(boolean forceRegistry) {
+            this.forceRegistry = forceRegistry;
+        }
+
+        @Override
+        public boolean isForceRegistry() {
+            return forceRegistry;
+        }
+
+    }
+
     public static class Inventory implements Base {
 
         private boolean enabled = true;
+        private boolean itemCount = true;
+        private boolean nbt = false;
         private int maxWidth = 9;
         private int maxHeight = 3;
-        private Set<Identifier> blacklist = new HashSet<>();
+        private final Set<Identifier> blacklist = new HashSet<>();
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
+        }
+
+        public void setItemCount(boolean itemCount) {
+            this.itemCount = itemCount;
+        }
+
+        public void setNbt(boolean nbt) {
+            this.nbt = nbt;
         }
 
         public void setMaxWidth(int maxWidth) {
@@ -70,13 +104,17 @@ public class MeganeConfig {
             this.maxHeight = maxHeight;
         }
 
-        public void setBlacklist(Set<Identifier> blacklist) {
-            this.blacklist = blacklist;
-        }
-
         @Override
         public boolean isEnabled() {
             return enabled;
+        }
+
+        public boolean isItemCount() {
+            return itemCount;
+        }
+
+        public boolean isNbt() {
+            return nbt;
         }
 
         public int getMaxWidth() {
@@ -94,28 +132,21 @@ public class MeganeConfig {
 
     }
 
-    public static class Energy implements Base {
+    public static class Energy implements Base, Registry {
 
         private boolean enabled = true;
         private boolean expandWhenSneak = false;
-        private Map<String, Integer> colors = new HashMap<>();
-        private Map<String, String> units = new HashMap<>();
-        private Set<Identifier> blacklist = new HashSet<>();
+        private boolean forceRegistry = false;
+        private final Map<String, Integer> colors = new HashMap<>();
+        private final Map<String, String> units = new HashMap<>();
+        private final Set<Identifier> blacklist = new HashSet<>();
 
         public Energy() {
             units.put("megane", "E");
-            units.put("indrev", "LF");
-            units.put("appliedenergistics2", "AE");
-            units.put("modern_industrialization", "EU");
 
             colors.put("megane", 0x710C00);
-            colors.put("astromine", 0x356D95);
-            colors.put("techreborn", 0x800800);
-            colors.put("indrev", 0x3B4ADE);
-            colors.put("appliedenergistics2", 0x64099F);
-            colors.put("modern_industrialization", 0xB70000);
 
-            blacklist.add(new Identifier("appliedenergistics2", "energy_acceptor"));
+            blacklist.add(id("appliedenergistics2", "energy_acceptor"));
         }
 
         public void setEnabled(boolean enabled) {
@@ -126,16 +157,9 @@ public class MeganeConfig {
             this.expandWhenSneak = expandWhenSneak;
         }
 
-        public void setColors(Map<String, Integer> colors) {
-            this.colors = colors;
-        }
-
-        public void setUnits(Map<String, String> units) {
-            this.units = units;
-        }
-
-        public void setBlacklist(Set<Identifier> blacklist) {
-            this.blacklist = blacklist;
+        @Override
+        public void setForceRegistry(boolean forceRegistry) {
+            this.forceRegistry = forceRegistry;
         }
 
         @Override
@@ -145,6 +169,11 @@ public class MeganeConfig {
 
         public boolean isExpandWhenSneak() {
             return expandWhenSneak;
+        }
+
+        @Override
+        public boolean isForceRegistry() {
+            return forceRegistry;
         }
 
         public Map<String, String> getUnits() {
@@ -162,12 +191,17 @@ public class MeganeConfig {
 
     }
 
-    public static class Fluid implements Base {
+    public static class Fluid implements Base, Registry {
 
         private boolean enabled = true;
         private boolean expandWhenSneak = false;
-        private int barColor = 0xFF0D0D59;
-        private Set<Identifier> blacklist = new HashSet<>();
+        private boolean forceRegistry = false;
+        private final Map<Identifier, Integer> colors = new HashMap<>();
+        private final Set<Identifier> blacklist = new HashSet<>();
+
+        public Fluid() {
+            colors.put(id("default"), 0x0D0D59);
+        }
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
@@ -177,12 +211,9 @@ public class MeganeConfig {
             this.expandWhenSneak = expandWhenSneak;
         }
 
-        public void setBarColor(int barColor) {
-            this.barColor = barColor;
-        }
-
-        public void setBlacklist(Set<Identifier> blacklist) {
-            this.blacklist = blacklist;
+        @Override
+        public void setForceRegistry(boolean forceRegistry) {
+            this.forceRegistry = forceRegistry;
         }
 
         @Override
@@ -194,8 +225,13 @@ public class MeganeConfig {
             return expandWhenSneak;
         }
 
-        public int getBarColor() {
-            return barColor;
+        @Override
+        public boolean isForceRegistry() {
+            return forceRegistry;
+        }
+
+        public Map<Identifier, Integer> getColors() {
+            return colors;
         }
 
         @Override
@@ -209,11 +245,11 @@ public class MeganeConfig {
 
         private boolean enabled = true;
         private boolean showWhenZero = false;
-        private Set<Identifier> blacklist = new HashSet<>();
+        private final Set<Identifier> blacklist = new HashSet<>();
 
         public Progress() {
-            blacklist.add(Registry.BLOCK.getId(Blocks.FURNACE));
-            blacklist.add(Registry.BLOCK.getId(Blocks.BLAST_FURNACE));
+            blacklist.add(net.minecraft.util.registry.Registry.BLOCK.getId(Blocks.FURNACE));
+            blacklist.add(net.minecraft.util.registry.Registry.BLOCK.getId(Blocks.BLAST_FURNACE));
         }
 
         public void setEnabled(boolean enabled) {
@@ -222,10 +258,6 @@ public class MeganeConfig {
 
         public void setShowWhenZero(boolean showWhenZero) {
             this.showWhenZero = showWhenZero;
-        }
-
-        public void setBlacklist(Set<Identifier> blacklist) {
-            this.blacklist = blacklist;
         }
 
         @Override
@@ -248,7 +280,7 @@ public class MeganeConfig {
 
         private boolean enabled = true;
         private boolean offline = true;
-        private Set<Identifier> blacklist = new HashSet<>();
+        private final Set<Identifier> blacklist = new HashSet<>();
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
@@ -256,10 +288,6 @@ public class MeganeConfig {
 
         public void setOffline(boolean offline) {
             this.offline = offline;
-        }
-
-        public void setBlacklist(Set<Identifier> blacklist) {
-            this.blacklist = blacklist;
         }
 
         @Override
@@ -284,7 +312,7 @@ public class MeganeConfig {
         private boolean level = true;
         private boolean roman = false;
         private boolean hidden = false;
-        private Set<Identifier> blacklist = new HashSet<>();
+        private final Set<Identifier> blacklist = new HashSet<>();
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
@@ -300,10 +328,6 @@ public class MeganeConfig {
 
         public void setHidden(boolean hidden) {
             this.hidden = hidden;
-        }
-
-        public void setBlacklist(Set<Identifier> blacklist) {
-            this.blacklist = blacklist;
         }
 
         @Override

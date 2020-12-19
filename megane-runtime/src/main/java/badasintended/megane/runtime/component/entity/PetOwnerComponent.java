@@ -9,15 +9,19 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 
+import static badasintended.megane.runtime.util.Keys.O_HAS;
+import static badasintended.megane.runtime.util.Keys.O_NAME;
+import static badasintended.megane.runtime.util.Keys.T_KEY;
+import static badasintended.megane.runtime.util.Keys.T_VAL;
+import static badasintended.megane.runtime.util.Keys.T_VAL_COL;
 import static badasintended.megane.util.MeganeUtils.config;
-import static badasintended.megane.util.MeganeUtils.key;
 
 public class PetOwnerComponent extends EntityComponent {
 
     private static final CompoundTag TAG = new CompoundTag();
 
     static {
-        TAG.putInt(key("valColor"), 0xFFAAAAAA);
+        TAG.putInt(T_VAL_COL, 0xFFAAAAAA);
     }
 
     public PetOwnerComponent() {
@@ -27,9 +31,9 @@ public class PetOwnerComponent extends EntityComponent {
     @Override
     protected void append(List<Text> tooltip, IEntityAccessor accessor) {
         CompoundTag data = accessor.getServerData();
-        if (data.getBoolean(key("hasOwner"))) {
-            TAG.putString(key("key"), I18n.translate("megane.owner"));
-            TAG.putString(key("value"), data.getString(key("owner")));
+        if (data.getBoolean(O_HAS)) {
+            TAG.putString(T_KEY, I18n.translate("megane.owner"));
+            TAG.putString(T_VAL, data.getString(O_NAME));
             tooltip.add(new RenderableTextComponent(MeganeWaila.ALIGNED, TAG));
         }
     }

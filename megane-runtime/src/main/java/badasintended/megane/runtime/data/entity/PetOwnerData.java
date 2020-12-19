@@ -16,8 +16,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
+import static badasintended.megane.runtime.util.Keys.O_HAS;
+import static badasintended.megane.runtime.util.Keys.O_NAME;
 import static badasintended.megane.util.MeganeUtils.config;
-import static badasintended.megane.util.MeganeUtils.key;
 
 public class PetOwnerData extends EntityData {
 
@@ -43,7 +44,7 @@ public class PetOwnerData extends EntityData {
             if (ownerUuid == null)
                 return false;
 
-            data.putBoolean(key("hasOwner"), true);
+            data.putBoolean(O_HAS, true);
 
             String ownerName = NAMES.getOrDefault(ownerUuid, null);
 
@@ -72,7 +73,7 @@ public class PetOwnerData extends EntityData {
                 }
             }
 
-            data.putString(key("owner"), ownerName);
+            data.putString(O_NAME, ownerName);
             return true;
         }
 

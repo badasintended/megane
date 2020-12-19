@@ -9,11 +9,19 @@ import java.util.Optional;
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 
+import static badasintended.megane.runtime.util.Keys.I_COUNT;
+import static badasintended.megane.runtime.util.Keys.I_ID;
+import static badasintended.megane.runtime.util.Keys.I_MAX_H;
+import static badasintended.megane.runtime.util.Keys.I_MAX_W;
+import static badasintended.megane.runtime.util.Keys.I_NBT;
+import static badasintended.megane.runtime.util.Keys.I_SHOW;
+import static badasintended.megane.runtime.util.Keys.I_SIZE;
 import static badasintended.megane.runtime.util.RuntimeUtils.drawStack;
-import static badasintended.megane.util.MeganeUtils.key;
+import static net.minecraft.util.registry.Registry.ITEM;
 
 public class InventoryRenderer implements ITooltipRenderer {
 
@@ -24,21 +32,28 @@ public class InventoryRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        w = data.getInt(key("maxWidth"));
-        h = data.getInt(key("maxHeight"));
-        int size = data.getInt(key("invSize"));
+        w = data.getInt(I_MAX_W);
+        h = data.getInt(I_MAX_H);
+        int size = data.getInt(I_SIZE);
+        boolean showCount = data.getBoolean(I_SHOW);
 
         stacks.clear();
         for (int i = 0; i < size; i++) {
-            ItemStack stack = ItemStack.fromTag(data.getCompound(key("item" + i)));
-            if (stack.isEmpty())
+            Item item = ITEM.get(data.getInt(I_ID + i));
+            int count = showCount ? data.getInt(I_COUNT + i) : 1;
+            CompoundTag nbt = (CompoundTag) data.get(I_NBT + i);
+            if (count <= 0)
                 continue;
+            ItemStack stack = new ItemStack(item, count);
+            stack.setTag(nbt);
             Optional<ItemStack> optional = stacks
                 .stream()
-                .filter(j -> j.getItem() == stack.getItem() && j.getOrCreateTag().equals(stack.getOrCreateTag()))
+                .filter(j -> j.getItem() == stack.getItem() && j.getOrCreateTag().equals(nbt))
                 .findFirst();
             if (optional.isPresent()) {
-                optional.get().increment(stack.getCount());
+                if (showCount) {
+                    optional.get().increment(stack.getCount());
+                }
             } else {
                 stacks.add(stack);
             }

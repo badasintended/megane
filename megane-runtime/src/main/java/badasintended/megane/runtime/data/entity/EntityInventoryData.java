@@ -9,9 +9,16 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
 import static badasintended.megane.api.registry.TooltipRegistry.ENTITY_INVENTORY;
+import static badasintended.megane.runtime.util.Keys.I_COUNT;
+import static badasintended.megane.runtime.util.Keys.I_HAS;
+import static badasintended.megane.runtime.util.Keys.I_ID;
+import static badasintended.megane.runtime.util.Keys.I_NBT;
+import static badasintended.megane.runtime.util.Keys.I_SHOW;
+import static badasintended.megane.runtime.util.Keys.I_SIZE;
+import static badasintended.megane.runtime.util.RuntimeUtils.EMPTY_TAG;
 import static badasintended.megane.runtime.util.RuntimeUtils.errorData;
 import static badasintended.megane.util.MeganeUtils.config;
-import static badasintended.megane.util.MeganeUtils.key;
+import static net.minecraft.util.registry.Registry.ITEM;
 
 public class EntityInventoryData extends EntityData {
 
@@ -30,14 +37,22 @@ public class EntityInventoryData extends EntityData {
                 if (provider == null || !provider.hasInventory(livingEntity))
                     return false;
 
-                data.putBoolean(key("hasInventory"), true);
+                data.putBoolean(I_HAS, true);
+                data.putBoolean(I_SHOW, config().entityInventory.isItemCount());
                 int size = provider.size(livingEntity);
-                data.putInt(key("invSize"), size);
-
                 for (int i = 0; i < size; i++) {
                     ItemStack stack = provider.getStack(livingEntity, i);
-                    data.put(key("item" + i), stack.toTag(new CompoundTag()));
+                    if (stack.isEmpty()) {
+                        size--;
+                        i--;
+                        continue;
+                    }
+                    data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
+                    data.putInt(I_COUNT + i, stack.getCount());
+                    CompoundTag nbt = stack.getTag();
+                    data.put(I_NBT + i, nbt == null || !config().entityInventory.isNbt() ? EMPTY_TAG : nbt);
                 }
+                data.putInt(I_SIZE, size);
                 return true;
             } catch (Exception e) {
                 errorData(ENTITY_INVENTORY, livingEntity, e);

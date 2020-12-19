@@ -1,8 +1,6 @@
 package badasintended.megane.api.registry;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import badasintended.megane.api.provider.EnergyInfoProvider;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
@@ -15,7 +13,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
-import org.jetbrains.annotations.Nullable;
 
 public class TooltipRegistry {
 
@@ -27,18 +24,18 @@ public class TooltipRegistry {
 
     /**
      * only available on client, will throws NPE when used on server
-     **/
+     */
     public static final FluidInfoRegistry FLUID_INFO;
+    public static final EnergyInfoRegistry ENERGY_INFO;
 
     static {
         EnvType env = FabricLoader.getInstance().getEnvironmentType();
         FLUID_INFO = env == EnvType.CLIENT ? new FluidInfoRegistry() : null;
+        ENERGY_INFO = env == EnvType.CLIENT ? new EnergyInfoRegistry() : null;
     }
 
     @Environment(EnvType.CLIENT)
     public static class FluidInfoRegistry extends BaseTooltipRegistry<Fluid, FluidInfoProvider<? extends Fluid>> {
-
-        private final Map<Fluid, FluidInfoProvider<? extends Fluid>> objEntries = new HashMap<>();
 
         private FluidInfoRegistry() {
             super(Fluid.class);
@@ -48,10 +45,16 @@ public class TooltipRegistry {
             objEntries.put(fluid, FluidInfoProvider.of(color, name));
         }
 
-        @Nullable
-        @Override
-        public FluidInfoProvider<? extends Fluid> get(Fluid fluid) {
-            return objEntries.containsKey(fluid) ? objEntries.get(fluid) : super.get(fluid);
+    }
+
+    public static class EnergyInfoRegistry extends BaseTooltipRegistry<String, EnergyInfoProvider<String>> {
+
+        EnergyInfoRegistry() {
+            super(String.class);
+        }
+
+        public void register(String namespace, int color, String unit) {
+            objEntries.put(namespace, EnergyInfoProvider.of(color, unit));
         }
 
     }

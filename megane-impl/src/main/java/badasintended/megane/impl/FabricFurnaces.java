@@ -9,7 +9,6 @@ import net.minecraft.inventory.Inventory;
 
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
-
 public class FabricFurnaces implements MeganeModule {
 
     @Override

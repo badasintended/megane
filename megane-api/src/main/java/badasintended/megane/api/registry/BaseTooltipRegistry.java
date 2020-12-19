@@ -1,10 +1,10 @@
 package badasintended.megane.api.registry;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,8 +12,9 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("unchecked")
 public class BaseTooltipRegistry<T, P extends BaseTooltipRegistry.Provider<? extends T>> {
 
-    protected final Map<Class<? extends T>, P> entries = new HashMap<>();
-    public final Set<Class<?>> nulls = new HashSet<>();
+    protected final Map<T, P> objEntries = new Object2ObjectOpenHashMap<>();
+    protected final Map<Class<? extends T>, P> entries = new Object2ObjectOpenHashMap<>();
+    public final Set<Class<?>> nulls = new ObjectOpenHashSet<>();
 
     private final Class<T> tClass;
 
@@ -30,9 +31,16 @@ public class BaseTooltipRegistry<T, P extends BaseTooltipRegistry.Provider<? ext
         getEntries().put(clazz, (P) provider);
     }
 
+    public <K extends T> void register(K obj, BaseTooltipRegistry.Provider<K> provider) {
+        objEntries.put(obj, (P) provider);
+    }
+
     @Nullable
     @ApiStatus.Internal
     public P get(T v) {
+        if (objEntries.containsKey(v))
+            return objEntries.get(v);
+
         if (nulls.contains(v.getClass()))
             return null;
 

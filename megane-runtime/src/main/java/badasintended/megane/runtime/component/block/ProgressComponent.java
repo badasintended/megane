@@ -8,8 +8,9 @@ import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 
+import static badasintended.megane.runtime.util.Keys.P_HAS;
+import static badasintended.megane.runtime.util.Keys.P_PERCENT;
 import static badasintended.megane.util.MeganeUtils.config;
-import static badasintended.megane.util.MeganeUtils.key;
 
 public class ProgressComponent extends BlockComponent {
 
@@ -20,7 +21,7 @@ public class ProgressComponent extends BlockComponent {
     @Override
     protected void append(List<Text> tooltip, IDataAccessor accessor) {
         CompoundTag data = accessor.getServerData();
-        if (data.getBoolean(key("hasProgress")) && (data.getInt(key("percentage")) > 0 || config().progress.isShowWhenZero())) {
+        if (data.getBoolean(P_HAS) && (data.getInt(P_PERCENT) > 0 || config().progress.isShowWhenZero())) {
             tooltip.add(new RenderableTextComponent(MeganeWaila.PROGRESS, data));
         }
     }

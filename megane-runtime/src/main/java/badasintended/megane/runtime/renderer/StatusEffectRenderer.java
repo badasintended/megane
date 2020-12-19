@@ -12,16 +12,18 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.nbt.CompoundTag;
 
+import static badasintended.megane.runtime.util.Keys.S_ID;
+import static badasintended.megane.runtime.util.Keys.S_LV_STR;
+import static badasintended.megane.runtime.util.Keys.S_SIZE;
 import static badasintended.megane.runtime.util.RuntimeUtils.textRenderer;
-import static badasintended.megane.util.MeganeUtils.key;
 
 public class StatusEffectRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        int size = data.getInt(key("effectSize"));
+        int size = data.getInt(S_SIZE);
         for (int i = 0; i < size; i++) {
-            int id = data.getInt(key("effectId" + i));
+            int id = data.getInt(S_ID + i);
             if (id == -1) {
                 size--;
                 i--;
@@ -36,10 +38,10 @@ public class StatusEffectRenderer implements ITooltipRenderer {
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
         StatusEffectSpriteManager manager = MinecraftClient.getInstance().getStatusEffectSpriteManager();
 
-        int size = data.getInt(key("effectSize"));
+        int size = data.getInt(S_SIZE);
         for (int i = 0; i < size; i++) {
-            String lv = data.getString(key("effectLvStr" + i));
-            StatusEffect statusEffect = StatusEffect.byRawId(data.getInt(key("effectId" + i)));
+            String lv = data.getString(S_LV_STR + i);
+            StatusEffect statusEffect = StatusEffect.byRawId(data.getInt(S_ID + i));
             if (statusEffect != null) {
                 Sprite sprite = manager.getSprite(statusEffect);
                 MinecraftClient.getInstance().getTextureManager().bindTexture(sprite.getAtlas().getId());

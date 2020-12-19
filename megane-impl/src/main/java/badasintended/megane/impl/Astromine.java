@@ -21,6 +21,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemStack;
 
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
@@ -60,6 +61,7 @@ public class Astromine implements MeganeModule {
     @Environment(EnvType.CLIENT)
     public void initializeClient() {
         FLUID_INFO.register(ExtendedFluid.class, FluidInfoProvider.of(ExtendedFluid::getTintColor, t -> t.getBlock().getName()));
+        ENERGY_INFO.register("astromine", 0x356D95, "E");
     }
 
 }

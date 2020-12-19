@@ -39,8 +39,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 import static badasintended.megane.util.MeganeUtils.id;
-import static mcp.mobius.waila.api.TooltipPosition.BODY;
 import static mcp.mobius.waila.api.TooltipPosition.HEAD;
+import static mcp.mobius.waila.api.TooltipPosition.TAIL;
 
 public class MeganeWaila implements IWailaPlugin {
 
@@ -71,9 +71,9 @@ public class MeganeWaila implements IWailaPlugin {
         r.registerComponentProvider(new ComposterComponent(), HEAD, ComposterBlock.class);
         r.registerComponentProvider(new BeeHiveComponent(), HEAD, BeehiveBlock.class);
 
-        r.registerComponentProvider(new BlockInventoryComponent(), BODY, BLOCK);
-        r.registerComponentProvider(new ProgressComponent(), BODY, BLOCK);
-        r.registerComponentProvider(new BeaconComponent(), BODY, BeaconBlock.class);
+        r.registerComponentProvider(new BlockInventoryComponent(), TAIL, BLOCK);
+        r.registerComponentProvider(new ProgressComponent(), TAIL, BLOCK);
+        r.registerComponentProvider(new BeaconComponent(), TAIL, BeaconBlock.class);
 
 
         // Server Data
@@ -91,8 +91,8 @@ public class MeganeWaila implements IWailaPlugin {
         r.registerComponentProvider(new AlignResetComponent.Entity(), HEAD, ENTITY);
         r.registerComponentProvider(new PetOwnerComponent(), HEAD, ENTITY);
 
-        r.registerComponentProvider(new EntityInventoryComponent(), BODY, ENTITY);
-        r.registerComponentProvider(new StatusEffectComponent(), BODY, ENTITY);
+        r.registerComponentProvider(new EntityInventoryComponent(), TAIL, ENTITY);
+        r.registerComponentProvider(new StatusEffectComponent(), TAIL, ENTITY);
 
         // Server Data
         r.registerEntityDataProvider(new EntityInventoryData(), ENTITY);

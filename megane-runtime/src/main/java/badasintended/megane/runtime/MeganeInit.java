@@ -80,11 +80,11 @@ public class MeganeInit implements ModInitializer {
                     CONFIG.save();
                     if (satisfied)
                         try {
-                            MeganeModule entry = (MeganeModule) Class.forName(className).newInstance();
+                            LOGGER.info("[megane] Loading {} from {}", className, modId);
+                            MeganeModule entry = (MeganeModule) Class.forName(className).getDeclaredConstructor().newInstance();
                             entry.initialize();
                             if (loader.getEnvironmentType() == EnvType.CLIENT)
                                 entry.initializeClient();
-                            LOGGER.info("[megane] Loaded {} from {}", className, modId);
                         } catch (Exception e) {
                             LOGGER.error("[megane] error when loading {} from {}", className, modId);
                             e.printStackTrace();

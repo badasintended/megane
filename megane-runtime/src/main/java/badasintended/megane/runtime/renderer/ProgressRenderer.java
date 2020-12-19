@@ -8,11 +8,20 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
+import static badasintended.megane.runtime.util.Keys.P_I_COUNT;
+import static badasintended.megane.runtime.util.Keys.P_I_ID;
+import static badasintended.megane.runtime.util.Keys.P_I_NBT;
+import static badasintended.megane.runtime.util.Keys.P_I_SIZE;
+import static badasintended.megane.runtime.util.Keys.P_O_COUNT;
+import static badasintended.megane.runtime.util.Keys.P_O_ID;
+import static badasintended.megane.runtime.util.Keys.P_O_NBT;
+import static badasintended.megane.runtime.util.Keys.P_O_SIZE;
+import static badasintended.megane.runtime.util.Keys.P_PERCENT;
 import static badasintended.megane.runtime.util.RuntimeUtils.drawStack;
 import static badasintended.megane.runtime.util.RuntimeUtils.drawTexture;
 import static badasintended.megane.util.MeganeUtils.id;
-import static badasintended.megane.util.MeganeUtils.key;
 
 public class ProgressRenderer implements ITooltipRenderer {
 
@@ -20,17 +29,18 @@ public class ProgressRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
-        return new Dimension((data.getInt(key("inputCount")) + data.getInt(key("outputCount"))) * 18 + 26, 18);
+        return new Dimension((data.getInt(P_I_SIZE) + data.getInt(P_O_SIZE)) * 18 + 26, 18);
     }
 
     @Override
     public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
-        int inputCount = data.getInt(key("inputCount"));
-        int outputCount = data.getInt(key("outputCount"));
-        int progressPixel = (int) (data.getInt(key("percentage")) / 100F * 22);
+        int inputCount = data.getInt(P_I_SIZE);
+        int outputCount = data.getInt(P_O_SIZE);
+        int progressPixel = (int) (data.getInt(P_PERCENT) / 100F * 22);
 
         for (int i = 0; i < inputCount; i++) {
-            ItemStack stack = ItemStack.fromTag(data.getCompound(key("input" + i)));
+            ItemStack stack = new ItemStack(Registry.ITEM.get(data.getInt(P_I_ID + i)), data.getInt(P_I_COUNT + i));
+            stack.setTag(data.getCompound(P_I_NBT));
             if (stack.isEmpty()) {
                 inputCount--;
                 i--;
@@ -43,7 +53,9 @@ public class ProgressRenderer implements ITooltipRenderer {
         drawTexture(matrices, ARROW, x + 2 + (inputCount * 18), y + 1, progressPixel, 16, 0, 0, progressPixel / 22F, 0.5F, 0xFFFFFF);
 
         for (int i = 0; i < outputCount; i++) {
-            drawStack(ItemStack.fromTag(data.getCompound(key("output" + i))), x + (inputCount * 18) + 26 + (i * 18), y + 1);
+            ItemStack stack = new ItemStack(Registry.ITEM.get(data.getInt(P_O_ID + i)), data.getInt(P_O_COUNT + i));
+            stack.setTag(data.getCompound(P_O_NBT));
+            drawStack(stack, x + (inputCount * 18) + 26 + (i * 18), y + 1);
         }
     }
 
