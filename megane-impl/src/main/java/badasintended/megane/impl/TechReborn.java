@@ -14,7 +14,6 @@ import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.ElectricFurnaceBlockEntity;
-import techreborn.blockentity.machine.tier1.RecyclerBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.init.ModFluids;
@@ -93,10 +92,6 @@ public class TechReborn implements MeganeModule {
 
         PROGRESS.register(MatterFabricatorBlockEntity.class, ProgressProvider.of(
             b -> A_012345, b -> A_6789AB, (b, i) -> b.inventory.getStack(i), b -> b.getProgressScaled(100)
-        ));
-
-        PROGRESS.register(RecyclerBlockEntity.class, ProgressProvider.of(
-            b -> A.A_0, b -> A.A_1, (b, i) -> b.getInventory().getStack(i), b -> b.getProgress() * 10
         ));
 
         PROGRESS.register(RollingMachineBlockEntity.class, ProgressProvider.of(

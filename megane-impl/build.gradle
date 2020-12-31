@@ -16,7 +16,7 @@ dependencies {
     modCompileOnly "io.github.cottonmc:LibGui:3.2.2+1.16.3"
 
     modCompileOnly "teamreborn:energy:0.1.0"
-    modCompileOnly "TechReborn:TechReborn-1.16:3.6.1+build.143"
+    modCompileOnly "TechReborn:TechReborn-1.16:3.7.2+build.189"
 
     modCompileOnly "curse.maven:applied-energistics-2-223794:3117933"
 
