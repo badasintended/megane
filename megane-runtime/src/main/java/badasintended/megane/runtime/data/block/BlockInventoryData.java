@@ -55,19 +55,19 @@ public class BlockInventoryData extends BlockData {
 
                 data.putBoolean(I_HAS, true);
                 int size = provider.size(blockEntity);
-                for (int i = 0; i < size; i++) {
-                    ItemStack stack = provider.getStack(blockEntity, i);
+                int i = 0;
+                for (int j = 0; j < size; j++) {
+                    ItemStack stack = provider.getStack(blockEntity, j);
                     if (stack.isEmpty()) {
-                        size--;
-                        i--;
                         continue;
                     }
                     data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
                     data.putInt(I_COUNT + i, stack.getCount());
                     CompoundTag nbt = stack.getTag();
                     data.put(I_NBT + i, nbt == null || !config().inventory.isNbt() ? EMPTY_TAG : nbt);
+                    i++;
                 }
-                data.putInt(I_SIZE, size);
+                data.putInt(I_SIZE, i);
                 return true;
             } catch (Exception e) {
                 errorData(BLOCK_INVENTORY, blockEntity, e);
@@ -92,19 +92,19 @@ public class BlockInventoryData extends BlockData {
 
             data.putBoolean(I_HAS, true);
             int size = inventory.size();
-            for (int i = 0; i < size; i++) {
-                ItemStack stack = inventory.getStack(i);
+            int i = 0;
+            for (int j = 0; j < size; j++) {
+                ItemStack stack = inventory.getStack(j);
                 if (stack.isEmpty()) {
-                    size--;
-                    i--;
                     continue;
                 }
                 data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
                 data.putInt(I_COUNT + i, stack.getCount());
                 CompoundTag nbt = stack.getTag();
                 data.put(I_NBT + i, nbt == null || !config().inventory.isNbt() ? EMPTY_TAG : nbt);
+                i++;
             }
-            data.putInt(I_SIZE, size);
+            data.putInt(I_SIZE, i);
             return true;
         }
 

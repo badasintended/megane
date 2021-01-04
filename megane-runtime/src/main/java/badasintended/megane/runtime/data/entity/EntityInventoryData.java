@@ -40,19 +40,19 @@ public class EntityInventoryData extends EntityData {
                 data.putBoolean(I_HAS, true);
                 data.putBoolean(I_SHOW, config().entityInventory.isItemCount());
                 int size = provider.size(livingEntity);
-                for (int i = 0; i < size; i++) {
-                    ItemStack stack = provider.getStack(livingEntity, i);
+                int i = 0;
+                for (int j = 0; j < size; j++) {
+                    ItemStack stack = provider.getStack(livingEntity, j);
                     if (stack.isEmpty()) {
-                        size--;
-                        i--;
                         continue;
                     }
                     data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
                     data.putInt(I_COUNT + i, stack.getCount());
                     CompoundTag nbt = stack.getTag();
                     data.put(I_NBT + i, nbt == null || !config().entityInventory.isNbt() ? EMPTY_TAG : nbt);
+                    i++;
                 }
-                data.putInt(I_SIZE, size);
+                data.putInt(I_SIZE, i);
                 return true;
             } catch (Exception e) {
                 errorData(ENTITY_INVENTORY, livingEntity, e);
