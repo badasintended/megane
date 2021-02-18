@@ -2,6 +2,7 @@ package badasintended.megane.impl;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import badasintended.megane.api.MeganeModule;
+import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
@@ -13,6 +14,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.screen.PropertyDelegate;
 
+import static badasintended.megane.api.registry.TooltipRegistry.ENERGY;
 import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID;
 import static badasintended.megane.api.registry.TooltipRegistry.FLUID_INFO;
@@ -23,6 +25,11 @@ public class IndustrialRevolution implements MeganeModule {
     @Override
     @SuppressWarnings("ConstantConditions")
     public void initialize() {
+        ENERGY.register(MachineBlockEntity.class, EnergyProvider.of(
+            MachineBlockEntity::getEnergy,
+            MachineBlockEntity::getEnergyCapacity
+        ));
+
         PROGRESS.register(CraftingMachineBlockEntity.class, ProgressProvider.of(
             b -> b.getInventoryComponent().getInventory().getInputSlots(),
             b -> b.getInventoryComponent().getInventory().getOutputSlots(),

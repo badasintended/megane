@@ -1,15 +1,6 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-    }
-}
-
 plugins {
     id 'maven-publish'
-    id 'fabric-loom' version '0.4-SNAPSHOT' apply false
+    id 'fabric-loom' version '0.5-SNAPSHOT' apply false
 }
 
 def versionEnv = System.getenv("MOD_VERSION")
@@ -22,13 +13,17 @@ version = "${versionEnv}+${project.minecraft}"
 allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'fabric-loom'
-    apply plugin: 'com.jfrog.bintray'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
     repositories {
-        maven { url "https://maven.tehnut.info" }
+        maven {
+            url "https://jitpack.io"
+            content {
+                includeGroup "com.github.badasintended"
+            }
+        }
     }
 
     dependencies {
@@ -38,8 +33,7 @@ allprojects {
 
         modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric}"
 
-        modApi "mcp.mobius.waila:Hwyla:${rootProject.hwyla}"
-        modApi "org.jetbrains:annotations:19.0.0"
+        modApi "com.github.badasintended:wthit:${rootProject.wthit}"
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
@@ -61,26 +55,19 @@ allprojects {
             }
         }
 
-        bintray {
-            user = System.getenv("BINTRAY_USER")
-            key = System.getenv("BINTRAY_KEY")
-            publications = ["mavenJava"]
-            publish = true
-            pkg {
-                repo = "fabric"
-                name = project.name
-                userOrg = "badasintended"
-                licenses = ["MIT"]
-                vcsUrl = "https://github.com/badasintended/megane.git"
-                version {
-                    name = project.version
-                    released = new Date()
-                    vcsUrl = "https://github.com/badasintended/megane.git"
-                    gpg {
-                        sign = true
-                    }
-                }
+        tasks.withType(JavaCompile).configureEach {
+            it.options.encoding = "UTF-8"
+            def targetVersion = 8
+            if (JavaVersion.current().isJava9Compatible()) {
+                it.options.release = targetVersion
+            } else {
+                it.sourceCompatibility = JavaVersion.toVersion(targetVersion)
+                it.targetCompatibility = JavaVersion.toVersion(targetVersion)
             }
+        }
+
+        java {
+            withSourcesJar()
         }
     }
 }
@@ -135,7 +122,9 @@ publishing {
     }
 }
 
-subprojects.each { remapJar.dependsOn("${it.path}:remapJar") }
+subprojects.each {
+    remapJar.dependsOn it.remapJar
+}
 
 dependencies {
     afterEvaluate {
