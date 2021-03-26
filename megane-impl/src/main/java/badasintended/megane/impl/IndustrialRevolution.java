@@ -7,7 +7,11 @@ import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import me.steven.indrev.blockentities.MachineBlockEntity;
+import me.steven.indrev.blockentities.crafters.CompressorFactoryBlockEntity;
 import me.steven.indrev.blockentities.crafters.CraftingMachineBlockEntity;
+import me.steven.indrev.blockentities.crafters.ElectricFurnaceFactoryBlockEntity;
+import me.steven.indrev.blockentities.crafters.SolidInfuserFactoryBlockEntity;
+import me.steven.indrev.blockentities.modularworkbench.ModularWorkbenchBlockEntity;
 import me.steven.indrev.blockentities.storage.TankBlockEntity;
 import me.steven.indrev.fluids.BaseFluid;
 import net.fabricmc.api.EnvType;
@@ -22,25 +26,38 @@ import static badasintended.megane.api.registry.TooltipRegistry.PROGRESS;
 
 public class IndustrialRevolution implements MeganeModule {
 
+    public <T extends MachineBlockEntity<?>> void progress(Class<T> clazz, int amount, int currentIndex, int maxIndex) {
+        PROGRESS.register(clazz, ProgressProvider.of(
+            b -> b.getInventoryComponent().getInventory().getInputSlots(),
+            b -> b.getInventoryComponent().getInventory().getOutputSlots(),
+            (b, i) -> b.getInventoryComponent().getInventory().getStack(i),
+            b -> {
+                PropertyDelegate property = b.getPropertyDelegate();
+                int result = 0;
+                int j = 1;
+                for (int i = 0; i < amount; i++) {
+                    double current = property.get(currentIndex + (i * 2));
+                    double max = property.get(maxIndex + (i * 2));
+                    result = Math.max(result, (int) (current / max * 100));
+                }
+                return result;
+            }
+        ));
+    }
+
     @Override
-    @SuppressWarnings("ConstantConditions")
     public void initialize() {
         ENERGY.register(MachineBlockEntity.class, EnergyProvider.of(
             MachineBlockEntity::getEnergy,
             MachineBlockEntity::getEnergyCapacity
         ));
 
-        PROGRESS.register(CraftingMachineBlockEntity.class, ProgressProvider.of(
-            b -> b.getInventoryComponent().getInventory().getInputSlots(),
-            b -> b.getInventoryComponent().getInventory().getOutputSlots(),
-            (b, i) -> b.getInventoryComponent().getInventory().getStack(i),
-            b -> {
-                PropertyDelegate property = b.getPropertyDelegate();
-                double max = property.get(4);
-                double current = property.get(3);
-                return (int) ((max - current) / max * 100);
-            }
-        ));
+        progress(CraftingMachineBlockEntity.class, 1, 4, 5);
+        progress(CompressorFactoryBlockEntity.class, 5, 4, 5);
+        progress(CompressorFactoryBlockEntity.class, 5, 4, 5);
+        progress(SolidInfuserFactoryBlockEntity.class, 5, 4, 5);
+        progress(ElectricFurnaceFactoryBlockEntity.class, 5, 4, 5);
+        progress(ModularWorkbenchBlockEntity.class, 1, 2, 3);
 
         FLUID.register(MachineBlockEntity.class, FluidProvider.of(
             t -> t.getFluidComponent() != null,

@@ -1,6 +1,6 @@
 plugins {
     id 'maven-publish'
-    id 'fabric-loom' version '0.5-SNAPSHOT' apply false
+    id 'fabric-loom' version '0.6-SNAPSHOT' apply false
 }
 
 def versionEnv = System.getenv("MOD_VERSION")
@@ -18,12 +18,7 @@ allprojects {
     targetCompatibility = 1.8
 
     repositories {
-        maven {
-            url "https://jitpack.io"
-            content {
-                includeGroup "com.github.badasintended"
-            }
-        }
+        maven { url "https://bai.jfrog.io/artifactory/maven" }
     }
 
     dependencies {
@@ -33,7 +28,7 @@ allprojects {
 
         modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric}"
 
-        modApi "com.github.badasintended:wthit:${rootProject.wthit}"
+        modApi "mcp.mobius.waila:wthit-fabric:${rootProject.wthit}"
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {

@@ -7,5 +7,5 @@ dependencies {
 
     modImplementation "teamreborn:energy:${rootProject.trEnergy}"
     modImplementation("alexiil.mc.lib:libblockattributes-fluids:${rootProject.lba}") { exclude group: "net.fabricmc.fabric-api" }
-    modImplementation("io.github.prospector:modmenu:${rootProject.modmenu}") { exclude group: "net.fabricmc.fabric-api" }
+    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu}") { exclude group: "net.fabricmc.fabric-api" }
 }

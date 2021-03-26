@@ -18,6 +18,8 @@
     "waila": "*"
   },
   "custom"       : {
-    "modmenu:parent": "megane"
+    "modmenu": {
+      "parent": "megane"
+    }
   }
 }

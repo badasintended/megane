@@ -17,7 +17,7 @@ public class MGuiConfigPlugins {
 
     @Inject(method = "getOptions", at = @At("TAIL"), remap = false)
     private void add(CallbackInfoReturnable<OptionsListWidget> cir) {
-        cir.getReturnValue().children().add(0, new OptionsEntryButton("config.waila.megane", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
+        cir.getReturnValue().children().add(1, new OptionsEntryButton("config.waila.megane", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             MinecraftClient.getInstance().openScreen(new MeganeConfigScreen((GuiConfigPlugins) (Object) this))
         )));
     }

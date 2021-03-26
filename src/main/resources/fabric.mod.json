@@ -5,6 +5,9 @@
   "name"         : "megane",
   "description"  : "hwyla plugin that shows more tooltip than you'll ever want",
   "authors"      : ["deirn"],
+  "contributors" : [
+    "qsefthuopq"
+  ],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
     "sources" : "https://github.com/badasintended/megane",
@@ -19,6 +22,6 @@
   "depends"      : {
     "fabricloader": ">=0.7.4",
     "minecraft"   : "1.16.x",
-    "waila"       : "*"
+    "wthit"       : "*"
   }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mcp.mobius.waila.utils.JsonConfig;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
@@ -16,7 +17,10 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     private static final Logger LOGGER = LogManager.getLogger("megane-impl-mixin");
     private static final String PREFIX = "badasintended.megane.impl.mixin.";
-    private static final JsonConfig<Config> CONFIG = new JsonConfig<>("waila/megane-impl-mixin", Config.class);
+    private static final JsonConfig<Config> CONFIG = new JsonConfig<>(
+        FabricLoader.getInstance().getConfigDir().resolve("waila/megane-impl-mixin.json").toFile(),
+        Config.class
+    );
 
     @Override
     public void onLoad(String mixinPackage) {

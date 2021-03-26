@@ -2,26 +2,26 @@ repositories {
     maven { url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/" }
     maven { url "https://server.bbkr.space/artifactory/libs-release" }
     maven { url "https://mod-buildcraft.com/maven" }
-    maven { url "https://dl.bintray.com/ladysnake/libs" }
+    maven { url "https://ladysnake.jfrog.io/artifactory/mods" }
     maven { url "https://www.cursemaven.com" }
 }
 
 dependencies {
     implementation project(":megane-api")
 
-    modCompileOnly "dev.technici4n:FastTransferLib:0.2.1"
+    modCompileOnly "dev.technici4n:FastTransferLib:0.3.1"
 
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.4"
-    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.4"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.7"
 
-    modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.4"
+    modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.13"
 
-    modCompileOnly "io.github.cottonmc:LibGui:3.2.2+1.16.3"
+    modCompileOnly "io.github.cottonmc:LibGui:3.3.5+1.16.5"
 
     modCompileOnly "teamreborn:energy:0.1.0"
-    modCompileOnly "TechReborn:TechReborn-1.16:3.8.0+build.205"
+    modCompileOnly "TechReborn:TechReborn-1.16:3.8.2+build.220"
 
-    modCompileOnly "curse.maven:applied-energistics-2-223794:3117933"
+    modCompileOnly "curse.maven:applied-energistics-2-223794:3225596"
 
     modCompileOnly "curse.maven:astromine-core-405058:3080151"
     modCompileOnly "curse.maven:astromine-foundations-404374:3080153"
@@ -29,11 +29,11 @@ dependencies {
 
     modCompileOnly "curse.maven:fabric-furnaces-315534:3155774"
 
-    modCompileOnly "curse.maven:indrev-391708:3207757"
+    modCompileOnly "curse.maven:indrev-391708:3233516"
 
-    modCompileOnly "curse.maven:modern-industrialization-405388:3186480"
+    modCompileOnly "curse.maven:modern-industrialization-405388:3232104"
 
     modCompileOnly "curse.maven:art-of-alchemy-415339:3106070"
 
-    modCompileOnly "curse.maven:kibe-388832:3183761"
+    modCompileOnly "curse.maven:kibe-388832:3239422"
 }

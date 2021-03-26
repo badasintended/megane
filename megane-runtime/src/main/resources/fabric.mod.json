@@ -7,7 +7,7 @@
     "deirn"
   ],
   "contributors" : [
-    "qsefthuopq - Simplified Chinese Translator"
+    "qsefthuopq"
   ],
   "contact"      : {
     "homepage": "https://github.com/badasintended/megane",
@@ -39,6 +39,8 @@
       "id"         : "megane:plugin",
       "initializer": "badasintended.megane.runtime.MeganeWaila"
     },
-    "modmenu:parent": "megane"
+    "modmenu": {
+      "parent": "megane"
+    }
   }
 }

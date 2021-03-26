@@ -40,7 +40,7 @@ public class ProgressRenderer implements ITooltipRenderer {
 
         for (int i = 0; i < inputCount; i++) {
             ItemStack stack = new ItemStack(Registry.ITEM.get(data.getInt(P_I_ID + i)), data.getInt(P_I_COUNT + i));
-            stack.setTag(data.getCompound(P_I_NBT));
+            stack.setTag(data.getCompound(P_I_NBT + i));
             if (stack.isEmpty()) {
                 inputCount--;
                 i--;
@@ -54,7 +54,7 @@ public class ProgressRenderer implements ITooltipRenderer {
 
         for (int i = 0; i < outputCount; i++) {
             ItemStack stack = new ItemStack(Registry.ITEM.get(data.getInt(P_O_ID + i)), data.getInt(P_O_COUNT + i));
-            stack.setTag(data.getCompound(P_O_NBT));
+            stack.setTag(data.getCompound(P_O_NBT + i));
             drawStack(stack, x + (inputCount * 18) + 26 + (i * 18), y + 1);
         }
     }

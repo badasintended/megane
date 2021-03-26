@@ -43,26 +43,36 @@ public class ProgressData extends BlockData {
 
                     int[] inputs = provider.getInputSlots(blockEntity);
                     int[] outputs = provider.getOutputSlots(blockEntity);
-                    data.putInt(P_I_SIZE, inputs.length);
-                    data.putInt(P_O_SIZE, outputs.length);
 
+                    int i = 0;
                     for (int input : inputs) {
                         ItemStack stack = provider.getStack(blockEntity, input);
+                        if (stack.isEmpty()) {
+                            continue;
+                        }
                         CompoundTag tag = stack.getTag();
-                        data.putInt(P_I_ID, Registry.ITEM.getRawId(stack.getItem()));
-                        data.putInt(P_I_COUNT, stack.getCount());
-                        data.put(P_I_NBT, tag == null ? EMPTY_TAG : tag);
+                        data.putInt(P_I_ID + i, Registry.ITEM.getRawId(stack.getItem()));
+                        data.putInt(P_I_COUNT + i, stack.getCount());
+                        data.put(P_I_NBT + i, tag == null ? EMPTY_TAG : tag);
+                        i++;
                     }
+                    data.putInt(P_I_SIZE, i);
 
                     data.putInt(P_PERCENT, provider.getPercentage(blockEntity));
 
+                    i = 0;
                     for (int output : outputs) {
                         ItemStack stack = provider.getStack(blockEntity, output);
+                        if (stack.isEmpty()) {
+                            continue;
+                        }
                         CompoundTag tag = stack.getTag();
-                        data.putInt(P_O_ID, Registry.ITEM.getRawId(stack.getItem()));
-                        data.putInt(P_O_COUNT, stack.getCount());
-                        data.put(P_O_NBT, tag == null ? EMPTY_TAG : tag);
+                        data.putInt(P_O_ID + i, Registry.ITEM.getRawId(stack.getItem()));
+                        data.putInt(P_O_COUNT + i, stack.getCount());
+                        data.put(P_O_NBT + i, tag == null ? EMPTY_TAG : tag);
+                        i++;
                     }
+                    data.putInt(P_O_SIZE, outputs.length);
 
                     return true;
                 }
