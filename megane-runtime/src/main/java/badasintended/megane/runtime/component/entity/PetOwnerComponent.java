@@ -2,7 +2,7 @@ package badasintended.megane.runtime.component.entity;
 
 import java.util.List;
 
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IEntityAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.client.resource.language.I18n;
@@ -34,7 +34,7 @@ public class PetOwnerComponent extends EntityComponent {
         if (data.getBoolean(O_HAS)) {
             TAG.putString(T_KEY, I18n.translate("megane.owner"));
             TAG.putString(T_VAL, data.getString(O_NAME));
-            tooltip.add(new RenderableTextComponent(MeganeWaila.ALIGNED, TAG));
+            tooltip.add(new RenderableTextComponent(Megane.ALIGNED, TAG));
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import badasintended.megane.api.provider.EnergyInfoProvider;
 import badasintended.megane.config.MeganeConfig;
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.client.resource.language.I18n;
@@ -78,7 +78,7 @@ public class EnergyComponent extends BlockComponent {
             TAG.putDouble(B_MAX, max);
             TAG.putBoolean(B_LONG, expand);
             TAG.putString(B_UNIT, unit);
-            tooltip.add(new RenderableTextComponent(MeganeWaila.BAR, TAG));
+            tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
         }
     }
 

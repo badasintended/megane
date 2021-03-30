@@ -18,12 +18,7 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "main"   : [
-      "badasintended.megane.runtime.MeganeInit"
-    ],
-    "modmenu": [
-      "badasintended.megane.runtime.config.MeganeModMenu"
-    ]
+    "modmenu": ["badasintended.megane.runtime.config.MeganeModMenu"]
   },
   "mixins"       : [
     "megane-runtime.mixins.json"
@@ -31,15 +26,15 @@
   "depends"      : {
     "fabricloader": ">=0.7.4",
     "minecraft"   : "1.16.x",
-    "waila"       : "*",
+    "wthit"       : "*",
     "megane-api"  : "*"
   },
   "custom"       : {
-    "waila:plugins" : {
+    "waila:plugins": {
       "id"         : "megane:plugin",
-      "initializer": "badasintended.megane.runtime.MeganeWaila"
+      "initializer": "badasintended.megane.runtime.Megane"
     },
-    "modmenu": {
+    "modmenu"      : {
       "parent": "megane"
     }
   }

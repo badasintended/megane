@@ -2,7 +2,7 @@ package badasintended.megane.runtime.component.block;
 
 import java.util.List;
 
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +30,7 @@ public class BeaconComponent extends BlockComponent {
             data.putString(S_LV_STR + i, str);
         }
 
-        tooltip.add(new RenderableTextComponent(MeganeWaila.EFFECT, data));
+        tooltip.add(new RenderableTextComponent(Megane.EFFECT, data));
     }
 
 }

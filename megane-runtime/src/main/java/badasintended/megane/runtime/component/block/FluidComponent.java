@@ -5,7 +5,7 @@ import java.util.Map;
 
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.registry.TooltipRegistry;
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.fluid.Fluid;
@@ -90,7 +90,7 @@ public class FluidComponent extends BlockComponent {
                 TAG.putBoolean(B_LONG, expand);
                 TAG.putString(B_PREFIX, name);
 
-                tooltip.add(new RenderableTextComponent(MeganeWaila.BAR, TAG));
+                tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
             }
         }
     }

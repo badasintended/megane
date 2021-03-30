@@ -15,7 +15,7 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "depends"      : {
-    "waila": "*"
+    "wthit": "*"
   },
   "custom"       : {
     "modmenu": {

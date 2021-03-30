@@ -2,7 +2,7 @@ package badasintended.megane.runtime.component.block;
 
 import java.util.List;
 
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +22,7 @@ public class ProgressComponent extends BlockComponent {
     protected void append(List<Text> tooltip, IDataAccessor accessor) {
         CompoundTag data = accessor.getServerData();
         if (data.getBoolean(P_HAS) && (data.getInt(P_PERCENT) > 0 || config().progress.isShowWhenZero())) {
-            tooltip.add(new RenderableTextComponent(MeganeWaila.PROGRESS, data));
+            tooltip.add(new RenderableTextComponent(Megane.PROGRESS, data));
         }
     }
 

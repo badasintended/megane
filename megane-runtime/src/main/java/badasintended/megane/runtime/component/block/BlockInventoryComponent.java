@@ -2,7 +2,7 @@ package badasintended.megane.runtime.component.block;
 
 import java.util.List;
 
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
@@ -26,7 +26,7 @@ public class BlockInventoryComponent extends BlockComponent {
         if (data.getBoolean(I_HAS) && data.getInt(P_PERCENT) == 0 && data.getInt("progress") == 0 && !config().progress.isShowWhenZero()) {
             data.putInt(I_MAX_W, config().inventory.getMaxWidth());
             data.putInt(I_MAX_H, config().inventory.getMaxHeight());
-            tooltip.add(new RenderableTextComponent(MeganeWaila.INVENTORY, data));
+            tooltip.add(new RenderableTextComponent(Megane.INVENTORY, data));
         }
     }
 

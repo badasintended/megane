@@ -2,7 +2,7 @@ package badasintended.megane.runtime.component.entity;
 
 import java.util.List;
 
-import badasintended.megane.runtime.MeganeWaila;
+import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IEntityAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +25,7 @@ public class EntityInventoryComponent extends EntityComponent {
         if (data.getBoolean(I_HAS)) {
             data.putInt(I_MAX_W, config().entityInventory.getMaxWidth());
             data.putInt(I_MAX_H, config().entityInventory.getMaxHeight());
-            tooltip.add(new RenderableTextComponent(MeganeWaila.INVENTORY, data));
+            tooltip.add(new RenderableTextComponent(Megane.INVENTORY, data));
         }
     }
 
