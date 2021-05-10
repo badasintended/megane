@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-impl-modern-industrialization",
+  "version"      : "${version}",
+  "description"  : "implementation for Modern Industrialization",
+  "authors"      : ["deirn"],
+  "contact"      : {
+    "homepage": "https://github.com/badasintended/megane",
+    "sources" : "https://github.com/badasintended/megane",
+    "issues"  : "https://github.com/badasintended/megane/issues"
+  },
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "environment"  : "*",
+  "mixins"       : [
+    "megane-impl-modern-industrialization.mixins.json"
+  ],
+  "depends"      : {
+    "megane-api"      : "*",
+    "megane-impl-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      {
+        "deps": ["modern_industrialization"],
+        "init": "badasintended.megane.impl.ModernIndustrialization"
+      }
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

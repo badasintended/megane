@@ -35,6 +35,7 @@ import badasintended.megane.runtime.renderer.ProgressRenderer;
 import badasintended.megane.runtime.renderer.StatusEffectRenderer;
 import mcp.mobius.waila.Waila;
 import mcp.mobius.waila.api.IRegistrar;
+import mcp.mobius.waila.api.IServerDataProvider;
 import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -114,9 +115,9 @@ public class Megane implements IWailaPlugin {
         r.registerComponentProvider(new StatusEffectComponent(), TAIL, ENTITY);
 
         // Server Data
-        r.registerEntityDataProvider(new EntityInventoryData(), ENTITY);
-        r.registerEntityDataProvider(new PetOwnerData(), ENTITY);
-        r.registerEntityDataProvider(new StatusEffectData(), ENTITY);
+        r.registerEntityDataProvider((IServerDataProvider) new EntityInventoryData(), ENTITY);
+        r.registerEntityDataProvider((IServerDataProvider) new PetOwnerData(), ENTITY);
+        r.registerEntityDataProvider((IServerDataProvider) new StatusEffectData(), ENTITY);
 
         // Modules
         FabricLoader loader = FabricLoader.getInstance();

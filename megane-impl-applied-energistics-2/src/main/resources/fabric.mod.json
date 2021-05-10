@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-impl-applied-energistics-2",
+  "version"      : "${version}",
+  "description"  : "implementation for Applied Energistics 2",
+  "authors"      : ["deirn"],
+  "contact"      : {
+    "homepage": "https://github.com/badasintended/megane",
+    "sources" : "https://github.com/badasintended/megane",
+    "issues"  : "https://github.com/badasintended/megane/issues"
+  },
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "environment"  : "*",
+  "mixins"       : [
+    "megane-impl-applied-energistics-2.mixins.json"
+  ],
+  "depends"      : {
+    "megane-api"      : "*",
+    "megane-impl-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      {
+        "deps": ["appliedenergistics2"],
+        "init": "badasintended.megane.impl.AppliedEnergistics2"
+      }
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

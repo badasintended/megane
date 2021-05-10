@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-impl-industrial-revolution",
+  "version"      : "${version}",
+  "description"  : "implementation for Industrial Revolution",
+  "authors"      : ["deirn"],
+  "contact"      : {
+    "homepage": "https://github.com/badasintended/megane",
+    "sources" : "https://github.com/badasintended/megane",
+    "issues"  : "https://github.com/badasintended/megane/issues"
+  },
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "environment"  : "*",
+  "depends"      : {
+    "megane-api"      : "*",
+    "megane-impl-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      {
+        "deps": ["indrev"],
+        "init": "badasintended.megane.impl.IndustrialRevolution"
+      }
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

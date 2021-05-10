@@ -1,13 +1,23 @@
 pluginManagement {
     repositories {
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
         }
         gradlePluginPortal()
     }
 }
 
-include 'megane-api'
-include 'megane-runtime'
-include 'megane-impl'
+include "megane-api"
+include "megane-runtime"
+include "megane-impl-base"
+
+include "megane-impl-applied-energistics-2"
+include "megane-impl-art-of-alchemy"
+include "megane-impl-astromine"
+include "megane-impl-fabric-furnaces"
+include "megane-impl-industrial-revolution"
+include "megane-impl-kibe"
+include "megane-impl-modern-industrialization"
+include "megane-impl-tech-reborn"
+include "megane-impl-vanilla"

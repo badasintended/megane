@@ -1,0 +1,9 @@
+repositories {
+    maven { url "https://www.cursemaven.com" }
+}
+
+dependencies {
+    implementation project(":megane-impl-base")
+
+    modCompileOnly "curse.maven:fabric-furnaces-315534:3155774"
+}
