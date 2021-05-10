@@ -41,7 +41,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: impl ${{ steps.vars.outputs.VERSION }}
-          path: "./megane-impl/build/libs/**.jar"
+          path: "./megane-impl-*/build/libs/**.jar"
       - uses: actions/upload-artifact@v2
         with:
           name: runtime ${{ steps.vars.outputs.VERSION }}
