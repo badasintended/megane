@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-team-reborn-energy",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      {
+        "deps": ["team_reborn_energy"],
+        "init": "badasintended.megane.impl.TeamRebornEnergy"
+      }
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

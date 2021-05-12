@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import badasintended.megane.api.registry.BaseTooltipRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,8 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import static badasintended.megane.util.MeganeUtils.LOGGER;
 
 public class RuntimeUtils {
 
@@ -150,14 +147,6 @@ public class RuntimeUtils {
     @Environment(EnvType.CLIENT)
     public static TextRenderer textRenderer() {
         return MinecraftClient.getInstance().textRenderer;
-    }
-
-    public static <K, T extends K> void errorData(BaseTooltipRegistry<K, ?> registry, T target, Exception e) {
-        registry.nulls.add(target.getClass());
-        registry.getEntries().remove(target.getClass());
-        LOGGER.error("Error occurred when accessing registered data");
-        LOGGER.error("Target: {}", target.getClass().getName());
-        e.printStackTrace();
     }
 
 }

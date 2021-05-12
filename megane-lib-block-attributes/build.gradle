@@ -1,0 +1,12 @@
+repositories {
+    maven {
+        url "https://mod-buildcraft.com/maven"
+        content {includeGroup "alexiil.mc.lib"}
+    }
+}
+
+dependencies {
+    implementation project(":megane-base")
+
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
+}

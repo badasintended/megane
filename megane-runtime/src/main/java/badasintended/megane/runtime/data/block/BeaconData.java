@@ -1,6 +1,5 @@
 package badasintended.megane.runtime.data.block;
 
-import badasintended.megane.runtime.data.Appender;
 import badasintended.megane.runtime.mixin.ABeaconBlockEntity;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,32 +17,25 @@ public class BeaconData extends BlockData {
 
     public BeaconData() {
         super(() -> config().effect);
-        appenders.add(new EffectAppender());
     }
 
-    private static class EffectAppender implements Appender<BlockEntity> {
-
-        @Override
-        public boolean append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
-            if (blockEntity instanceof BeaconBlockEntity) {
-                ABeaconBlockEntity beacon = (ABeaconBlockEntity) blockEntity;
-                int primary = StatusEffect.getRawId(beacon.getPrimary());
-                int secondary = StatusEffect.getRawId(beacon.getSecondary());
-                if (primary == secondary) {
-                    data.putInt(S_SIZE, 1);
-                    data.putInt(S_ID + 0, primary);
-                    if (config().effect.getLevel())
-                        data.putInt(S_LV + 0, 2);
-                } else {
-                    data.putInt(S_SIZE, 2);
-                    data.putInt(S_ID + 1, primary);
-                    data.putInt(S_LV + 1, secondary);
-                }
-                return true;
+    @Override
+    void append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+        if (blockEntity instanceof BeaconBlockEntity) {
+            ABeaconBlockEntity beacon = (ABeaconBlockEntity) blockEntity;
+            int primary = StatusEffect.getRawId(beacon.getPrimary());
+            int secondary = StatusEffect.getRawId(beacon.getSecondary());
+            if (primary == secondary) {
+                data.putInt(S_SIZE, 1);
+                data.putInt(S_ID + 0, primary);
+                if (config().effect.getLevel())
+                    data.putInt(S_LV + 0, 2);
+            } else {
+                data.putInt(S_SIZE, 2);
+                data.putInt(S_ID + 1, primary);
+                data.putInt(S_LV + 1, secondary);
             }
-            return false;
         }
-
     }
 
 }

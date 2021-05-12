@@ -6,6 +6,7 @@ import java.util.Map;
 import badasintended.megane.api.provider.EnergyInfoProvider;
 import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.Megane;
+import badasintended.megane.runtime.registry.Registrar;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.client.resource.language.I18n;
@@ -13,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 
-import static badasintended.megane.api.registry.TooltipRegistry.ENERGY_INFO;
 import static badasintended.megane.runtime.util.Keys.B_COLOR;
 import static badasintended.megane.runtime.util.Keys.B_LONG;
 import static badasintended.megane.runtime.util.Keys.B_MAX;
@@ -48,7 +48,8 @@ public class EnergyComponent extends BlockComponent {
 
             String namespace = Registry.BLOCK.getId(accessor.getBlock()).getNamespace();
             boolean expand = accessor.getPlayer().isSneaking() && energy.isExpandWhenSneak();
-            EnergyInfoProvider<String> provider = ENERGY_INFO.get(namespace);
+            List<EnergyInfoProvider> providers = Registrar.ENERGY_INFO.get(namespace);
+            EnergyInfoProvider<?> provider = providers.isEmpty() ? null : providers.get(0);
 
             int color;
             if (colors.containsKey(namespace)) {

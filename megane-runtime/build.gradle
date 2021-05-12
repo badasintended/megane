@@ -1,11 +1,5 @@
-repositories {
-    maven { url "https://mod-buildcraft.com/maven" }
-}
-
 dependencies {
-    implementation project(":megane-api")
+    implementation project(":megane-base")
 
-    modImplementation "teamreborn:energy:${rootProject.trEnergy}"
-    modImplementation("alexiil.mc.lib:libblockattributes-fluids:${rootProject.lba}") { exclude group: "net.fabricmc.fabric-api" }
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu}") { exclude group: "net.fabricmc.fabric-api" }
 }

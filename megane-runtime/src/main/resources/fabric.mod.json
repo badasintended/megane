@@ -2,21 +2,12 @@
   "schemaVersion": 1,
   "id"           : "megane-runtime",
   "version"      : "${version}",
-  "description"  : "for things to work",
-  "authors"      : [
-    "deirn"
-  ],
+  "authors"      : ["deirn"],
   "contributors" : [
     "qsefthuopq"
   ],
-  "contact"      : {
-    "homepage": "https://github.com/badasintended/megane",
-    "sources" : "https://github.com/badasintended/megane",
-    "issues"  : "https://github.com/badasintended/megane/issues"
-  },
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
-  "environment"  : "*",
   "entrypoints"  : {
     "modmenu": ["badasintended.megane.runtime.config.MeganeModMenu"]
   },
@@ -27,7 +18,7 @@
     "fabricloader": ">=0.7.4",
     "minecraft"   : "1.16.x",
     "waila"       : "*",
-    "megane-api"  : "*"
+    "megane-base" : "*"
   },
   "custom"       : {
     "waila:plugins": {

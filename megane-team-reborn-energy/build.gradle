@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":megane-base")
+
+    modCompileOnly "teamreborn:energy:0.1.0"
+}

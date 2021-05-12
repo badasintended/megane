@@ -1,0 +1,14 @@
+repositories {
+    maven { url "https://www.cursemaven.com" }
+    maven {
+        url "https://server.bbkr.space/artifactory/libs-release"
+        content { includeGroup "io.github.cottonmc" }
+    }
+}
+
+dependencies {
+    implementation project(":megane-base")
+
+    modCompileOnly "io.github.cottonmc:LibGui:3.3.5+1.16.5"
+    modCompileOnly "curse.maven:art-of-alchemy-415339:3106070"
+}

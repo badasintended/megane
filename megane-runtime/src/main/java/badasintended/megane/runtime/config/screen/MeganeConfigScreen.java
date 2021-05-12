@@ -85,7 +85,6 @@ public class MeganeConfigScreen extends GuiOptions {
                 options.add(sided(AND, bool("enabled", config().inventory.isEnabled(), config().inventory::setEnabled)));
                 options.add(sided(SERVER, bool("inventory.itemCount", config().inventory.isItemCount(), config().inventory::setItemCount)));
                 options.add(sided(SERVER, bool("inventory.nbt", config().inventory.isNbt(), config().inventory::setNbt)));
-                options.add(sided(SERVER, bool("forceRegistry", config().inventory.isForceRegistry(), config().inventory::setForceRegistry)));
                 options.add(sided(CLIENT, input("inventory.maxWidth", config().inventory.getMaxWidth(), config().inventory::setMaxWidth, INT)));
                 options.add(sided(CLIENT, input("inventory.maxHeight", config().inventory.getMaxHeight(), config().inventory::setMaxHeight, INT)));
                 options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().inventory.getBlacklist())))));
@@ -111,7 +110,6 @@ public class MeganeConfigScreen extends GuiOptions {
                 OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().energy.isEnabled(), config().energy::setEnabled)));
                 options.add(sided(CLIENT, bool("expand", config().energy.isExpandWhenSneak(), config().energy::setExpandWhenSneak)));
-                options.add(sided(SERVER, bool("forceRegistry", config().energy.isForceRegistry(), config().energy::setForceRegistry)));
                 options.add(sided(CLIENT, button("energy.unit", w -> client.openScreen(new MapConfigScreen<>(
                     this, tl(tlKey("energy.unit")), config().energy.getUnits(), s -> s, s -> s, NAMESPACE, ALL, (prev, key, val) -> {
                     config().energy.getUnits().remove(prev);
@@ -136,7 +134,6 @@ public class MeganeConfigScreen extends GuiOptions {
                 OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().fluid.isEnabled(), config().fluid::setEnabled)));
                 options.add(sided(CLIENT, bool("expand", config().fluid.isExpandWhenSneak(), config().fluid::setExpandWhenSneak)));
-                options.add(sided(SERVER, bool("forceRegistry", config().fluid.isForceRegistry(), config().fluid::setForceRegistry)));
                 options.add(sided(CLIENT, button("fluid.color", w -> client.openScreen(new MapConfigScreen<>(
                     this, tl(tlKey("fluid.color")), config().fluid.getColors(), Identifier::toString, INT2RGB, IDENTIFIER, HEX, (prev, key, val) -> {
                     config().fluid.getColors().remove(new Identifier(prev));

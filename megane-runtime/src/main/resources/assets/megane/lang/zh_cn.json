@@ -1,5 +1,5 @@
 {
-  "config.waila.megane"                : "megane",
+  "config.waila.megane"                : "Megane",
   "config.megane.side.server"          : "§7该选项会被服务端覆盖",
   "config.megane.side.and"             : "§7服务端和客户端都要使用相同的值",
   "config.megane.side.plus"            : "§7服务端值将添加到列表内",

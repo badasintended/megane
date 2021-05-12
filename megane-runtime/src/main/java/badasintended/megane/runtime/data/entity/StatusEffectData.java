@@ -3,7 +3,6 @@ package badasintended.megane.runtime.data.entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import badasintended.megane.runtime.data.Appender;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -20,30 +19,23 @@ public class StatusEffectData extends EntityData {
 
     public StatusEffectData() {
         super(() -> config().effect);
-        appenders.add(new EffectAppender());
     }
 
-    private static class EffectAppender implements Appender<LivingEntity> {
+    @Override
+    void append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity entity) {
+        List<StatusEffectInstance> effects = entity
+            .getStatusEffects()
+            .stream()
+            .filter(t -> t.shouldShowParticles() || config().effect.getHidden())
+            .collect(Collectors.toList());
 
-        @Override
-        public boolean append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity entity) {
-            List<StatusEffectInstance> effects = entity
-                .getStatusEffects()
-                .stream()
-                .filter(t -> t.shouldShowParticles() || config().effect.getHidden())
-                .collect(Collectors.toList());
+        data.putInt(S_SIZE, effects.size());
 
-            data.putInt(S_SIZE, effects.size());
-
-            for (int i = 0; i < effects.size(); i++) {
-                StatusEffectInstance effect = effects.get(i);
-                data.putInt(S_ID + i, StatusEffect.getRawId(effect.getEffectType()));
-                data.putInt(S_LV + i, config().effect.getLevel() ? effect.getAmplifier() : 0);
-            }
-
-            return true;
+        for (int i = 0; i < effects.size(); i++) {
+            StatusEffectInstance effect = effects.get(i);
+            data.putInt(S_ID + i, StatusEffect.getRawId(effect.getEffectType()));
+            data.putInt(S_LV + i, config().effect.getLevel() ? effect.getAmplifier() : 0);
         }
-
     }
 
 }

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-base",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "waila": "*"
+  },
+  "custom"       : {
+    "modmenu": {
+      "parent": "megane"
+    }
+  }
+}

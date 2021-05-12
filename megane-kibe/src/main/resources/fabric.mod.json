@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-kibe",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      {
+        "deps": ["kibe"],
+        "init": "badasintended.megane.impl.Kibe"
+      }
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

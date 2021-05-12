@@ -28,6 +28,7 @@ import badasintended.megane.runtime.data.block.ProgressData;
 import badasintended.megane.runtime.data.entity.EntityInventoryData;
 import badasintended.megane.runtime.data.entity.PetOwnerData;
 import badasintended.megane.runtime.data.entity.StatusEffectData;
+import badasintended.megane.runtime.registry.Registrar;
 import badasintended.megane.runtime.renderer.AlignedTextRenderer;
 import badasintended.megane.runtime.renderer.BarRenderer;
 import badasintended.megane.runtime.renderer.InventoryRenderer;
@@ -175,9 +176,9 @@ public class Megane implements IWailaPlugin {
                         try {
                             LOGGER.info("[megane] Loading {} from {}", className, modId);
                             MeganeModule entry = (MeganeModule) Class.forName(className).getDeclaredConstructor().newInstance();
-                            entry.initialize();
+                            entry.register(Registrar.INSTANCE);
                             if (loader.getEnvironmentType() == EnvType.CLIENT)
-                                entry.initializeClient();
+                                entry.registerClient(Registrar.INSTANCE);
                         } catch (Exception e) {
                             LOGGER.error("[megane] error when loading {} from {}", className, modId);
                             e.printStackTrace();

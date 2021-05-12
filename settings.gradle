@@ -8,16 +8,17 @@ pluginManagement {
     }
 }
 
-include "megane-api"
+include "megane-base"
 include "megane-runtime"
-include "megane-impl-base"
 
-include "megane-impl-applied-energistics-2"
-include "megane-impl-art-of-alchemy"
-include "megane-impl-astromine"
-include "megane-impl-fabric-furnaces"
-include "megane-impl-industrial-revolution"
-include "megane-impl-kibe"
-include "megane-impl-modern-industrialization"
-include "megane-impl-tech-reborn"
-include "megane-impl-vanilla"
+include "megane-applied-energistics-2"
+include "megane-art-of-alchemy"
+include "megane-astromine"
+include "megane-fabric-furnaces"
+include "megane-industrial-revolution"
+include "megane-kibe"
+include "megane-lib-block-attributes"
+include "megane-modern-industrialization"
+include "megane-team-reborn-energy"
+include "megane-tech-reborn"
+include "megane-vanilla"

@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import badasintended.megane.api.provider.FluidInfoProvider;
-import badasintended.megane.api.registry.TooltipRegistry;
 import badasintended.megane.runtime.Megane;
+import badasintended.megane.runtime.registry.Registrar;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.fluid.Fluid;
@@ -69,7 +69,8 @@ public class FluidComponent extends BlockComponent {
 
                 Fluid fluid = Registry.FLUID.get(data.getInt(F_ID + i));
                 Identifier id = Registry.FLUID.getId(fluid);
-                FluidInfoProvider provider = TooltipRegistry.FLUID_INFO.get(fluid);
+                List<FluidInfoProvider> providers = Registrar.FLUID_INFO.get(fluid);
+                FluidInfoProvider provider = providers.isEmpty() ? null : providers.get(0);
 
                 int color;
                 if (colors.containsKey(id)) {

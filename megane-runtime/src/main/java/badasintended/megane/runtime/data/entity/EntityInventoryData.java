@@ -1,14 +1,15 @@
 package badasintended.megane.runtime.data.entity;
 
+import java.util.List;
+
 import badasintended.megane.api.provider.InventoryProvider;
-import badasintended.megane.runtime.data.Appender;
+import badasintended.megane.runtime.registry.Registrar;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
-import static badasintended.megane.api.registry.TooltipRegistry.ENTITY_INVENTORY;
 import static badasintended.megane.runtime.util.Keys.I_COUNT;
 import static badasintended.megane.runtime.util.Keys.I_HAS;
 import static badasintended.megane.runtime.util.Keys.I_ID;
@@ -16,7 +17,6 @@ import static badasintended.megane.runtime.util.Keys.I_NBT;
 import static badasintended.megane.runtime.util.Keys.I_SHOW;
 import static badasintended.megane.runtime.util.Keys.I_SIZE;
 import static badasintended.megane.runtime.util.RuntimeUtils.EMPTY_TAG;
-import static badasintended.megane.runtime.util.RuntimeUtils.errorData;
 import static badasintended.megane.util.MeganeUtils.config;
 import static net.minecraft.util.registry.Registry.ITEM;
 
@@ -24,25 +24,21 @@ public class EntityInventoryData extends EntityData {
 
     public EntityInventoryData() {
         super(() -> config().entityInventory);
-        appenders.add(new Registered());
     }
 
-    public static class Registered implements Appender<LivingEntity> {
-
-        @Override
-        @SuppressWarnings({"rawtypes", "unchecked"})
-        public boolean append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity livingEntity) {
-            try {
-                InventoryProvider provider = ENTITY_INVENTORY.get(livingEntity);
-                if (provider == null || !provider.hasInventory(livingEntity))
-                    return false;
-
+    @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    void append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity entity) {
+        List<InventoryProvider> providers = Registrar.INVENTORY.get(entity);
+        for (InventoryProvider provider : providers) {
+            provider.setupContext(world, player);
+            if (provider.hasInventory(entity)) {
                 data.putBoolean(I_HAS, true);
                 data.putBoolean(I_SHOW, config().entityInventory.isItemCount());
-                int size = provider.size(livingEntity);
+                int size = provider.size(entity);
                 int i = 0;
                 for (int j = 0; j < size; j++) {
-                    ItemStack stack = provider.getStack(livingEntity, j);
+                    ItemStack stack = provider.getStack(entity, j);
                     if (stack.isEmpty()) {
                         continue;
                     }
@@ -53,13 +49,9 @@ public class EntityInventoryData extends EntityData {
                     i++;
                 }
                 data.putInt(I_SIZE, i);
-                return true;
-            } catch (Exception e) {
-                errorData(ENTITY_INVENTORY, livingEntity, e);
-                return false;
+                return;
             }
         }
-
     }
 
 }
