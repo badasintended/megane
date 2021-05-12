@@ -1,0 +1,12 @@
+repositories {
+    maven {
+        url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
+        content { includeGroup "dev.technici4n" }
+    }
+}
+
+dependencies {
+    implementation project(":megane-base")
+
+    modCompileOnly "dev.technici4n:FastTransferLib:0.3.1"
+}

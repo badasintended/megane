@@ -2,7 +2,6 @@ package badasintended.megane.impl;
 
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import badasintended.megane.api.MeganeModule;
-import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.ProgressProvider;
@@ -30,7 +29,6 @@ public class IndustrialRevolution implements MeganeModule {
             b -> {
                 PropertyDelegate property = b.getPropertyDelegate();
                 int result = 0;
-                int j = 1;
                 for (int i = 0; i < amount; i++) {
                     double current = property.get(currentIndex + (i * 2));
                     double max = property.get(maxIndex + (i * 2));
@@ -45,10 +43,6 @@ public class IndustrialRevolution implements MeganeModule {
     public void register(MeganeRegistrar registrar) {
         this.registrar = registrar;
         registrar
-            .energy(MachineBlockEntity.class, EnergyProvider.of(
-                MachineBlockEntity::getEnergy,
-                MachineBlockEntity::getEnergyCapacity
-            ))
             .fluid(MachineBlockEntity.class, FluidProvider.of(
                 t -> t.getFluidComponent() != null,
                 t -> t.getFluidComponent().getTankCount(),

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-fast-transfer-lib",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      {
+        "deps": ["fasttransferlib"],
+        "init": "badasintended.megane.impl.FastTransferLib"
+      }
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}
