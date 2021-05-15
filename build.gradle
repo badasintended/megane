@@ -4,6 +4,7 @@ import groovy.json.JsonSlurper
 plugins {
     id 'maven-publish'
     id 'fabric-loom' version '0.6-SNAPSHOT' apply false
+    id "com.matthewprenger.cursegradle" version "1.4.0"
 }
 
 def versionEnv = System.getenv("MOD_VERSION")
@@ -102,6 +103,36 @@ subprojects {
                         builtBy remapSourcesJar
                     }
                 }
+            }
+        }
+    }
+}
+
+curseforge {
+    if (System.getenv("CURSEFORGE_API") != null) {
+        def changelogLink = "https://github.com/badasintended/slotlink/releases/tag/${versionEnv}"
+        apiKey = System.getenv("CURSEFORGE_API")
+        project {
+            id = "408118"
+            releaseType = "release"
+
+            changelogType = "html"
+            changelog = "<a href=\"${changelogLink}\"><${changelogLink}/a>"
+
+            mainArtifact remapJar
+
+            addGameVersion "Fabric"
+            addGameVersion project.minecraft_version
+
+            relations {
+                requiredDependency "wthit"
+                project.curseforgeDeps.split(" ").each {
+                    optionalDependency it
+                }
+            }
+
+            afterEvaluate {
+                uploadTask.dependsOn "build"
             }
         }
     }
