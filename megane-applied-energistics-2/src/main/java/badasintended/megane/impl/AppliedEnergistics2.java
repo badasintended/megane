@@ -1,7 +1,7 @@
 package badasintended.megane.impl;
 
 import appeng.api.networking.energy.IAEPowerStorage;
-import appeng.tile.misc.InscriberBlockEntity;
+import appeng.tile.misc.InscriberTileEntity;
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.ProgressProvider;
@@ -17,11 +17,11 @@ public class AppliedEnergistics2 implements MeganeModule {
             .energy(IAEPowerStorage.class, EnergyProvider.of(
                 IAEPowerStorage::getAECurrentPower,
                 IAEPowerStorage::getAEMaxPower))
-            .progress(InscriberBlockEntity.class, ProgressProvider.of(
+            .progress(InscriberTileEntity.class, ProgressProvider.of(
                 t -> A.A_012,
                 t -> A.A_3,
                 (t, i) -> t.getInternalInventory().getInvStack(i),
-                InscriberBlockEntity::getProcessingTime));
+                InscriberTileEntity::getProcessingTime));
     }
 
     @Override
