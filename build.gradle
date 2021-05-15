@@ -110,14 +110,14 @@ subprojects {
 
 curseforge {
     if (System.getenv("CURSEFORGE_API") != null) {
-        def changelogLink = "https://github.com/badasintended/slotlink/releases/tag/${versionEnv}"
+        def changelogLink = "https://github.com/badasintended/megane/releases/tag/${versionEnv}"
         apiKey = System.getenv("CURSEFORGE_API")
         project {
             id = "408118"
             releaseType = "release"
 
             changelogType = "html"
-            changelog = "<a href=\"${changelogLink}\"><${changelogLink}/a>"
+            changelog = "<a href=\"${changelogLink}\">${changelogLink}</a>"
 
             mainArtifact remapJar
 
