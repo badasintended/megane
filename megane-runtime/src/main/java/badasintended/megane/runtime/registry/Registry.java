@@ -13,7 +13,6 @@ public class Registry<T> {
     private final Map<Object, List<T>> objMap = new Object2ObjectOpenHashMap<>();
     private final Map<Class<?>, List<Entry<T>>> map = new Object2ObjectOpenHashMap<>();
     private final Map<Class<?>, List<T>> cache = new Object2ObjectOpenHashMap<>();
-    private final List<T> empty = ObjectLists.emptyList();
 
     private final List<Entry<?>> sorter = new ObjectArrayList<>();
 
@@ -27,47 +26,43 @@ public class Registry<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<T> get(Class<?> clazz) {
+    public List<T> get(Object obj) {
+        if (objMap.containsKey(obj)) {
+            return objMap.get(obj);
+        }
+
+        if (obj == null) {
+            return ObjectLists.emptyList();
+        }
+
+        Class<?> clazz = obj.getClass();
         if (clazz == Object.class) {
-            return empty;
+            return ObjectLists.emptyList();
         }
 
         if (cache.containsKey(clazz)) {
             return cache.get(clazz);
         }
 
-        List<T> list;
-        if (map.containsKey(clazz)) {
-            sorter.clear();
-            sorter.addAll(map.get(clazz));
-            map.forEach((k, v) -> {
-                if (k != clazz && k.isAssignableFrom(clazz)) {
-                    sorter.addAll(v);
-                }
-            });
-            sorter.sort(Comparator.comparingInt(e -> e.priority));
-            list = new ObjectArrayList<>();
-            for (Entry<?> entry : sorter) {
-                list.add((T) entry.value);
+        sorter.clear();
+        map.forEach((k, v) -> {
+            if (k.isInstance(obj)) {
+                sorter.addAll(v);
             }
-        } else {
-            list = get(clazz.getSuperclass());
+        });
+        sorter.sort(Comparator.comparingInt(e -> e.priority));
+        List<T> list = new ObjectArrayList<>();
+        for (Entry<?> entry : sorter) {
+            list.add((T) entry.value);
         }
 
         if (list.isEmpty()) {
-            list = empty;
+            // Discard empty list so it'll GC-ed
+            list = ObjectLists.emptyList();
         }
 
         cache.put(clazz, list);
         return list;
-    }
-
-    public List<T> get(Object obj) {
-        return objMap.containsKey(obj)
-            ? objMap.get(obj)
-            : obj == null
-            ? empty
-            : get(obj.getClass());
     }
 
     static class Entry<T> {
