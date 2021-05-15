@@ -122,7 +122,7 @@ curseforge {
             mainArtifact remapJar
 
             addGameVersion "Fabric"
-            addGameVersion project.minecraft_version
+            addGameVersion project.minecraft
 
             relations {
                 requiredDependency "wthit"
