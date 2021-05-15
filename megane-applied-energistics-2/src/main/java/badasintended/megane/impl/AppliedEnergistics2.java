@@ -1,7 +1,6 @@
 package badasintended.megane.impl;
 
 import appeng.api.networking.energy.IAEPowerStorage;
-import appeng.tile.AEBaseBlockEntity;
 import appeng.tile.misc.InscriberBlockEntity;
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.EnergyProvider;
@@ -15,10 +14,9 @@ public class AppliedEnergistics2 implements MeganeModule {
     @Override
     public void register(MeganeRegistrar registrar) {
         registrar
-            .energy(AEBaseBlockEntity.class, EnergyProvider.of(
-                t -> t instanceof IAEPowerStorage,
-                t -> ((IAEPowerStorage) t).getAECurrentPower(),
-                t -> ((IAEPowerStorage) t).getAEMaxPower()))
+            .energy(IAEPowerStorage.class, EnergyProvider.of(
+                IAEPowerStorage::getAECurrentPower,
+                IAEPowerStorage::getAEMaxPower))
             .progress(InscriberBlockEntity.class, ProgressProvider.of(
                 t -> A.A_012,
                 t -> A.A_3,

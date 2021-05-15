@@ -1,3 +1,6 @@
+import groovy.json.JsonGenerator
+import groovy.json.JsonSlurper
+
 plugins {
     id 'maven-publish'
     id 'fabric-loom' version '0.6-SNAPSHOT' apply false
@@ -48,6 +51,15 @@ allprojects {
             from(sourceSets.main.resources.srcDirs) {
                 exclude "fabric.mod.json"
             }
+
+            doLast {
+                def json = new JsonGenerator.Options()
+                    .disableUnicodeEscaping()
+                    .build()
+                fileTree(dir: outputs.files.asPath, include: "**/*.json").each {
+                    it.setText(json.toJson(new JsonSlurper().parse(it, "UTF-8")), "UTF-8")
+                }
+            }
         }
 
         tasks.withType(JavaCompile).configureEach {
@@ -63,6 +75,10 @@ allprojects {
 
         java {
             withSourcesJar()
+        }
+
+        jar {
+            from(rootProject.file("includes"))
         }
     }
 }
