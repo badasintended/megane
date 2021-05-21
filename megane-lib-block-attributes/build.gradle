@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(":megane-base")
-
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
+    implFor "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
 }
+
+apply from: "../gradle/impl.gradle"

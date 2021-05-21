@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(":megane-base")
-
-    modCompileOnly "teamreborn:energy:0.1.0"
+    implFor "teamreborn:energy:0.1.0"
 }
+
+apply from: "../gradle/impl.gradle"

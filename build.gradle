@@ -12,7 +12,7 @@ if (versionEnv == null || versionEnv.isBlank()) {
     versionEnv = "SNAPSHOT"
 }
 
-version = "${versionEnv}+${project.minecraft}"
+version = versionEnv
 
 allprojects {
     apply plugin: 'maven-publish'
@@ -21,8 +21,23 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    configurations {
+        implFor {
+            resolutionStrategy {
+                transitive false
+            }
+        }
+    }
+
     repositories {
+        maven { url "https://maven.fabricmc.net/" }
         maven { url "https://bai.jfrog.io/artifactory/maven" }
+        maven {
+            url "https://www.cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
     }
 
     dependencies {
@@ -119,7 +134,9 @@ curseforge {
             changelogType = "html"
             changelog = "<a href=\"${changelogLink}\">${changelogLink}</a>"
 
-            mainArtifact remapJar
+            mainArtifact(remapJar) {
+                displayName = "[${project.minecraft}] v${project.version}"
+            }
 
             addGameVersion "Fabric"
             addGameVersion project.minecraft

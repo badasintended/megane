@@ -1,5 +1,4 @@
 repositories {
-    maven { url "https://www.cursemaven.com" }
     maven {
         url "https://ladysnake.jfrog.io/artifactory/mods"
         content { includeGroup "io.github.onyxstudios.Cardinal-Components-API" }
@@ -7,11 +6,13 @@ repositories {
 }
 
 dependencies {
-    implementation project(":megane-base")
+    implFor "curse.maven:astromine-technologies-404376:3080154"
+
+    modCompileOnly "curse.maven:astromine-core-405058:3080151"
+    modCompileOnly "curse.maven:astromine-foundations-404374:3080153"
 
     modCompileOnly "teamreborn:energy:0.1.0"
     modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.13"
-    modCompileOnly "curse.maven:astromine-core-405058:3080151"
-    modCompileOnly "curse.maven:astromine-foundations-404374:3080153"
-    modCompileOnly "curse.maven:astromine-technologies-404376:3080154"
 }
+
+apply from: "../gradle/impl.gradle"

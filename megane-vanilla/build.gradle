@@ -1,3 +1,2 @@
-dependencies {
-    implementation project(":megane-base")
-}
+apply from: "../gradle/impl.gradle"
+version = "${rootProject.version}+${minecraft}"

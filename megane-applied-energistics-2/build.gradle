@@ -1,5 +1,4 @@
 repositories {
-    maven { url "https://www.cursemaven.com" }
     maven {
         url "https://mod-buildcraft.com/maven"
         content { includeGroup "alexiil.mc.lib" }
@@ -7,9 +6,10 @@ repositories {
 }
 
 dependencies {
-    implementation project(":megane-base")
+    implFor "curse.maven:applied-energistics-2-223794:3309366"
 
     modCompileOnly "teamreborn:energy:0.1.0"
     modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.7"
-    modCompileOnly "curse.maven:applied-energistics-2-223794:3309366"
 }
+
+apply from: "../gradle/impl.gradle"

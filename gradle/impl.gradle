@@ -1,0 +1,17 @@
+import groovy.json.JsonSlurper
+
+version = rootProject.version;
+
+def implFor = project.configurations.implFor
+if (!implFor.empty) {
+    zipTree(implFor.first()).matching { PatternFilterable filter ->
+        filter.include "fabric.mod.json"
+    }.each {
+        version = version + "+" + new JsonSlurper().parse(it)["version"]
+    }
+}
+
+dependencies {
+    implementation project(":megane-base")
+    modCompileOnly(project.configurations.implFor.dependencies)
+}

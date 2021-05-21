@@ -1,5 +1,4 @@
 repositories {
-    maven { url "https://www.cursemaven.com" }
     maven {
         url "https://mod-buildcraft.com/maven"
         content {includeGroup "alexiil.mc.lib"}
@@ -15,11 +14,12 @@ repositories {
 }
 
 dependencies {
-    implementation project(":megane-base")
+    implFor "curse.maven:indrev-391708:3233516"
 
     modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
     modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.7"
     modCompileOnly "dev.technici4n:FastTransferLib:0.3.1"
     modCompileOnly "io.github.cottonmc:LibGui:3.3.5+1.16.5"
-    modCompileOnly "curse.maven:indrev-391708:3233516"
 }
+
+apply from: "../gradle/impl.gradle"

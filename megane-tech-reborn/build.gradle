@@ -1,6 +1,7 @@
 dependencies {
-    implementation project(":megane-base")
+    implFor "TechReborn:TechReborn-1.16:3.8.2+build.220"
 
     modCompileOnly "teamreborn:energy:0.1.0"
-    modCompileOnly "TechReborn:TechReborn-1.16:3.8.2+build.220"
 }
+
+apply from: "../gradle/impl.gradle"
