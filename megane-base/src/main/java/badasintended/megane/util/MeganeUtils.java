@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 public final class MeganeUtils {
 
+    private static final int[] EMPTY_INT_ARRAY = new int[0];
+
     public static final String MODID = "megane";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
@@ -54,6 +56,10 @@ public final class MeganeUtils {
     }
 
     public static int[] intRange(int start, int end) {
+        if (end < start) {
+            return EMPTY_INT_ARRAY;
+        }
+
         int[] range = new int[end - start];
 
         for (int i = start; i < end; i++) {
