@@ -8,9 +8,13 @@
     "defaultRequire": 1
   },
   "mixins"            : [
-    "ACreativeTankBlockEntity",
-    "AMachineBlockEntity",
-    "AMultiblockMachineBlockEntity",
-    "ATankBlockEntity"
+    "ACraftingFluid",
+    "ATankBlockEntity",
+    "CrafterComponentHolder",
+    "CrafterComponentHolder$Inventory",
+    "EnergyComponentHolder",
+    "EnergyInputsComponentHolder",
+    "EnergyOutputsComponentHolder",
+    "MultiblockInventoryComponentHolder"
   ]
 }

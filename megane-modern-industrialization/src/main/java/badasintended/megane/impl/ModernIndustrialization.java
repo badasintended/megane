@@ -1,18 +1,15 @@
 package badasintended.megane.impl;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import aztech.modern_industrialization.fluid.CraftingFluid;
+import aztech.modern_industrialization.blocks.creativetank.CreativeTankBlockEntity;
+import aztech.modern_industrialization.blocks.tank.TankBlockEntity;
 import aztech.modern_industrialization.inventory.ConfigurableFluidStack;
 import aztech.modern_industrialization.inventory.ConfigurableItemStack;
-import aztech.modern_industrialization.machines.impl.MachineBlockEntity;
-import aztech.modern_industrialization.machines.impl.MachineFactory;
-import aztech.modern_industrialization.machines.impl.multiblock.HatchBlockEntity;
-import aztech.modern_industrialization.machines.impl.multiblock.MultiblockMachineBlockEntity;
+import aztech.modern_industrialization.machines.MachineBlockEntity;
+import aztech.modern_industrialization.machines.components.CrafterComponent;
+import aztech.modern_industrialization.machines.components.EnergyComponent;
+import aztech.modern_industrialization.machines.components.MachineInventoryComponent;
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
@@ -21,141 +18,171 @@ import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.api.registry.MeganeClientRegistrar;
 import badasintended.megane.api.registry.MeganeRegistrar;
-import badasintended.megane.impl.mixin.modern_industrialization.AMachineBlockEntity;
-import badasintended.megane.impl.mixin.modern_industrialization.AMultiblockMachineBlockEntity;
+import badasintended.megane.impl.mixin.modern_industrialization.ACraftingFluid;
 import badasintended.megane.impl.mixin.modern_industrialization.ATankBlockEntity;
+import badasintended.megane.impl.mixin.modern_industrialization.CrafterComponentHolder;
+import badasintended.megane.impl.mixin.modern_industrialization.EnergyComponentHolder;
+import badasintended.megane.impl.mixin.modern_industrialization.EnergyInputsComponentHolder;
+import badasintended.megane.impl.mixin.modern_industrialization.EnergyOutputsComponentHolder;
+import badasintended.megane.impl.mixin.modern_industrialization.MultiblockInventoryComponentHolder;
+import badasintended.megane.util.MeganeUtils;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import static badasintended.megane.util.MeganeUtils.intRange;
 
 public class ModernIndustrialization implements MeganeModule {
 
     @Override
     public void register(MeganeRegistrar registrar) {
         registrar
-            .energy(AMachineBlockEntity.class, EnergyProvider.of(
-                t -> t.getMaxEu() > 0,
-                t -> (double) t.getStoredEu(),
-                t -> (double) t.getMaxEu()
+            .energy(EnergyComponentHolder.class, EnergyProvider.of(
+                t -> t.getEnergy().getEu(),
+                t -> t.getEnergy().getCapacity()
+            ))
+            .energy(EnergyInputsComponentHolder.class, EnergyProvider.of(
+                t -> !t.getEnergyInputs().isEmpty(),
+                t -> t.getEnergyInputs().stream().mapToDouble(EnergyComponent::getEu).sum(),
+                t -> t.getEnergyInputs().stream().mapToDouble(EnergyComponent::getCapacity).sum()
+            ))
+            .energy(EnergyOutputsComponentHolder.class, EnergyProvider.of(
+                t -> !t.getEnergyOutputs().isEmpty(),
+                t -> t.getEnergyOutputs().stream().mapToDouble(EnergyComponent::getEu).sum(),
+                t -> t.getEnergyOutputs().stream().mapToDouble(EnergyComponent::getCapacity).sum()
+            ))
+            .fluid(TankBlockEntity.class, FluidProvider.of(
+                t -> 1,
+                (t, i) -> t.resource(),
+                (t, i) -> t.amount() / 81.0,
+                (t, i) -> ((ATankBlockEntity) t).getCapacity() / 81.0
+            ))
+            .fluid(CreativeTankBlockEntity.class, FluidProvider.of(
+                t -> 1,
+                (t, i) -> t.resource(),
+                (t, i) -> -1,
+                (t, i) -> -1
             ))
             .fluid(MachineBlockEntity.class, FluidProvider.of(
-                t -> t.getFluidStacks().size(),
-                (t, i) -> t.getFluidStacks().get(i).getFluid().getRawFluid(),
-                (t, i) -> (double) t.getFluidStacks().get(i).getAmount(),
-                (t, i) -> (double) t.getFluidStacks().get(i).getCapacity()
+                t -> t.getInventory().getFluidStacks().size(),
+                (t, i) -> t.getInventory().getFluidStacks().get(i).resource(),
+                (t, i) -> t.getInventory().getFluidStacks().get(i).getAmount() / 81.0,
+                (t, i) -> t.getInventory().getFluidStacks().get(i).getCapacity() / 81.0
             ))
-            .fluid(ATankBlockEntity.class, FluidProvider.of(
-                t -> 1,
-                (t, i) -> t.getFluid().getRawFluid(),
-                (t, i) -> (double) t.getAmount(),
-                (t, i) -> (double) t.getCapacity()
-            ))
+            .fluid(999, MultiblockInventoryComponentHolder.class, new FluidProvider<MultiblockInventoryComponentHolder>() {
+                List<ConfigurableFluidStack> input;
+                List<ConfigurableFluidStack> output;
+
+                @Override
+                public int getSlotCount(MultiblockInventoryComponentHolder multiblockInventoryComponentHolder) {
+                    input = multiblockInventoryComponentHolder.getInventory().getFluidInputs();
+                    output = multiblockInventoryComponentHolder.getInventory().getFluidOutputs();
+                    return input.size() + output.size();
+                }
+
+                ConfigurableFluidStack getFluidStack(int slot) {
+                    return slot < input.size()
+                        ? input.get(slot)
+                        : output.get(slot - input.size());
+                }
+
+                @Override
+                public @Nullable Fluid getFluid(MultiblockInventoryComponentHolder multiblockInventoryComponentHolder, int slot) {
+                    return getFluidStack(slot).getFluid();
+                }
+
+                @Override
+                public double getStored(MultiblockInventoryComponentHolder multiblockInventoryComponentHolder, int slot) {
+                    return getFluidStack(slot).getAmount() / 81.0;
+                }
+
+                @Override
+                public double getMax(MultiblockInventoryComponentHolder multiblockInventoryComponentHolder, int slot) {
+                    return getFluidStack(slot).getCapacity() / 81.0;
+                }
+            })
             .inventory(MachineBlockEntity.class, InventoryProvider.of(
-                t -> t.getItemStacks().size(),
-                (t, i) -> t.getItemStacks().get(i).getStack()
+                t -> t.getInventory().getItemStacks().size(),
+                (t, i) -> {
+                    ConfigurableItemStack stack = t.getInventory().getItemStacks().get(i);
+                    return stack.resource().toStack(stack.getCount());
+                }
             ))
-            .progress(MachineBlockEntity.class, new ProgressProvider<MachineBlockEntity>() {
-                private int inputSize = 0;
+            .inventory(999, MultiblockInventoryComponentHolder.class, new InventoryProvider<MultiblockInventoryComponentHolder>() {
+                List<ConfigurableItemStack> input;
+                List<ConfigurableItemStack> output;
 
                 @Override
-                public boolean hasProgress(MachineBlockEntity t) {
-                    return ((AMachineBlockEntity) t).getRecipeEnergy() > 0;
+                public int size(MultiblockInventoryComponentHolder multiblockInventoryComponentHolder) {
+                    input = multiblockInventoryComponentHolder.getInventory().getItemInputs();
+                    output = multiblockInventoryComponentHolder.getInventory().getItemOutputs();
+                    return input.size() + output.size();
                 }
 
                 @Override
-                public int[] getInputSlots(MachineBlockEntity t) {
-                    inputSize = t.getItemInputStacks().size();
-                    return intRange(0, inputSize);
-                }
-
-                @Override
-                public int[] getOutputSlots(MachineBlockEntity t) {
-                    return intRange(inputSize, inputSize + t.getItemOutputStacks().size());
-                }
-
-                @Override
-                public @NotNull ItemStack getStack(MachineBlockEntity t, int i) {
-                    return i < inputSize ? t.getItemInputStacks().get(i).getStack() : t.getItemOutputStacks().get(i - inputSize).getStack();
-                }
-
-                @Override
-                public int getPercentage(MachineBlockEntity t) {
-                    AMachineBlockEntity accessor = (AMachineBlockEntity) t;
-                    MachineFactory factory = accessor.getFactory();
-                    int val = (int) ((double) accessor.getUsedEnergy() / (double) accessor.getRecipeEnergy() * 100);
-                    return factory.isProgressBarFlipped() ? 100 - val : val;
+                public @NotNull ItemStack getStack(MultiblockInventoryComponentHolder multiblockInventoryComponentHolder, int slot) {
+                    ConfigurableItemStack stack = slot < input.size()
+                        ? input.get(slot)
+                        : output.get(slot - input.size());
+                    return stack.resource().toStack(stack.getCount());
                 }
             })
-            .fluid(MultiblockMachineBlockEntity.class, new FluidProvider<MultiblockMachineBlockEntity>() {
-                private List<ConfigurableFluidStack> fluids;
+            .progress(CrafterComponentHolder.class, new ProgressProvider<CrafterComponentHolder>() {
+                CrafterComponent crafter;
+                CrafterComponent.Inventory inventory;
+
+                int inputCount;
+
+                boolean isNotMultiBlock = false;
+                MachineInventoryComponent machineInventoryComponent;
 
                 @Override
-                public boolean hasFluid(MultiblockMachineBlockEntity t) {
-                    Map<BlockPos, HatchBlockEntity> hatches = ((AMultiblockMachineBlockEntity) t).getLinkedHatches();
-                    fluids = hatches.values().stream()
-                        .filter(Objects::nonNull)
-                        .map(MachineBlockEntity::getFluidStacks)
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toList());
-                    return !fluids.isEmpty();
+                public int[] getInputSlots(CrafterComponentHolder crafterComponentHolder) {
+                    crafter = crafterComponentHolder.getCrafter();
+                    inventory = ((CrafterComponentHolder.Inventory) crafter).getInventory();
+
+                    isNotMultiBlock = inventory instanceof MachineInventoryComponent;
+
+                    if (isNotMultiBlock) {
+                        machineInventoryComponent = (MachineInventoryComponent) inventory;
+                        inputCount = machineInventoryComponent.itemInputCount;
+                    } else {
+                        inputCount = inventory.getItemInputs().size();
+                    }
+
+                    return MeganeUtils.intRange(0, inputCount);
                 }
 
                 @Override
-                public int getSlotCount(MultiblockMachineBlockEntity t) {
-                    return fluids.size();
-                }
-
-                @Nullable
-                @Override
-                public Fluid getFluid(MultiblockMachineBlockEntity multiblockMachineBlockEntity, int slot) {
-                    return fluids.get(slot).getFluid().getRawFluid();
+                public int[] getOutputSlots(CrafterComponentHolder crafterComponentHolder) {
+                    return MeganeUtils.intRange(inputCount, isNotMultiBlock
+                        ? machineInventoryComponent.itemOutputCount
+                        : inventory.getItemOutputs().size());
                 }
 
                 @Override
-                public double getStored(MultiblockMachineBlockEntity t, int i) {
-                    return fluids.get(i).getAmount();
+                public @NotNull ItemStack getStack(CrafterComponentHolder crafterComponentHolder, int slot) {
+                    ConfigurableItemStack stack;
+                    if (isNotMultiBlock) {
+                        stack = machineInventoryComponent.inventory.getItemStacks().get(slot);
+                    } else {
+                        stack = slot < inputCount
+                            ? inventory.getItemInputs().get(slot)
+                            : inventory.getItemOutputs().get(slot);
+                    }
+                    return stack.getItemKey().toStack(stack.getCount());
                 }
 
                 @Override
-                public double getMax(MultiblockMachineBlockEntity t, int i) {
-                    return fluids.get(i).getCapacity();
-                }
-            })
-            .inventory(MultiblockMachineBlockEntity.class, new InventoryProvider<MultiblockMachineBlockEntity>() {
-                private List<ConfigurableItemStack> stacks;
-
-                @Override
-                public boolean hasInventory(MultiblockMachineBlockEntity t) {
-                    Map<BlockPos, HatchBlockEntity> hatches = ((AMultiblockMachineBlockEntity) t).getLinkedHatches();
-                    stacks = hatches.values().stream()
-                        .filter(Objects::nonNull)
-                        .map(MachineBlockEntity::getItemStacks)
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toList());
-                    return !stacks.isEmpty();
-                }
-
-                @Override
-                public int size(MultiblockMachineBlockEntity t) {
-                    return stacks.size();
-                }
-
-                @Override
-                public @NotNull ItemStack getStack(MultiblockMachineBlockEntity t, int i) {
-                    return stacks.get(i).getStack();
+                public int getPercentage(CrafterComponentHolder crafterComponentHolder) {
+                    return (int) (crafter.getProgress() * 100);
                 }
             });
-
     }
 
     @Override
     public void registerClient(MeganeClientRegistrar registrar) {
         registrar
-            .fluid(CraftingFluid.class, FluidInfoProvider.of(f -> f.color, f -> f.key.name))
+            .fluid(ACraftingFluid.class, FluidInfoProvider.of(f -> f.getBlock().getColor(), f -> f.getBlock().getName()))
             .energy("modern_industrialization", 0xB70000, "EU");
     }
 
