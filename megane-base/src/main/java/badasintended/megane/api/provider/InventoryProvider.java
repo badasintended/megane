@@ -4,8 +4,6 @@ import badasintended.megane.api.function.Functions.Obj2Bool;
 import badasintended.megane.api.function.Functions.Obj2Int;
 import badasintended.megane.api.function.Functions.ObjInt2Obj;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public interface InventoryProvider<T> extends ContextAwareProvider {
@@ -33,10 +31,9 @@ public interface InventoryProvider<T> extends ContextAwareProvider {
         };
     }
 
-    default void setupContext(World world, ServerPlayerEntity player) {
+    default boolean hasInventory(T t) {
+        return true;
     }
-
-    boolean hasInventory(T t);
 
     int size(T t);
 

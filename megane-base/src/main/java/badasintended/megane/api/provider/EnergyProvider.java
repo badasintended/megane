@@ -33,7 +33,9 @@ public interface EnergyProvider<T> extends ContextAwareProvider {
         };
     }
 
-    boolean hasEnergy(T t);
+    default boolean hasEnergy(T t) {
+        return true;
+    }
 
     double getStored(T t);
 

@@ -42,7 +42,9 @@ public interface FluidProvider<T> extends ContextAwareProvider {
         };
     }
 
-    boolean hasFluid(T t);
+    default boolean hasFluid(T t) {
+        return true;
+    }
 
     int getSlotCount(T t);
 

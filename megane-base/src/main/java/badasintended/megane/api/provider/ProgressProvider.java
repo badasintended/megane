@@ -43,7 +43,9 @@ public interface ProgressProvider<T> extends ContextAwareProvider {
         };
     }
 
-    boolean hasProgress(T t);
+    default boolean hasProgress(T t) {
+        return true;
+    }
 
     int[] getInputSlots(T t);
 

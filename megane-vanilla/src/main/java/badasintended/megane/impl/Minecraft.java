@@ -19,7 +19,6 @@ import net.minecraft.fluid.WaterFluid;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
@@ -57,7 +56,7 @@ public class Minecraft implements MeganeModule {
                 Inventory enderChest;
 
                 @Override
-                public void setupContext(World world, ServerPlayerEntity player) {
+                public void setupContext(World world, PlayerEntity player) {
                     enderChest = player.getEnderChestInventory();
                 }
 
@@ -82,7 +81,7 @@ public class Minecraft implements MeganeModule {
                 Inventory inventory;
 
                 @Override
-                public void setupContext(World world, ServerPlayerEntity player) {
+                public void setupContext(World world, PlayerEntity player) {
                     this.world = world;
                 }
 
