@@ -6,6 +6,7 @@ import java.util.Map;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.runtime.Megane;
 import badasintended.megane.runtime.registry.Registrar;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import mcp.mobius.waila.api.IDataAccessor;
 import mcp.mobius.waila.api.RenderableTextComponent;
 import net.minecraft.fluid.Fluid;
@@ -37,11 +38,12 @@ public class FluidComponent extends BlockComponent {
 
     private static final Identifier DEFAULT = id("default");
 
-    public static final CompoundTag TAG = new CompoundTag();
+    static final CompoundTag DEFAULT_TAG = new CompoundTag();
+    static final Int2ObjectOpenHashMap<CompoundTag> TAGS = new Int2ObjectOpenHashMap<>();
 
     static {
-        TAG.putBoolean(B_TL, false);
-        TAG.putString(B_UNIT, "mB");
+        DEFAULT_TAG.putBoolean(B_TL, false);
+        DEFAULT_TAG.putString(B_UNIT, "mB");
     }
 
     public FluidComponent() {
@@ -85,13 +87,15 @@ public class FluidComponent extends BlockComponent {
 
                 String name = provider == null ? fluidName(fluid) : provider.getName(fluid).getString();
 
-                TAG.putInt(B_COLOR, color);
-                TAG.putDouble(B_STORED, stored);
-                TAG.putDouble(B_MAX, max);
-                TAG.putBoolean(B_LONG, expand);
-                TAG.putString(B_PREFIX, name);
+                CompoundTag tag = TAGS.computeIfAbsent(i, k -> DEFAULT_TAG.copy());
 
-                tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
+                tag.putInt(B_COLOR, color);
+                tag.putDouble(B_STORED, stored);
+                tag.putDouble(B_MAX, max);
+                tag.putBoolean(B_LONG, expand);
+                tag.putString(B_PREFIX, name);
+
+                tooltip.add(new RenderableTextComponent(Megane.BAR, tag.copy()));
             }
         }
     }

@@ -33,21 +33,21 @@ public class FluidData extends BlockData {
             if (provider.hasFluid(blockEntity)) {
                 data.putBoolean(F_HAS, true);
 
-                int slotCount = provider.getSlotCount(blockEntity);
+                int size = provider.getSlotCount(blockEntity);
+                int i = 0;
 
-                for (int i = 0; i < slotCount; i++) {
-                    Fluid fluid = provider.getFluid(blockEntity, i);
+                for (int j = 0; j < size; j++) {
+                    Fluid fluid = provider.getFluid(blockEntity, j);
                     if (fluid == null) {
-                        slotCount--;
-                        i--;
                         continue;
                     }
                     data.putInt(F_ID + i, Registry.FLUID.getRawId(fluid));
-                    data.putDouble(F_STORED + i, provider.getStored(blockEntity, i));
-                    data.putDouble(F_MAX + i, provider.getMax(blockEntity, i));
+                    data.putDouble(F_STORED + i, provider.getStored(blockEntity, j));
+                    data.putDouble(F_MAX + i, provider.getMax(blockEntity, j));
+                    i++;
                 }
 
-                data.putInt(F_SIZE, slotCount);
+                data.putInt(F_SIZE, i);
                 return;
             }
         }
