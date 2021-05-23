@@ -95,7 +95,7 @@ public class FluidComponent extends BlockComponent {
                 tag.putBoolean(B_LONG, expand);
                 tag.putString(B_PREFIX, name);
 
-                tooltip.add(new RenderableTextComponent(Megane.BAR, tag.copy()));
+                tooltip.add(new RenderableTextComponent(Megane.BAR, tag));
             }
         }
     }
