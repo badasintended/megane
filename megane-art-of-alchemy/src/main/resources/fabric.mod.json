@@ -12,8 +12,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["artofalchemy"],
-        "init": "badasintended.megane.impl.ArtOfAlchemy"
+        "depends": {"artofalchemy": "*"},
+        "init"   : "badasintended.megane.impl.ArtOfAlchemy"
       }
     ],
     "modmenu"       : {

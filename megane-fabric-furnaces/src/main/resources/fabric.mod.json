@@ -12,8 +12,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["fabric-furnaces"],
-        "init": "badasintended.megane.impl.FabricFurnaces"
+        "depends": {"fabric-furnaces": "*"},
+        "init"   : "badasintended.megane.impl.FabricFurnaces"
       }
     ],
     "modmenu"       : {

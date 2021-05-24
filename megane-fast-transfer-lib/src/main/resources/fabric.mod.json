@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["fasttransferlib"],
-        "init": "badasintended.megane.impl.FastTransferLib"
+        "depends": {"fasttransferlib": "*"},
+        "init"   : "badasintended.megane.impl.FastTransferLib"
       }
     ],
     "modmenu"       : {

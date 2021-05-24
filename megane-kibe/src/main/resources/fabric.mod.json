@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["kibe"],
-        "init": "badasintended.megane.impl.Kibe"
+        "depends": {"kibe": "*"},
+        "init"   : "badasintended.megane.impl.Kibe"
       }
     ],
     "modmenu"       : {

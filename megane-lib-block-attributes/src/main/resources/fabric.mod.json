@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["libblockattributes_fluids"],
-        "init": "badasintended.megane.impl.LibBlockAttributesFluids"
+        "depends": {"libblockattributes_fluids": "*"},
+        "init"   : "badasintended.megane.impl.LibBlockAttributesFluids"
       }
     ],
     "modmenu"       : {

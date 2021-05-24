@@ -12,8 +12,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["modern_industrialization"],
-        "init": "badasintended.megane.impl.ModernIndustrialization"
+        "depends": {"modern_industrialization": "*"},
+        "init"   : "badasintended.megane.impl.ModernIndustrialization"
       }
     ],
     "modmenu"       : {

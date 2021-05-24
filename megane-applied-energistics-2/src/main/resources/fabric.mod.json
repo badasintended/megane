@@ -12,8 +12,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["appliedenergistics2"],
-        "init": "badasintended.megane.impl.AppliedEnergistics2"
+        "depends": {"appliedenergistics2": "*"},
+        "init"   : "badasintended.megane.impl.AppliedEnergistics2"
       }
     ],
     "modmenu"       : {

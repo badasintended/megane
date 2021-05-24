@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["techreborn"],
-        "init": "badasintended.megane.impl.TechReborn"
+        "depends": {"techreborn": "*"},
+        "init"   : "badasintended.megane.impl.TechReborn"
       }
     ],
     "modmenu"       : {

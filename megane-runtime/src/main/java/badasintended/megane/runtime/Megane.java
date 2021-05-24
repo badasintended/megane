@@ -3,6 +3,8 @@ package badasintended.megane.runtime;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.config.MeganeConfig;
@@ -40,6 +42,10 @@ import mcp.mobius.waila.api.IServerDataProvider;
 import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.SemanticVersion;
+import net.fabricmc.loader.api.Version;
+import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.block.BeaconBlock;
@@ -58,7 +64,6 @@ import static badasintended.megane.util.MeganeUtils.CONFIG_VERSION;
 import static badasintended.megane.util.MeganeUtils.LOGGER;
 import static badasintended.megane.util.MeganeUtils.MODID;
 import static badasintended.megane.util.MeganeUtils.config;
-import static badasintended.megane.util.MeganeUtils.hasMod;
 import static badasintended.megane.util.MeganeUtils.id;
 import static mcp.mobius.waila.api.TooltipPosition.HEAD;
 import static mcp.mobius.waila.api.TooltipPosition.TAIL;
@@ -161,10 +166,27 @@ public class Megane implements IWailaPlugin {
                     if (value.getType() == CustomValue.CvType.OBJECT) {
                         CustomValue.CvObject object = value.getAsObject();
                         className = object.get("init").getAsString();
-                        if (object.containsKey("deps"))
-                            for (CustomValue dep : object.get("deps").getAsArray()) {
-                                satisfied = satisfied && hasMod(dep.getAsString());
+                        if (object.containsKey("depends")) {
+                            for (Map.Entry<String, CustomValue> dep : object.get("depends").getAsObject()) {
+                                Optional<ModContainer> optional = loader.getModContainer(dep.getKey());
+                                satisfied = satisfied && optional.isPresent();
+                                if (satisfied) {
+                                    try {
+                                        Version modVersion = optional.get().getMetadata().getVersion();
+                                        Version depVersion = Version.parse(dep.getValue().getAsString());
+
+                                        if (depVersion instanceof SemanticVersion && modVersion instanceof SemanticVersion) {
+                                            satisfied = ((SemanticVersion) depVersion).compareTo((SemanticVersion) modVersion) <= 0;
+                                        } else if (!(depVersion.toString().equals("*") || depVersion.toString().equals(modVersion.toString()))) {
+                                            satisfied = false;
+                                        }
+                                    } catch (VersionParsingException e) {
+                                        LOGGER.error("Failed to parse dependency version for module " + className, e);
+                                        satisfied = false;
+                                    }
+                                }
                             }
+                        }
                     } else {
                         className = value.getAsString();
                     }

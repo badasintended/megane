@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["team_reborn_energy"],
-        "init": "badasintended.megane.impl.TeamRebornEnergy"
+        "depends": {"team_reborn_energy": "*"},
+        "init"   : "badasintended.megane.impl.TeamRebornEnergy"
       }
     ],
     "modmenu"       : {

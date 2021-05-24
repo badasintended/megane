@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["astromine-technologies"],
-        "init": "badasintended.megane.impl.Astromine"
+        "depends": {"astromine-technologies": "L"},
+        "init"   : "badasintended.megane.impl.Astromine"
       }
     ],
     "modmenu"       : {

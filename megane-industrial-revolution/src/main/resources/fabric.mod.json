@@ -11,8 +11,8 @@
   "custom"       : {
     "megane:modules": [
       {
-        "deps": ["indrev"],
-        "init": "badasintended.megane.impl.IndustrialRevolution"
+        "depends": {"indrev": "*"},
+        "init"   : "badasintended.megane.impl.IndustrialRevolution"
       }
     ],
     "modmenu"       : {
