@@ -17,9 +17,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import mcp.mobius.waila.utils.JsonConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.SemanticVersion;
-import net.fabricmc.loader.api.Version;
 import net.fabricmc.loader.api.VersionParsingException;
+import net.fabricmc.loader.util.version.VersionPredicateParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
@@ -82,18 +81,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
                     Map<String, String> dependencies = mixinDependencies.get(key);
                     for (Map.Entry<String, String> dependency : dependencies.entrySet()) {
                         Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(dependency.getKey());
-                        if (mod.isPresent()) {
-                            Version modVersion = mod.get().getMetadata().getVersion();
-                            Version depVersion = Version.parse(dependency.getValue());
-
-                            if (depVersion instanceof SemanticVersion && modVersion instanceof SemanticVersion) {
-                                apply = ((SemanticVersion) depVersion).compareTo((SemanticVersion) modVersion) <= 0;
-                            } else if (!(depVersion.toString().equals("*") || depVersion.toString().equals(modVersion.toString()))) {
-                                apply = false;
-                            }
-                        } else {
-                            apply = false;
-                        }
+                        apply = mod.isPresent() && VersionPredicateParser.matches(mod.get().getMetadata().getVersion(), dependency.getValue());
                         if (!apply) {
                             break;
                         }

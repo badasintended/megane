@@ -43,11 +43,10 @@ import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.SemanticVersion;
-import net.fabricmc.loader.api.Version;
 import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.fabricmc.loader.util.version.VersionPredicateParser;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.Block;
@@ -169,21 +168,17 @@ public class Megane implements IWailaPlugin {
                         if (object.containsKey("depends")) {
                             for (Map.Entry<String, CustomValue> dep : object.get("depends").getAsObject()) {
                                 Optional<ModContainer> optional = loader.getModContainer(dep.getKey());
-                                satisfied = satisfied && optional.isPresent();
+                                satisfied = optional.isPresent();
                                 if (satisfied) {
                                     try {
-                                        Version modVersion = optional.get().getMetadata().getVersion();
-                                        Version depVersion = Version.parse(dep.getValue().getAsString());
-
-                                        if (depVersion instanceof SemanticVersion && modVersion instanceof SemanticVersion) {
-                                            satisfied = ((SemanticVersion) depVersion).compareTo((SemanticVersion) modVersion) <= 0;
-                                        } else if (!(depVersion.toString().equals("*") || depVersion.toString().equals(modVersion.toString()))) {
-                                            satisfied = false;
-                                        }
+                                        satisfied = VersionPredicateParser.matches(optional.get().getMetadata().getVersion(), dep.getValue().getAsString());
                                     } catch (VersionParsingException e) {
                                         LOGGER.error("Failed to parse dependency version for module " + className, e);
                                         satisfied = false;
                                     }
+                                }
+                                if (!satisfied) {
+                                    break;
                                 }
                             }
                         }

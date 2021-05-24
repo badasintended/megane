@@ -11,7 +11,7 @@
   "custom"       : {
     "megane:modules": [
       {
-        "depends": {"astromine-technologies": "L"},
+        "depends": {"astromine-technologies": "*"},
         "init"   : "badasintended.megane.impl.Astromine"
       }
     ],
