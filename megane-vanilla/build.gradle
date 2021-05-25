@@ -1,2 +1,0 @@
-apply from: "../gradle/impl.gradle"
-version = "${rootProject.version}+${minecraft}"

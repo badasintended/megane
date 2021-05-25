@@ -1,5 +1,0 @@
-dependencies {
-    implFor "curse.maven:fabric-furnaces-315534:3155774"
-}
-
-apply from: "../gradle/impl.gradle"

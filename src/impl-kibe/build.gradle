@@ -1,0 +1,14 @@
+repositories {
+    maven {
+        url "https://mod-buildcraft.com/maven"
+        content {includeGroup "alexiil.mc.lib"}
+    }
+}
+
+dependencies {
+    implFor "curse.maven:kibe-388832:3239422"
+
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
+}
+
+apply from: "impl.gradle"

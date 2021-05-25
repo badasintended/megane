@@ -21,6 +21,8 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    buildDir = rootProject.file("build/${name}")
+
     configurations {
         implFor {
             resolutionStrategy {
@@ -103,6 +105,11 @@ subprojects {
     group = "${rootProject.group}.${rootProject.archivesBaseName}"
     archivesBaseName = name
     version = rootProject.version
+
+    sourceSets {
+        main.java.srcDirs = ["../src/${name}/java"]
+        main.resources.srcDirs = ["../src/${name}/resources"]
+    }
 
     publishing {
         publications {

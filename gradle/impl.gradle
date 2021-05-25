@@ -12,6 +12,6 @@ if (!implFor.empty) {
 }
 
 dependencies {
-    implementation project(":megane-base")
+    implementation project(":base")
     modCompileOnly(project.configurations.implFor.dependencies)
 }

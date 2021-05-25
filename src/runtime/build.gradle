@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":base")
+
+    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu}") { exclude group: "net.fabricmc.fabric-api" }
+}

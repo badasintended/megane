@@ -8,18 +8,26 @@ pluginManagement {
     }
 }
 
-include "megane-base"
-include "megane-runtime"
+def include(String name) {
+    settings.include name
+    project(":$name").each {
+        it.projectDir = file("gradle")
+        it.buildFileName = "../src/${name}/build.gradle"
+    }
+}
 
-include "megane-applied-energistics-2"
-include "megane-art-of-alchemy"
-include "megane-astromine"
-include "megane-fabric-furnaces"
-include "megane-fast-transfer-lib"
-include "megane-industrial-revolution"
-include "megane-kibe"
-include "megane-lib-block-attributes"
-include "megane-modern-industrialization"
-include "megane-team-reborn-energy"
-include "megane-tech-reborn"
-include "megane-vanilla"
+include "base"
+include "runtime"
+
+include "impl-applied-energistics-2"
+include "impl-art-of-alchemy"
+include "impl-astromine"
+include "impl-fabric-furnaces"
+include "impl-fast-transfer-lib"
+include "impl-industrial-revolution"
+include "impl-kibe"
+include "impl-lib-block-attributes"
+include "impl-modern-industrialization"
+include "impl-team-reborn-energy"
+include "impl-tech-reborn"
+include "impl-vanilla"
