@@ -32,6 +32,8 @@ import org.jetbrains.annotations.Nullable;
 
 import static badasintended.megane.util.MeganeUtils.intRange;
 
+// TODO: Remove
+@Deprecated
 public class ModernIndustrialization implements MeganeModule {
 
     @Override

@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+// TODO: Remove
 @Mixin(MultiblockMachineBlockEntity.class)
 public interface AMultiblockMachineBlockEntity {
 

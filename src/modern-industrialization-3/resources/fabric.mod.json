@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "id"           : "megane-modern-industrialization",
+  "id"           : "megane-modern-industrialization-3",
   "version"      : "${version}",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
-  "mixins"       : ["megane-impl-modern-industrialization.mixins.json"],
+  "mixins"       : ["megane-modern-industrialization-3.mixins.json"],
   "depends"      : {
     "megane-base"             : "*",
     "modern_industrialization": "0.3.x"
@@ -15,7 +15,8 @@
       "badasintended.megane.impl.ModernIndustrialization"
     ],
     "modmenu"       : {
-      "parent": "megane"
+      "parent": "megane",
+      "badges": ["deprecated"]
     }
   }
 }
