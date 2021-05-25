@@ -32,9 +32,5 @@ jobs:
           MOD_VERSION: ${{ steps.vars.outputs.VERSION }}
       - uses: actions/upload-artifact@v2
         with:
-          name: megane jij ${{ steps.vars.outputs.VERSION }}
-          path: "./build/libs/**.jar"
-      - uses: actions/upload-artifact@v2
-        with:
-          name: megane sub ${{ steps.vars.outputs.VERSION }}
-          path: "./megane-*/build/libs/**.jar"
+          name: megane ${{ steps.vars.outputs.VERSION }}
+          path: "build/*/libs/**.jar"
