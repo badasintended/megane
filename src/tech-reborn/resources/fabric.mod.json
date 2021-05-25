@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-tech-reborn",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base": "*",
+    "techreborn" : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.TechReborn"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

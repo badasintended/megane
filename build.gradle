@@ -31,6 +31,10 @@ allprojects {
         }
     }
 
+    minecraft {
+        refmapName = "megane-${name}.refmap.json"
+    }
+
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://bai.jfrog.io/artifactory/maven" }
@@ -109,6 +113,10 @@ subprojects {
     sourceSets {
         main.java.srcDirs = ["../src/${name}/java"]
         main.resources.srcDirs = ["../src/${name}/resources"]
+    }
+
+    tasks.withType(org.gradle.jvm.tasks.Jar) {
+        archiveBaseName.set("megane-${project.name}")
     }
 
     publishing {

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-fabric-furnaces",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-fabric-furnaces.mixins.json"],
+  "depends"      : {
+    "megane-base"    : "*",
+    "fabric-furnaces": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.FabricFurnaces"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

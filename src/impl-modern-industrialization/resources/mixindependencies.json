@@ -1,8 +1,0 @@
-{
-  "modern_industrialization": {
-    "ACreativeTankBlockEntity"     : {"modern_industrialization": "*"},
-    "AMachineBlockEntity"          : {"modern_industrialization": "*"},
-    "AMultiblockMachineBlockEntity": {"modern_industrialization": "*"},
-    "ATankBlockEntity"             : {"modern_industrialization": "*"}
-  }
-}

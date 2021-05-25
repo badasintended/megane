@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-art-of-alchemy",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-art-of-alchemy.mixins.json"],
+  "depends"      : {
+    "megane-base" : "*",
+    "artofalchemy": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.ArtOfAlchemy"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

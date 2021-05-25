@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-astromine",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base"           : "*",
+    "astromine-technologies": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.Astromine"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

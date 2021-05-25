@@ -1,18 +1,11 @@
 package badasintended.megane.impl.mixin;
 
-import java.io.BufferedReader;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import mcp.mobius.waila.utils.JsonConfig;
 import net.fabricmc.loader.api.FabricLoader;
@@ -36,6 +29,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     private static final Map<String, Map<String, Map<String, String>>> DEPENDENCIES = new HashMap<>();
 
+    /*
     static {
         Type type = new TypeToken<Map<String, Map<String, Map<String, String>>>>() {
         }.getType();
@@ -50,6 +44,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
             }
         }
     }
+    */
 
     private Map<String, Map<String, String>> mixinDependencies;
     private String mixinPackage;
