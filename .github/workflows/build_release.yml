@@ -27,8 +27,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: "build/*/libs/*[0-9.].jar"
+          asset_paths: '["build/*/libs/*[0-9.].jar"]'
       - uses : actions/upload-artifact@v2
         with :
           name : megane ${{ steps.vars.outputs.VERSION }}
-          path : '["build/*/libs/**.jar"]'
+          path : "build/*/libs/**.jar"
