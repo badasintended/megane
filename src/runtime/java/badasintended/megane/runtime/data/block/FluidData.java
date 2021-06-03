@@ -21,7 +21,7 @@ import static badasintended.megane.util.MeganeUtils.config;
 public class FluidData extends BlockData {
 
     public FluidData() {
-        super(() -> config().fluid);
+        super(Registrar.FLUID, () -> config().fluid);
     }
 
     @Override

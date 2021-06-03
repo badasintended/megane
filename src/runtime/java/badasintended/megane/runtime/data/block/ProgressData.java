@@ -27,7 +27,7 @@ import static badasintended.megane.util.MeganeUtils.config;
 public class ProgressData extends BlockData {
 
     public ProgressData() {
-        super(() -> config().progress);
+        super(Registrar.PROGRESS, () -> config().progress);
     }
 
     @Override

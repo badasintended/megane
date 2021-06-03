@@ -17,7 +17,7 @@ import static badasintended.megane.util.MeganeUtils.config;
 public class EnergyData extends BlockData {
 
     public EnergyData() {
-        super(() -> config().energy);
+        super(Registrar.ENERGY, () -> config().energy);
     }
 
     @Override

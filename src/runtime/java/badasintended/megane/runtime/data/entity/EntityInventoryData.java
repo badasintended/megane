@@ -23,7 +23,7 @@ import static net.minecraft.util.registry.Registry.ITEM;
 public class EntityInventoryData extends EntityData {
 
     public EntityInventoryData() {
-        super(() -> config().entityInventory);
+        super(Registrar.INVENTORY, () -> config().entityInventory);
     }
 
     @Override

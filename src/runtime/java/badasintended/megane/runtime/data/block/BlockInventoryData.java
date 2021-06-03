@@ -23,7 +23,7 @@ import static net.minecraft.util.registry.Registry.ITEM;
 public class BlockInventoryData extends BlockData {
 
     public BlockInventoryData() {
-        super(() -> config().inventory);
+        super(Registrar.INVENTORY, () -> config().inventory);
     }
 
     @Override
