@@ -24,8 +24,13 @@ public class MeganeConfig {
     public final PetOwner petOwner = new PetOwner();
     public final Effect effect = new Effect();
 
+    private boolean catchServerErrors = true;
     private boolean spawnEgg = true;
     private boolean playerHead = true;
+
+    public boolean getCatchServerErrors() {
+        return catchServerErrors;
+    }
 
     public boolean getSpawnEgg() {
         return spawnEgg;
@@ -33,6 +38,10 @@ public class MeganeConfig {
 
     public boolean getPlayerHead() {
         return playerHead;
+    }
+
+    public void setCatchServerErrors(boolean catchServerErrors) {
+        this.catchServerErrors = catchServerErrors;
     }
 
     public void setSpawnEgg(boolean spawnEgg) {

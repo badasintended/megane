@@ -178,6 +178,7 @@ public class MeganeConfigScreen extends GuiOptions {
             }
         })));
 
+        options.add(sided(SERVER, bool("catchServerErrors", config().getCatchServerErrors(), config()::setCatchServerErrors)));
         options.add(sided(CLIENT, bool("spawnEgg", config().getSpawnEgg(), config()::setSpawnEgg)));
         options.add(sided(CLIENT, bool("playerHead", config().getPlayerHead(), config()::setPlayerHead)));
 

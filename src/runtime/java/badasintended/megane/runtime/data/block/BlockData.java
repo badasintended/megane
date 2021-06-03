@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 
 import static badasintended.megane.util.MeganeUtils.ISSUE_URL;
 import static badasintended.megane.util.MeganeUtils.LOGGER;
+import static badasintended.megane.util.MeganeUtils.config;
 import static net.minecraft.util.registry.Registry.BLOCK;
 
 public abstract class BlockData implements IServerDataProvider<BlockEntity> {
@@ -54,6 +55,9 @@ public abstract class BlockData implements IServerDataProvider<BlockEntity> {
             BlockPos pos = blockEntity.getPos();
             player.sendSystemMessage(ERROR_TEXT, Util.NIL_UUID);
             LOGGER.error("Something went wrong when retrieving data for {} at ({}, {}, {})", blockEntity.getClass().getName(), pos.getX(), pos.getY(), pos.getZ());
+            if (!config().getCatchServerErrors()) {
+                throw t;
+            }
             LOGGER.error("Stacktrace:", t);
 
             if (registry != null) {
