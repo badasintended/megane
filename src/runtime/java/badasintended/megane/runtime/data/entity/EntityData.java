@@ -8,13 +8,25 @@ import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import static badasintended.megane.util.MeganeUtils.ISSUE_URL;
 import static badasintended.megane.util.MeganeUtils.LOGGER;
 import static net.minecraft.util.registry.Registry.ENTITY_TYPE;
 
 public abstract class EntityData implements IServerDataProvider<LivingEntity> {
+
+    private static final Text ERROR_TEXT = new LiteralText("Something went wrong when retrieving data for this entity").styled(style -> style
+        .withColor(Formatting.RED)
+        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new LiteralText("Click me to open an issue at GitHub")))
+        .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, ISSUE_URL)));
 
     private final Registry<?> registry;
     private final Supplier<MeganeConfig.Base> baseConfig;
@@ -38,10 +50,11 @@ public abstract class EntityData implements IServerDataProvider<LivingEntity> {
 
         try {
             append(data, player, world, entity);
-        } catch (Exception e) {
+        } catch (Throwable t) {
             Vec3d pos = entity.getPos();
+            player.sendSystemMessage(ERROR_TEXT, Util.NIL_UUID);
             LOGGER.error("Something went wrong when retrieving data for {} at ({}, {}, {})", entity.getClass().getName(), pos.getX(), pos.getY(), pos.getZ());
-            LOGGER.error("Stacktrace:", e);
+            LOGGER.error("Stacktrace:", t);
 
             if (registry != null) {
                 registry.error(entity);

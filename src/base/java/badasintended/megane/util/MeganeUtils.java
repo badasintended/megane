@@ -18,6 +18,7 @@ public final class MeganeUtils {
     private static final int[] EMPTY_INT_ARRAY = new int[0];
 
     public static final String MODID = "megane";
+    public static final String ISSUE_URL = "https://github.com/badasintended/megane/issues";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public static final int CONFIG_VERSION = 2;
