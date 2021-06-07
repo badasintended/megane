@@ -8,9 +8,9 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:modern-industrialization-405388:3321898"
+    implFor "curse.maven:modern-industrialization-405388:3341391"
 
-    modCompileOnly "net.fabricmc.fabric-api:fabric-transfer-api-v1:0.1.0+7678d00a7d"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-transfer-api-v1:0.2.2+3185237c7d"
 }
 
 apply from: "impl.gradle"
