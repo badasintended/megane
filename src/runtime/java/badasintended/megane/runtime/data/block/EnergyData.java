@@ -5,7 +5,7 @@ import java.util.List;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.runtime.registry.Registrar;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class EnergyData extends BlockData {
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
-    void append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+    void append(NbtCompound data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
         List<EnergyProvider> providers = Registrar.ENERGY.get(blockEntity);
         for (EnergyProvider provider : providers) {
             provider.setupContext(world, player);

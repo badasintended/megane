@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
-import mcp.mobius.waila.utils.JsonConfig;
+import mcp.mobius.waila.api.IJsonConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.VersionParsingException;
@@ -22,10 +22,10 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     private static final Logger LOGGER = LogManager.getLogger("megane-impl-mixin");
     private static final String PREFIX = "badasintended.megane.impl.mixin.";
-    private static final JsonConfig<Config> CONFIG = new JsonConfig<>(
-        FabricLoader.getInstance().getConfigDir().resolve("waila/megane-impl-mixin.json").toFile(),
-        Config.class
-    );
+    private static final IJsonConfig<Config> CONFIG = IJsonConfig
+        .of(Config.class)
+        .file(FabricLoader.getInstance().getConfigDir().resolve("waila/megane-impl-mixin.json"))
+        .build();
 
     private static final Map<String, Map<String, Map<String, String>>> DEPENDENCIES = new HashMap<>();
 

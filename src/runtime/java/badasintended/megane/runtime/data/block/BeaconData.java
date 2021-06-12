@@ -4,7 +4,7 @@ import badasintended.megane.runtime.mixin.ABeaconBlockEntity;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
@@ -20,7 +20,7 @@ public class BeaconData extends BlockData {
     }
 
     @Override
-    void append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+    void append(NbtCompound data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
         if (blockEntity instanceof BeaconBlockEntity) {
             ABeaconBlockEntity beacon = (ABeaconBlockEntity) blockEntity;
             int primary = StatusEffect.getRawId(beacon.getPrimary());

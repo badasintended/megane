@@ -5,8 +5,8 @@ import java.util.function.Supplier;
 import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.registry.Registry;
 import mcp.mobius.waila.api.IServerDataProvider;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
@@ -22,7 +22,7 @@ import static badasintended.megane.util.MeganeUtils.LOGGER;
 import static badasintended.megane.util.MeganeUtils.config;
 import static net.minecraft.util.registry.Registry.ENTITY_TYPE;
 
-public abstract class EntityData implements IServerDataProvider<LivingEntity> {
+public abstract class EntityData implements IServerDataProvider<Entity> {
 
     private static final Text ERROR_TEXT = new LiteralText("Something went wrong when retrieving data for this entity").styled(style -> style
         .withColor(Formatting.RED)
@@ -41,10 +41,10 @@ public abstract class EntityData implements IServerDataProvider<LivingEntity> {
         this.baseConfig = baseConfig;
     }
 
-    abstract void append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity entity);
+    abstract void append(NbtCompound data, ServerPlayerEntity player, World world, Entity entity);
 
     @Override
-    public final void appendServerData(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity entity) {
+    public final void appendServerData(NbtCompound data, ServerPlayerEntity player, World world, Entity entity) {
         if (!baseConfig.get().isEnabled() || baseConfig.get().getBlacklist().contains(ENTITY_TYPE.getId(entity.getType()))) {
             return;
         }

@@ -10,7 +10,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.StatusEffectSpriteManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 import static badasintended.megane.runtime.util.Keys.S_ID;
 import static badasintended.megane.runtime.util.Keys.S_LV_STR;
@@ -20,7 +20,7 @@ import static badasintended.megane.runtime.util.RuntimeUtils.textRenderer;
 public class StatusEffectRenderer implements ITooltipRenderer {
 
     @Override
-    public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
+    public Dimension getSize(NbtCompound data, ICommonAccessor accessor) {
         int size = data.getInt(S_SIZE);
         for (int i = 0; i < size; i++) {
             int id = data.getInt(S_ID + i);
@@ -35,7 +35,7 @@ public class StatusEffectRenderer implements ITooltipRenderer {
     }
 
     @Override
-    public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
+    public void draw(MatrixStack matrices, NbtCompound data, ICommonAccessor accessor, int x, int y) {
         StatusEffectSpriteManager manager = MinecraftClient.getInstance().getStatusEffectSpriteManager();
 
         int size = data.getInt(S_SIZE);

@@ -23,8 +23,7 @@ public class SidedEntry extends OptionsEntryValue<Object> {
         this.entry = entry;
         this.side = side;
 
-        if (entry instanceof OptionsEntryValue) {
-            OptionsEntryValue<?> value = (OptionsEntryValue<?>) entry;
+        if (entry instanceof OptionsEntryValue<?> value) {
             this.listener = value.getListener();
             this.title = value.getTitle();
             this.description = value.getDescription();

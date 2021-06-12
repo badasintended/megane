@@ -12,7 +12,7 @@ import static badasintended.megane.util.MeganeUtils.id;
 
 public class MeganeConfig {
 
-    public int configVersion = 0;
+    private int configVersion = 0;
 
     public final HashMap<String, HashMap<String, Boolean>> modules = new HashMap<>();
 
@@ -27,6 +27,14 @@ public class MeganeConfig {
     private boolean catchServerErrors = true;
     private boolean spawnEgg = true;
     private boolean playerHead = true;
+
+    public int getConfigVersion() {
+        return configVersion;
+    }
+
+    public void setConfigVersion(int configVersion) {
+        this.configVersion = configVersion;
+    }
 
     public boolean getCatchServerErrors() {
         return catchServerErrors;

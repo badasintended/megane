@@ -1,18 +1,14 @@
 package badasintended.megane.runtime;
 
-import java.io.File;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import badasintended.megane.api.MeganeModule;
-import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.component.AlignResetComponent;
 import badasintended.megane.runtime.component.block.BeaconComponent;
 import badasintended.megane.runtime.component.block.BeeHiveComponent;
 import badasintended.megane.runtime.component.block.BlockInventoryComponent;
-import badasintended.megane.runtime.component.block.CauldronComponent;
 import badasintended.megane.runtime.component.block.ComposterComponent;
 import badasintended.megane.runtime.component.block.EnergyComponent;
 import badasintended.megane.runtime.component.block.FluidComponent;
@@ -36,9 +32,7 @@ import badasintended.megane.runtime.renderer.BarRenderer;
 import badasintended.megane.runtime.renderer.InventoryRenderer;
 import badasintended.megane.runtime.renderer.ProgressRenderer;
 import badasintended.megane.runtime.renderer.StatusEffectRenderer;
-import mcp.mobius.waila.Waila;
 import mcp.mobius.waila.api.IRegistrar;
-import mcp.mobius.waila.api.IServerDataProvider;
 import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -50,18 +44,13 @@ import net.fabricmc.loader.util.version.VersionPredicateParser;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.CauldronBlock;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
-import static badasintended.megane.runtime.util.RuntimeUtils.oldConfigVersion;
-import static badasintended.megane.runtime.util.RuntimeUtils.showUpdatedConfigToast;
 import static badasintended.megane.util.MeganeUtils.CONFIG;
-import static badasintended.megane.util.MeganeUtils.CONFIG_VERSION;
 import static badasintended.megane.util.MeganeUtils.LOGGER;
-import static badasintended.megane.util.MeganeUtils.MODID;
 import static badasintended.megane.util.MeganeUtils.config;
 import static badasintended.megane.util.MeganeUtils.id;
 import static mcp.mobius.waila.api.TooltipPosition.HEAD;
@@ -81,79 +70,51 @@ public class Megane implements IWailaPlugin {
     @Override
     public void register(IRegistrar r) {
         // Renderer
-        r.registerTooltipRenderer(INVENTORY, new InventoryRenderer());
-        r.registerTooltipRenderer(BAR, new BarRenderer());
-        r.registerTooltipRenderer(PROGRESS, new ProgressRenderer());
-        r.registerTooltipRenderer(ALIGNED, new AlignedTextRenderer());
-        r.registerTooltipRenderer(EFFECT, new StatusEffectRenderer());
+        r.addRenderer(INVENTORY, new InventoryRenderer());
+        r.addRenderer(BAR, new BarRenderer());
+        r.addRenderer(PROGRESS, new ProgressRenderer());
+        r.addRenderer(ALIGNED, new AlignedTextRenderer());
+        r.addRenderer(EFFECT, new StatusEffectRenderer());
 
         // --- BLOCK ---
         // Component
-        r.registerComponentProvider(new AlignResetComponent.Block(), HEAD, BLOCK);
-        r.registerComponentProvider(new EnergyComponent(), HEAD, BLOCK);
-        r.registerComponentProvider(new FluidComponent(), HEAD, BLOCK);
-        r.registerComponentProvider(new CauldronComponent(), HEAD, CauldronBlock.class);
-        r.registerComponentProvider(new ComposterComponent(), HEAD, ComposterBlock.class);
-        r.registerComponentProvider(new BeeHiveComponent(), HEAD, BeehiveBlock.class);
+        r.addComponent(new AlignResetComponent.Block(), HEAD, BLOCK);
+        r.addComponent(new EnergyComponent(), HEAD, BLOCK);
+        r.addComponent(new FluidComponent(), HEAD, BLOCK);
+        //r.addComponent(new CauldronComponent(), HEAD, CauldronBlock.class);
+        r.addComponent(new ComposterComponent(), HEAD, ComposterBlock.class);
+        r.addComponent(new BeeHiveComponent(), HEAD, BeehiveBlock.class);
 
-        r.registerComponentProvider(new BlockInventoryComponent(), TAIL, BLOCK);
-        r.registerComponentProvider(new ProgressComponent(), TAIL, BLOCK);
-        r.registerComponentProvider(new BeaconComponent(), TAIL, BeaconBlock.class);
+        r.addComponent(new BlockInventoryComponent(), TAIL, BLOCK);
+        r.addComponent(new ProgressComponent(), TAIL, BLOCK);
+        r.addComponent(new BeaconComponent(), TAIL, BeaconBlock.class);
 
 
         // Server Data
-        r.registerBlockDataProvider(new BlockInventoryData(), BLOCK);
-        r.registerBlockDataProvider(new EnergyData(), BLOCK);
-        r.registerBlockDataProvider(new FluidData(), BLOCK);
-        r.registerBlockDataProvider(new ProgressData(), BLOCK);
-        r.registerBlockDataProvider(new BeaconData(), BeaconBlock.class);
+        r.addBlockData(new BlockInventoryData(), BLOCK);
+        r.addBlockData(new EnergyData(), BLOCK);
+        r.addBlockData(new FluidData(), BLOCK);
+        r.addBlockData(new ProgressData(), BLOCK);
+        r.addBlockData(new BeaconData(), BeaconBlock.class);
 
         // --- ENTITY ---
-        r.registerEntityStackProvider(new SpawnEggComponent(), ENTITY);
-        r.registerEntityStackProvider(new PlayerHeadComponent(), PlayerEntity.class);
+        r.addDisplayItem(new SpawnEggComponent(), ENTITY);
+        r.addDisplayItem(new PlayerHeadComponent(), PlayerEntity.class);
 
         // Component
-        r.registerComponentProvider(new AlignResetComponent.Entity(), HEAD, ENTITY);
-        r.registerComponentProvider(new PetOwnerComponent(), HEAD, ENTITY);
+        r.addComponent(new AlignResetComponent.Entity(), HEAD, ENTITY);
+        r.addComponent(new PetOwnerComponent(), HEAD, ENTITY);
 
-        r.registerComponentProvider(new EntityInventoryComponent(), TAIL, ENTITY);
-        r.registerComponentProvider(new StatusEffectComponent(), TAIL, ENTITY);
+        r.addComponent(new EntityInventoryComponent(), TAIL, ENTITY);
+        r.addComponent(new StatusEffectComponent(), TAIL, ENTITY);
 
         // Server Data
-        r.registerEntityDataProvider((IServerDataProvider) new EntityInventoryData(), ENTITY);
-        r.registerEntityDataProvider((IServerDataProvider) new PetOwnerData(), ENTITY);
-        r.registerEntityDataProvider((IServerDataProvider) new StatusEffectData(), ENTITY);
+        r.addEntityData(new EntityInventoryData(), ENTITY);
+        r.addEntityData(new PetOwnerData(), ENTITY);
+        r.addEntityData(new StatusEffectData(), ENTITY);
 
         // Modules
         FabricLoader loader = FabricLoader.getInstance();
-
-        Path conf = loader.getConfigDir();
-        File file = conf.resolve(Waila.MODID + "/" + MODID + ".json").toFile();
-        if (file.exists()) {
-            int version = config().configVersion;
-            if (version != CONFIG_VERSION)
-                try {
-                    File old = conf.resolve(Waila.MODID + "/" + MODID + ".json.old").normalize().toFile();
-                    old.delete();
-                    file.renameTo(old);
-
-                    MeganeConfig config = new MeganeConfig();
-                    config.configVersion = CONFIG_VERSION;
-                    CONFIG.write(config, true);
-
-                    LOGGER.warn(
-                        "[megane] Config reset because of different version ({} instead of {}), old config is available at {}",
-                        version, CONFIG_VERSION, old
-                    );
-                    oldConfigVersion = version;
-                    showUpdatedConfigToast = true;
-                } catch (Exception e) {
-                    // no-op
-                }
-        } else {
-            config().configVersion = CONFIG_VERSION;
-            CONFIG.save();
-        }
 
         loader.getAllMods().forEach(mod -> {
             ModMetadata metadata = mod.getMetadata();

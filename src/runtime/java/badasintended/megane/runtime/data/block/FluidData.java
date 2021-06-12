@@ -6,7 +6,7 @@ import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.runtime.registry.Registrar;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -26,7 +26,7 @@ public class FluidData extends BlockData {
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
-    void append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+    void append(NbtCompound data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
         List<FluidProvider> providers = Registrar.FLUID.get(blockEntity);
         for (FluidProvider provider : providers) {
             provider.setupContext(world, player);

@@ -6,7 +6,7 @@ import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.runtime.registry.Registrar;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ public class ProgressData extends BlockData {
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
-    void append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+    void append(NbtCompound data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
         List<ProgressProvider> providers = Registrar.PROGRESS.get(blockEntity);
         for (ProgressProvider provider : providers) {
             provider.setupContext(world, player);
@@ -48,7 +48,7 @@ public class ProgressData extends BlockData {
                     if (stack.isEmpty()) {
                         continue;
                     }
-                    CompoundTag tag = stack.getTag();
+                    NbtCompound tag = stack.getTag();
                     data.putInt(P_I_ID + i, Registry.ITEM.getRawId(stack.getItem()));
                     data.putInt(P_I_COUNT + i, stack.getCount());
                     data.put(P_I_NBT + i, tag == null ? EMPTY_TAG : tag);
@@ -64,7 +64,7 @@ public class ProgressData extends BlockData {
                     if (stack.isEmpty()) {
                         continue;
                     }
-                    CompoundTag tag = stack.getTag();
+                    NbtCompound tag = stack.getTag();
                     data.putInt(P_O_ID + i, Registry.ITEM.getRawId(stack.getItem()));
                     data.putInt(P_O_COUNT + i, stack.getCount());
                     data.put(P_O_NBT + i, tag == null ? EMPTY_TAG : tag);

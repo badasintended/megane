@@ -8,7 +8,7 @@ import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
 import static badasintended.megane.runtime.util.Keys.B_COLOR;
@@ -35,7 +35,7 @@ public class BarRenderer implements ITooltipRenderer {
         FORMAT.setRoundingMode(RoundingMode.DOWN);
     }
 
-    private String getValString(CompoundTag data) {
+    private String getValString(NbtCompound data) {
         double stored = data.getDouble(B_STORED);
         double max = data.getDouble(B_MAX);
         String unit = data.getString(B_UNIT);
@@ -59,7 +59,7 @@ public class BarRenderer implements ITooltipRenderer {
     }
 
     @Override
-    public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
+    public Dimension getSize(NbtCompound data, ICommonAccessor accessor) {
         String prefix = data.getString(B_PREFIX);
         if (data.getBoolean(B_TL))
             prefix = I18n.translate(prefix);
@@ -70,7 +70,7 @@ public class BarRenderer implements ITooltipRenderer {
     }
 
     @Override
-    public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
+    public void draw(MatrixStack matrices, NbtCompound data, ICommonAccessor accessor, int x, int y) {
         double stored = Math.max(data.getDouble(B_STORED), 0);
         double max = Math.max(data.getDouble(B_MAX), 0);
 

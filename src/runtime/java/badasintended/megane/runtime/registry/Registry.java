@@ -76,15 +76,7 @@ public class Registry<T> {
         return list;
     }
 
-    static class Entry<T> {
-
-        final int priority;
-        final T value;
-
-        Entry(T value, int priority) {
-            this.value = value;
-            this.priority = priority;
-        }
+    record Entry<T>(T value, int priority) {
 
     }
 

@@ -6,7 +6,7 @@ import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -28,12 +28,12 @@ public class ProgressRenderer implements ITooltipRenderer {
     private static final Identifier ARROW = id("textures/arrow.png");
 
     @Override
-    public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
+    public Dimension getSize(NbtCompound data, ICommonAccessor accessor) {
         return new Dimension((data.getInt(P_I_SIZE) + data.getInt(P_O_SIZE)) * 18 + 26, 18);
     }
 
     @Override
-    public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
+    public void draw(MatrixStack matrices, NbtCompound data, ICommonAccessor accessor, int x, int y) {
         int inputCount = data.getInt(P_I_SIZE);
         int outputCount = data.getInt(P_O_SIZE);
         int progressPixel = (int) (data.getInt(P_PERCENT) / 100F * 22);

@@ -3,9 +3,9 @@ package badasintended.megane.runtime.component.entity;
 import java.util.List;
 
 import badasintended.megane.runtime.Megane;
+import mcp.mobius.waila.api.IDrawableText;
 import mcp.mobius.waila.api.IEntityAccessor;
-import mcp.mobius.waila.api.RenderableTextComponent;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
 import static badasintended.megane.runtime.util.Keys.S_LV;
@@ -22,7 +22,7 @@ public class StatusEffectComponent extends EntityComponent {
 
     @Override
     protected void append(List<Text> tooltip, IEntityAccessor accessor) {
-        CompoundTag data = accessor.getServerData();
+        NbtCompound data = accessor.getServerData();
 
         for (int i = 0; i < data.getInt(S_SIZE); i++) {
             int lv = data.getInt(S_LV + i);
@@ -30,7 +30,7 @@ public class StatusEffectComponent extends EntityComponent {
             data.putString(S_LV_STR + i, str);
         }
 
-        tooltip.add(new RenderableTextComponent(Megane.EFFECT, data));
+        tooltip.add(IDrawableText.of(Megane.EFFECT, data));
     }
 
 }

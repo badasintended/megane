@@ -11,7 +11,7 @@ import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 import static badasintended.megane.runtime.util.Keys.I_COUNT;
 import static badasintended.megane.runtime.util.Keys.I_ID;
@@ -31,7 +31,7 @@ public class InventoryRenderer implements ITooltipRenderer {
     private int h;
 
     @Override
-    public Dimension getSize(CompoundTag data, ICommonAccessor accessor) {
+    public Dimension getSize(NbtCompound data, ICommonAccessor accessor) {
         w = data.getInt(I_MAX_W);
         h = data.getInt(I_MAX_H);
         int size = data.getInt(I_SIZE);
@@ -41,7 +41,7 @@ public class InventoryRenderer implements ITooltipRenderer {
         for (int i = 0; i < size; i++) {
             Item item = ITEM.get(data.getInt(I_ID + i));
             int count = showCount ? data.getInt(I_COUNT + i) : 1;
-            CompoundTag nbt = (CompoundTag) data.get(I_NBT + i);
+            NbtCompound nbt = (NbtCompound) data.get(I_NBT + i);
             if (count <= 0)
                 continue;
             ItemStack stack = new ItemStack(item, count);
@@ -67,7 +67,7 @@ public class InventoryRenderer implements ITooltipRenderer {
     }
 
     @Override
-    public void draw(MatrixStack matrices, CompoundTag data, ICommonAccessor accessor, int x, int y) {
+    public void draw(MatrixStack matrices, NbtCompound data, ICommonAccessor accessor, int x, int y) {
         for (int i = 0; i < Math.min(stacks.size(), w * h); i++) {
             drawStack(stacks.get(i), x + (18 * (i % w)) + 1, y + (18 * (i / w)));
         }

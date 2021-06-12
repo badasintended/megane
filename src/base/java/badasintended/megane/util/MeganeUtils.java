@@ -2,8 +2,8 @@ package badasintended.megane.util;
 
 import badasintended.megane.config.MeganeConfig;
 import com.google.gson.GsonBuilder;
-import mcp.mobius.waila.Waila;
-import mcp.mobius.waila.utils.JsonConfig;
+import mcp.mobius.waila.api.IJsonConfig;
+import mcp.mobius.waila.api.WailaConstants;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
@@ -23,12 +23,15 @@ public final class MeganeUtils {
 
     public static final int CONFIG_VERSION = 2;
 
-    public static final JsonConfig<MeganeConfig> CONFIG = new JsonConfig<>(Waila.MODID + "/" + MODID, MeganeConfig.class)
-        .withGson(new GsonBuilder()
+    public static final IJsonConfig<MeganeConfig> CONFIG = IJsonConfig
+        .of(MeganeConfig.class)
+        .file(WailaConstants.WAILA + "/" + MODID)
+        .gson(new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
-            .create()
-        );
+            .create())
+        .version(CONFIG_VERSION, MeganeConfig::getConfigVersion, MeganeConfig::setConfigVersion)
+        .build();
 
     public static Identifier id(String path) {
         return id(MODID, path);

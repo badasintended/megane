@@ -3,9 +3,9 @@ package badasintended.megane.runtime.component.block;
 import java.util.List;
 
 import badasintended.megane.runtime.Megane;
-import mcp.mobius.waila.api.IDataAccessor;
-import mcp.mobius.waila.api.RenderableTextComponent;
-import net.minecraft.nbt.CompoundTag;
+import mcp.mobius.waila.api.IBlockAccessor;
+import mcp.mobius.waila.api.IDrawableText;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 
 import static badasintended.megane.runtime.util.Keys.I_HAS;
@@ -21,12 +21,12 @@ public class BlockInventoryComponent extends BlockComponent {
     }
 
     @Override
-    protected void append(List<Text> tooltip, IDataAccessor accessor) {
-        CompoundTag data = accessor.getServerData();
+    protected void append(List<Text> tooltip, IBlockAccessor accessor) {
+        NbtCompound data = accessor.getServerData();
         if (data.getBoolean(I_HAS) && data.getInt(P_PERCENT) == 0 && data.getInt("progress") == 0 && !config().progress.isShowWhenZero()) {
             data.putInt(I_MAX_W, config().inventory.getMaxWidth());
             data.putInt(I_MAX_H, config().inventory.getMaxHeight());
-            tooltip.add(new RenderableTextComponent(Megane.INVENTORY, data));
+            tooltip.add(IDrawableText.of(Megane.INVENTORY, data));
         }
     }
 

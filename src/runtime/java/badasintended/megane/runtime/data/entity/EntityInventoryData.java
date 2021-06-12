@@ -4,9 +4,9 @@ import java.util.List;
 
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.runtime.registry.Registrar;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
@@ -28,7 +28,7 @@ public class EntityInventoryData extends EntityData {
 
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
-    void append(CompoundTag data, ServerPlayerEntity player, World world, LivingEntity entity) {
+    void append(NbtCompound data, ServerPlayerEntity player, World world, Entity entity) {
         List<InventoryProvider> providers = Registrar.INVENTORY.get(entity);
         for (InventoryProvider provider : providers) {
             provider.setupContext(world, player);
@@ -44,7 +44,7 @@ public class EntityInventoryData extends EntityData {
                     }
                     data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
                     data.putInt(I_COUNT + i, stack.getCount());
-                    CompoundTag nbt = stack.getTag();
+                    NbtCompound nbt = stack.getTag();
                     data.put(I_NBT + i, nbt == null || !config().entityInventory.isNbt() ? EMPTY_TAG : nbt);
                     i++;
                 }

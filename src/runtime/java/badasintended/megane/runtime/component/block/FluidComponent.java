@@ -7,10 +7,10 @@ import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.runtime.Megane;
 import badasintended.megane.runtime.registry.Registrar;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import mcp.mobius.waila.api.IDataAccessor;
-import mcp.mobius.waila.api.RenderableTextComponent;
+import mcp.mobius.waila.api.IBlockAccessor;
+import mcp.mobius.waila.api.IDrawableText;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -38,8 +38,8 @@ public class FluidComponent extends BlockComponent {
 
     private static final Identifier DEFAULT = id("default");
 
-    static final CompoundTag DEFAULT_TAG = new CompoundTag();
-    static final Int2ObjectOpenHashMap<CompoundTag> TAGS = new Int2ObjectOpenHashMap<>();
+    static final NbtCompound DEFAULT_TAG = new NbtCompound();
+    static final Int2ObjectOpenHashMap<NbtCompound> TAGS = new Int2ObjectOpenHashMap<>();
 
     static {
         DEFAULT_TAG.putBoolean(B_TL, false);
@@ -52,8 +52,8 @@ public class FluidComponent extends BlockComponent {
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    protected void append(List<Text> tooltip, IDataAccessor accessor) {
-        CompoundTag data = accessor.getServerData();
+    protected void append(List<Text> tooltip, IBlockAccessor accessor) {
+        NbtCompound data = accessor.getServerData();
         World world = accessor.getWorld();
         BlockPos pos = accessor.getPosition();
         if (data.getBoolean(F_HAS)) {
@@ -87,7 +87,7 @@ public class FluidComponent extends BlockComponent {
 
                 String name = provider == null ? fluidName(fluid) : provider.getName(fluid).getString();
 
-                CompoundTag tag = TAGS.computeIfAbsent(i, k -> DEFAULT_TAG.copy());
+                NbtCompound tag = TAGS.computeIfAbsent(i, k -> DEFAULT_TAG.copy());
 
                 tag.putInt(B_COLOR, color);
                 tag.putDouble(B_STORED, stored);
@@ -95,7 +95,7 @@ public class FluidComponent extends BlockComponent {
                 tag.putBoolean(B_LONG, expand);
                 tag.putString(B_PREFIX, name);
 
-                tooltip.add(new RenderableTextComponent(Megane.BAR, tag));
+                tooltip.add(IDrawableText.of(Megane.BAR, tag));
             }
         }
     }

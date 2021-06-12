@@ -7,10 +7,10 @@ import badasintended.megane.api.provider.EnergyInfoProvider;
 import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.Megane;
 import badasintended.megane.runtime.registry.Registrar;
-import mcp.mobius.waila.api.IDataAccessor;
-import mcp.mobius.waila.api.RenderableTextComponent;
+import mcp.mobius.waila.api.IBlockAccessor;
+import mcp.mobius.waila.api.IDrawableText;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 
@@ -29,18 +29,18 @@ import static badasintended.megane.util.MeganeUtils.config;
 
 public class EnergyComponent extends BlockComponent {
 
-    public static final CompoundTag TAG = new CompoundTag();
+    public static final NbtCompound TAG = new NbtCompound();
 
     public EnergyComponent() {
         super(() -> config().energy);
     }
 
     @Override
-    protected void append(List<Text> tooltip, IDataAccessor accessor) {
+    protected void append(List<Text> tooltip, IBlockAccessor accessor) {
         MeganeConfig.Energy energy = config().energy;
         Map<String, Integer> colors = energy.getColors();
         Map<String, String> units = energy.getUnits();
-        CompoundTag data = accessor.getServerData();
+        NbtCompound data = accessor.getServerData();
 
         if (data.getBoolean(E_HAS)) {
             double stored = data.getDouble(E_STORED);
@@ -79,7 +79,7 @@ public class EnergyComponent extends BlockComponent {
             TAG.putDouble(B_MAX, max);
             TAG.putBoolean(B_LONG, expand);
             TAG.putString(B_UNIT, unit);
-            tooltip.add(new RenderableTextComponent(Megane.BAR, TAG));
+            tooltip.add(IDrawableText.of(Megane.BAR, TAG));
         }
     }
 

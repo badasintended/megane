@@ -6,7 +6,7 @@ import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.registry.Registry;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
@@ -41,10 +41,10 @@ public abstract class BlockData implements IServerDataProvider<BlockEntity> {
         this.baseConfig = baseConfig;
     }
 
-    abstract void append(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity);
+    abstract void append(NbtCompound data, ServerPlayerEntity player, World world, BlockEntity blockEntity);
 
     @Override
-    public final void appendServerData(CompoundTag data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
+    public final void appendServerData(NbtCompound data, ServerPlayerEntity player, World world, BlockEntity blockEntity) {
         if (!baseConfig.get().isEnabled() || baseConfig.get().getBlacklist().contains(BLOCK.getId(blockEntity.getCachedState().getBlock()))) {
             return;
         }
