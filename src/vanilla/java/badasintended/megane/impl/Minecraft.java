@@ -45,14 +45,14 @@ public class Minecraft implements MeganeModule {
             ))
 
             .inventory(PlayerEntity.class, InventoryProvider.of(
-                t -> t.inventory.size(), (t, i) -> t.inventory.getStack(i)
+                t -> t.getInventory().size(), (t, i) -> t.getInventory().getStack(i)
             ))
 
             .inventory(AbstractDonkeyEntity.class, InventoryProvider.of(
                 t -> ((AHorseBaseEntity) t).getInvSize() - 1, (t, i) -> ((AHorseBaseEntity) t).getItems().getStack(i + 1)
             ))
 
-            .inventory(EnderChestBlockEntity.class, new InventoryProvider<EnderChestBlockEntity>() {
+            .inventory(EnderChestBlockEntity.class, new InventoryProvider<>() {
                 Inventory enderChest;
 
                 @Override
@@ -76,7 +76,7 @@ public class Minecraft implements MeganeModule {
                 }
             })
 
-            .inventory(BlockEntity.class, new InventoryProvider<BlockEntity>() {
+            .inventory(BlockEntity.class, new InventoryProvider<>() {
                 World world;
                 Inventory inventory;
 
