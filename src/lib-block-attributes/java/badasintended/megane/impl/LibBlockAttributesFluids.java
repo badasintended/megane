@@ -14,7 +14,7 @@ public class LibBlockAttributesFluids implements MeganeModule {
 
     @Override
     public void register(MeganeRegistrar registrar) {
-        registrar.fluid(1100, BlockEntity.class, new FluidProvider<BlockEntity>() {
+        registrar.fluid(1100, BlockEntity.class, new FluidProvider<>() {
             FixedFluidInvView view;
 
             @Override

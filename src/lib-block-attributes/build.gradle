@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    implFor "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
+    implFor "alexiil.mc.lib:libblockattributes-fluids:0.9.0"
 }
 
 apply from: "impl.gradle"

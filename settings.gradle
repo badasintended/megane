@@ -26,7 +26,7 @@ include "runtime"
 include "fast-transfer-lib"
 //include "industrial-revolution"
 //include "kibe"
-//include "lib-block-attributes"
+include "lib-block-attributes"
 //include "modern-industrialization-3" // TODO: Remove
 //include "modern-industrialization-4"
 //include "team-reborn-energy"
