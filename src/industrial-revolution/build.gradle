@@ -1,3 +1,5 @@
+apply from: "kotlin.gradle"
+
 repositories {
     maven {
         url "https://mod-buildcraft.com/maven"
@@ -9,17 +11,20 @@ repositories {
     }
     maven {
         url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
-        content { includeGroup "dev.technici4n" }
+        content {
+            includeGroup "net.fabricmc.fabric-api"
+            includeGroup "dev.technici4n"
+        }
     }
 }
 
 dependencies {
-    implFor "curse.maven:indrev-391708:3233516"
+    implFor "curse.maven:indrev-391708:3349501"
 
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
-    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.7"
-    modCompileOnly "dev.technici4n:FastTransferLib:0.3.1"
-    modCompileOnly "io.github.cottonmc:LibGui:3.3.5+1.16.5"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.9.0"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.9.0"
+    modCompileOnly "dev.technici4n:FastTransferLib:0.4.2"
+    modCompileOnly "io.github.cottonmc:LibGui:4.0.0+1.17"
 }
 
 apply from: "impl.gradle"

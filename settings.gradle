@@ -24,7 +24,7 @@ include "runtime"
 //include "astromine"
 //include "fabric-furnaces"
 include "fast-transfer-lib"
-//include "industrial-revolution"
+include "industrial-revolution"
 include "kibe"
 include "lib-block-attributes"
 //include "modern-industrialization-3" // TODO: Remove
