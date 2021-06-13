@@ -1,5 +1,5 @@
 dependencies {
-    implFor "teamreborn:energy:0.1.0"
+    implFor "teamreborn:energy:0.1.1"
 }
 
 apply from: "impl.gradle"

@@ -29,6 +29,6 @@ include "fast-transfer-lib"
 include "lib-block-attributes"
 //include "modern-industrialization-3" // TODO: Remove
 //include "modern-industrialization-4"
-//include "team-reborn-energy"
+include "team-reborn-energy"
 //include "tech-reborn"
 include "vanilla"

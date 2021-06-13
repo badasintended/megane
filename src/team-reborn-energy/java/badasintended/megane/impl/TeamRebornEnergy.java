@@ -11,7 +11,7 @@ public class TeamRebornEnergy implements MeganeModule {
 
     @Override
     public void register(MeganeRegistrar registrar) {
-        registrar.energy(1200, BlockEntity.class, new EnergyProvider<BlockEntity>() {
+        registrar.energy(1200, BlockEntity.class, new EnergyProvider<>() {
             EnergyHandler handler;
 
             @Override
