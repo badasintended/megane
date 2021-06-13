@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 public interface InventoryProvider<T> extends ContextAwareProvider {
 
     static <T> InventoryProvider<T> of(Obj2Int<T> size, ObjInt2Obj<T, ItemStack> stack) {
-        return of(t -> true, size, stack);
+        return conditional(t -> true, size, stack);
     }
 
-    static <T> InventoryProvider<T> of(Obj2Bool<T> hasInventory, Obj2Int<T> size, ObjInt2Obj<T, ItemStack> stack) {
-        return new InventoryProvider<T>() {
+    static <T> InventoryProvider<T> conditional(Obj2Bool<T> hasInventory, Obj2Int<T> size, ObjInt2Obj<T, ItemStack> stack) {
+        return new InventoryProvider<>() {
             @Override
             public boolean hasInventory(T t) {
                 return hasInventory.apply(t);

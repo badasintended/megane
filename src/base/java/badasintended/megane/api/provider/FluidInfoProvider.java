@@ -20,11 +20,11 @@ public interface FluidInfoProvider<T> {
     }
 
     static <T> FluidInfoProvider<T> of(Obj2Int<T> color, Function<T, Text> name) {
-        return of((t, i) -> color.apply(t), name);
+        return biome((t, i) -> color.apply(t), name);
     }
 
-    static <T> FluidInfoProvider<T> of(ObjObj2Int<T, Biome> color, Function<T, Text> name) {
-        return new FluidInfoProvider<T>() {
+    static <T> FluidInfoProvider<T> biome(ObjObj2Int<T, Biome> color, Function<T, Text> name) {
+        return new FluidInfoProvider<>() {
             @Override
             public int getColor(T t, Biome biome) {
                 return color.apply(t, biome);

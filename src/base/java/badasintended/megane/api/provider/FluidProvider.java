@@ -10,11 +10,11 @@ import org.jetbrains.annotations.Nullable;
 public interface FluidProvider<T> extends ContextAwareProvider {
 
     static <T> FluidProvider<T> of(Obj2Int<T> slotCount, ObjInt2Obj<T, Fluid> fluid, ObjInt2Double<T> stored, ObjInt2Double<T> max) {
-        return of(t -> true, slotCount, fluid, stored, max);
+        return conditional(t -> true, slotCount, fluid, stored, max);
     }
 
-    static <T> FluidProvider<T> of(Obj2Bool<T> hasFluid, Obj2Int<T> slotCount, ObjInt2Obj<T, Fluid> fluid, ObjInt2Double<T> stored, ObjInt2Double<T> max) {
-        return new FluidProvider<T>() {
+    static <T> FluidProvider<T> conditional(Obj2Bool<T> hasFluid, Obj2Int<T> slotCount, ObjInt2Obj<T, Fluid> fluid, ObjInt2Double<T> stored, ObjInt2Double<T> max) {
+        return new FluidProvider<>() {
             @Override
             public boolean hasFluid(T t) {
                 return hasFluid.apply(t);

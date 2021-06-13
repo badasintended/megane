@@ -11,11 +11,11 @@ import org.jetbrains.annotations.NotNull;
 public interface ProgressProvider<T> extends ContextAwareProvider {
 
     static <T> ProgressProvider<T> of(Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, ObjInt2Obj<T, ItemStack> stack, Functions.Obj2Int<T> percentage) {
-        return of(t -> true, inputSlots, outputSlots, stack, percentage);
+        return conditional(t -> true, inputSlots, outputSlots, stack, percentage);
     }
 
-    static <T> ProgressProvider<T> of(Obj2Bool<T> hasProgress, Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, ObjInt2Obj<T, ItemStack> stack, Functions.Obj2Int<T> percentage) {
-        return new ProgressProvider<T>() {
+    static <T> ProgressProvider<T> conditional(Obj2Bool<T> hasProgress, Function<T, int[]> inputSlots, Function<T, int[]> outputSlots, ObjInt2Obj<T, ItemStack> stack, Functions.Obj2Int<T> percentage) {
+        return new ProgressProvider<>() {
             @Override
             public boolean hasProgress(T t) {
                 return hasProgress.apply(t);

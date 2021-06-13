@@ -11,11 +11,11 @@ import badasintended.megane.api.function.Functions.Obj2Double;
 public interface EnergyProvider<T> extends ContextAwareProvider {
 
     static <T> EnergyProvider<T> of(Obj2Double<T> stored, Obj2Double<T> max) {
-        return of(t -> true, stored, max);
+        return conditional(t -> true, stored, max);
     }
 
-    static <T> EnergyProvider<T> of(Obj2Bool<T> hasEnergy, Obj2Double<T> stored, Obj2Double<T> max) {
-        return new EnergyProvider<T>() {
+    static <T> EnergyProvider<T> conditional(Obj2Bool<T> hasEnergy, Obj2Double<T> stored, Obj2Double<T> max) {
+        return new EnergyProvider<>() {
             @Override
             public boolean hasEnergy(T t) {
                 return hasEnergy.apply(t);

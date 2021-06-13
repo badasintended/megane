@@ -9,8 +9,8 @@ import io.github.lucaargolo.kibe.fluids.miscellaneous.ModdedFluid
 class Kibe : KMeganeModule {
     override fun MeganeClientRegistrar.client() {
         fluid(ModdedFluid::class.java, FluidInfoProvider.of(
-            { f -> FluidKeys.get(f).name.style.color!!.rgb },
-            { f -> FluidKeys.get(f).name }
+            { FluidKeys.get(it).name.style.color!!.rgb },
+            { FluidKeys.get(it).name }
         ))
     }
 }

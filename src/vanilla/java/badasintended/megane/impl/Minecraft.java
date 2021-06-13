@@ -106,7 +106,7 @@ public class Minecraft implements MeganeModule {
     @Override
     public void registerClient(MeganeClientRegistrar registrar) {
         registrar
-            .fluid(WaterFluid.class, FluidInfoProvider.of((f, b) -> b.getWaterColor(), f -> WATER_NAME))
+            .fluid(WaterFluid.class, FluidInfoProvider.biome((f, b) -> b.getWaterColor(), f -> WATER_NAME))
             .fluid(LavaFluid.class, FluidInfoProvider.of(0xd45a12, LAVA_NAME));
     }
 
