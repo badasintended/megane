@@ -1,0 +1,11 @@
+apply plugin: "org.jetbrains.kotlin.jvm"
+
+compileKotlin.kotlinOptions.jvmTarget = "16"
+
+sourceSets {
+    main.kotlin.srcDirs += "../src/${name}/kotlin"
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-language-kotlin:${fabricKotlin}"
+}

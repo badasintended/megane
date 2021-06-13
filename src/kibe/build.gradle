@@ -1,3 +1,5 @@
+apply from: "kotlin.gradle"
+
 repositories {
     maven {
         url "https://mod-buildcraft.com/maven"
