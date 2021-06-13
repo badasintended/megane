@@ -1,15 +1,17 @@
 package badasintended.megane.runtime.util;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
@@ -101,8 +103,12 @@ public class RuntimeUtils {
         ItemRenderer item = MinecraftClient.getInstance().getItemRenderer();
         TextRenderer text = MinecraftClient.getInstance().textRenderer;
 
+        DiffuseLighting.enableGuiDepthLighting();
+        RenderSystem.enableDepthTest();
         item.renderInGui(stack, x, y);
         item.renderGuiItemOverlay(text, stack, x, y);
+        DiffuseLighting.disableGuiDepthLighting();
+        RenderSystem.disableDepthTest();
     }
 
     public static int getR(int aarrggbb) {
