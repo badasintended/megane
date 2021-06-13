@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:kibe-388832:3239422"
+    implFor "curse.maven:kibe-388832:3342100"
 
     modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
 }
