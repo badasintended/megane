@@ -55,11 +55,7 @@ public class Test implements MeganeModule {
 
                 @Override
                 public double getMax(ChestBlockEntity chestBlockEntity, int slot) {
-                    stored = stored + 100;
-                    if (stored >= 10000) {
-                        stored = 0;
-                    }
-                    return stored;
+                    return 10000;
                 }
             });
     }
