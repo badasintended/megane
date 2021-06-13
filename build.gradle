@@ -122,6 +122,13 @@ subprojects {
     }
 }
 
+sourceSets {
+    testimpl {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
+
 curseforge {
     if (System.getenv("CURSEFORGE_API") != null) {
         def changelogLink = "https://github.com/badasintended/megane/releases/tag/${versionEnv}"

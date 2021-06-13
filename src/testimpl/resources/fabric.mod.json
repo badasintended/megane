@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-test",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.Test"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

@@ -10,6 +10,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
@@ -70,8 +71,10 @@ public class RuntimeUtils {
         float u0, float v0, float u1, float v1, int color
     ) {
         matrices.push();
+
         RenderSystem.enableBlend();
-        MinecraftClient.getInstance().getTextureManager().bindTexture(id);
+        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+        RenderSystem.setShaderTexture(0, id);
 
         int a = 0xFF;
         int r = getR(color);
