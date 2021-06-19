@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 
 import static badasintended.megane.util.MeganeUtils.id;
@@ -217,11 +216,6 @@ public class MeganeConfig {
         private boolean enabled = true;
         private boolean showWhenZero = false;
         private final Set<Identifier> blacklist = new HashSet<>();
-
-        public Progress() {
-            blacklist.add(net.minecraft.util.registry.Registry.BLOCK.getId(Blocks.FURNACE));
-            blacklist.add(net.minecraft.util.registry.Registry.BLOCK.getId(Blocks.BLAST_FURNACE));
-        }
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;

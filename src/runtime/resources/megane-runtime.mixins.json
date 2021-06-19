@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins"            : [
     "AccessorBeaconBlockEntity",
-    "MixinMinecraftServer"
+    "MixinMinecraftServer",
+    "MixinTooltipRegistrar"
   ],
   "client"            : [
     "MixinGuiConfigPlugins",

@@ -4,11 +4,15 @@ import badasintended.megane.api.MeganeModule;
 import badasintended.megane.api.provider.CauldronFluidProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.InventoryProvider;
+import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.api.registry.MeganeClientRegistrar;
 import badasintended.megane.api.registry.MeganeRegistrar;
+import badasintended.megane.impl.mixin.minecraft.AccessorAbstractFurnaceBlockEntity;
 import badasintended.megane.impl.mixin.minecraft.AccessorHorseBaseEntity;
+import badasintended.megane.impl.util.A;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
@@ -62,6 +66,14 @@ public class Minecraft implements MeganeModule {
 
             .inventory(AbstractDonkeyEntity.class, InventoryProvider.of(
                 t -> ((AccessorHorseBaseEntity) t).getInvSize() - 1, (t, i) -> ((AccessorHorseBaseEntity) t).getItems().getStack(i + 1)
+            ))
+
+            .progress(AbstractFurnaceBlockEntity.class, ProgressProvider.of(
+                t -> A.A_01, t -> A.A_2, Inventory::getStack,
+                t -> {
+                    AccessorAbstractFurnaceBlockEntity furnace = (AccessorAbstractFurnaceBlockEntity) t;
+                    return (int) ((float) furnace.getCookTime() / (float) furnace.getCookTimeTotal() * 100);
+                }
             ))
 
             .inventory(EnderChestBlockEntity.class, new InventoryProvider<>() {
