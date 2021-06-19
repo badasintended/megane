@@ -1,5 +1,6 @@
 package badasintended.megane.runtime.registry;
 
+import badasintended.megane.api.provider.CauldronFluidProvider;
 import badasintended.megane.api.provider.EnergyInfoProvider;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
@@ -8,6 +9,7 @@ import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.api.provider.ProgressProvider;
 import badasintended.megane.api.registry.MeganeClientRegistrar;
 import badasintended.megane.api.registry.MeganeRegistrar;
+import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
 
@@ -18,11 +20,11 @@ public enum Registrar implements MeganeRegistrar, MeganeClientRegistrar {
 
     public static final Registry<EnergyProvider> ENERGY = new Registry<>();
     public static final Registry<FluidProvider> FLUID = new Registry<>();
+    public static final Registry<CauldronFluidProvider> CAULDRON = new Registry<>();
     public static final Registry<InventoryProvider> INVENTORY = new Registry<>();
     public static final Registry<ProgressProvider> PROGRESS = new Registry<>();
     public static final Registry<FluidInfoProvider> FLUID_INFO = new Registry<>();
     public static final Registry<EnergyInfoProvider> ENERGY_INFO = new Registry<>();
-
 
     @Override
     public <T> MeganeRegistrar energy(int priority, Class<T> clazz, EnergyProvider<T> provider) {
@@ -33,6 +35,12 @@ public enum Registrar implements MeganeRegistrar, MeganeClientRegistrar {
     @Override
     public <T> MeganeRegistrar fluid(int priority, Class<T> clazz, FluidProvider<T> provider) {
         FLUID.add(clazz, provider, priority);
+        return this;
+    }
+
+    @Override
+    public MeganeRegistrar cauldron(Block cauldron, CauldronFluidProvider provider) {
+        CAULDRON.add(cauldron, provider);
         return this;
     }
 

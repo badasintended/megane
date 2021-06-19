@@ -1,10 +1,9 @@
 package badasintended.megane.runtime.config.screen;
 
+import badasintended.megane.api.function.Functions.TriConsumer;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
-import badasintended.megane.util.TriConsumer;
 import mcp.mobius.waila.gui.GuiOptions;
 import mcp.mobius.waila.gui.config.OptionsEntryButton;
 import mcp.mobius.waila.gui.config.OptionsListWidget;
@@ -14,7 +13,6 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 
 public class MapConfigScreen<K, V> extends GuiOptions {

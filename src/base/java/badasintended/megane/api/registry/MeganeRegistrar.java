@@ -1,13 +1,17 @@
 package badasintended.megane.api.registry;
 
+import badasintended.megane.api.provider.CauldronFluidProvider;
 import badasintended.megane.api.provider.EnergyProvider;
 import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.api.provider.ProgressProvider;
+import net.minecraft.block.Block;
 
 public interface MeganeRegistrar {
 
     int DEFAULT_PRIORITY = 1000;
+
+    MeganeRegistrar cauldron(Block cauldron, CauldronFluidProvider provider);
 
     <T> MeganeRegistrar energy(int priority, Class<T> clazz, EnergyProvider<T> provider);
 

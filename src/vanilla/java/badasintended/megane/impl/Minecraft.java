@@ -1,11 +1,14 @@
 package badasintended.megane.impl;
 
 import badasintended.megane.api.MeganeModule;
+import badasintended.megane.api.provider.CauldronFluidProvider;
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.api.registry.MeganeClientRegistrar;
 import badasintended.megane.api.registry.MeganeRegistrar;
 import badasintended.megane.impl.mixin.minecraft.AHorseBaseEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
@@ -14,6 +17,7 @@ import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.LavaFluid;
 import net.minecraft.fluid.WaterFluid;
 import net.minecraft.inventory.Inventory;
@@ -32,6 +36,14 @@ public class Minecraft implements MeganeModule {
     @Override
     public void register(MeganeRegistrar registrar) {
         registrar
+            .cauldron(Blocks.WATER_CAULDRON, CauldronFluidProvider.of(
+                Fluids.WATER, 1000.0, b -> 1000.0 * b.get(LeveledCauldronBlock.LEVEL) / 3.0
+            ))
+
+            .cauldron(Blocks.LAVA_CAULDRON, CauldronFluidProvider.of(
+                Fluids.LAVA, 1000.0, b -> 1000.0
+            ))
+
             .inventory(JukeboxBlockEntity.class, InventoryProvider.of(
                 t -> 1, (t, i) -> t.getRecord()
             ))

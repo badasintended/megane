@@ -1,15 +1,10 @@
 package badasintended.megane.runtime;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.runtime.component.AlignResetComponent;
 import badasintended.megane.runtime.component.block.BeaconComponent;
-import badasintended.megane.runtime.component.block.BeeHiveComponent;
 import badasintended.megane.runtime.component.block.BlockInventoryComponent;
-import badasintended.megane.runtime.component.block.ComposterComponent;
+import badasintended.megane.runtime.component.block.CauldronComponent;
 import badasintended.megane.runtime.component.block.EnergyComponent;
 import badasintended.megane.runtime.component.block.FluidComponent;
 import badasintended.megane.runtime.component.block.ProgressComponent;
@@ -32,6 +27,9 @@ import badasintended.megane.runtime.renderer.BarRenderer;
 import badasintended.megane.runtime.renderer.InventoryRenderer;
 import badasintended.megane.runtime.renderer.ProgressRenderer;
 import badasintended.megane.runtime.renderer.StatusEffectRenderer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.EnvType;
@@ -41,14 +39,12 @@ import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.util.version.VersionPredicateParser;
+import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BeaconBlock;
-import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.ComposterBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 import static badasintended.megane.util.MeganeUtils.LOGGER;
 import static badasintended.megane.util.MeganeUtils.config;
@@ -81,9 +77,7 @@ public class Megane implements IWailaPlugin {
         r.addComponent(new AlignResetComponent.Block(), HEAD, BLOCK);
         r.addComponent(new EnergyComponent(), HEAD, BLOCK);
         r.addComponent(new FluidComponent(), HEAD, BLOCK);
-        //r.addComponent(new CauldronComponent(), HEAD, CauldronBlock.class);
-        r.addComponent(new ComposterComponent(), HEAD, ComposterBlock.class);
-        r.addComponent(new BeeHiveComponent(), HEAD, BeehiveBlock.class);
+        r.addComponent(new CauldronComponent(), HEAD, AbstractCauldronBlock.class);
 
         r.addComponent(new BlockInventoryComponent(), TAIL, BLOCK);
         r.addComponent(new ProgressComponent(), TAIL, BLOCK);
