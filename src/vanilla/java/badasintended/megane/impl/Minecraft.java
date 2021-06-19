@@ -6,7 +6,7 @@ import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.api.provider.InventoryProvider;
 import badasintended.megane.api.registry.MeganeClientRegistrar;
 import badasintended.megane.api.registry.MeganeRegistrar;
-import badasintended.megane.impl.mixin.minecraft.AHorseBaseEntity;
+import badasintended.megane.impl.mixin.minecraft.AccessorHorseBaseEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.entity.BeehiveBlockEntity;
@@ -61,7 +61,7 @@ public class Minecraft implements MeganeModule {
             ))
 
             .inventory(AbstractDonkeyEntity.class, InventoryProvider.of(
-                t -> ((AHorseBaseEntity) t).getInvSize() - 1, (t, i) -> ((AHorseBaseEntity) t).getItems().getStack(i + 1)
+                t -> ((AccessorHorseBaseEntity) t).getInvSize() - 1, (t, i) -> ((AccessorHorseBaseEntity) t).getItems().getStack(i + 1)
             ))
 
             .inventory(EnderChestBlockEntity.class, new InventoryProvider<>() {

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GuiConfigPlugins.class)
-public class MGuiConfigPlugins {
+public class MixinGuiConfigPlugins {
 
     @Inject(method = "getOptions", at = @At("TAIL"), remap = false)
     private void add(CallbackInfoReturnable<OptionsListWidget> cir) {

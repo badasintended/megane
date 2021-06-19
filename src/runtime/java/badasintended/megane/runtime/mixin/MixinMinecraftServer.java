@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftServer.class)
-public class MMinecraftServer {
+public class MixinMinecraftServer {
 
     @Inject(method = "runServer", at = @At("HEAD"))
     private void loadConfig(CallbackInfo ci) {

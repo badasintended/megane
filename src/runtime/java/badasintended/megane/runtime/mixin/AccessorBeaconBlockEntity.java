@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(BeaconBlockEntity.class)
-public interface ABeaconBlockEntity {
+public interface AccessorBeaconBlockEntity {
 
     @Accessor
     StatusEffect getPrimary();

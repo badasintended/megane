@@ -4,12 +4,12 @@
   "package"           : "badasintended.megane.runtime.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins"            : [
-    "ABeaconBlockEntity",
-    "MMinecraftServer"
+    "AccessorBeaconBlockEntity",
+    "MixinMinecraftServer"
   ],
   "client"            : [
-    "MGuiConfigPlugins",
-    "MTitleScreen"
+    "MixinGuiConfigPlugins",
+    "MixinTitleScreen"
   ],
   "injectors"         : {
     "defaultRequire": 1

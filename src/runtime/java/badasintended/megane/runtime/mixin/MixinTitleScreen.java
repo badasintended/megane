@@ -15,7 +15,7 @@ import static badasintended.megane.runtime.util.RuntimeUtils.showUpdatedConfigTo
 import static badasintended.megane.util.MeganeUtils.CONFIG_VERSION;
 
 @Mixin(TitleScreen.class)
-public class MTitleScreen {
+public class MixinTitleScreen {
 
     @Shadow
     private String splashText;
