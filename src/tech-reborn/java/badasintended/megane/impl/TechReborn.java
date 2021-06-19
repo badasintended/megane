@@ -63,7 +63,7 @@ public class TechReborn implements MeganeModule {
     @Override
     public void register(MeganeRegistrar registrar) {
         registrar
-            .progress(GenericMachineBlockEntity.class, ProgressProvider.of(
+            .progress(GenericMachineBlockEntity.class, ProgressProvider.conditional(
                 b -> b.getRecipeCrafter() != null,
                 b -> b.getRecipeCrafter().inputSlots == null ? A.A : b.getRecipeCrafter().inputSlots,
                 b -> b.getRecipeCrafter().outputSlots == null ? A.A : b.getRecipeCrafter().outputSlots,
@@ -93,7 +93,7 @@ public class TechReborn implements MeganeModule {
             .progress(SolidFuelGeneratorBlockEntity.class, ProgressProvider.of(
                 b -> A.A_0, b -> A.A, (b, i) -> b.getInventory().getStack(i), b -> 100 - b.getScaledBurnTime(100) == 0 ? 100 : b.getScaledBurnTime(100)
             ))
-            .fluid(MachineBaseBlockEntity.class, FluidProvider.of(
+            .fluid(MachineBaseBlockEntity.class, FluidProvider.conditional(
                 MachineBaseBlockEntity::showTankConfig, t -> 1,
                 (t, i) -> t.getTank().getFluid(),
                 (t, i) -> (double) t.getTank().getFluidAmount().getRawValue(),
@@ -112,7 +112,6 @@ public class TechReborn implements MeganeModule {
         this.registrar = registrar;
         // haha yes, hardcoded fluid color!
         fc(BERYLLIUM, 0x082507);
-        fc(BIOFUEL, 0x156718);
         fc(CALCIUM, 0x6D4539);
         fc(CALCIUM_CARBONATE, 0x5A250C);
         fc(CARBON, 0x0D0F0B);
@@ -146,6 +145,7 @@ public class TechReborn implements MeganeModule {
         fc(SULFURIC_ACID, 0x86888B);
         fc(TRITIUM, 0xAF1618);
         fc(WOLFRAMIUM, 0x291F35);
+        fc(BIOFUEL, 0x156718);
 
         registrar.energy("techreborn", 0x800800, "E");
     }
