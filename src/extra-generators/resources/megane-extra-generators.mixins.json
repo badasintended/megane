@@ -1,0 +1,14 @@
+{
+  "required"          : true,
+  "minVersion"        : "0.8",
+  "package"           : "badasintended.megane.impl.mixin.extra_generators",
+  "plugin"            : "badasintended.megane.impl.mixin.MixinPlugin",
+  "compatibilityLevel": "JAVA_8",
+  "injectors"         : {
+    "defaultRequire": 1
+  },
+  "mixins"            : [
+    "FluidInvHolder",
+    "ItemInvHolder"
+  ]
+}

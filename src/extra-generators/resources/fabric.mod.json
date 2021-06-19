@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-extra-generators",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-extra-generators.mixins.json"],
+  "depends"      : {
+    "megane-base"    : "*",
+    "extragenerators": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.ExtraGenerators"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}
