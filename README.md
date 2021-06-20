@@ -1,65 +1,24 @@
-# megane [![1][1]][6]  [![2][2]][4]  [![3][3]][5] [![14][14]][15] <img src="megane-runtime/src/main/resources/assets/megane/icon.png" align="right"/>
+# megane [![1][1]][6]  [![2][2]][4]  [![3][3]][5] [![14][14]][15] <img src="https://user-images.githubusercontent.com/21150434/122664496-ff7ed300-d1cb-11eb-871a-6671514f01ed.png" align="right"/>
 
-megane is a [HWYLA][11] plugin that adds useful tooltips such as energy, fluid volumes, and inventory contents.    
-megane also add an API for other mod creator to add that tooltip.
+megane is a [WTHIT][11] plugin that adds useful tooltips such as energy, fluid volumes, and inventory contents.    
 
-- Team Reborn's [Energy][12] support
-- Partial [LibBlockAttributes][13] fluid support*
+### Supported Mods
+- [Extra Generators](https://www.curseforge.com/minecraft/mc-mods/extra-generators)
+- [Fast Transfer Lib](https://github.com/Technici4n/FastTransferLib)
+- [Industrial Revolution](https://www.curseforge.com/minecraft/mc-mods/industrial-revolution)
+- [Kibe](https://www.curseforge.com/minecraft/mc-mods/kibe)
+- [Lib Block Attributes](https://www.curseforge.com/minecraft/mc-mods/libblockattributes)
+- [Team Reborn Energy](https://github.com/TechReborn/energy)
+- [Tech Reborn](https://www.curseforge.com/minecraft/mc-mods/techreborn)
+- [Wireless Networks](https://www.curseforge.com/minecraft/mc-mods/wireless-networks)
 
-\*uses `FIXED_INV_VIEV` getter, which some mods may not implement it
-
-## For players
 ### Configuration
 Configuration can be done with editing `.minecraft/config/waila/megane.json` directly or via the config screen.    
 For energy bar colors and units, `megane` value determines what's the default value.    
 **Config will get overloaded by the server**, so if the server disabled inventory tooltip, you won't see inventory tooltip regardless wether you enabled it or not.
 
-
-## For mod devs
-###  How to add a tooltip for your mod
-1. First of all, add megane as your dependency
-   ```gradle
-   repositories {
-       maven { url "https://dl.bintray.com/badasintended/fabric" }
-       maven { url "https://maven.tehnut.info" } // HWYLA maven
-   }
-
-   dependencies {
-       modImplementation "com.github.badasintended.megane:megane-api:<VERSION>"
-       modRuntime "com.github.badasintended.megane:megane-runtime:<VERSION>"
-       modRuntime "mcp.mobius.waila:Hwyla:<HWYLA>" // Optional
-   }
-   ```
-   [![Bintray](https://img.shields.io/bintray/v/badasintended/fabric/megane)](https://bintray.com/badasintended/fabric/megane)
-   you can get HWYLA version from it's [curseforge][11]
-
-2. Make a class that implements `MeganeEntrypoint`
-   ```java
-   public class MyModMegane implements MeganeEntrypoint {
-   
-       @Override
-       public void initialize(){
-           // Register your tooltips here
-       }
-   
-   }
-   ```
-   There is `EnergyTooltipRegistry`, `FluidTooltipRegistry`, and `ProgressTooltipRegistry`.    
-   There is also `dependencies` method that you can override if your mod is a plugin for the tech mod.
-   ```java
-       @Override
-       public String[] dependencies(){
-           return new String[]{"astromine", "techreborn"};
-       }
-    ```
-3. Add your class to your `fabric.mod.json`
-   ```json
-   "entrypoints": {
-       "megane": ["com.example.mymod.MyModMegane"]
-   }
-   ```
-
-
+### Culture
+Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses flashing those cute grins, or have girls stealing the protagonist's glasses and putting them on like, "Haha, got your glasses!' That's just way too cute! Also, boys with glasses! I really like when their glasses have that suspicious looking gleam, and it's amazing how it can look really cool or just be a joke. I really like how it can fulfill all those abstract needs. Being able to switch up the styles and colors of glasses based on your mood is a lot of fun too! It's actually so much fun! You have those half rim glasses, or the thick frame glasses, everything! It's like you're enjoying all these kinds of glasses at a buffet. I really want Luna to try some on or Marine to try some on to replace her eyepatch. We really need glasses to become a thing in hololive and start selling them for HoloComi. Don't. You. Think. We. Really. Need. To. Officially. Give. Everyone. Glasses?
 
 [1]: https://img.shields.io/badge/minecraft-1.16+-brightgreen
 [2]: https://img.shields.io/badge/loader-Fabric-blue
@@ -67,11 +26,6 @@ For energy bar colors and units, `megane` value determines what's the default va
 [4]: https://fabricmc.net
 [5]: https://git.io/code-quality
 [6]: https://minecraft.net
-[8]: https://www.curseforge.com/minecraft/mc-mods/fabric-api
-[9]: https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin
-[10]: http://cf.way2muchnoise.eu/full_slotlink_downloads.svg
-[11]: https://www.curseforge.com/minecraft/mc-mods/hwyla
-[12]: https://github.com/TechReborn/Energy
-[13]: https://github.com/AlexIIL/LibBlockAttributes
-[14]: https://img.shields.io/badge/dynamic/json?color=orange&label=downloads&query=downloadCount&url=https%3A%2F%2Faddons-ecs.forgesvc.net%2Fapi%2Fv2%2Faddon%2F408118&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAXCAYAAACS5bYWAAAABmJLR0QA/wD/AP+gvaeTAAAB80lEQVRIib2WsUuVURjGn2NhUjSZQ7Rli6mL1SBtQYNgpi2FIOjmVEpb0H8Q1GRIpIMkQkG4VIjicKElaZEGxTGC0qFAQQX7NXynOH18373nHM+9D9zhnu993ufH+d57zzEKEPBc0niIJ6WaAusrdaHwVCjsx8icZUlvJe1H+iVJBtiS1H6cJjU0IemHpPlj9NiUVBEwTv20DRjgRYT3AJgBLv9Dts0WEgK62gVOAfcDfStA8dsGTgJPgd8JQSvABjBkgdc9fU+AEzUHA7gCLCWCncv17vXwTAVPM9AOPAQ+AD8jYXeBbqfnM+CoSv060FyNy3iAN0m6KOmS/VyQ1CqpTdJggWVG0oCkc5LWjDHXbJ9H1j9WEnXDGLNaiydawOfc7izb9e/2+1qufhb4VLCr9T9sgAe50Md2/RbZCPU5tR12DEaAvZzvXiNg24BDJ3S6Sm0n8B44C6w6nj2gpe6wFmLRCf5F2f/j/54vjuddIzj/Bt/JvdKvQD9Q+OMF7ubqJxsJ2wxMAZsF0AtAF9kpeRN47YzNPjANdDQM1oEepVjfgFcF629CM0KviGWgpyVdLXl8XtJwwfoZoCdFfpDIzv8YvQzJSbKzkm5H+vrxubSkEtmNbSdyZwGu+2al2NleZXeFWA34FqaA9Q4rkfcI/QF8wa/Bkt5sxwAAAABJRU5ErkJggg==
+[11]: https://www.curseforge.com/minecraft/mc-mods/wthit
+[14]: https://img.shields.io/badge/dynamic/json?color=orange&label=downloads&query=downloadCount&url=https%3A%2F%2Faddons-ecs.forgesvc.net%2Fapi%2Fv2%2Faddon%2F408118&logo=curseforge
 [15]: https://www.curseforge.com/minecraft/mc-mods/megane
