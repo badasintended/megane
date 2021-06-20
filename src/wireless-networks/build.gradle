@@ -1,0 +1,16 @@
+repositories {
+    maven {
+        url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
+        content {
+            includeGroup "net.fabricmc.fabric-api"
+            includeGroup "dev.technici4n"
+        }
+    }
+}
+
+dependencies {
+    implFor "curse.maven:wireless-networks-461316:3351667"
+    modCompileOnly "dev.technici4n:FastTransferLib:0.4.2"
+}
+
+apply from: "impl.gradle"
