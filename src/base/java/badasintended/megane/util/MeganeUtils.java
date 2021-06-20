@@ -1,6 +1,7 @@
 package badasintended.megane.util;
 
 import badasintended.megane.config.MeganeConfig;
+import badasintended.megane.config.ModuleConfig;
 import com.google.gson.GsonBuilder;
 import mcp.mobius.waila.api.IJsonConfig;
 import mcp.mobius.waila.api.WailaConstants;
@@ -31,6 +32,11 @@ public final class MeganeUtils {
             .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
             .create())
         .version(CONFIG_VERSION, MeganeConfig::getConfigVersion, MeganeConfig::setConfigVersion)
+        .build();
+
+    public static final IJsonConfig<ModuleConfig> MODULE_CONFIG = IJsonConfig
+        .of(ModuleConfig.class)
+        .file(WailaConstants.WAILA + "/" + MODID + "_modules")
         .build();
 
     public static Identifier id(String path) {

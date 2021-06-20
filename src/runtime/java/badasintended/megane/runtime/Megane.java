@@ -1,5 +1,9 @@
 package badasintended.megane.runtime;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 import badasintended.megane.api.MeganeModule;
 import badasintended.megane.runtime.component.AlignResetComponent;
 import badasintended.megane.runtime.component.block.BeaconComponent;
@@ -27,9 +31,6 @@ import badasintended.megane.runtime.renderer.BarRenderer;
 import badasintended.megane.runtime.renderer.InventoryRenderer;
 import badasintended.megane.runtime.renderer.ProgressRenderer;
 import badasintended.megane.runtime.renderer.StatusEffectRenderer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 import mcp.mobius.waila.api.IRegistrar;
 import mcp.mobius.waila.api.IWailaPlugin;
 import net.fabricmc.api.EnvType;
@@ -45,9 +46,9 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import static badasintended.megane.util.MeganeUtils.CONFIG;
+
 import static badasintended.megane.util.MeganeUtils.LOGGER;
-import static badasintended.megane.util.MeganeUtils.config;
+import static badasintended.megane.util.MeganeUtils.MODULE_CONFIG;
 import static badasintended.megane.util.MeganeUtils.id;
 import static mcp.mobius.waila.api.TooltipPosition.HEAD;
 import static mcp.mobius.waila.api.TooltipPosition.TAIL;
@@ -140,10 +141,10 @@ public class Megane implements IWailaPlugin {
                     } else {
                         className = value.getAsString();
                     }
-                    satisfied = satisfied && config().modules
+                    satisfied = satisfied && MODULE_CONFIG.get().modules
                         .computeIfAbsent(modId, s -> new HashMap<>())
                         .computeIfAbsent(className, s -> true);
-                    CONFIG.save();
+                    MODULE_CONFIG.save();
                     if (satisfied)
                         try {
                             LOGGER.info("[megane] Loading {} from {}", className, modId);
