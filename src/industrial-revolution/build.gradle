@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:indrev-391708:3349501"
+    implFor "curse.maven:indrev-391708:3357406"
 
     modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.9.0"
     modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.9.0"
