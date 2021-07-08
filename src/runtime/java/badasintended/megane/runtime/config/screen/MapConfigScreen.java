@@ -1,21 +1,23 @@
 package badasintended.megane.runtime.config.screen;
 
-import badasintended.megane.api.function.Functions.TriConsumer;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import mcp.mobius.waila.gui.GuiOptions;
-import mcp.mobius.waila.gui.config.OptionsEntryButton;
-import mcp.mobius.waila.gui.config.OptionsListWidget;
+
+import badasintended.megane.api.function.Functions.TriConsumer;
+import mcp.mobius.waila.gui.screen.ConfigScreen;
+import mcp.mobius.waila.gui.widget.ButtonEntry;
+import mcp.mobius.waila.gui.widget.ConfigListWidget;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 
-public class MapConfigScreen<K, V> extends GuiOptions {
+public class MapConfigScreen<K, V> extends ConfigScreen {
 
     private final Map<K, V> map;
     private final Function<K, String> keyStr;
@@ -35,16 +37,16 @@ public class MapConfigScreen<K, V> extends GuiOptions {
     }
 
     @Override
-    public OptionsListWidget getOptions() {
-        OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30, CONFIG::save);
+    public ConfigListWidget getOptions() {
+        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30, CONFIG::save);
         this.map.forEach((key, val) -> options.add(new PairEntry(this, options, keyStr.apply(key), valStr.apply(val), mapApplier, keyPredicate, valPredicate)));
-        options.add(new OptionsEntryButton("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
+        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             options.children().add(options.children().size() - 1, new PairEntry(this, options, "", "", mapApplier, keyPredicate, valPredicate))
         )));
         return options;
     }
 
-    static class PairEntry extends OptionsListWidget.Entry {
+    static class PairEntry extends ConfigListWidget.Entry {
 
         private final TextFieldWidget keyTextField;
         private final TextFieldWidget valTextField;
@@ -52,7 +54,7 @@ public class MapConfigScreen<K, V> extends GuiOptions {
         private String key;
         private String val;
 
-        PairEntry(GuiOptions screen, OptionsListWidget options, String key, String val, TriConsumer<String, String, String> consumer, Predicate<String> keyPredicate, Predicate<String> valPredicate) {
+        PairEntry(ConfigScreen screen, ConfigListWidget options, String key, String val, TriConsumer<String, String, String> consumer, Predicate<String> keyPredicate, Predicate<String> valPredicate) {
             this.key = key;
             this.val = val;
             this.keyTextField = new TextFieldWidget(client.textRenderer, 0, 0, 100, 18, new LiteralText(""));

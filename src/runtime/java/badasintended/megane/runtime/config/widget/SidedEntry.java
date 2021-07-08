@@ -1,15 +1,15 @@
 package badasintended.megane.runtime.config.widget;
 
-import mcp.mobius.waila.gui.config.OptionsListWidget;
-import mcp.mobius.waila.gui.config.value.OptionsEntryValue;
+import mcp.mobius.waila.gui.widget.ConfigListWidget;
+import mcp.mobius.waila.gui.widget.value.ConfigValue;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
-public class SidedEntry extends OptionsEntryValue<Object> {
+public class SidedEntry extends ConfigValue<Object> {
 
-    private final OptionsListWidget.Entry entry;
+    private final ConfigListWidget.Entry entry;
     private final Side side;
 
     private Element listener = null;
@@ -18,12 +18,12 @@ public class SidedEntry extends OptionsEntryValue<Object> {
     private Runnable save = () -> {
     };
 
-    public SidedEntry(Side side, OptionsListWidget.Entry entry) {
+    public SidedEntry(Side side, ConfigListWidget.Entry entry) {
         super("", null);
         this.entry = entry;
         this.side = side;
 
-        if (entry instanceof OptionsEntryValue<?> value) {
+        if (entry instanceof ConfigValue<?> value) {
             this.listener = value.getListener();
             this.title = value.getTitle();
             this.description = value.getDescription();
@@ -35,8 +35,8 @@ public class SidedEntry extends OptionsEntryValue<Object> {
     protected void drawValue(MatrixStack matrices, int entryWidth, int entryHeight, int x, int y, int mouseX, int mouseY, boolean selected, float partialTicks) {
         this.entry.render(matrices, 0, y, x, entryWidth, entryHeight, mouseX, mouseY, selected, partialTicks);
 
-        int sideX = x + 8 - client.textRenderer.getWidth(side.text);
-        int sideY = y + (entryHeight / 4) + (client.textRenderer.fontHeight / 2);
+        float sideX = x - 5 - client.textRenderer.getWidth(side.text);
+        float sideY = y + (entryHeight - client.textRenderer.fontHeight) / 2f;
 
         client.textRenderer.drawWithShadow(matrices, side.text, sideX, sideY, 0xFFFFFFFF);
 

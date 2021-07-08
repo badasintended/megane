@@ -2,9 +2,9 @@ package badasintended.megane.runtime.config.screen;
 
 import java.util.Set;
 
-import mcp.mobius.waila.gui.GuiOptions;
-import mcp.mobius.waila.gui.config.OptionsEntryButton;
-import mcp.mobius.waila.gui.config.OptionsListWidget;
+import mcp.mobius.waila.gui.screen.ConfigScreen;
+import mcp.mobius.waila.gui.widget.ButtonEntry;
+import mcp.mobius.waila.gui.widget.ConfigListWidget;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 
-public class BlacklistConfigScreen extends GuiOptions {
+public class BlacklistConfigScreen extends ConfigScreen {
 
     private final Set<Identifier> set;
 
@@ -25,22 +25,22 @@ public class BlacklistConfigScreen extends GuiOptions {
     }
 
     @Override
-    public OptionsListWidget getOptions() {
-        OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30, CONFIG::save);
+    public ConfigListWidget getOptions() {
+        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30, CONFIG::save);
         this.set.forEach(value -> options.add(new SetEntry(this, options, value, this.set)));
-        options.add(new OptionsEntryButton("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
+        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             options.children().add(options.children().size() - 1, new SetEntry(this, options, null, set))
         )));
         return options;
     }
 
-    static class SetEntry extends OptionsListWidget.Entry {
+    static class SetEntry extends ConfigListWidget.Entry {
 
         private final TextFieldWidget textField;
         private final ButtonWidget removeButton;
         private Identifier value;
 
-        SetEntry(GuiOptions screen, OptionsListWidget options, Identifier value, Set<Identifier> set) {
+        SetEntry(ConfigScreen screen, ConfigListWidget options, Identifier value, Set<Identifier> set) {
             this.value = value;
             this.textField = new TextFieldWidget(client.textRenderer, 0, 0, 200, 18, new LiteralText(""));
             this.textField.setTextPredicate(s -> s.matches("^[a-z0-9/_.-]*$") || s.matches("^[a-z0-9_.-]*:[a-z0-9/._-]*$"));

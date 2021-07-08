@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 import badasintended.megane.runtime.config.widget.Side;
 import badasintended.megane.runtime.config.widget.SidedEntry;
 import badasintended.megane.util.MeganeUtils;
-import mcp.mobius.waila.gui.GuiOptions;
-import mcp.mobius.waila.gui.config.OptionsEntryButton;
-import mcp.mobius.waila.gui.config.OptionsListWidget;
-import mcp.mobius.waila.gui.config.value.OptionsEntryValueBoolean;
-import mcp.mobius.waila.gui.config.value.OptionsEntryValueInput;
+import mcp.mobius.waila.gui.screen.ConfigScreen;
+import mcp.mobius.waila.gui.widget.ButtonEntry;
+import mcp.mobius.waila.gui.widget.ConfigListWidget;
+import mcp.mobius.waila.gui.widget.value.BooleanValue;
+import mcp.mobius.waila.gui.widget.value.InputValue;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.LiteralText;
@@ -26,7 +26,7 @@ import static badasintended.megane.runtime.config.widget.Side.SERVER;
 import static badasintended.megane.util.MeganeUtils.CONFIG;
 import static badasintended.megane.util.MeganeUtils.config;
 
-public class MeganeConfigScreen extends GuiOptions {
+public class MeganeConfigScreen extends ConfigScreen {
 
     private static final Predicate<String> ALL = s -> true;
     private static final Predicate<String> HEX = s -> s.matches("^[a-fA-F0-9]*$");
@@ -58,30 +58,30 @@ public class MeganeConfigScreen extends GuiOptions {
         return "config.megane." + type;
     }
 
-    private static OptionsEntryButton button(String type, ButtonWidget.PressAction pressAction) {
-        return new OptionsEntryButton(tlKey(type), new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, pressAction));
+    private static ButtonEntry button(String type, ButtonWidget.PressAction pressAction) {
+        return new ButtonEntry(tlKey(type), new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, pressAction));
     }
 
-    private static OptionsEntryValueBoolean bool(String type, boolean value, Consumer<Boolean> consumer) {
-        return new OptionsEntryValueBoolean(tlKey(type), value, consumer);
+    private static BooleanValue bool(String type, boolean value, Consumer<Boolean> consumer) {
+        return new BooleanValue(tlKey(type), value, consumer);
     }
 
-    private static <T> OptionsEntryValueInput<T> input(String type, T t, Consumer<T> consumer, Predicate<String> validator) {
-        return new OptionsEntryValueInput<>(tlKey(type), t, consumer, validator);
+    private static <T> InputValue<T> input(String type, T t, Consumer<T> consumer, Predicate<String> validator) {
+        return new InputValue<>(tlKey(type), t, consumer, validator);
     }
 
-    private static SidedEntry sided(Side side, OptionsListWidget.Entry entry) {
+    private static SidedEntry sided(Side side, ConfigListWidget.Entry entry) {
         return new SidedEntry(side, entry);
     }
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public OptionsListWidget getOptions() {
-        OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30, CONFIG::save);
+    public ConfigListWidget getOptions() {
+        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30, CONFIG::save);
         options.add(button("inventory", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("inventory"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().inventory.isEnabled(), config().inventory::setEnabled)));
                 options.add(sided(SERVER, bool("inventory.itemCount", config().inventory.isItemCount(), config().inventory::setItemCount)));
                 options.add(sided(SERVER, bool("inventory.nbt", config().inventory.isNbt(), config().inventory::setNbt)));
@@ -93,8 +93,8 @@ public class MeganeConfigScreen extends GuiOptions {
         })));
         options.add(button("entityInventory", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("entityInventory"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().entityInventory.isEnabled(), config().entityInventory::setEnabled)));
                 options.add(sided(SERVER, bool("inventory.itemCount", config().entityInventory.isItemCount(), config().entityInventory::setItemCount)));
                 options.add(sided(SERVER, bool("inventory.nbt", config().entityInventory.isNbt(), config().entityInventory::setNbt)));
@@ -106,8 +106,8 @@ public class MeganeConfigScreen extends GuiOptions {
         })));
         options.add(button("energy", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("energy"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().energy.isEnabled(), config().energy::setEnabled)));
                 options.add(sided(CLIENT, bool("expand", config().energy.isExpandWhenSneak(), config().energy::setExpandWhenSneak)));
                 options.add(sided(CLIENT, button("energy.unit", w -> client.openScreen(new MapConfigScreen<>(
@@ -130,8 +130,8 @@ public class MeganeConfigScreen extends GuiOptions {
         })));
         options.add(button("fluid", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("fluid"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().fluid.isEnabled(), config().fluid::setEnabled)));
                 options.add(sided(CLIENT, bool("expand", config().fluid.isExpandWhenSneak(), config().fluid::setExpandWhenSneak)));
                 options.add(sided(CLIENT, button("fluid.color", w -> client.openScreen(new MapConfigScreen<>(
@@ -147,8 +147,8 @@ public class MeganeConfigScreen extends GuiOptions {
         })));
         options.add(button("progress", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("progress"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().progress.isEnabled(), config().progress::setEnabled)));
                 options.add(sided(CLIENT, bool("progress.showWhenZero", config().progress.isShowWhenZero(), config().progress::setShowWhenZero)));
                 options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), config().progress.getBlacklist())))));
@@ -157,8 +157,8 @@ public class MeganeConfigScreen extends GuiOptions {
         })));
         options.add(button("owner", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("owner"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().petOwner.isEnabled(), config().petOwner::setEnabled)));
                 options.add(sided(SERVER, bool("owner.offline", config().petOwner.isOffline(), config().petOwner::setOffline)));
                 options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("owner.blacklist")), config().petOwner.getBlacklist())))));
@@ -167,8 +167,8 @@ public class MeganeConfigScreen extends GuiOptions {
         })));
         options.add(button("effect", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("effect"))) {
             @Override
-            public OptionsListWidget getOptions() {
-                OptionsListWidget options = new OptionsListWidget(this, client, width + 45, height, 32, height - 32, 30);
+            public ConfigListWidget getOptions() {
+                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
                 options.add(sided(AND, bool("enabled", config().effect.isEnabled(), config().effect::setEnabled)));
                 options.add(sided(AND, bool("effect.level", config().effect.getLevel(), config().effect::setLevel)));
                 options.add(sided(AND, bool("effect.hidden", config().effect.getHidden(), config().effect::setHidden)));
