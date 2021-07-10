@@ -65,15 +65,15 @@ public final class MeganeUtils {
         LOGGER.info("[megane] Loaded Config.");
     }
 
-    public static int[] intRange(int start, int end) {
-        if (end < start) {
+    public static int[] intRange(int start, int length) {
+        if (length <= 0) {
             return EMPTY_INT_ARRAY;
         }
 
-        int[] range = new int[end - start];
+        int[] range = new int[length];
 
-        for (int i = start; i < end; i++) {
-            range[i - start] = i;
+        for (int i = 0; i < length; i++) {
+            range[i] = start + i;
         }
 
         return range;

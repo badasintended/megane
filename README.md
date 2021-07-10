@@ -8,6 +8,7 @@ megane is a [WTHIT][11] plugin that adds useful tooltips such as energy, fluid v
 - [Industrial Revolution](https://www.curseforge.com/minecraft/mc-mods/industrial-revolution)
 - [Kibe](https://www.curseforge.com/minecraft/mc-mods/kibe)
 - [Lib Block Attributes](https://www.curseforge.com/minecraft/mc-mods/libblockattributes)
+- [Modern Industrialization](https://www.curseforge.com/minecraft/mc-mods/modern-industrialization) 
 - [Team Reborn Energy](https://github.com/TechReborn/energy)
 - [Tech Reborn](https://www.curseforge.com/minecraft/mc-mods/techreborn)
 - [Wireless Networks](https://www.curseforge.com/minecraft/mc-mods/wireless-networks)

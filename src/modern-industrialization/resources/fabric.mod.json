@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "id"           : "megane-modern-industrialization-4",
+  "id"           : "megane-modern-industrialization",
   "version"      : "${version}",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
-  "mixins"       : ["megane-modern-industrialization-4.mixins.json"],
+  "mixins"       : ["megane-modern-industrialization.mixins.json"],
   "depends"      : {
     "megane-base"             : "*",
-    "modern_industrialization": "0.4.x"
+    "modern_industrialization": "*"
   },
   "custom"       : {
     "megane:modules": [

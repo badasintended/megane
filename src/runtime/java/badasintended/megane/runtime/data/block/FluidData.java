@@ -6,6 +6,7 @@ import badasintended.megane.api.provider.FluidProvider;
 import badasintended.megane.runtime.registry.Registrar;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.registry.Registry;
@@ -38,7 +39,7 @@ public class FluidData extends BlockData {
 
                 for (int j = 0; j < size; j++) {
                     Fluid fluid = provider.getFluid(blockEntity, j);
-                    if (fluid == null) {
+                    if (fluid == null || fluid == Fluids.EMPTY) {
                         continue;
                     }
                     data.putInt(F_ID + i, Registry.FLUID.getRawId(fluid));
