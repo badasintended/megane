@@ -63,7 +63,7 @@ public class InventoryRenderer implements ITooltipRenderer {
 
         if (stacks.size() == 0)
             return new Dimension();
-        return new Dimension(18 * Math.min(stacks.size(), w), 18 * Math.min(stacks.size() / w + 1, h) + 2);
+        return new Dimension(18 * Math.min(stacks.size(), w), 18 * Math.min((stacks.size() + w - 1) / w, h) + 2);
     }
 
     @Override
