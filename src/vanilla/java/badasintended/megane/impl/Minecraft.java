@@ -9,6 +9,7 @@ import badasintended.megane.api.registry.MeganeClientRegistrar;
 import badasintended.megane.api.registry.MeganeRegistrar;
 import badasintended.megane.impl.mixin.minecraft.AccessorAbstractFurnaceBlockEntity;
 import badasintended.megane.impl.mixin.minecraft.AccessorHorseBaseEntity;
+import badasintended.megane.impl.mixin.minecraft.AccessorLootableContainerBlockEntity;
 import badasintended.megane.impl.util.A;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
@@ -19,6 +20,8 @@ import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.block.entity.EnderChestBlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
+import net.minecraft.block.entity.LockableContainerBlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
@@ -100,7 +103,53 @@ public class Minecraft implements MeganeModule {
                 }
             })
 
-            .inventory(BlockEntity.class, new InventoryProvider<>() {
+            .inventory(1100, LootableContainerBlockEntity.class, new InventoryProvider<>() {
+                private boolean generated;
+
+                @Override
+                public boolean hasInventory(LootableContainerBlockEntity lootableContainerBlockEntity) {
+                    generated = ((AccessorLootableContainerBlockEntity) lootableContainerBlockEntity).getLootTableId() == null;
+                    return true;
+                }
+
+                @Override
+                public int size(LootableContainerBlockEntity lootableContainerBlockEntity) {
+                    return generated ? lootableContainerBlockEntity.size() : 0;
+                }
+
+                @Override
+                public @NotNull ItemStack getStack(LootableContainerBlockEntity lootableContainerBlockEntity, int slot) {
+                    return lootableContainerBlockEntity.getStack(slot);
+                }
+            })
+
+            .inventory(1200, LockableContainerBlockEntity.class, new InventoryProvider<>() {
+                private PlayerEntity player;
+                private boolean unlocked;
+
+                @Override
+                public void setupContext(World world, PlayerEntity player) {
+                    this.player = player;
+                }
+
+                @Override
+                public boolean hasInventory(LockableContainerBlockEntity lockableContainerBlockEntity) {
+                    unlocked = lockableContainerBlockEntity.checkUnlocked(player);
+                    return true;
+                }
+
+                @Override
+                public int size(LockableContainerBlockEntity lockableContainerBlockEntity) {
+                    return unlocked ? lockableContainerBlockEntity.size() : 0;
+                }
+
+                @Override
+                public @NotNull ItemStack getStack(LockableContainerBlockEntity lockableContainerBlockEntity, int slot) {
+                    return lockableContainerBlockEntity.getStack(slot);
+                }
+            })
+
+            .inventory(1300, BlockEntity.class, new InventoryProvider<>() {
                 World world;
                 Inventory inventory;
 
