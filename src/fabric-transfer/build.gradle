@@ -1,0 +1,5 @@
+dependencies {
+    implFor(fabricApi.module("fabric-transfer-api-v1", "0.37.1+1.17"))
+}
+
+apply from: "impl.gradle"

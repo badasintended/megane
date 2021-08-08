@@ -38,7 +38,7 @@ allprojects {
 
     repositories {
         maven { url "https://maven.fabricmc.net/" }
-        maven { url "https://bai.jfrog.io/artifactory/maven" }
+        maven { url "https://maven.bai.lol" }
         maven {
             url "https://www.cursemaven.com"
             content {

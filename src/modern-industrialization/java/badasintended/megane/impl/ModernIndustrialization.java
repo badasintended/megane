@@ -3,7 +3,8 @@ package badasintended.megane.impl;
 import java.util.List;
 
 import aztech.modern_industrialization.blocks.creativetank.CreativeTankBlockEntity;
-import aztech.modern_industrialization.blocks.tank.TankBlockEntity;
+import aztech.modern_industrialization.blocks.storage.AbstractStorageBlockEntity;
+import aztech.modern_industrialization.blocks.storage.tank.TankBlockEntity;
 import aztech.modern_industrialization.inventory.ConfigurableFluidStack;
 import aztech.modern_industrialization.inventory.ConfigurableItemStack;
 import aztech.modern_industrialization.machines.MachineBlockEntity;
@@ -26,6 +27,8 @@ import badasintended.megane.impl.mixin.modern_industrialization.EnergyInputsComp
 import badasintended.megane.impl.mixin.modern_industrialization.EnergyOutputsComponentHolder;
 import badasintended.megane.impl.mixin.modern_industrialization.MultiblockInventoryComponentHolder;
 import badasintended.megane.util.MeganeUtils;
+import com.google.common.primitives.Ints;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -101,6 +104,13 @@ public class ModernIndustrialization implements MeganeModule {
                     return getFluidStack(slot).getCapacity() / 81.0;
                 }
             })
+            .inventory(AbstractStorageBlockEntity.class, InventoryProvider.conditional(
+                t -> t.getResource() instanceof ItemVariant,
+                t -> 1,
+                (t, i) -> t.isEmpty() || t.isResourceBlank()
+                    ? ItemStack.EMPTY
+                    : ((ItemVariant) t.getResource()).toStack(Ints.saturatedCast(t.getAmount()))
+            ))
             .inventory(MachineBlockEntity.class, InventoryProvider.of(
                 t -> t.getInventory().getItemStacks().size(),
                 (t, i) -> {

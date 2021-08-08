@@ -1,11 +1,12 @@
 package badasintended.megane.runtime.component.block;
 
+import java.util.List;
+import java.util.Map;
+
 import badasintended.megane.api.provider.FluidInfoProvider;
 import badasintended.megane.runtime.Megane;
 import badasintended.megane.runtime.registry.Registrar;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import java.util.List;
-import java.util.Map;
 import mcp.mobius.waila.api.IBlockAccessor;
 import mcp.mobius.waila.api.IDrawableText;
 import net.minecraft.fluid.Fluid;
@@ -15,6 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+
 import static badasintended.megane.runtime.util.Keys.B_COLOR;
 import static badasintended.megane.runtime.util.Keys.B_LONG;
 import static badasintended.megane.runtime.util.Keys.B_MAX;
@@ -65,8 +67,8 @@ public class FluidComponent extends BlockComponent {
             color = colors.get(id);
         } else {
             color = provider == null
-                    ? colors.computeIfAbsent(DEFAULT, s -> 0x0D0D59)
-                    : provider.getColor(fluid, world.getBiome(pos)) & 0xFFFFFF;
+                ? colors.computeIfAbsent(DEFAULT, s -> 0x0D0D59)
+                : provider.getColor(fluid, world.getBiome(pos)) & 0xFFFFFF;
             colors.put(id, color);
             CONFIG.save();
         }

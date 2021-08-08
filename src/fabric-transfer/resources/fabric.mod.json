@@ -1,15 +1,19 @@
 {
   "schemaVersion": 1,
-  "id"           : "megane-base",
+  "id"           : "megane-fabric-transfer",
   "version"      : "${version}",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
   "depends"      : {
-    "wthit": "*"
+    "megane-base"           : "*",
+    "fabric-transfer-api-v1": "*"
   },
   "custom"       : {
-    "modmenu": {
+    "megane:modules": [
+      "badasintended.megane.impl.FabricTransfer"
+    ],
+    "modmenu"       : {
       "parent": "megane"
     }
   }

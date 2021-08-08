@@ -25,6 +25,10 @@ public interface CauldronFluidProvider extends ContextAwareProvider {
         };
     }
 
+    default boolean hasFluid(BlockState state) {
+        return true;
+    }
+
     Fluid getFluid(BlockState state);
 
     double getStored(BlockState state);

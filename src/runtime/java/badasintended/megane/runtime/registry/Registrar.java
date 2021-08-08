@@ -45,6 +45,12 @@ public enum Registrar implements MeganeRegistrar, MeganeClientRegistrar {
     }
 
     @Override
+    public <T> MeganeRegistrar cauldron(int priority, Class<T> clazz, CauldronFluidProvider provider) {
+        CAULDRON.add(clazz, provider, priority);
+        return this;
+    }
+
+    @Override
     public <T> MeganeRegistrar inventory(int priority, Class<T> clazz, InventoryProvider<T> provider) {
         INVENTORY.add(clazz, provider, priority);
         return this;
