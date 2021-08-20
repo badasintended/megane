@@ -1,16 +1,7 @@
-repositories {
-    maven {
-        url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
-        content {
-            includeGroup "net.fabricmc.fabric-api"
-        }
-    }
-}
-
 dependencies {
-    implFor "curse.maven:modern-industrialization-405388:3341391"
+    implFor "curse.maven:modern-industrialization-405388:3386664"
 
-    modCompileOnly "net.fabricmc.fabric-api:fabric-transfer-api-v1:0.2.2+3185237c7d"
+    modCompileOnly fabricApi.module("fabric-transfer-api-v1", "0.37.0+1.16")
 }
 
 apply from: "impl.gradle"

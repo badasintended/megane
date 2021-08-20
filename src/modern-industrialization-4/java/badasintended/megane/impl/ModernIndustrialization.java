@@ -1,5 +1,7 @@
 package badasintended.megane.impl;
 
+import java.util.List;
+
 import aztech.modern_industrialization.blocks.creativetank.CreativeTankBlockEntity;
 import aztech.modern_industrialization.blocks.tank.TankBlockEntity;
 import aztech.modern_industrialization.inventory.ConfigurableFluidStack;
@@ -24,14 +26,12 @@ import badasintended.megane.impl.mixin.modern_industrialization.EnergyInputsComp
 import badasintended.megane.impl.mixin.modern_industrialization.EnergyOutputsComponentHolder;
 import badasintended.megane.impl.mixin.modern_industrialization.MultiblockInventoryComponentHolder;
 import badasintended.megane.util.MeganeUtils;
-
-import java.util.List;
-
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ModernIndustrialization implements MeganeModule {
 
     @Override
@@ -53,19 +53,19 @@ public class ModernIndustrialization implements MeganeModule {
             ))
             .fluid(TankBlockEntity.class, FluidProvider.of(
                 t -> 1,
-                (t, i) -> t.resource().getFluid(),
-                (t, i) -> t.amount() / 81.0,
+                (t, i) -> t.getResource().getFluid(),
+                (t, i) -> t.getAmount() / 81.0,
                 (t, i) -> ((ATankBlockEntity) t).getCapacity() / 81.0
             ))
             .fluid(CreativeTankBlockEntity.class, FluidProvider.of(
                 t -> 1,
-                (t, i) -> t.resource().getFluid(),
+                (t, i) -> t.getResource().getFluid(),
                 (t, i) -> -1,
                 (t, i) -> -1
             ))
             .fluid(MachineBlockEntity.class, FluidProvider.of(
                 t -> t.getInventory().getFluidStacks().size(),
-                (t, i) -> t.getInventory().getFluidStacks().get(i).resource().getFluid(),
+                (t, i) -> t.getInventory().getFluidStacks().get(i).getResource().getFluid(),
                 (t, i) -> t.getInventory().getFluidStacks().get(i).getAmount() / 81.0,
                 (t, i) -> t.getInventory().getFluidStacks().get(i).getCapacity() / 81.0
             ))
@@ -105,7 +105,7 @@ public class ModernIndustrialization implements MeganeModule {
                 t -> t.getInventory().getItemStacks().size(),
                 (t, i) -> {
                     ConfigurableItemStack stack = t.getInventory().getItemStacks().get(i);
-                    return stack.resource().toStack(stack.getCount());
+                    return stack.getResource().toStack(stack.getCount());
                 }
             ))
             .inventory(999, MultiblockInventoryComponentHolder.class, new InventoryProvider<MultiblockInventoryComponentHolder>() {
@@ -124,7 +124,7 @@ public class ModernIndustrialization implements MeganeModule {
                     ConfigurableItemStack stack = slot < input.size()
                         ? input.get(slot)
                         : output.get(slot - input.size());
-                    return stack.resource().toStack(stack.getCount());
+                    return stack.getResource().toStack(stack.getCount());
                 }
             })
             .progress(CrafterComponentHolder.class, new ProgressProvider<CrafterComponentHolder>() {
