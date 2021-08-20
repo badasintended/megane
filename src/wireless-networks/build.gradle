@@ -9,8 +9,10 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:wireless-networks-461316:3351667"
-    modCompileOnly "dev.technici4n:FastTransferLib:0.4.2"
+    // https://www.curseforge.com/minecraft/mc-mods/wireless-networks
+    implFor "curse.maven:wireless-networks-461316:3382566"
+
+    modCompileOnly "dev.technici4n:FastTransferLib:0.5.5"
 }
 
 apply from: "impl.gradle"

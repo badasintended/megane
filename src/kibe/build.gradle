@@ -8,9 +8,10 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:kibe-388832:3342100"
+    // https://www.curseforge.com/minecraft/mc-mods/kibe
+    implFor "curse.maven:kibe-388832:3424890"
 
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.7"
+    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.17003"
 }
 
 apply from: "impl.gradle"

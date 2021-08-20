@@ -54,6 +54,7 @@ import static techreborn.init.ModFluids.SULFURIC_ACID;
 import static techreborn.init.ModFluids.TRITIUM;
 import static techreborn.init.ModFluids.WOLFRAMIUM;
 
+@SuppressWarnings("UnstableApiUsage")
 public class TechReborn implements MeganeModule {
 
     private static final int[] A_012345 = new int[]{0, 1, 2, 3, 4, 5};
@@ -95,9 +96,9 @@ public class TechReborn implements MeganeModule {
             ))
             .fluid(MachineBaseBlockEntity.class, FluidProvider.conditional(
                 MachineBaseBlockEntity::showTankConfig, t -> 1,
-                (t, i) -> t.getTank().getFluid(),
-                (t, i) -> (double) t.getTank().getFluidAmount().getRawValue(),
-                (t, i) -> (double) t.getTank().getCapacity().getRawValue()
+                (t, i) -> t.getTank().getResource().getFluid(),
+                (t, i) -> t.getTank().getAmount() / 81.0,
+                (t, i) -> t.getTank().getCapacity() / 81.0
             ));
     }
 

@@ -19,12 +19,15 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:indrev-391708:3357406"
+    // https://www.curseforge.com/minecraft/mc-mods/industrial-revolution
+    implFor "curse.maven:indrev-391708:3404494"
 
     modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.9.0"
     modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.9.0"
-    modCompileOnly "dev.technici4n:FastTransferLib:0.4.2"
-    modCompileOnly "io.github.cottonmc:LibGui:4.0.0+1.17"
+    modCompileOnly "dev.technici4n:FastTransferLib:0.5.6"
+    modCompileOnly "io.github.cottonmc:LibGui:4.1.4+1.17.1"
+
+    modCompileOnly fabricApi.module("fabric-networking-blockentity-v0", "0.37.1+1.17")
 }
 
 apply from: "impl.gradle"

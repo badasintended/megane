@@ -8,7 +8,8 @@ repositories {
 }
 
 dependencies {
-    implFor "curse.maven:extra-generators-475623:3355730"
+    // https://www.curseforge.com/minecraft/mc-mods/extra-generators
+    implFor "curse.maven:extra-generators-475623:3369727"
 
     modCompileOnly fabricApi.module("fabric-networking-blockentity-v0", "0.35.2+1.17")
 
