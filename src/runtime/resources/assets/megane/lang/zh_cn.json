@@ -25,10 +25,6 @@
   "config.megane.progress"             : "进度",
   "config.megane.progress.showWhenZero": "在0%时显示",
   "config.megane.progress.blacklist"   : "进度黑名单",
-  "config.megane.owner"                : "宠物主人",
-  "config.megane.owner.offline"        : "显示离线的主人",
-  "config.megane.owner.offline_desc"   : "§7启用该选项后模组会尝试通过§5https://sessionserver.mojang.com获取离线的宠物主人名称，§7关闭该选项则显示为\"???\"",
-  "config.megane.owner.blacklist"      : "宠物主人黑名单",
   "config.megane.effect"               : "状态效果",
   "config.megane.effect.level"         : "显示等级",
   "config.megane.effect.hidden"        : "显示隐藏效果",
@@ -38,5 +34,4 @@
   "config.megane.spawnEgg"             : "刷怪蛋图标",
   "megane.energy"                      : "能量",
   "megane.level"                       : "等级",
-  "megane.owner"                       : "主人"
 }

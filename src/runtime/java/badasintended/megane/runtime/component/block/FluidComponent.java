@@ -8,10 +8,9 @@ import badasintended.megane.runtime.Megane;
 import badasintended.megane.runtime.registry.Registrar;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import mcp.mobius.waila.api.IBlockAccessor;
-import mcp.mobius.waila.api.IDrawableText;
+import mcp.mobius.waila.api.ITooltip;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -51,7 +50,7 @@ public class FluidComponent extends BlockComponent {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    protected void addFluid(List<Text> tooltip, IBlockAccessor accessor, NbtCompound nbt, Fluid fluid, double stored, double max) {
+    protected void addFluid(ITooltip tooltip, IBlockAccessor accessor, NbtCompound nbt, Fluid fluid, double stored, double max) {
         BlockPos pos = accessor.getPosition();
         World world = accessor.getWorld();
 
@@ -80,11 +79,12 @@ public class FluidComponent extends BlockComponent {
         nbt.putDouble(B_MAX, max);
         nbt.putBoolean(B_LONG, expand);
         nbt.putString(B_PREFIX, name);
-        tooltip.add(IDrawableText.of(Megane.BAR, nbt));
+
+        tooltip.addDrawable(Megane.BAR, nbt);
     }
 
     @Override
-    protected void append(List<Text> tooltip, IBlockAccessor accessor) {
+    protected void append(ITooltip tooltip, IBlockAccessor accessor) {
         NbtCompound data = accessor.getServerData();
         if (data.getBoolean(F_HAS)) {
             for (int i = 0; i < data.getInt(F_SIZE); i++) {

@@ -1,12 +1,9 @@
 package badasintended.megane.runtime.component.block;
 
-import java.util.List;
-
 import badasintended.megane.runtime.Megane;
 import mcp.mobius.waila.api.IBlockAccessor;
-import mcp.mobius.waila.api.IDrawableText;
+import mcp.mobius.waila.api.ITooltip;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
 
 import static badasintended.megane.runtime.util.Keys.S_LV;
 import static badasintended.megane.runtime.util.Keys.S_LV_STR;
@@ -21,7 +18,7 @@ public class BeaconComponent extends BlockComponent {
     }
 
     @Override
-    protected void append(List<Text> tooltip, IBlockAccessor accessor) {
+    protected void append(ITooltip tooltip, IBlockAccessor accessor) {
         NbtCompound data = accessor.getServerData();
 
         for (int i = 0; i < data.getInt(S_SIZE); i++) {
@@ -30,7 +27,7 @@ public class BeaconComponent extends BlockComponent {
             data.putString(S_LV_STR + i, str);
         }
 
-        tooltip.add(IDrawableText.of(Megane.EFFECT, data));
+        tooltip.addDrawable(Megane.EFFECT, data);
     }
 
 }

@@ -4,11 +4,13 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.config.widget.Side;
 import badasintended.megane.runtime.config.widget.SidedEntry;
 import badasintended.megane.util.MeganeUtils;
 import mcp.mobius.waila.gui.screen.ConfigScreen;
 import mcp.mobius.waila.gui.widget.ButtonEntry;
+import mcp.mobius.waila.gui.widget.CategoryEntry;
 import mcp.mobius.waila.gui.widget.ConfigListWidget;
 import mcp.mobius.waila.gui.widget.value.BooleanValue;
 import mcp.mobius.waila.gui.widget.value.InputValue;
@@ -42,6 +44,8 @@ public class MeganeConfigScreen extends ConfigScreen {
         return rgb.toString();
     };
 
+    private final MeganeConfig def = new MeganeConfig();
+
     public MeganeConfigScreen(Screen parent) {
         super(parent, tl("gui.waila.configuration", MeganeUtils.MODID), MeganeUtils.CONFIG::save, MeganeUtils.CONFIG::invalidate);
     }
@@ -58,16 +62,20 @@ public class MeganeConfigScreen extends ConfigScreen {
         return "config.megane." + type;
     }
 
+    private static CategoryEntry category(String type) {
+        return new CategoryEntry(tlKey(type));
+    }
+
     private static ButtonEntry button(String type, ButtonWidget.PressAction pressAction) {
         return new ButtonEntry(tlKey(type), new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, pressAction));
     }
 
-    private static BooleanValue bool(String type, boolean value, Consumer<Boolean> consumer) {
-        return new BooleanValue(tlKey(type), value, consumer);
+    private static BooleanValue bool(String type, boolean value, boolean defaultValue, Consumer<Boolean> consumer) {
+        return new BooleanValue(tlKey(type), value, defaultValue, consumer);
     }
 
-    private static <T> InputValue<T> input(String type, T t, Consumer<T> consumer, Predicate<String> validator) {
-        return new InputValue<>(tlKey(type), t, consumer, validator);
+    private static <T> InputValue<T> input(String type, T t, T defaultValue, Consumer<T> consumer, Predicate<String> validator) {
+        return new InputValue<>(tlKey(type), t, defaultValue, consumer, validator);
     }
 
     private static SidedEntry sided(Side side, ConfigListWidget.Entry entry) {
@@ -77,110 +85,71 @@ public class MeganeConfigScreen extends ConfigScreen {
     @Override
     @SuppressWarnings("ConstantConditions")
     public ConfigListWidget getOptions() {
-        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30, CONFIG::save);
-        options.add(button("inventory", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("inventory"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().inventory.isEnabled(), config().inventory::setEnabled)));
-                options.add(sided(SERVER, bool("inventory.itemCount", config().inventory.isItemCount(), config().inventory::setItemCount)));
-                options.add(sided(SERVER, bool("inventory.nbt", config().inventory.isNbt(), config().inventory::setNbt)));
-                options.add(sided(CLIENT, input("inventory.maxWidth", config().inventory.getMaxWidth(), config().inventory::setMaxWidth, INT)));
-                options.add(sided(CLIENT, input("inventory.maxHeight", config().inventory.getMaxHeight(), config().inventory::setMaxHeight, INT)));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().inventory.getBlacklist())))));
-                return options;
-            }
-        })));
-        options.add(button("entityInventory", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("entityInventory"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().entityInventory.isEnabled(), config().entityInventory::setEnabled)));
-                options.add(sided(SERVER, bool("inventory.itemCount", config().entityInventory.isItemCount(), config().entityInventory::setItemCount)));
-                options.add(sided(SERVER, bool("inventory.nbt", config().entityInventory.isNbt(), config().entityInventory::setNbt)));
-                options.add(sided(CLIENT, input("inventory.maxWidth", config().entityInventory.getMaxWidth(), config().entityInventory::setMaxWidth, INT)));
-                options.add(sided(CLIENT, input("inventory.maxHeight", config().entityInventory.getMaxHeight(), config().entityInventory::setMaxHeight, INT)));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().entityInventory.getBlacklist())))));
-                return options;
-            }
-        })));
-        options.add(button("energy", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("energy"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().energy.isEnabled(), config().energy::setEnabled)));
-                options.add(sided(CLIENT, bool("expand", config().energy.isExpandWhenSneak(), config().energy::setExpandWhenSneak)));
-                options.add(sided(CLIENT, button("energy.unit", w -> client.openScreen(new MapConfigScreen<>(
-                    this, tl(tlKey("energy.unit")), config().energy.getUnits(), s -> s, s -> s, NAMESPACE, ALL, (prev, key, val) -> {
-                    config().energy.getUnits().remove(prev);
-                    if (key != null && val != null) {
-                        config().energy.getUnits().put(key, val);
-                    }
-                })))));
-                options.add(sided(CLIENT, button("energy.color", w -> client.openScreen(new MapConfigScreen<>(
-                    this, tl(tlKey("energy.color")), config().energy.getColors(), s -> s, INT2RGB, NAMESPACE, HEX, (prev, key, val) -> {
-                    config().energy.getColors().remove(prev);
-                    if (key != null && val != null) {
-                        config().energy.getColors().put(key, Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
-                    }
-                })))));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("energy.blacklist")), config().energy.getBlacklist())))));
-                return options;
-            }
-        })));
-        options.add(button("fluid", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("fluid"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().fluid.isEnabled(), config().fluid::setEnabled)));
-                options.add(sided(CLIENT, bool("expand", config().fluid.isExpandWhenSneak(), config().fluid::setExpandWhenSneak)));
-                options.add(sided(CLIENT, button("fluid.color", w -> client.openScreen(new MapConfigScreen<>(
-                    this, tl(tlKey("fluid.color")), config().fluid.getColors(), Identifier::toString, INT2RGB, IDENTIFIER, HEX, (prev, key, val) -> {
-                    config().fluid.getColors().remove(new Identifier(prev));
-                    if (key != null && val != null) {
-                        config().fluid.getColors().put(new Identifier(prev), Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
-                    }
-                })))));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), config().fluid.getBlacklist())))));
-                return options;
-            }
-        })));
-        options.add(button("progress", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("progress"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().progress.isEnabled(), config().progress::setEnabled)));
-                options.add(sided(CLIENT, bool("progress.showWhenZero", config().progress.isShowWhenZero(), config().progress::setShowWhenZero)));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), config().progress.getBlacklist())))));
-                return options;
-            }
-        })));
-        options.add(button("owner", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("owner"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().petOwner.isEnabled(), config().petOwner::setEnabled)));
-                options.add(sided(SERVER, bool("owner.offline", config().petOwner.isOffline(), config().petOwner::setOffline)));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("owner.blacklist")), config().petOwner.getBlacklist())))));
-                return options;
-            }
-        })));
-        options.add(button("effect", w -> client.openScreen(new MeganeConfigScreen(this, tl(tlKey("effect"))) {
-            @Override
-            public ConfigListWidget getOptions() {
-                ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30);
-                options.add(sided(AND, bool("enabled", config().effect.isEnabled(), config().effect::setEnabled)));
-                options.add(sided(AND, bool("effect.level", config().effect.getLevel(), config().effect::setLevel)));
-                options.add(sided(AND, bool("effect.hidden", config().effect.getHidden(), config().effect::setHidden)));
-                options.add(sided(CLIENT, bool("effect.roman", config().effect.isRoman(), config().effect::setRoman)));
-                options.add(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("effect.blacklist")), config().petOwner.getBlacklist())))));
-                return options;
-            }
-        })));
+        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, CONFIG::save);
+        options
+            .with(category("inventory"))
+            .with(sided(AND, bool("enabled", config().inventory.isEnabled(), def.inventory.isEnabled(), config().inventory::setEnabled)))
+            .with(sided(SERVER, bool("inventory.itemCount", config().inventory.isItemCount(), def.inventory.isItemCount(), config().inventory::setItemCount)))
+            .with(sided(SERVER, bool("inventory.nbt", config().inventory.isNbt(), def.inventory.isNbt(), config().inventory::setNbt)))
+            .with(sided(CLIENT, input("inventory.maxWidth", config().inventory.getMaxWidth(), def.inventory.getMaxWidth(), config().inventory::setMaxWidth, INT)))
+            .with(sided(CLIENT, input("inventory.maxHeight", config().inventory.getMaxHeight(), def.inventory.getMaxHeight(), config().inventory::setMaxHeight, INT)))
+            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().inventory.getBlacklist())))))
 
-        options.add(sided(SERVER, bool("catchServerErrors", config().getCatchServerErrors(), config()::setCatchServerErrors)));
-        options.add(sided(CLIENT, bool("spawnEgg", config().getSpawnEgg(), config()::setSpawnEgg)));
-        options.add(sided(CLIENT, bool("playerHead", config().getPlayerHead(), config()::setPlayerHead)));
+            .with(category("entityInventory"))
+            .with(sided(AND, bool("enabled", config().entityInventory.isEnabled(), def.entityInventory.isEnabled(), config().entityInventory::setEnabled)))
+            .with(sided(SERVER, bool("inventory.itemCount", config().entityInventory.isItemCount(), def.entityInventory.isItemCount(), config().entityInventory::setItemCount)))
+            .with(sided(SERVER, bool("inventory.nbt", config().entityInventory.isNbt(), def.entityInventory.isNbt(), config().entityInventory::setNbt)))
+            .with(sided(CLIENT, input("inventory.maxWidth", config().entityInventory.getMaxWidth(), def.entityInventory.getMaxWidth(), config().entityInventory::setMaxWidth, INT)))
+            .with(sided(CLIENT, input("inventory.maxHeight", config().entityInventory.getMaxHeight(), def.entityInventory.getMaxHeight(), config().entityInventory::setMaxHeight, INT)))
+            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().entityInventory.getBlacklist())))))
+
+            .with(category("energy"))
+            .with(sided(AND, bool("enabled", config().energy.isEnabled(), def.energy.isEnabled(), config().energy::setEnabled)))
+            .with(sided(CLIENT, bool("expand", config().energy.isExpandWhenSneak(), def.energy.isExpandWhenSneak(), config().energy::setExpandWhenSneak)))
+            .with(sided(CLIENT, button("energy.unit", w -> client.openScreen(new MapConfigScreen<>(
+                this, tl(tlKey("energy.unit")), config().energy.getUnits(), s -> s, s -> s, NAMESPACE, ALL, (prev, key, val) -> {
+                config().energy.getUnits().remove(prev);
+                if (key != null && val != null) {
+                    config().energy.getUnits().put(key, val);
+                }
+            })))))
+            .with(sided(CLIENT, button("energy.color", w -> client.openScreen(new MapConfigScreen<>(
+                this, tl(tlKey("energy.color")), config().energy.getColors(), s -> s, INT2RGB, NAMESPACE, HEX, (prev, key, val) -> {
+                config().energy.getColors().remove(prev);
+                if (key != null && val != null) {
+                    config().energy.getColors().put(key, Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
+                }
+            })))))
+            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("energy.blacklist")), config().energy.getBlacklist())))))
+
+            .with(category("fluid"))
+            .with(sided(AND, bool("enabled", config().fluid.isEnabled(), def.fluid.isEnabled(), config().fluid::setEnabled)))
+            .with(sided(CLIENT, bool("expand", config().fluid.isExpandWhenSneak(), def.fluid.isExpandWhenSneak(), config().fluid::setExpandWhenSneak)))
+            .with(sided(CLIENT, button("fluid.color", w -> client.openScreen(new MapConfigScreen<>(
+                this, tl(tlKey("fluid.color")), config().fluid.getColors(), Identifier::toString, INT2RGB, IDENTIFIER, HEX, (prev, key, val) -> {
+                config().fluid.getColors().remove(new Identifier(prev));
+                if (key != null && val != null) {
+                    config().fluid.getColors().put(new Identifier(prev), Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
+                }
+            })))))
+            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), config().fluid.getBlacklist())))))
+
+            .with(category("progress"))
+            .with(sided(AND, bool("enabled", config().progress.isEnabled(), def.progress.isEnabled(), config().progress::setEnabled)))
+            .with(sided(CLIENT, bool("progress.showWhenZero", config().progress.isShowWhenZero(), def.progress.isShowWhenZero(), config().progress::setShowWhenZero)))
+            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), config().progress.getBlacklist())))))
+
+            .with(category("effect"))
+            .with(sided(AND, bool("enabled", config().effect.isEnabled(), def.effect.isEnabled(), config().effect::setEnabled)))
+            .with(sided(AND, bool("effect.level", config().effect.getLevel(), def.effect.getLevel(), config().effect::setLevel)))
+            .with(sided(AND, bool("effect.hidden", config().effect.getHidden(), def.effect.getHidden(), config().effect::setHidden)))
+            .with(sided(CLIENT, bool("effect.roman", config().effect.isRoman(), def.effect.isRoman(), config().effect::setRoman)))
+            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("effect.blacklist")), config().effect.getBlacklist())))))
+
+            .with(category("other"))
+            .with(sided(SERVER, bool("catchServerErrors", config().getCatchServerErrors(), def.getCatchServerErrors(), config()::setCatchServerErrors)))
+            .with(sided(CLIENT, bool("spawnEgg", config().getSpawnEgg(), def.getSpawnEgg(), config()::setSpawnEgg)))
+            .with(sided(CLIENT, bool("playerHead", config().getPlayerHead(), def.getPlayerHead(), config()::setPlayerHead)));
 
         return options;
     }

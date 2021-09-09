@@ -38,7 +38,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
 
     @Override
     public ConfigListWidget getOptions() {
-        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30, CONFIG::save);
+        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, CONFIG::save);
         this.map.forEach((key, val) -> options.add(new PairEntry(this, options, keyStr.apply(key), valStr.apply(val), mapApplier, keyPredicate, valPredicate)));
         options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             options.children().add(options.children().size() - 1, new PairEntry(this, options, "", "", mapApplier, keyPredicate, valPredicate))
@@ -51,16 +51,19 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
         private final TextFieldWidget keyTextField;
         private final TextFieldWidget valTextField;
         private final ButtonWidget removeButton;
+        private final int textWidth;
         private String key;
         private String val;
 
         PairEntry(ConfigScreen screen, ConfigListWidget options, String key, String val, TriConsumer<String, String, String> consumer, Predicate<String> keyPredicate, Predicate<String> valPredicate) {
+            this.textWidth = options.getRowWidth() / 2 - 12;
+
             this.key = key;
             this.val = val;
-            this.keyTextField = new TextFieldWidget(client.textRenderer, 0, 0, 100, 18, new LiteralText(""));
+            this.keyTextField = new TextFieldWidget(client.textRenderer, 0, 0, textWidth, 18, new LiteralText(""));
             this.keyTextField.setTextPredicate(keyPredicate);
-            this.keyTextField.setText(key);
             this.keyTextField.setMaxLength(256);
+            this.keyTextField.setText(key);
             this.keyTextField.setChangedListener(s -> {
                 String prev = this.key;
                 this.key = s;
@@ -69,10 +72,10 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
             });
             screen.addListener(this.keyTextField);
 
-            this.valTextField = new TextFieldWidget(client.textRenderer, 0, 0, 100, 18, new LiteralText(""));
+            this.valTextField = new TextFieldWidget(client.textRenderer, 0, 0, textWidth, 18, new LiteralText(""));
             this.valTextField.setTextPredicate(valPredicate);
-            this.valTextField.setText(val);
             this.valTextField.setMaxLength(256);
+            this.valTextField.setText(val);
             this.valTextField.setChangedListener(s -> {
                 String prev = this.key;
                 this.val = s;
@@ -81,7 +84,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
             });
             screen.addListener(this.valTextField);
 
-            this.removeButton = new ButtonWidget(0, 0, 18, 18, new LiteralText("X"), w -> {
+            this.removeButton = new ButtonWidget(0, 0, 20, 20, new LiteralText("X"), w -> {
                 consumer.apply(this.key, null, null);
                 screen.children().remove(this.keyTextField);
                 screen.children().remove(this.valTextField);
@@ -93,16 +96,18 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
 
         @Override
         public void render(MatrixStack matrices, int index, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float deltaTime) {
-            this.keyTextField.x = rowLeft + 10;
-            this.keyTextField.y = rowTop + height / 6;
+            super.render(matrices, index, rowTop, rowLeft, width, height, mouseX, mouseY, hovered, deltaTime);
+
+            this.keyTextField.x = rowLeft;
+            this.keyTextField.y = rowTop + (height - keyTextField.getHeight()) / 2;
             this.keyTextField.render(matrices, mouseX, mouseY, deltaTime);
 
-            this.valTextField.x = rowLeft + 114;
-            this.valTextField.y = rowTop + height / 6;
+            this.valTextField.x = rowLeft + textWidth + 4;
+            this.valTextField.y = keyTextField.y;
             this.valTextField.render(matrices, mouseX, mouseY, deltaTime);
 
-            this.removeButton.x = rowLeft + 216;
-            this.removeButton.y = rowTop + height / 6;
+            this.removeButton.x = rowLeft + (textWidth + 2) * 2;
+            this.removeButton.y = rowTop + (height - removeButton.getHeight()) / 2;
             this.removeButton.render(matrices, mouseX, mouseY, deltaTime);
         }
 

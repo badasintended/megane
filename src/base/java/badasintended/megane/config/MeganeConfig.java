@@ -18,7 +18,6 @@ public class MeganeConfig {
     public final Energy energy = new Energy();
     public final Fluid fluid = new Fluid();
     public final Progress progress = new Progress();
-    public final PetOwner petOwner = new PetOwner();
     public final Effect effect = new Effect();
 
     private boolean catchServerErrors = true;
@@ -230,36 +229,6 @@ public class MeganeConfig {
 
         public boolean isShowWhenZero() {
             return showWhenZero;
-        }
-
-        @Override
-        public Set<Identifier> getBlacklist() {
-            return blacklist;
-        }
-
-    }
-
-    public static class PetOwner implements Base {
-
-        private boolean enabled = true;
-        private boolean offline = true;
-        private final Set<Identifier> blacklist = new HashSet<>();
-
-        public void setEnabled(boolean enabled) {
-            this.enabled = enabled;
-        }
-
-        public void setOffline(boolean offline) {
-            this.offline = offline;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public boolean isOffline() {
-            return offline;
         }
 
         @Override

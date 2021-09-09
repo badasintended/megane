@@ -26,7 +26,7 @@ public class BlacklistConfigScreen extends ConfigScreen {
 
     @Override
     public ConfigListWidget getOptions() {
-        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 30, CONFIG::save);
+        ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, CONFIG::save);
         this.set.forEach(value -> options.add(new SetEntry(this, options, value, this.set)));
         options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
             options.children().add(options.children().size() - 1, new SetEntry(this, options, null, set))
@@ -42,7 +42,7 @@ public class BlacklistConfigScreen extends ConfigScreen {
 
         SetEntry(ConfigScreen screen, ConfigListWidget options, Identifier value, Set<Identifier> set) {
             this.value = value;
-            this.textField = new TextFieldWidget(client.textRenderer, 0, 0, 200, 18, new LiteralText(""));
+            this.textField = new TextFieldWidget(client.textRenderer, 0, 0, options.getRowWidth() - 22, 18, new LiteralText(""));
             this.textField.setTextPredicate(s -> s.matches("^[a-z0-9/_.-]*$") || s.matches("^[a-z0-9_.-]*:[a-z0-9/._-]*$"));
             this.textField.setMaxLength(256);
             if (value != null)
@@ -54,7 +54,7 @@ public class BlacklistConfigScreen extends ConfigScreen {
                     set.add(this.value);
             });
 
-            this.removeButton = new ButtonWidget(0, 0, 18, 18, new LiteralText("X"), w -> {
+            this.removeButton = new ButtonWidget(0, 0, 20, 20, new LiteralText("X"), w -> {
                 set.remove(this.value);
                 screen.children().remove(this.textField);
                 screen.children().remove(w);
@@ -67,12 +67,14 @@ public class BlacklistConfigScreen extends ConfigScreen {
 
         @Override
         public void render(MatrixStack matrices, int index, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float deltaTime) {
-            this.textField.x = rowLeft + 10;
-            this.textField.y = rowTop + height / 6;
+            super.render(matrices, index, rowTop, rowLeft, width, height, mouseX, mouseY, hovered, deltaTime);
+
+            this.textField.x = rowLeft;
+            this.textField.y = rowTop;
             this.textField.render(matrices, mouseX, mouseY, deltaTime);
 
-            this.removeButton.x = rowLeft + 212;
-            this.removeButton.y = rowTop + height / 6;
+            this.removeButton.x = rowLeft + textField.getWidth() + 2;
+            this.removeButton.y = rowTop + (height - removeButton.getHeight()) / 2;
             this.removeButton.render(matrices, mouseX, mouseY, deltaTime);
         }
 

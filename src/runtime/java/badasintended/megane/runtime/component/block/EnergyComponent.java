@@ -8,10 +8,9 @@ import badasintended.megane.config.MeganeConfig;
 import badasintended.megane.runtime.Megane;
 import badasintended.megane.runtime.registry.Registrar;
 import mcp.mobius.waila.api.IBlockAccessor;
-import mcp.mobius.waila.api.IDrawableText;
+import mcp.mobius.waila.api.ITooltip;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 
 import static badasintended.megane.runtime.util.Keys.B_COLOR;
@@ -36,7 +35,7 @@ public class EnergyComponent extends BlockComponent {
     }
 
     @Override
-    protected void append(List<Text> tooltip, IBlockAccessor accessor) {
+    protected void append(ITooltip tooltip, IBlockAccessor accessor) {
         MeganeConfig.Energy energy = config().energy;
         Map<String, Integer> colors = energy.getColors();
         Map<String, String> units = energy.getUnits();
@@ -79,7 +78,8 @@ public class EnergyComponent extends BlockComponent {
             TAG.putDouble(B_MAX, max);
             TAG.putBoolean(B_LONG, expand);
             TAG.putString(B_UNIT, unit);
-            tooltip.add(IDrawableText.of(Megane.BAR, TAG));
+
+            tooltip.addDrawable(Megane.BAR, TAG);
         }
     }
 

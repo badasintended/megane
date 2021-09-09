@@ -11,6 +11,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
+import static badasintended.megane.runtime.mixin.AccessorTooltipRenderer.getColonOffset;
+import static badasintended.megane.runtime.mixin.AccessorTooltipRenderer.setColonOffset;
 import static badasintended.megane.runtime.util.Keys.B_COLOR;
 import static badasintended.megane.runtime.util.Keys.B_LONG;
 import static badasintended.megane.runtime.util.Keys.B_MAX;
@@ -18,7 +20,6 @@ import static badasintended.megane.runtime.util.Keys.B_PREFIX;
 import static badasintended.megane.runtime.util.Keys.B_STORED;
 import static badasintended.megane.runtime.util.Keys.B_TL;
 import static badasintended.megane.runtime.util.Keys.B_UNIT;
-import static badasintended.megane.runtime.util.RuntimeUtils.align;
 import static badasintended.megane.runtime.util.RuntimeUtils.drawTexture;
 import static badasintended.megane.runtime.util.RuntimeUtils.getBrightness;
 import static badasintended.megane.runtime.util.RuntimeUtils.suffix;
@@ -65,8 +66,8 @@ public class BarRenderer implements ITooltipRenderer {
             prefix = I18n.translate(prefix);
         int prefixWidth = textRenderer().getWidth(prefix);
         int textWidth = textRenderer().getWidth(getValString(data));
-        align = Math.max(prefixWidth, align);
-        return new Dimension(align + textRenderer().getWidth(": ") + Math.max(textWidth, 100), 13);
+        setColonOffset(Math.max(prefixWidth, getColonOffset()));
+        return new Dimension(getColonOffset() + textRenderer().getWidth(": ") + Math.max(textWidth, 100), 13);
     }
 
     @Override
@@ -80,11 +81,11 @@ public class BarRenderer implements ITooltipRenderer {
         textRenderer().drawWithShadow(matrices, prefix, x, y + 2, 0xFFAAAAAA);
 
         int colon = textRenderer().getWidth(": ");
-        textRenderer().drawWithShadow(matrices, ": ", x + align, y + 2, 0xFFAAAAAA);
+        textRenderer().drawWithShadow(matrices, ": ", x + getColonOffset(), y + 2, 0xFFAAAAAA);
 
         int color = data.getInt(B_COLOR);
 
-        int barX = x + align + colon;
+        int barX = x + getColonOffset() + colon;
         drawTexture(matrices, TEXTURE, barX, y, 100, 11, 0, 0, 1F, 0.5F, color);
         drawTexture(matrices, TEXTURE, barX, y, (int) (ratio * 100), 11, 0, 0.5F, ratio, 1F, color);
 
@@ -108,7 +109,7 @@ public class BarRenderer implements ITooltipRenderer {
 
         String text = getValString(data);
         int textWidth = textRenderer().getWidth(text);
-        float textX = x + align + colon + Math.max((100 - textWidth) / 2F, 0F);
+        float textX = x + getColonOffset() + colon + Math.max((100 - textWidth) / 2F, 0F);
         float textY = y + 2;
         textRenderer().draw(matrices, text, textX, textY, 0xFFAAAAAA);
     }

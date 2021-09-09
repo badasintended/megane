@@ -1,8 +1,8 @@
 dependencies {
-    implFor "TechReborn:TechReborn-1.17:5.0.6-beta+build.95"
+    implFor "TechReborn:TechReborn-1.17:5.0.6-beta+build.94"
 
-    modCompileOnly "RebornCore:RebornCore-1.17:5.0.6-beta+build.95"
-    modCompileOnly "teamreborn:energy:0.1.0"
+    modCompileOnly "RebornCore:RebornCore-1.17:5.0.6-beta+build.94"
+    modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }
 
 apply from: "impl.gradle"

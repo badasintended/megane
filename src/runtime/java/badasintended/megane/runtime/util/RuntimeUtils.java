@@ -1,11 +1,10 @@
 package badasintended.megane.runtime.util;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -35,7 +34,6 @@ public class RuntimeUtils {
     public static int oldConfigVersion = 0;
     public static boolean showUpdatedConfigToast = false;
 
-    public static int align = 0;
 
     static {
         SUFFIXES.put(1000L, "K");

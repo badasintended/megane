@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import badasintended.megane.api.MeganeModule;
-import badasintended.megane.runtime.component.AlignResetComponent;
 import badasintended.megane.runtime.component.block.BeaconComponent;
 import badasintended.megane.runtime.component.block.BlockInventoryComponent;
 import badasintended.megane.runtime.component.block.CauldronComponent;
@@ -13,7 +12,6 @@ import badasintended.megane.runtime.component.block.EnergyComponent;
 import badasintended.megane.runtime.component.block.FluidComponent;
 import badasintended.megane.runtime.component.block.ProgressComponent;
 import badasintended.megane.runtime.component.entity.EntityInventoryComponent;
-import badasintended.megane.runtime.component.entity.PetOwnerComponent;
 import badasintended.megane.runtime.component.entity.PlayerHeadComponent;
 import badasintended.megane.runtime.component.entity.SpawnEggComponent;
 import badasintended.megane.runtime.component.entity.StatusEffectComponent;
@@ -23,10 +21,8 @@ import badasintended.megane.runtime.data.block.EnergyData;
 import badasintended.megane.runtime.data.block.FluidData;
 import badasintended.megane.runtime.data.block.ProgressData;
 import badasintended.megane.runtime.data.entity.EntityInventoryData;
-import badasintended.megane.runtime.data.entity.PetOwnerData;
 import badasintended.megane.runtime.data.entity.StatusEffectData;
 import badasintended.megane.runtime.registry.Registrar;
-import badasintended.megane.runtime.renderer.AlignedTextRenderer;
 import badasintended.megane.runtime.renderer.BarRenderer;
 import badasintended.megane.runtime.renderer.InventoryRenderer;
 import badasintended.megane.runtime.renderer.ProgressRenderer;
@@ -58,7 +54,6 @@ public class Megane implements IWailaPlugin {
     public static final Identifier INVENTORY = id("inventory");
     public static final Identifier BAR = id("bar");
     public static final Identifier PROGRESS = id("progress");
-    public static final Identifier ALIGNED = id("aligned");
     public static final Identifier EFFECT = id("effect");
 
     private static final Class<Block> BLOCK = Block.class;
@@ -70,12 +65,10 @@ public class Megane implements IWailaPlugin {
         r.addRenderer(INVENTORY, new InventoryRenderer());
         r.addRenderer(BAR, new BarRenderer());
         r.addRenderer(PROGRESS, new ProgressRenderer());
-        r.addRenderer(ALIGNED, new AlignedTextRenderer());
         r.addRenderer(EFFECT, new StatusEffectRenderer());
 
         // --- BLOCK ---
         // Component
-        r.addComponent(new AlignResetComponent.Block(), HEAD, BLOCK);
         r.addComponent(new EnergyComponent(), HEAD, BLOCK);
         r.addComponent(new FluidComponent(), HEAD, BLOCK);
         r.addComponent(new CauldronComponent(), HEAD, AbstractCauldronBlock.class);
@@ -97,15 +90,11 @@ public class Megane implements IWailaPlugin {
         r.addDisplayItem(new PlayerHeadComponent(), PlayerEntity.class);
 
         // Component
-        r.addComponent(new AlignResetComponent.Entity(), HEAD, ENTITY);
-        r.addComponent(new PetOwnerComponent(), HEAD, ENTITY);
-
         r.addComponent(new EntityInventoryComponent(), TAIL, ENTITY);
         r.addComponent(new StatusEffectComponent(), TAIL, ENTITY);
 
         // Server Data
         r.addEntityData(new EntityInventoryData(), ENTITY);
-        r.addEntityData(new PetOwnerData(), ENTITY);
         r.addEntityData(new StatusEffectData(), ENTITY);
 
         // Modules
@@ -152,9 +141,9 @@ public class Megane implements IWailaPlugin {
                             entry.register(Registrar.INSTANCE);
                             if (loader.getEnvironmentType() == EnvType.CLIENT)
                                 entry.registerClient(Registrar.INSTANCE);
-                        } catch (Exception e) {
+                        } catch (Throwable t) {
                             LOGGER.error("[megane] error when loading {} from {}", className, modId);
-                            e.printStackTrace();
+                            t.printStackTrace();
                         }
                 });
             }

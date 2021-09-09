@@ -61,6 +61,8 @@ public class TechReborn implements MeganeModule {
     private static final int[] A_6789AB = new int[]{6, 7, 8, 9, 10, 11};
     private static final int[] A_9 = new int[]{9};
 
+    MeganeClientRegistrar registrar;
+
     @Override
     public void register(MeganeRegistrar registrar) {
         registrar
@@ -101,8 +103,6 @@ public class TechReborn implements MeganeModule {
                 (t, i) -> t.getTank().getCapacity() / 81.0
             ));
     }
-
-    MeganeClientRegistrar registrar;
 
     private void fc(ModFluids fluid, int color) {
         registrar.fluid(fluid.getFluid(), color, fluid.getBlock().getName());

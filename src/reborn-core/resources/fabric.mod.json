@@ -1,18 +1,17 @@
 {
   "schemaVersion": 1,
-  "id"           : "megane-team-reborn-energy",
+  "id"           : "megane-reborn-core",
   "version"      : "${version}",
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
   "depends"      : {
-    "megane-base"       : "*",
-    "team_reborn_energy": "*"
+    "megane-base": "*",
+    "reborncore" : "*"
   },
   "custom"       : {
     "megane:modules": [
-      "badasintended.megane.impl.LegacyTeamRebornEnergy",
-      "badasintended.megane.impl.TeamRebornEnergy"
+      "badasintended.megane.impl.RebornCore"
     ],
     "modmenu"       : {
       "parent": "megane"

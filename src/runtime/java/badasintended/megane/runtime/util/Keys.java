@@ -62,11 +62,6 @@ public class Keys {
         B_LONG    = "\u3603",
         B_PREFIX  = "\u3604",
         B_TL      = "\u3605",
-        B_COLOR   = "\u3606",
-
-        // Aligned Text
-        T_KEY     = "\u3700",
-        T_VAL     = "\u3701",
-        T_VAL_COL = "\u3703";
+        B_COLOR   = "\u3606";
 
 }
