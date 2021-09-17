@@ -1,5 +1,5 @@
 dependencies {
-    implFor "RebornCore:RebornCore-1.17:5.0.6-beta+build.94"
+    implFor "RebornCore:RebornCore-1.17:project.5.0.7-beta+build.107"
 
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }
