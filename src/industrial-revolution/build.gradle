@@ -6,10 +6,6 @@ repositories {
         content {includeGroup "alexiil.mc.lib"}
     }
     maven {
-        url "https://server.bbkr.space/artifactory/libs-release"
-        content { includeGroup "io.github.cottonmc" }
-    }
-    maven {
         url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
         content {
             includeGroup "net.fabricmc.fabric-api"
