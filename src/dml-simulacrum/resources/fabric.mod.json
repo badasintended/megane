@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-dml-simulacrum",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-base": "*",
+    "dmlsimulacrum" : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "badasintended.megane.impl.DmlSimulacrum"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

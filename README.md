@@ -3,6 +3,7 @@
 megane is a [WTHIT][11] plugin that adds useful tooltips such as energy, fluid volumes, and inventory contents.
 
 ### Supported Mods
+- [Deep Mob Learning: Simulacrum](https://www.curseforge.com/minecraft/mc-mods/deep-mob-learning-simulacrum)
 - [Extra Generators](https://www.curseforge.com/minecraft/mc-mods/extra-generators)
 - [Fast Transfer Lib](https://github.com/Technici4n/FastTransferLib)
 - [Industrial Revolution](https://www.curseforge.com/minecraft/mc-mods/industrial-revolution)
