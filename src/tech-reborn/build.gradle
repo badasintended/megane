@@ -1,7 +1,7 @@
 dependencies {
-    implFor "TechReborn:TechReborn-1.17:project.5.0.7-beta+build.107"
+    implFor "TechReborn:TechReborn-1.17:5.0.8-beta+build.111"
 
-    modCompileOnly "RebornCore:RebornCore-1.17:project.5.0.7-beta+build.107"
+    modCompileOnly "RebornCore:RebornCore-1.17:5.0.8-beta+build.111"
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }
 
