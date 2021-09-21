@@ -9,6 +9,7 @@
     "megane-base": "*",
     "kibe"       : "*"
   },
+  "mixins"       : ["megane-kibe.mixins.json"],
   "custom"       : {
     "megane:modules": [
       "badasintended.megane.impl.Kibe"

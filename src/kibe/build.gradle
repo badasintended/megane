@@ -1,17 +1,16 @@
 apply from: "kotlin.gradle"
 
-repositories {
-    maven {
-        url "https://mod-buildcraft.com/maven"
-        content {includeGroup "alexiil.mc.lib"}
-    }
-}
-
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/kibe
-    implFor "curse.maven:kibe-388832:3424890"
+    implFor "curse.maven:kibe-388832:3467426"
 
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.17003"
+    def fapi = [
+        "fabric-transfer-api-v1",
+        "fabric-networking-blockentity-v0"
+    ]
+    fapi.forEach {
+        modCompileOnly fabricApi.module(it, "0.40.1+1.17")
+    }
 }
 
 apply from: "impl.gradle"
