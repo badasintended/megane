@@ -1,8 +1,9 @@
 package badasintended.megane.impl.mixin.extra_generators;
 
-import alexiil.mc.lib.attributes.fluid.impl.SimpleFixedFluidInv;
 import io.github.lucaargolo.extragenerators.common.blockentity.FluidGeneratorBlockEntity;
 import io.github.lucaargolo.extragenerators.common.blockentity.FluidItemGeneratorBlockEntity;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -13,6 +14,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface FluidInvHolder {
 
     @Accessor
-    SimpleFixedFluidInv getFluidInv();
+    @SuppressWarnings({"deprecation", "UnstableApiUsage"})
+    SingleVariantStorage<FluidVariant> getFluidInv();
 
 }

@@ -1,21 +1,18 @@
 apply from: "kotlin.gradle"
 
-repositories {
-    maven {
-        url "https://mod-buildcraft.com/maven"
-        content {includeGroup "alexiil.mc.lib"}
-    }
-}
-
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/extra-generators
-    implFor "curse.maven:extra-generators-475623:3369727"
+    implFor "curse.maven:extra-generators-475623:3467227"
 
-    modCompileOnly fabricApi.module("fabric-networking-blockentity-v0", "0.35.2+1.17")
+    modCompileOnly "teamreborn:energy:2.0.0-beta1"
 
-    modCompileOnly "teamreborn:energy:0.1.1"
-    modCompileOnly "alexiil.mc.lib:libblockattributes-fluids:0.8.17003"
-    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.17003"
+    def fapi = [
+        "fabric-transfer-api-v1",
+        "fabric-networking-blockentity-v0"
+    ]
+    fapi.forEach {
+        modCompileOnly fabricApi.module(it, "0.40.1+1.17")
+    }
 }
 
 apply from: "impl.gradle"
