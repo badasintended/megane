@@ -45,6 +45,16 @@ allprojects {
                 includeGroup "curse.maven"
             }
         }
+        ivy {
+            url rootProject.file("localdeps")
+            metadataSources.artifact()
+            patternLayout {
+                artifact "[module]-[revision].[ext]"
+            }
+            content {
+                includeGroup "localdeps"
+            }
+        }
     }
 
     dependencies {
