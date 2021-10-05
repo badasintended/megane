@@ -103,8 +103,10 @@ public class RuntimeUtils {
 
         DiffuseLighting.enableGuiDepthLighting();
         RenderSystem.enableDepthTest();
+        int count = stack.getCount();
+        stack.setCount(1);
         item.renderInGui(stack, x, y);
-        item.renderGuiItemOverlay(text, stack, x, y);
+        item.renderGuiItemOverlay(text, stack, x, y, suffix(count));
         DiffuseLighting.disableGuiDepthLighting();
         RenderSystem.disableDepthTest();
     }
