@@ -11,12 +11,15 @@ import badasintended.megane.impl.mixin.minecraft.AccessorAbstractFurnaceBlockEnt
 import badasintended.megane.impl.mixin.minecraft.AccessorHorseBaseEntity;
 import badasintended.megane.impl.mixin.minecraft.AccessorLootableContainerBlockEntity;
 import badasintended.megane.impl.util.A;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.EnderChestBlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
@@ -78,6 +81,31 @@ public class Minecraft implements MeganeModule {
                     return (int) ((float) furnace.getCookTime() / (float) furnace.getCookTimeTotal() * 100);
                 }
             ))
+
+            .inventory(ChestBlockEntity.class, new InventoryProvider<>() {
+                Inventory inventory;
+
+                @Override
+                public boolean hasInventory(ChestBlockEntity chestBlockEntity) {
+                    BlockState state = chestBlockEntity.getCachedState();
+                    if (state.getBlock() instanceof ChestBlock block) {
+                        inventory = ChestBlock.getInventory(block, state, chestBlockEntity.getWorld(), chestBlockEntity.getPos(), true);
+                        return inventory != null;
+                    } else {
+                        return false;
+                    }
+                }
+
+                @Override
+                public int size(ChestBlockEntity chestBlockEntity) {
+                    return inventory.size();
+                }
+
+                @Override
+                public @NotNull ItemStack getStack(ChestBlockEntity chestBlockEntity, int slot) {
+                    return inventory.getStack(slot);
+                }
+            })
 
             .inventory(EnderChestBlockEntity.class, new InventoryProvider<>() {
                 Inventory enderChest;
