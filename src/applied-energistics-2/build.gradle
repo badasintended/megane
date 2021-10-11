@@ -1,15 +1,15 @@
-repositories {
-    maven {
-        url "https://mod-buildcraft.com/maven"
-        content { includeGroup "alexiil.mc.lib" }
-    }
-}
-
 dependencies {
-    implFor "curse.maven:applied-energistics-2-223794:3309366"
+    // https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2
+    implFor "curse.maven:applied-energistics-2-223794:3487235"
 
-    modCompileOnly "teamreborn:energy:0.1.0"
-    modCompileOnly "alexiil.mc.lib:libblockattributes-items:0.8.7"
+    modCompileOnly "teamreborn:energy:2.0.0-beta1"
+
+    def fapi = [
+        "fabric-transfer-api-v1"
+    ]
+    fapi.forEach {
+        modCompileOnly fabricApi.module(it, "0.40.1+1.17")
+    }
 }
 
 apply from: "impl.gradle"
