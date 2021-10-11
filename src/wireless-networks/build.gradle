@@ -1,18 +1,8 @@
-repositories {
-    maven {
-        url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
-        content {
-            includeGroup "net.fabricmc.fabric-api"
-            includeGroup "dev.technici4n"
-        }
-    }
-}
-
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/wireless-networks
-    implFor "curse.maven:wireless-networks-461316:3382566"
+    implFor "curse.maven:wireless-networks-461316:3487135"
 
-    modCompileOnly "dev.technici4n:FastTransferLib:0.5.5"
+    modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }
 
 apply from: "impl.gradle"
