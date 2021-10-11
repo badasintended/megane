@@ -29,7 +29,7 @@ public class ProgressRenderer implements ITooltipRenderer {
 
     @Override
     public Dimension getSize(NbtCompound data, ICommonAccessor accessor) {
-        return new Dimension((data.getInt(P_I_SIZE) + data.getInt(P_O_SIZE)) * 18 + 26, 18);
+        return new Dimension((data.getInt(P_I_SIZE) + data.getInt(P_O_SIZE)) * 18 + 26, 20);
     }
 
     @Override
