@@ -106,7 +106,7 @@ public class RuntimeUtils {
         int count = stack.getCount();
         stack.setCount(1);
         item.renderInGui(stack, x, y);
-        item.renderGuiItemOverlay(text, stack, x, y, suffix(count));
+        item.renderGuiItemOverlay(text, stack, x, y, count > 1 ? suffix(count) : "");
         DiffuseLighting.disableGuiDepthLighting();
         RenderSystem.disableDepthTest();
     }
