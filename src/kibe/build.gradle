@@ -2,7 +2,7 @@ apply from: "kotlin.gradle"
 
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/kibe
-    implFor "curse.maven:kibe-388832:3467426"
+    implFor "curse.maven:kibe-388832:3491173"
 
     def fapi = [
         "fabric-transfer-api-v1",

@@ -1,10 +1,10 @@
 package badasintended.megane.runtime.mixin;
 
-import mcp.mobius.waila.hud.TooltipRenderer;
+import mcp.mobius.waila.hud.TooltipHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(TooltipRenderer.class)
+@Mixin(TooltipHandler.class)
 public interface AccessorTooltipRenderer {
 
     @Accessor

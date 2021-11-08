@@ -1,6 +1,6 @@
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2
-    implFor "curse.maven:applied-energistics-2-223794:3487235"
+    implFor "curse.maven:applied-energistics-2-223794:3511054"
 
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 
