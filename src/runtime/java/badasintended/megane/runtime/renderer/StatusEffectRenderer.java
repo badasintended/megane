@@ -2,6 +2,7 @@ package badasintended.megane.runtime.renderer;
 
 import java.awt.Dimension;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import mcp.mobius.waila.api.ICommonAccessor;
 import mcp.mobius.waila.api.ITooltipRenderer;
 import net.minecraft.client.MinecraftClient;
@@ -44,7 +45,7 @@ public class StatusEffectRenderer implements ITooltipRenderer {
             StatusEffect statusEffect = StatusEffect.byRawId(data.getInt(S_ID + i));
             if (statusEffect != null) {
                 Sprite sprite = manager.getSprite(statusEffect);
-                MinecraftClient.getInstance().getTextureManager().bindTexture(sprite.getAtlas().getId());
+                RenderSystem.setShaderTexture(0, sprite.getAtlas().getId());
                 DrawableHelper.drawSprite(matrices, x + 20 * i, y, 0, 18, 18, sprite);
                 textRenderer().drawWithShadow(matrices, lv, x + 20 + (20 * i) - textRenderer().getWidth(lv), y + 20 - textRenderer().fontHeight, 0xFFFFFF);
             } else {
