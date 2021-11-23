@@ -75,8 +75,8 @@ public enum Registrar implements MeganeRegistrar, MeganeClientRegistrar {
     }
 
     @Override
-    public MeganeClientRegistrar energy(String namespace, int color, String unit) {
-        ENERGY_INFO.add(namespace, EnergyInfoProvider.of(color, unit));
+    public MeganeClientRegistrar energy(String namespace, int color, String unit, Text name) {
+        ENERGY_INFO.add(namespace, EnergyInfoProvider.of(color, unit, name));
         return this;
     }
 }

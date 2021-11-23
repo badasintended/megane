@@ -56,7 +56,7 @@ public class BarRenderer implements ITooltipRenderer {
             maxString = verbose ? String.valueOf(max) : suffix((long) max);
         }
 
-        return storedString + "/" + maxString + " " + unit;
+        return storedString + "/" + maxString + (unit.isEmpty() ? "" : " " + unit);
     }
 
     @Override

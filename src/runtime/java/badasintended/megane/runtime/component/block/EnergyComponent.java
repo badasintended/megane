@@ -48,7 +48,7 @@ public class EnergyComponent extends BlockComponent {
             String namespace = Registry.BLOCK.getId(accessor.getBlock()).getNamespace();
             boolean expand = accessor.getPlayer().isSneaking() && energy.isExpandWhenSneak();
             List<EnergyInfoProvider> providers = Registrar.ENERGY_INFO.get(namespace);
-            EnergyInfoProvider<?> provider = providers.isEmpty() ? null : providers.get(0);
+            EnergyInfoProvider provider = providers.isEmpty() ? null : providers.get(0);
 
             int color;
             if (colors.containsKey(namespace)) {
@@ -72,7 +72,7 @@ public class EnergyComponent extends BlockComponent {
                 CONFIG.save();
             }
 
-            TAG.putString(B_PREFIX, I18n.translate("megane.energy"));
+            TAG.putString(B_PREFIX, provider != null ? provider.getName().getString() : I18n.translate("megane.energy"));
             TAG.putInt(B_COLOR, color);
             TAG.putDouble(B_STORED, stored);
             TAG.putDouble(B_MAX, max);

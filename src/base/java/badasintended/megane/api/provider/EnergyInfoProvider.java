@@ -1,9 +1,14 @@
 package badasintended.megane.api.provider;
 
-public interface EnergyInfoProvider<T> {
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.text.Text;
 
-    static <T> EnergyInfoProvider<T> of(int color, String unit) {
-        return new EnergyInfoProvider<>() {
+@Environment(EnvType.CLIENT)
+public interface EnergyInfoProvider {
+
+    static EnergyInfoProvider of(int color, String unit, Text name) {
+        return new EnergyInfoProvider() {
             @Override
             public int getColor() {
                 return color;
@@ -13,11 +18,18 @@ public interface EnergyInfoProvider<T> {
             public String getUnit() {
                 return unit;
             }
+
+            @Override
+            public Text getName() {
+                return name;
+            }
         };
     }
 
     int getColor();
 
     String getUnit();
+
+    Text getName();
 
 }
