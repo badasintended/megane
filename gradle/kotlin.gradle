@@ -1,6 +1,6 @@
 apply plugin: "org.jetbrains.kotlin.jvm"
 
-compileKotlin.kotlinOptions.jvmTarget = "16"
+compileKotlin.kotlinOptions.jvmTarget = "17"
 
 sourceSets {
     main.kotlin.srcDirs += "../src/${name}/kotlin"
