@@ -20,8 +20,8 @@
     "modmenu": ["badasintended.megane.runtime.config.MeganeModMenu"]
   },
   "depends"      : {
-    "fabricloader": ">=0.7.4",
-    "minecraft"   : "1.17.x",
-    "wthit"       : ">=3.11.0"
+    "fabricloader": ">=0.12.6",
+    "minecraft"   : "1.18.x",
+    "wthit"       : "4.x"
   }
 }
