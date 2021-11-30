@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface TankHolder {
 
     @Invoker("getTank")
-    @SuppressWarnings({"deprecation", "UnstableApiUsage"})
+    @SuppressWarnings("UnstableApiUsage")
     SingleVariantStorage<FluidVariant> megane_getTank();
 
 }
