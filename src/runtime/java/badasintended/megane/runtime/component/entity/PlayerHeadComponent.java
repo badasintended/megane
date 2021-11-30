@@ -21,7 +21,7 @@ public class PlayerHeadComponent implements IEntityComponentProvider {
         Entity entity = accessor.getEntity();
         if (config().getPlayerHead() && entity instanceof PlayerEntity player) {
             ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-            stack.putSubTag("SkullOwner", NbtHelper.writeGameProfile(TAG, player.getGameProfile()));
+            stack.setSubNbt("SkullOwner", NbtHelper.writeGameProfile(TAG, player.getGameProfile()));
             return stack;
         }
         return ItemStack.EMPTY;

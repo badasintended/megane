@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(TooltipHandler.class)
-public interface AccessorTooltipRenderer {
+public interface AccessorTooltipHandler {
 
     @Accessor
     static int getColonOffset() {

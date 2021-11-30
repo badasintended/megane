@@ -86,10 +86,10 @@ public class RuntimeUtils {
 
         buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE);
 
-        buffer.vertex(matrices.peek().getModel(), x, y + h, 0).color(r, g, b, a).texture(u0, v1).next();
-        buffer.vertex(matrices.peek().getModel(), x + w, y + h, 0).color(r, g, b, a).texture(u1, v1).next();
-        buffer.vertex(matrices.peek().getModel(), x + w, y, 0).color(r, g, b, a).texture(u1, v0).next();
-        buffer.vertex(matrices.peek().getModel(), x, y, 0).color(r, g, b, a).texture(u0, v0).next();
+        buffer.vertex(matrices.peek().getPositionMatrix(), x, y + h, 0).color(r, g, b, a).texture(u0, v1).next();
+        buffer.vertex(matrices.peek().getPositionMatrix(), x + w, y + h, 0).color(r, g, b, a).texture(u1, v1).next();
+        buffer.vertex(matrices.peek().getPositionMatrix(), x + w, y, 0).color(r, g, b, a).texture(u1, v0).next();
+        buffer.vertex(matrices.peek().getPositionMatrix(), x, y, 0).color(r, g, b, a).texture(u0, v0).next();
 
         tessellator.draw();
         RenderSystem.disableBlend();

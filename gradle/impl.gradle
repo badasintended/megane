@@ -12,6 +12,6 @@ if (!implFor.empty) {
 }
 
 dependencies {
-    implementation project(":base")
+    implementation project(path: ":base", configuration: "namedElements")
     modCompileOnly(project.configurations.implFor.dependencies)
 }

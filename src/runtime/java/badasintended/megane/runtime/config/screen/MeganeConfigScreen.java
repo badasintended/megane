@@ -93,7 +93,7 @@ public class MeganeConfigScreen extends ConfigScreen {
             .with(sided(SERVER, bool("inventory.nbt", config().inventory.isNbt(), def.inventory.isNbt(), config().inventory::setNbt)))
             .with(sided(CLIENT, input("inventory.maxWidth", config().inventory.getMaxWidth(), def.inventory.getMaxWidth(), config().inventory::setMaxWidth, INT)))
             .with(sided(CLIENT, input("inventory.maxHeight", config().inventory.getMaxHeight(), def.inventory.getMaxHeight(), config().inventory::setMaxHeight, INT)))
-            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().inventory.getBlacklist())))))
+            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().inventory.getBlacklist())))))
 
             .with(category("entityInventory"))
             .with(sided(AND, bool("enabled", config().entityInventory.isEnabled(), def.entityInventory.isEnabled(), config().entityInventory::setEnabled)))
@@ -101,50 +101,50 @@ public class MeganeConfigScreen extends ConfigScreen {
             .with(sided(SERVER, bool("inventory.nbt", config().entityInventory.isNbt(), def.entityInventory.isNbt(), config().entityInventory::setNbt)))
             .with(sided(CLIENT, input("inventory.maxWidth", config().entityInventory.getMaxWidth(), def.entityInventory.getMaxWidth(), config().entityInventory::setMaxWidth, INT)))
             .with(sided(CLIENT, input("inventory.maxHeight", config().entityInventory.getMaxHeight(), def.entityInventory.getMaxHeight(), config().entityInventory::setMaxHeight, INT)))
-            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().entityInventory.getBlacklist())))))
+            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), config().entityInventory.getBlacklist())))))
 
             .with(category("energy"))
             .with(sided(AND, bool("enabled", config().energy.isEnabled(), def.energy.isEnabled(), config().energy::setEnabled)))
             .with(sided(CLIENT, bool("expand", config().energy.isExpandWhenSneak(), def.energy.isExpandWhenSneak(), config().energy::setExpandWhenSneak)))
-            .with(sided(CLIENT, button("energy.unit", w -> client.openScreen(new MapConfigScreen<>(
+            .with(sided(CLIENT, button("energy.unit", w -> client.setScreen(new MapConfigScreen<>(
                 this, tl(tlKey("energy.unit")), config().energy.getUnits(), s -> s, s -> s, NAMESPACE, ALL, (prev, key, val) -> {
                 config().energy.getUnits().remove(prev);
                 if (key != null && val != null) {
                     config().energy.getUnits().put(key, val);
                 }
             })))))
-            .with(sided(CLIENT, button("energy.color", w -> client.openScreen(new MapConfigScreen<>(
+            .with(sided(CLIENT, button("energy.color", w -> client.setScreen(new MapConfigScreen<>(
                 this, tl(tlKey("energy.color")), config().energy.getColors(), s -> s, INT2RGB, NAMESPACE, HEX, (prev, key, val) -> {
                 config().energy.getColors().remove(prev);
                 if (key != null && val != null) {
                     config().energy.getColors().put(key, Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
                 }
             })))))
-            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("energy.blacklist")), config().energy.getBlacklist())))))
+            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("energy.blacklist")), config().energy.getBlacklist())))))
 
             .with(category("fluid"))
             .with(sided(AND, bool("enabled", config().fluid.isEnabled(), def.fluid.isEnabled(), config().fluid::setEnabled)))
             .with(sided(CLIENT, bool("expand", config().fluid.isExpandWhenSneak(), def.fluid.isExpandWhenSneak(), config().fluid::setExpandWhenSneak)))
-            .with(sided(CLIENT, button("fluid.color", w -> client.openScreen(new MapConfigScreen<>(
+            .with(sided(CLIENT, button("fluid.color", w -> client.setScreen(new MapConfigScreen<>(
                 this, tl(tlKey("fluid.color")), config().fluid.getColors(), Identifier::toString, INT2RGB, IDENTIFIER, HEX, (prev, key, val) -> {
                 config().fluid.getColors().remove(new Identifier(prev));
                 if (key != null && val != null) {
                     config().fluid.getColors().put(new Identifier(prev), Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
                 }
             })))))
-            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), config().fluid.getBlacklist())))))
+            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), config().fluid.getBlacklist())))))
 
             .with(category("progress"))
             .with(sided(AND, bool("enabled", config().progress.isEnabled(), def.progress.isEnabled(), config().progress::setEnabled)))
             .with(sided(CLIENT, bool("progress.showWhenZero", config().progress.isShowWhenZero(), def.progress.isShowWhenZero(), config().progress::setShowWhenZero)))
-            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), config().progress.getBlacklist())))))
+            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), config().progress.getBlacklist())))))
 
             .with(category("effect"))
             .with(sided(AND, bool("enabled", config().effect.isEnabled(), def.effect.isEnabled(), config().effect::setEnabled)))
             .with(sided(AND, bool("effect.level", config().effect.getLevel(), def.effect.getLevel(), config().effect::setLevel)))
             .with(sided(AND, bool("effect.hidden", config().effect.getHidden(), def.effect.getHidden(), config().effect::setHidden)))
             .with(sided(CLIENT, bool("effect.roman", config().effect.isRoman(), def.effect.isRoman(), config().effect::setRoman)))
-            .with(sided(PLUS, button("blacklist", w -> client.openScreen(new BlacklistConfigScreen(this, tl(tlKey("effect.blacklist")), config().effect.getBlacklist())))))
+            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("effect.blacklist")), config().effect.getBlacklist())))))
 
             .with(category("other"))
             .with(sided(SERVER, bool("catchServerErrors", config().getCatchServerErrors(), def.getCatchServerErrors(), config()::setCatchServerErrors)))

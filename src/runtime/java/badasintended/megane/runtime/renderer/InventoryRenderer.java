@@ -45,10 +45,10 @@ public class InventoryRenderer implements ITooltipRenderer {
             if (count <= 0)
                 continue;
             ItemStack stack = new ItemStack(item, count);
-            stack.setTag(nbt);
+            stack.setNbt(nbt);
             Optional<ItemStack> optional = stacks
                 .stream()
-                .filter(j -> j.getItem() == stack.getItem() && j.getOrCreateTag().equals(nbt))
+                .filter(j -> j.getItem() == stack.getItem() && j.getOrCreateNbt().equals(nbt))
                 .findFirst();
             if (optional.isPresent()) {
                 if (showCount) {

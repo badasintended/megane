@@ -18,7 +18,7 @@ public class MixinPluginConfigScreen {
     @Inject(method = "getOptions", at = @At("TAIL"), remap = false)
     private void add(CallbackInfoReturnable<ConfigListWidget> cir) {
         cir.getReturnValue().children().add(1, new ButtonEntry("config.waila.megane", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
-            MinecraftClient.getInstance().openScreen(new MeganeConfigScreen((PluginConfigScreen) (Object) this))
+            MinecraftClient.getInstance().setScreen(new MeganeConfigScreen((PluginConfigScreen) (Object) this))
         )));
     }
 

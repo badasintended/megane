@@ -11,8 +11,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
-import static badasintended.megane.runtime.mixin.AccessorTooltipRenderer.getColonOffset;
-import static badasintended.megane.runtime.mixin.AccessorTooltipRenderer.setColonOffset;
+import static badasintended.megane.runtime.mixin.AccessorTooltipHandler.getColonOffset;
+import static badasintended.megane.runtime.mixin.AccessorTooltipHandler.setColonOffset;
 import static badasintended.megane.runtime.util.Keys.B_COLOR;
 import static badasintended.megane.runtime.util.Keys.B_LONG;
 import static badasintended.megane.runtime.util.Keys.B_MAX;

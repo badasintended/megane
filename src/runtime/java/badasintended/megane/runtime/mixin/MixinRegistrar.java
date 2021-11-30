@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = Registrar.class, remap = false)
-public class MixinTooltipRegistrar {
+public class MixinRegistrar {
 
     @Inject(method = "addComponent(Lmcp/mobius/waila/api/IBlockComponentProvider;Lmcp/mobius/waila/api/TooltipPosition;Ljava/lang/Class;I)V", at = @At("HEAD"), cancellable = true)
     private <T> void addComponent(IBlockComponentProvider provider, TooltipPosition position, Class<T> clazz, int priority, CallbackInfo ci) {

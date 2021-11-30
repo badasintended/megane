@@ -48,7 +48,7 @@ public class ProgressData extends BlockData {
                     if (stack.isEmpty()) {
                         continue;
                     }
-                    NbtCompound tag = stack.getTag();
+                    NbtCompound tag = stack.getNbt();
                     data.putInt(P_I_ID + i, Registry.ITEM.getRawId(stack.getItem()));
                     data.putInt(P_I_COUNT + i, stack.getCount());
                     data.put(P_I_NBT + i, tag == null ? EMPTY_TAG : tag);
@@ -64,7 +64,7 @@ public class ProgressData extends BlockData {
                     if (stack.isEmpty()) {
                         continue;
                     }
-                    NbtCompound tag = stack.getTag();
+                    NbtCompound tag = stack.getNbt();
                     data.putInt(P_O_ID + i, Registry.ITEM.getRawId(stack.getItem()));
                     data.putInt(P_O_COUNT + i, stack.getCount());
                     data.put(P_O_NBT + i, tag == null ? EMPTY_TAG : tag);

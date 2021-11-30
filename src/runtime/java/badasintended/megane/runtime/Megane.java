@@ -35,7 +35,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
-import net.fabricmc.loader.util.version.VersionPredicateParser;
+import net.fabricmc.loader.api.metadata.version.VersionPredicate;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.Block;
@@ -116,7 +116,7 @@ public class Megane implements IWailaPlugin {
                                 satisfied = optional.isPresent();
                                 if (satisfied) {
                                     try {
-                                        satisfied = VersionPredicateParser.matches(optional.get().getMetadata().getVersion(), dep.getValue().getAsString());
+                                        satisfied = VersionPredicate.parse(dep.getValue().getAsString()).test(optional.get().getMetadata().getVersion());
                                     } catch (VersionParsingException e) {
                                         LOGGER.error("Failed to parse dependency version for module " + className, e);
                                         satisfied = false;

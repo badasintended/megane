@@ -44,7 +44,7 @@ public class EntityInventoryData extends EntityData {
                     }
                     data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
                     data.putInt(I_COUNT + i, stack.getCount());
-                    NbtCompound nbt = stack.getTag();
+                    NbtCompound nbt = stack.getNbt();
                     data.put(I_NBT + i, nbt == null || !config().entityInventory.isNbt() ? EMPTY_TAG : nbt);
                     i++;
                 }
