@@ -1,25 +1,15 @@
-repositories {
-    maven {
-        url "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
-        content {
-            includeGroup "net.fabricmc.fabric-api"
-        }
-    }
-}
-
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/modern-industrialization
-    implFor "curse.maven:modern-industrialization-405388:3512672"
+    implFor "curse.maven:modern-industrialization-405388:3540226"
 
     def fapi = [
-        "fabric-networking-blockentity-v0",
         "fabric-screen-handler-api-v1",
         "fabric-rendering-data-attachment-v1",
         "fabric-api-lookup-api-v1",
         "fabric-transfer-api-v1"
     ]
     fapi.forEach {
-        modCompileOnly fabricApi.module(it, "0.40.1+1.17")
+        modCompileOnly fabricApi.module(it, "0.43.0+1.18")
     }
 }
 
