@@ -1,7 +1,8 @@
 dependencies {
-    implFor "TechReborn:TechReborn-1.17:5.0.11-beta"
+    // https://www.curseforge.com/minecraft/mc-mods/techreborn
+    implFor "curse.maven:techreborn-233564:3541616"
 
-    modCompileOnly "RebornCore:RebornCore-1.17:5.0.11-beta"
+    modCompileOnly "RebornCore:RebornCore-1.18:5.1.0-beta.2"
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }
 
