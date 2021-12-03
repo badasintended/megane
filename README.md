@@ -3,7 +3,7 @@
 megane is a [WTHIT][11] plugin that adds useful tooltips such as energy, fluid volumes, and inventory contents.
 
 ### Supported Mods
-- [Applied Energistics 2](https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2)<sup>1.17</sup>
+- [Applied Energistics 2](https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2)
 - [Deep Mob Learning: Simulacrum](https://www.curseforge.com/minecraft/mc-mods/deep-mob-learning-simulacrum)<sup>1.17</sup>
 - [Extra Generators](https://www.curseforge.com/minecraft/mc-mods/extra-generators)<sup>1.17</sup>
 - [Fast Transfer Lib](https://github.com/Technici4n/FastTransferLib)<sup>1.17</sup>
