@@ -1,6 +1,6 @@
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2
-    implFor "curse.maven:applied-energistics-2-223794:3511054"
+    implFor "curse.maven:applied-energistics-2-223794:3545998"
 
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 
@@ -8,7 +8,7 @@ dependencies {
         "fabric-transfer-api-v1"
     ]
     fapi.forEach {
-        modCompileOnly fabricApi.module(it, "0.40.1+1.17")
+        modCompileOnly fabricApi.module(it, "0.43.1+1.18")
     }
 }
 

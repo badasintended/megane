@@ -19,7 +19,7 @@ def include(String name) {
 include "base"
 include "runtime"
 
-//include "applied-energistics-2"
+include "applied-energistics-2"
 //include "art-of-alchemy"
 //include "astromine"
 //include "dml-simulacrum"
