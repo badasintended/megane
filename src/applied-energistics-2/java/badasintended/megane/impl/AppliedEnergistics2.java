@@ -39,7 +39,7 @@ public class AppliedEnergistics2 implements MeganeModule {
 
     @Override
     public void registerClient(MeganeClientRegistrar registrar) {
-        registrar.energy("appliedenergistics2", 0x64099F, "AE");
+        registrar.energy("ae2", 0x64099F, "AE");
     }
 
 }
