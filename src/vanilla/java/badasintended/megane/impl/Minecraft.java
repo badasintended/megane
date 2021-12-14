@@ -37,6 +37,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Minecraft implements MeganeModule {
 
@@ -83,27 +84,28 @@ public class Minecraft implements MeganeModule {
             ))
 
             .inventory(ChestBlockEntity.class, new InventoryProvider<>() {
+                @Nullable
                 Inventory inventory;
 
                 @Override
                 public boolean hasInventory(ChestBlockEntity chestBlockEntity) {
-                    BlockState state = chestBlockEntity.getCachedState();
-                    if (state.getBlock() instanceof ChestBlock block) {
-                        inventory = ChestBlock.getInventory(block, state, chestBlockEntity.getWorld(), chestBlockEntity.getPos(), true);
-                        return inventory != null;
-                    } else {
-                        return false;
+                    if (((AccessorLootableContainerBlockEntity) chestBlockEntity).getLootTableId() == null) {
+                        BlockState state = chestBlockEntity.getCachedState();
+                        if (state.getBlock() instanceof ChestBlock block) {
+                            inventory = ChestBlock.getInventory(block, state, chestBlockEntity.getWorld(), chestBlockEntity.getPos(), true);
+                        }
                     }
+                    return true;
                 }
 
                 @Override
                 public int size(ChestBlockEntity chestBlockEntity) {
-                    return inventory.size();
+                    return inventory != null ? inventory.size() : 0;
                 }
 
                 @Override
                 public @NotNull ItemStack getStack(ChestBlockEntity chestBlockEntity, int slot) {
-                    return inventory.getStack(slot);
+                    return inventory != null ? inventory.getStack(slot) : ItemStack.EMPTY;
                 }
             })
 
