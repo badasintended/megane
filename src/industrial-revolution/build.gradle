@@ -9,16 +9,16 @@ repositories {
 
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/industrial-revolution
-    implFor "curse.maven:indrev-391708:3499262"
+    implFor "curse.maven:indrev-391708:3577176"
 
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
-    modCompileOnly "io.github.cottonmc:LibGui:4.2.1+1.17.1"
+    modCompileOnly "io.github.cottonmc:LibGui:5.0.0+1.18"
 
     def fapi = [
         "fabric-transfer-api-v1",
     ]
     fapi.forEach {
-        modCompileOnly fabricApi.module(it, "0.40.0+1.17")
+        modCompileOnly fabricApi.module(it, "0.44.0+1.18")
     }
 }
 
