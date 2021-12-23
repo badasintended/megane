@@ -1,6 +1,6 @@
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/deep-mob-learning-simulacrum
-    implFor "curse.maven:dml-simulacrum-508931:3466493"
+    implFor "curse.maven:deep-mob-learning-simulacrum-508931:3567282"
 
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }
