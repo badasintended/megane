@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface FluidInvHolder {
 
     @Accessor
-    @SuppressWarnings({"deprecation", "UnstableApiUsage"})
+    @SuppressWarnings("UnstableApiUsage")
     SingleVariantStorage<FluidVariant> getFluidInv();
 
 }
