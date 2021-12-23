@@ -1,6 +1,6 @@
 dependencies {
     // https://www.curseforge.com/minecraft/mc-mods/wireless-networks
-    implFor "curse.maven:wireless-networks-461316:3504367"
+    implFor "curse.maven:wireless-networks-461316:3576910"
 
     modCompileOnly "teamreborn:energy:2.0.0-beta1"
 }

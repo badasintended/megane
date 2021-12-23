@@ -14,7 +14,7 @@ megane is a [WTHIT][11] plugin that adds useful tooltips such as energy, fluid v
 - [Reborn Core](https://www.curseforge.com/minecraft/mc-mods/reborncore)
 - [Team Reborn Energy](https://github.com/TechReborn/energy)
 - [Tech Reborn](https://www.curseforge.com/minecraft/mc-mods/techreborn)
-- [Wireless Networks](https://www.curseforge.com/minecraft/mc-mods/wireless-networks)<sup>1.17</sup>
+- [Wireless Networks](https://www.curseforge.com/minecraft/mc-mods/wireless-networks)
 
 ### Configuration
 Configuration can be done with editing `.minecraft/config/waila/megane.json` directly or via the config screen.    
