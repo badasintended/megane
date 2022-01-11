@@ -5,20 +5,6 @@ megane is a [WTHIT][11] plugin that adds useful tooltips such as energy, fluid v
 ### Source Code
 This repository only contains code to bundle all the megane modules. Check out [**@megane-modules**](https://github.com/megane-modules) for the source codes.
 
-### Supported Mods
-- [Applied Energistics 2](https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2)
-- [Deep Mob Learning: Simulacrum](https://www.curseforge.com/minecraft/mc-mods/deep-mob-learning-simulacrum)
-- [Extra Generators](https://www.curseforge.com/minecraft/mc-mods/extra-generators)
-- [Fast Transfer Lib](https://github.com/Technici4n/FastTransferLib)<sup>1.17</sup>
-- [Industrial Revolution](https://www.curseforge.com/minecraft/mc-mods/industrial-revolution)
-- [Kibe](https://www.curseforge.com/minecraft/mc-mods/kibe)
-- [Lib Block Attributes](https://www.curseforge.com/minecraft/mc-mods/libblockattributes)
-- [Modern Industrialization](https://www.curseforge.com/minecraft/mc-mods/modern-industrialization)
-- [Reborn Core](https://www.curseforge.com/minecraft/mc-mods/reborncore)
-- [Team Reborn Energy](https://github.com/TechReborn/energy)
-- [Tech Reborn](https://www.curseforge.com/minecraft/mc-mods/techreborn)
-- [Wireless Networks](https://www.curseforge.com/minecraft/mc-mods/wireless-networks)
-
 ### Configuration
 Configuration can be done with editing `.minecraft/config/waila/megane.json` directly or via the config screen.    
 For energy bar colors and units, `megane` value determines what's the default value.    
