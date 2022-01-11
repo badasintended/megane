@@ -1,0 +1,101 @@
+import groovy.json.JsonGenerator
+import groovy.json.JsonSlurper
+
+plugins {
+    id "fabric-loom" version "0.10.+"
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+}
+
+def versionEnv = System.getenv("MOD_VERSION")
+if (versionEnv == null || versionEnv.isBlank()) {
+    versionEnv = "SNAPSHOT"
+}
+
+version = versionEnv
+
+group = "lol.bai.megane"
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.bai.lol" }
+}
+
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.18.1"
+    mappings "net.fabricmc:yarn:1.18.1+build.18"
+    modImplementation "net.fabricmc:fabric-loader:0.12.12"
+
+    project.meganeModules.split(" ").each {
+        include("lol.bai.megane:megane-$it:7.+") {
+            transitive = false
+            changing = true
+        }
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+
+    doLast {
+        def json = new JsonGenerator.Options()
+            .disableUnicodeEscaping()
+            .build()
+        fileTree(dir: outputs.files.asPath, include: "**/*.json").each {
+            it.setText(json.toJson(new JsonSlurper().parse(it, "UTF-8")), "UTF-8")
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.release.set(17)
+}
+
+java {
+    withSourcesJar()
+}
+
+curseforge {
+    if (System.getenv("CURSEFORGE_API") != null) {
+        def changelogLink = "https://github.com/badasintended/megane/releases/tag/${versionEnv}"
+        apiKey = System.getenv("CURSEFORGE_API")
+        project {
+            id = "408118"
+            releaseType = "release"
+
+            changelogType = "html"
+            changelog = "<a href=\"${changelogLink}\">${changelogLink}</a>"
+
+            mainArtifact(remapJar) {
+                displayName = "[${project.minecraft}] v${project.version}"
+            }
+
+            addGameVersion "Fabric"
+            addGameVersion project.minecraft
+
+            relations {
+                requiredDependency "wthit"
+                project.curseforgeDeps.split(" ").each {
+                    optionalDependency it
+                }
+            }
+
+            afterEvaluate {
+                uploadTask.dependsOn "build"
+            }
+        }
+    }
+}
