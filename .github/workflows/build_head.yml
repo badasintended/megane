@@ -29,4 +29,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: megane-${{ steps.vars.outputs.VERSION }}
-          path: "build/libs/**.jar"
+          path: |
+            build/libs/**.jar
+            ~/.gradle/caches/modules-*/files-*/lol.bai.megane/**/*.jar
