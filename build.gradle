@@ -84,7 +84,7 @@ curseforge {
             }
 
             addGameVersion "Fabric"
-            addGameVersion project.minecraft
+            addGameVersion project.minecraftVersion
 
             relations {
                 requiredDependency "wthit"
