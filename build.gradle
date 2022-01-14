@@ -80,7 +80,7 @@ curseforge {
             changelog = "<a href=\"${changelogLink}\">${changelogLink}</a>"
 
             mainArtifact(remapJar) {
-                displayName = "[${project.minecraft}] v${project.version}"
+                displayName = "[${project.minecraftVersion}] v${project.version}"
             }
 
             addGameVersion "Fabric"
