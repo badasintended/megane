@@ -17,7 +17,7 @@
   "icon"         : "assets/megane/icon.png",
   "environment"  : "*",
   "entrypoints"  : {
-    "modmenu": ["badasintended.megane.runtime.config.MeganeModMenu"]
+    "modmenu": ["lol.bai.megane.runtime.config.MeganeModMenu"]
   },
   "depends"      : {
     "fabricloader": ">=0.12.6",
