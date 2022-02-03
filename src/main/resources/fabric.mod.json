@@ -22,6 +22,6 @@
   "depends"      : {
     "fabricloader": ">=0.12.6",
     "minecraft"   : "1.18.x",
-    "wthit"       : "4.x"
+    "wthit"       : "4.5.x"
   }
 }
