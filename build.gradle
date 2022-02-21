@@ -18,15 +18,12 @@ group = "lol.bai.megane"
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
+def moduleProps = new Properties()
+file("modules.properties").withInputStream { moduleProps.load(it) }
+
 repositories {
     maven { url "https://maven.fabricmc.net/" }
     maven { url "https://maven.bai.lol" }
-}
-
-configurations.all {
-    // Check for updates every build
-    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 dependencies {
@@ -34,11 +31,12 @@ dependencies {
     mappings "net.fabricmc:yarn:1.18.1+build.18"
     modImplementation "net.fabricmc:fabric-loader:0.12.12"
 
-    project.meganeModules.split(" ").each {
-        include("lol.bai.megane:megane-$it:7.+") {
+    moduleProps.forEach { module, version ->
+        modImplementation("lol.bai.megane:megane-${module}:${version}") {
             transitive = false
-            changing = true
         }
+
+        include "lol.bai.megane:megane-${module}:${version}"
     }
 }
 
