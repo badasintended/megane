@@ -4,10 +4,10 @@ from urllib.request import Request, urlopen
 from urllib3 import encode_multipart_formdata
 import properties as prop
 from properties import CurseForge
-from util import get_script_dir
+from util import get_base_dir
 
 
-script_dir = get_script_dir()
+script_dir = get_base_dir()
 
 api_token = environ["CURSEFORGE_API"]
 api_base_url = "https://minecraft.curseforge.com/api"

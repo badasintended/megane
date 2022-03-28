@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+
+pip3 install urllib3 > /dev/null 2>&1
+
+for arg in "$@"; do
+	echo "Running $arg"
+	python3 "./scripts/${arg}.py"
+done

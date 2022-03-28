@@ -1,0 +1,31 @@
+name: release
+on:
+  push:
+    tags: "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - id: vars
+        run: |
+          echo ::set-output name=VERSION::${GITHUB_REF#refs/*/}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.x
+      - run: chmod +x megane
+      - run: ./megane bundle curseforge
+        env:
+          MOD_VERSION: ${{ steps.vars.outputs.VERSION }}
+          CURSEFORGE_API: ${{ secrets.CURSEFORGE_API }}
+      - uses: alexellis/upload-assets@0.2.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          asset_paths: '["output/*.jar", "input/META-INF/jars/*.jar"]'
+      - uses : actions/upload-artifact@v2
+        with :
+          name : megane-${{ steps.vars.outputs.VERSION }}
+          path : |
+            output/*.jar
+            input/META-INF/jars/*.jar

@@ -6,7 +6,7 @@ import json
 from inspect import cleandoc
 from urllib.request import Request, urlopen
 import properties as prop
-from util import get_script_dir
+from util import get_base_dir
 
 
 mod_metadata = {
@@ -39,7 +39,7 @@ mod_metadata = {
     "jars": []
 }
 
-script_dir = get_script_dir()
+script_dir = get_base_dir()
 input_dir = f"{script_dir}/input"
 output_dir = f"{script_dir}/output"
 

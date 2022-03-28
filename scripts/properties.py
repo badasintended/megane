@@ -1,4 +1,7 @@
-version = "7.2.0"
+from os import environ
+
+
+version = environ.get("MOD_VERSION") or "local"
 minecraft_version = "1.18.2"
 
 dependencies = {
