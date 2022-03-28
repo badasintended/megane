@@ -14,7 +14,7 @@ modules = {
     "api": "7.1.0",
     "runtime": "7.2.0",
 
-    # "applied-energistics-2": "7.0.1",
+    "applied-energistics-2": "7.1.0",
     # "deep-mob-learning-simulacrum": "7.0.0",
     # "extra-generators": "7.0.0",
     "fabric-transfer": "7.1.0",
@@ -35,7 +35,7 @@ class CurseForge:
     game_versions = ["Fabric", "1.18.2"]
     required_dependencies = ["wthit"]
     optional_dependencies = [
-        # "applied-energistics-2",
+        "applied-energistics-2",
         # "deep-mob-learning-simulacrum",
         # "extra-generators",
         # "industrial-revolution",
