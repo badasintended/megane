@@ -15,7 +15,7 @@ modules = {
     "runtime": "7.2.0",
 
     "applied-energistics-2": "7.1.0",
-    # "deep-mob-learning-simulacrum": "7.0.0",
+    "deep-mob-learning-simulacrum": "7.1.0",
     "extra-generators": "7.1.0",
     "fabric-transfer": "7.1.0",
     # "industrial-revolution": "7.0.0",
@@ -36,7 +36,7 @@ class CurseForge:
     required_dependencies = ["wthit"]
     optional_dependencies = [
         "applied-energistics-2",
-        # "deep-mob-learning-simulacrum",
+        "deep-mob-learning-simulacrum",
         "extra-generators",
         # "industrial-revolution",
         "kibe",
