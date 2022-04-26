@@ -24,7 +24,7 @@ modules = {
     "reborn-core": "7.1.0",
     "reborn-energy": "7.0.0",
     "tech-reborn": "7.1.0",
-    "vanilla": "7.1.0",
+    "vanilla": "7.1.1",
     "wireless-networks": "7.1.0"
 }
 
