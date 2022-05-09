@@ -36,8 +36,10 @@ def get_version_id(version: str):
     for valid_version in valid_game_versions:
         if version == valid_version["name"]:
             for valid_type in valid_version_types:
-                if valid_version["gameVersionTypeID"] == valid_type["id"]:
-                    return int(valid_version["id"])
+                type_slug = str(valid_type["slug"])
+                if type_slug.startswith("minecraft") or type_slug in ["modloader", "java"]: 
+                    if valid_version["gameVersionTypeID"] == valid_type["id"]:
+                        return int(valid_version["id"])
 
     return None
 
