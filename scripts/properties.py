@@ -12,7 +12,7 @@ dependencies = {
 
 modules = {
     "api": "7.2.1",
-    "runtime": "7.3.0",
+    "runtime": "7.3.1",
 
     "applied-energistics-2": "7.1.0",
     "deep-mob-learning-simulacrum": "7.1.0",
