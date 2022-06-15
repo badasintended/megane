@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-industrial-revolution",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api": "*",
+    "indrev"    : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.indrev.MeganeIndustrialRevolution"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

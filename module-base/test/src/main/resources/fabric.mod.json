@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-test",
+  "version"      : "1",
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.test.MeganeTest"
+    ]
+  }
+}

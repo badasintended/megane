@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-reborn-energy",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"        : "*",
+    "team_reborn_energy": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.rebornenergy.MeganeRebornEnergy"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-deep-mob-learning-simulacrum",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"   : "*",
+    "dmlsimulacrum": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.dmlsimulacrum.MeganeDmlSimulacrum"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

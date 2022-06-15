@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane",
+  "version"      : "${version}",
+  "name"         : "megane",
+  "description"  : "wthit plugin that shows more tooltip than you'll ever want",
+  "authors"      : [
+    "deirn"
+  ],
+  "contributors" : [
+    "Lyaiya",
+    "qsefthuopq"
+  ],
+  "contact"      : {
+    "homepage": "https://github.com/badasintended/megane",
+    "sources" : "https://github.com/badasintended/megane",
+    "issues"  : "https://github.com/badasintended/megane/issues"
+  },
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "environment"  : "*"
+}

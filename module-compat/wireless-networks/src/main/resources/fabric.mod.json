@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-wireless-networks",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"      : "*",
+    "wirelessnetworks": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.wirelessnetworks.MeganeWirelessNetworks"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

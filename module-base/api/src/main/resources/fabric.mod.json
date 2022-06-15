@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-api",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "custom"       : {
+    "modmenu": {
+      "parent": "megane"
+    }
+  }
+}

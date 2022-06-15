@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-extra-generators",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"     : "*",
+    "extragenerators": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.extragenerators.MeganeExtraGenerators"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

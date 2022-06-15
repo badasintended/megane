@@ -1,0 +1,3 @@
+dependencies {
+    modImpl(deps.fabricApi)
+}

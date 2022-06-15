@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-applied-energistics-2",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-applied-energistics-2.mixins.json"],
+  "depends"      : {
+    "megane-api": "*",
+    "ae2"       : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.ae2.MeganeAppliedEnergistics2"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

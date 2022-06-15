@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-lib-block-attributes",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"               : "*",
+    "libblockattributes_fluids": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.lba.MeganeLibBlockAttributes"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

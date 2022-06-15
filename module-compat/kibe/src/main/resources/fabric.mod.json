@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-kibe",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api": "*",
+    "kibe"      : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.kibe.MeganeKibe"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

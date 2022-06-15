@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-fabric-transfer",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"            : "*",
+    "fabric-transfer-api-v1": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.fabrictransfer.MeganeFabricTransfer"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

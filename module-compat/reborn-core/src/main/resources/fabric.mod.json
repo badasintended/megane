@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-reborn-core",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api": "*",
+    "reborncore": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.reborncore.MeganeRebornCore"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

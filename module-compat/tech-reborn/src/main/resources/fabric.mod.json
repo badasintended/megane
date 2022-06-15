@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-tech-reborn",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api"        : "*",
+    "megane-reborn-core": "*",
+    "techreborn"        : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.techreborn.MeganeTechReborn"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

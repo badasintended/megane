@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-runtime",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "contributors" : [
+    "Lyaiya",
+    "qsefthuopq"
+  ],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "entrypoints"  : {
+    "modmenu": ["lol.bai.megane.runtime.config.MeganeModMenu"]
+  },
+  "mixins"       : [
+    "megane-runtime.mixins.json"
+  ],
+  "depends"      : {
+    "fabricloader": ">=0.12.6",
+    "minecraft"   : ">=1.18.2",
+    "wthit"       : ">=4.7.1",
+    "megane-api"  : "*"
+  },
+  "custom"       : {
+    "waila:plugins": {
+      "id"         : "megane:plugin",
+      "initializer": "lol.bai.megane.runtime.Megane"
+    },
+    "modmenu"      : {
+      "parent": "megane"
+    }
+  }
+}

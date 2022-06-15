@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-vanilla",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : [
+    "megane-vanilla.mixins.json"
+  ],
+  "depends"      : {
+    "megane-api": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.vanilla.MeganeVanilla"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}
