@@ -123,6 +123,8 @@ subprojects.forEach {
 afterEvaluate {
     subprojects.forEach {
         dependencies {
+            implementation(namedProject(it.name))
+
             if (it.name != "test") {
                 include(it)
             }
@@ -131,7 +133,7 @@ afterEvaluate {
         sourceSets {
             val subMain = it.sourceSets.main.get()
             main {
-                runtimeClasspath += subMain.runtimeClasspath + subMain.output
+                runtimeClasspath += subMain.runtimeClasspath
             }
         }
     }

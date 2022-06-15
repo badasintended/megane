@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-alloy-forgery",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-alloy-forgery.mixins.json"],
+  "depends"      : {
+    "megane-api"   : "*",
+    "alloy_forgery": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.alloyforgery.MeganeAlloyForgery"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

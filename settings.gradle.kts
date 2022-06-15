@@ -14,6 +14,7 @@ base("api")
 base("runtime")
 base("test")
 
+compat("alloy-forgery")
 compat("applied-energistics-2")
 compat("deep-mob-learning-simulacrum")
 compat("extra-generators")

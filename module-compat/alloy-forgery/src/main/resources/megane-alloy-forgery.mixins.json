@@ -1,0 +1,12 @@
+{
+  "required"          : true,
+  "minVersion"        : "0.8",
+  "package"           : "lol.bai.megane.module.alloyforgery.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "injectors"         : {
+    "defaultRequire": 1
+  },
+  "mixins"            : [
+    "AccessorForgeControllerBlockEntity"
+  ]
+}

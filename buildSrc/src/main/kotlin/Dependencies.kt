@@ -32,6 +32,8 @@ object deps {
     val rebornCore = "RebornCore:RebornCore-1.18:5.2.0"
     val techReborn = "TechReborn:TechReborn-1.18:5.2.0"
     val wirelessNet = "curse.maven:wireless-networks-461316:3759595"
+    val alloyForgery = "curse.maven:alloy-forgery-438718:3758381"
+    val owo = "io.wispforest:owo-lib:0.7.2+1.18"
 
     object lba {
         val core = "alexiil.mc.lib:libblockattributes-core:0.10.2"
