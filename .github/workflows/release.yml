@@ -36,7 +36,7 @@ jobs:
         with:
           asset_paths: |
             [
-              "./**/build/libs/*[0-9.].jar",
-              "./**/build/libs/*[0-9.]-api.jar"
+              "./build/libs/*[0-9.].jar",
+              "./module-*/*/build/libs/*[0-9.].jar",
             ]
       - run: ./gradlew --stop
