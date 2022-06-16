@@ -11,7 +11,7 @@ object deps {
     val fabricLoader = "net.fabricmc:fabric-loader:0.14.7"
 
     val wthit = "mcp.mobius.waila:wthit:fabric-4.10.4"
-    val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.53.0+1.18.2"
+    val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.56.0+1.18.2"
     val modmenu = "com.terraformersmc:modmenu:3.0.1"
 
     val ae2 = "appeng:appliedenergistics2-fabric:11.1.2"
@@ -34,6 +34,7 @@ object deps {
     val wirelessNet = "curse.maven:wireless-networks-461316:3759595"
     val alloyForgery = "curse.maven:alloy-forgery-438718:3758381"
     val owo = "io.wispforest:owo-lib:0.7.2+1.18"
+    val create = "com.simibubi:Create:mc1.18.2_v0.4.1+628"
 
     object lba {
         val core = "alexiil.mc.lib:libblockattributes-core:0.10.2"
