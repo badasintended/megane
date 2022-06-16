@@ -7,6 +7,7 @@ import lol.bai.megane.api.provider.FluidProvider;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"rawtypes", "UnstableApiUsage"})
@@ -32,6 +33,11 @@ public class GeneratorFluidProvider<T extends AbstractGeneratorBlockEntity> exte
     @Override
     public @Nullable Fluid getFluid(int slot) {
         return storage.getResource().getFluid();
+    }
+
+    @Override
+    public @Nullable NbtCompound getNbt(int slot) {
+        return storage.getResource().getNbt();
     }
 
     @Override

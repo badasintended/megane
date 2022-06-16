@@ -5,6 +5,7 @@ import java.util.function.Function;
 import lol.bai.megane.api.provider.FluidProvider;
 import me.steven.indrev.components.FluidComponent;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -36,6 +37,11 @@ public class FluidComponentHolderFluidProvider<T> extends FluidProvider<T> {
     @Override
     public @Nullable Fluid getFluid(int slot) {
         return fluidComponent.get(slot).variant.getFluid();
+    }
+
+    @Override
+    public @Nullable NbtCompound getNbt(int slot) {
+        return fluidComponent.get(slot).variant.getNbt();
     }
 
     @Override

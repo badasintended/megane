@@ -2,6 +2,7 @@ package lol.bai.megane.module.reborncore.provider;
 
 import lol.bai.megane.api.provider.FluidProvider;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.Nullable;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.Tank;
@@ -28,6 +29,11 @@ public class MachineBaseFluidProvider extends FluidProvider<MachineBaseBlockEnti
     @Override
     public @Nullable Fluid getFluid(int slot) {
         return tank.getFluid();
+    }
+
+    @Override
+    public @Nullable NbtCompound getNbt(int slot) {
+        return tank.getFluidInstance().getTag();
     }
 
     @Override

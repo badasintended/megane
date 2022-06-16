@@ -6,6 +6,7 @@ import lol.bai.megane.api.provider.FluidProvider;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -31,6 +32,11 @@ public class TankFluidProvider<T> extends FluidProvider<T> {
     @Override
     public @Nullable Fluid getFluid(int slot) {
         return tank.variant.getFluid();
+    }
+
+    @Override
+    public @Nullable NbtCompound getNbt(int slot) {
+        return tank.variant.getNbt();
     }
 
     @Override
