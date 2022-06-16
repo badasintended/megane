@@ -37,6 +37,6 @@ jobs:
           asset_paths: |
             [
               "./build/libs/*[0-9.].jar",
-              "./module-*/*/build/libs/*[0-9.].jar",
+              "./module-*/*/build/libs/*[0-9.].jar"
             ]
       - run: ./gradlew --stop
