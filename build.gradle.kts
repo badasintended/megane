@@ -91,7 +91,7 @@ subprojects {
     publishing {
         repositories {
             maven {
-                url = uri("https://maven.pkg.github.com/badasintended/wthit")
+                url = uri("https://maven.pkg.github.com/badasintended/megane")
                 name = "GitHub"
                 credentials {
                     username = System.getenv("GITHUB_ACTOR")
