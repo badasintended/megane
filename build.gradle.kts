@@ -91,16 +91,11 @@ subprojects {
     publishing {
         repositories {
             maven {
-                url = uri("https://gitlab.com/api/v4/projects/25106863/packages/maven")
-                name = "GitLab"
-
-                credentials(HttpHeaderCredentials::class) {
-                    name = "Private-Token"
-                    value = System.getenv("GITLAB_TOKEN")
-                }
-
-                authentication {
-                    create<HttpHeaderAuthentication>("header")
+                url = uri("https://maven.pkg.github.com/badasintended/wthit")
+                name = "GitHub"
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
                 }
             }
         }
