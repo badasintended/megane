@@ -7,7 +7,7 @@ import net.minecraft.text.TranslatableText;
 
 public class LavaFluidInfoProvider extends FluidInfoProvider<LavaFluid> {
 
-    private static final Text NAME = new TranslatableText("block.minecraft.water");
+    private static final Text NAME = new TranslatableText("block.minecraft.lava");
 
     @Override
     public int getColor() {
