@@ -3,6 +3,9 @@
   "id"           : "megane-alloy-forgery",
   "version"      : "${version}",
   "authors"      : ["deirn"],
+  "contributors" : [
+    "StarskyXIII"
+  ],
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
   "mixins"       : ["megane-alloy-forgery.mixins.json"],
