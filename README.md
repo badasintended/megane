@@ -13,6 +13,46 @@ For energy bar colors and units, `megane` value determines what's the default va
 **Config will get overloaded by the server**, so if the server disabled inventory tooltip, you won't see inventory tooltip regardless wether you
 enabled it or not.
 
+### Adding Megane Compatibility to Your Mod
+First, add megane on your build script:
+```gradle
+repositories {
+    maven { url "https://maven.bai.lol" }
+}
+
+dependencies {
+    modImplementation "lol.bai.megane:megane-api:${megane_version}"
+    modRuntimeOnly "lol.bai.megane:megane-runtime:${megane_version}"
+    
+    // Optional: add other module to runtime classpath
+    // see the release page to see available modules
+    modRuntimeOnly "lol.bai.megane:megane-${module_name}:${megane_version}"
+}
+```
+
+Implement `MeganeModule` interface, register your providers there
+```java
+class MyModMeganeModule implements MeganeModule {
+    @Override
+    public void registerCommon(CommonRegistrar registrar) {
+    }
+
+    @Override
+    public void registerClient(ClientRegistrar registrar) {
+    }
+}
+```
+
+In `fabric.mod.json`, add your module to the custom block:
+```json
+{
+    "custom": {
+        "megane:modules": [
+            "path.to.MyModMeganeModule"
+        ]
+    }
+}
+```
 ### Culture
 
 Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses
