@@ -13,7 +13,7 @@ import mcp.mobius.waila.api.ITooltip;
 import mcp.mobius.waila.api.component.PairComponent;
 import mcp.mobius.waila.api.component.WrappedComponent;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 
 import static lol.bai.megane.runtime.util.Keys.E_HAS;
@@ -25,7 +25,7 @@ import static lol.bai.megane.runtime.util.MeganeUtils.config;
 
 public class EnergyComponentProvider extends BlockComponentProvider {
 
-    private static final TranslatableText ENERGY_NAME = new TranslatableText("megane.energy");
+    private static final Text ENERGY_NAME = Text.translatable("megane.energy");
 
     public EnergyComponentProvider() {
         super(() -> config().energy);

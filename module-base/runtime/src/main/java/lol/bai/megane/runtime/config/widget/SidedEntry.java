@@ -5,7 +5,7 @@ import mcp.mobius.waila.gui.widget.value.ConfigValue;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +15,7 @@ public class SidedEntry extends ConfigValue<Object> {
     private final Side side;
 
     private Element listener = null;
-    private Text title = LiteralText.EMPTY;
+    private Text title = ScreenTexts.EMPTY;
     private String description = "megane.empty";
     private Runnable save = () -> {
     };

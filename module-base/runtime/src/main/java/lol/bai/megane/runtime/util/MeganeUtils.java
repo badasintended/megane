@@ -26,7 +26,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +37,7 @@ public final class MeganeUtils {
     public static final String ISSUE_URL = "https://github.com/badasintended/megane/issues";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final int CONFIG_VERSION = 3;
+    public static final int CONFIG_VERSION = 4;
 
     public static final IJsonConfig<MeganeConfig> CONFIG = IJsonConfig
         .of(MeganeConfig.class)
@@ -106,7 +105,7 @@ public final class MeganeUtils {
     @Environment(EnvType.CLIENT)
     public static Text fluidName(Fluid fluid) {
         Identifier id = Registry.FLUID.getId(fluid);
-        return new TranslatableText("block." + id.getNamespace() + "." + id.getPath());
+        return Text.translatable("block." + id.getNamespace() + "." + id.getPath());
     }
 
     @Environment(EnvType.CLIENT)

@@ -4,7 +4,7 @@ import lol.bai.megane.runtime.util.MeganeUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.toast.SystemToast;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,8 +23,8 @@ public class MixinTitleScreen {
             SystemToast.show(
                 MinecraftClient.getInstance().getToastManager(),
                 SystemToast.Type.PACK_COPY_FAILURE,
-                new TranslatableText("megane.configToast.title"),
-                new TranslatableText("megane.configToast.desc", MeganeUtils.oldConfigVersion, MeganeUtils.CONFIG_VERSION)
+                Text.translatable("megane.configToast.title"),
+                Text.translatable("megane.configToast.desc", MeganeUtils.oldConfigVersion, MeganeUtils.CONFIG_VERSION)
             );
             MeganeUtils.showUpdatedConfigToast = false;
         }

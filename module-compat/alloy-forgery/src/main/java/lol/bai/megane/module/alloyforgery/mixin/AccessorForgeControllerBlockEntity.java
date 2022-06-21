@@ -12,7 +12,7 @@ public interface AccessorForgeControllerBlockEntity {
     ForgeDefinition getForgeDefinition();
 
     @Accessor
-    int getFuel();
+    float getFuel();
 
 
 }

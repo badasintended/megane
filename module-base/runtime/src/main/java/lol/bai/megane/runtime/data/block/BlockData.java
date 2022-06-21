@@ -13,19 +13,17 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 
 import static net.minecraft.util.registry.Registry.BLOCK;
 
 public abstract class BlockData implements IServerDataProvider<BlockEntity> {
 
-    private static final Text ERROR_TEXT = new LiteralText("Something went wrong when retrieving data for this block").styled(style -> style
+    private static final Text ERROR_TEXT = Text.literal("Something went wrong when retrieving data for this block").styled(style -> style
         .withColor(Formatting.RED)
-        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new LiteralText("Click me to open an issue at GitHub")))
+        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click me to open an issue at GitHub")))
         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, MeganeUtils.ISSUE_URL)));
 
     private final Registry<?> registry;
@@ -54,7 +52,7 @@ public abstract class BlockData implements IServerDataProvider<BlockEntity> {
             append(data, accessor);
         } catch (Throwable t) {
             BlockPos pos = blockEntity.getPos();
-            accessor.getPlayer().sendSystemMessage(ERROR_TEXT, Util.NIL_UUID);
+            accessor.getPlayer().sendMessage(ERROR_TEXT);
             MeganeUtils.LOGGER.error("Something went wrong when retrieving data for {} at ({}, {}, {})", blockEntity.getClass().getName(), pos.getX(), pos.getY(), pos.getZ());
             if (!MeganeUtils.config().getCatchServerErrors()) {
                 throw t;
@@ -67,7 +65,7 @@ public abstract class BlockData implements IServerDataProvider<BlockEntity> {
         }
     }
 
-    @SuppressWarnings({"UnstableApiUsage", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     protected static void setContext(AbstractProvider<?> provider, IServerAccessor<BlockEntity> accessor) {
         ((AbstractProvider<BlockEntity>) provider).setContext(accessor.getWorld(), accessor.getTarget().getPos(), accessor.getHitResult(), accessor.getPlayer(), accessor.getTarget());
     }

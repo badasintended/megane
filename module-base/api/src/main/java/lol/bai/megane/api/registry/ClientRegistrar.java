@@ -4,7 +4,6 @@ import lol.bai.megane.api.provider.EnergyInfoProvider;
 import lol.bai.megane.api.provider.FluidInfoProvider;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 public interface ClientRegistrar {
 
@@ -13,7 +12,7 @@ public interface ClientRegistrar {
     void addEnergyInfo(String namespace, int color, String unit, Text name);
 
     default void addEnergyInfo(String namespace, int color, String unit) {
-        addEnergyInfo(namespace, color, unit, new TranslatableText("megane.energy"));
+        addEnergyInfo(namespace, color, unit, Text.translatable("megane.energy"));
     }
 
     <T> void addEnergyInfo(Class<T> clazz, EnergyInfoProvider<T> provider, int priority);

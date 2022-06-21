@@ -11,7 +11,7 @@ import lol.bai.megane.module.test.provider.TestProgressProvider;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.TrappedChestBlockEntity;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 @SuppressWarnings("unused")
 public class MeganeTest implements MeganeModule {
@@ -27,9 +27,9 @@ public class MeganeTest implements MeganeModule {
 
     @Override
     public void registerClient(ClientRegistrar registrar) {
-        registrar.addFluidInfo(Fluids.WATER, 0x770000, new LiteralText("TestWater"));
-        registrar.addFluidInfo(Fluids.LAVA, 0x007700, new LiteralText("TestLava"));
-        registrar.addEnergyInfo("minecraft", 0x000077, "TEST", new LiteralText("TestEnergy"));
+        registrar.addFluidInfo(Fluids.WATER, 0x770000, Text.literal("TestWater"));
+        registrar.addFluidInfo(Fluids.LAVA, 0x007700, Text.literal("TestLava"));
+        registrar.addEnergyInfo("minecraft", 0x000077, "TEST", Text.literal("TestEnergy"));
         registrar.addEnergyInfo(TrappedChestBlockEntity.class, new TestEnergyInfoProvider());
     }
 

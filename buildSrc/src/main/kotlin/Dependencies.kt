@@ -2,17 +2,17 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.exclude
 
 object versions {
-    val minecraft = "1.18.2"
+    val minecraft = "1.19"
 }
 
 object deps {
     val minecraft = "com.mojang:minecraft:${versions.minecraft}"
-    val yarn = "net.fabricmc:yarn:1.18.2+build.3:v2"
-    val fabricLoader = "net.fabricmc:fabric-loader:0.14.7"
+    val yarn = "net.fabricmc:yarn:1.19+build.4:v2"
+    val fabricLoader = "net.fabricmc:fabric-loader:0.14.8"
 
-    val wthit = "mcp.mobius.waila:wthit:fabric-4.10.4"
-    val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.56.0+1.18.2"
-    val modmenu = "com.terraformersmc:modmenu:3.0.1"
+    val wthit = "mcp.mobius.waila:wthit:fabric-5.4.1"
+    val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.56.0+1.19"
+    val modmenu = "com.terraformersmc:modmenu:4.0.0"
 
     val ae2 = "appeng:appliedenergistics2-fabric:11.1.2"
     val dmlSim = "curse.maven:deep-mob-learning-simulacrum-508931:3785658"
@@ -29,11 +29,11 @@ object deps {
     val noIndium = "me.luligabi:NoIndium:1.0.2+1.18.2"
     val kibe = "curse.maven:kibe-388832:3671408"
     val pal = "io.github.ladysnake:PlayerAbilityLib:1.5.1"
-    val rebornCore = "RebornCore:RebornCore-1.18:5.2.0"
-    val techReborn = "TechReborn:TechReborn-1.18:5.2.0"
+    val rebornCore = "RebornCore:RebornCore-1.19:5.3.2"
+    val techReborn = "TechReborn:TechReborn-1.19:5.3.2"
     val wirelessNet = "curse.maven:wireless-networks-461316:3759595"
-    val alloyForgery = "curse.maven:alloy-forgery-438718:3758381"
-    val owo = "io.wispforest:owo-lib:0.7.2+1.18"
+    val alloyForgery = "curse.maven:alloy-forgery-438718:3825484"
+    val owo = "io.wispforest:owo-lib:0.7.3+1.19"
     val create = "com.simibubi:Create:mc1.18.2_v0.4.1+628"
 
     object lba {

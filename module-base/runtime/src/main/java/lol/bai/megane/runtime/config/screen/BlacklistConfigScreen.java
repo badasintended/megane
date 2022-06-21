@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -27,7 +27,7 @@ public class BlacklistConfigScreen extends ConfigScreen {
     public ConfigListWidget getOptions() {
         ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, MeganeUtils.CONFIG::save);
         this.set.forEach(value -> options.add(new SetEntry(this, options, value, this.set)));
-        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
+        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, ScreenTexts.EMPTY, w ->
             options.children().add(options.children().size() - 1, new SetEntry(this, options, null, set))
         )));
         return options;
@@ -41,8 +41,8 @@ public class BlacklistConfigScreen extends ConfigScreen {
 
         SetEntry(ConfigScreen screen, ConfigListWidget options, Identifier value, Set<Identifier> set) {
             this.value = value;
-            this.textField = new TextFieldWidget(client.textRenderer, 0, 0, options.getRowWidth() - 22, 18, new LiteralText(""));
-            this.textField.setTextPredicate(s -> s.matches("^[a-z0-9/_.-]*$") || s.matches("^[a-z0-9_.-]*:[a-z0-9/._-]*$"));
+            this.textField = new TextFieldWidget(client.textRenderer, 0, 0, options.getRowWidth() - 22, 18, ScreenTexts.EMPTY);
+            this.textField.setTextPredicate(s -> s.matches("^[a-z\\d/_.-]*$") || s.matches("^[a-z\\d_.-]*:[a-z\\d/._-]*$"));
             this.textField.setMaxLength(256);
             if (value != null)
                 this.textField.setText(value.toString());
@@ -53,7 +53,7 @@ public class BlacklistConfigScreen extends ConfigScreen {
                     set.add(this.value);
             });
 
-            this.removeButton = new ButtonWidget(0, 0, 20, 20, new LiteralText("X"), w -> {
+            this.removeButton = new ButtonWidget(0, 0, 20, 20, Text.of("X"), w -> {
                 set.remove(this.value);
                 screen.children().remove(this.textField);
                 screen.children().remove(w);

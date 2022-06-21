@@ -5,7 +5,7 @@ import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
 import lol.bai.megane.module.alloyforgery.provider.ForgeControllerEnergyProvider;
 import lol.bai.megane.module.alloyforgery.provider.ForgeControllerProgressProvider;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import wraith.alloyforgery.block.ForgeControllerBlockEntity;
 
 @SuppressWarnings("unused")
@@ -18,7 +18,7 @@ public class MeganeAlloyForgery implements MeganeModule {
     }
 
     public void registerClient(ClientRegistrar registrar) {
-        registrar.addEnergyInfo("alloy_forgery", 0xEF5252, "", new TranslatableText("megane.alloy_forgery.fuel"));
+        registrar.addEnergyInfo("alloy_forgery", 0xEF5252, "", Text.translatable("megane.alloy_forgery.fuel"));
     }
 
 }

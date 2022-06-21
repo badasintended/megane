@@ -16,10 +16,8 @@ import mcp.mobius.waila.gui.widget.value.BooleanValue;
 import mcp.mobius.waila.gui.widget.value.InputValue;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.LiteralText;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 
 import static lol.bai.megane.runtime.config.widget.Side.AND;
 import static lol.bai.megane.runtime.config.widget.Side.CLIENT;
@@ -29,10 +27,10 @@ import static lol.bai.megane.runtime.config.widget.Side.SERVER;
 public class MeganeConfigScreen extends ConfigScreen {
 
     private static final Predicate<String> ALL = s -> true;
-    private static final Predicate<String> HEX = s -> s.matches("^[a-fA-F0-9]*$");
-    private static final Predicate<String> INT = s -> s.matches("^[0-9]*$");
-    private static final Predicate<String> NAMESPACE = s -> s.matches("^[a-z0-9_.-]*$");
-    private static final Predicate<String> IDENTIFIER = s -> s.matches("^[a-z0-9_./-]*$") || s.matches("^[a-z0-9_.-]*:[a-z0-9_./-]*$");
+    private static final Predicate<String> HEX = s -> s.matches("^[a-fA-F\\d]*$");
+    private static final Predicate<String> INT = s -> s.matches("^\\d*$");
+    private static final Predicate<String> NAMESPACE = s -> s.matches("^[a-z\\d_.-]*$");
+    private static final Predicate<String> IDENTIFIER = s -> s.matches("^[a-z\\d_./-]*$") || s.matches("^[a-z\\d_.-]*:[a-z\\d_./-]*$");
 
     private static final Function<Integer, String> INT2RGB = i -> {
         StringBuilder rgb = new StringBuilder(Integer.toHexString(i));
@@ -52,8 +50,8 @@ public class MeganeConfigScreen extends ConfigScreen {
         super(parent, text);
     }
 
-    private static TranslatableText tl(String key, Object... args) {
-        return new TranslatableText(key, args);
+    private static Text tl(String key, Object... args) {
+        return Text.translatable(key, args);
     }
 
     private static String tlKey(String type) {
@@ -65,7 +63,7 @@ public class MeganeConfigScreen extends ConfigScreen {
     }
 
     private static ButtonEntry button(String type, ButtonWidget.PressAction pressAction) {
-        return new ButtonEntry(tlKey(type), new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, pressAction));
+        return new ButtonEntry(tlKey(type), new ButtonWidget(0, 0, 100, 20, ScreenTexts.EMPTY, pressAction));
     }
 
     private static BooleanValue bool(String type, boolean value, boolean defaultValue, Consumer<Boolean> consumer) {
@@ -123,13 +121,6 @@ public class MeganeConfigScreen extends ConfigScreen {
             .with(category("fluid"))
             .with(sided(AND, bool("enabled", MeganeUtils.config().fluid.isEnabled(), def.fluid.isEnabled(), MeganeUtils.config().fluid::setEnabled)))
             .with(sided(CLIENT, bool("expand", MeganeUtils.config().fluid.isExpandWhenSneak(), def.fluid.isExpandWhenSneak(), MeganeUtils.config().fluid::setExpandWhenSneak)))
-            .with(sided(CLIENT, button("fluid.color", w -> client.setScreen(new MapConfigScreen<>(
-                this, tl(tlKey("fluid.color")), MeganeUtils.config().fluid.getColors(), Identifier::toString, INT2RGB, IDENTIFIER, HEX, (prev, key, val) -> {
-                MeganeUtils.config().fluid.getColors().remove(new Identifier(prev));
-                if (key != null && val != null) {
-                    MeganeUtils.config().fluid.getColors().put(new Identifier(prev), Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
-                }
-            })))))
             .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), MeganeUtils.config().fluid.getBlacklist())))))
 
             .with(category("progress"))

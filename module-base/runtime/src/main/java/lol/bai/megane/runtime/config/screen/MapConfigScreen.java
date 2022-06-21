@@ -13,7 +13,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 public class MapConfigScreen<K, V> extends ConfigScreen {
@@ -39,7 +39,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
     public ConfigListWidget getOptions() {
         ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, MeganeUtils.CONFIG::save);
         this.map.forEach((key, val) -> options.add(new PairEntry(this, options, keyStr.apply(key), valStr.apply(val), mapApplier, keyPredicate, valPredicate)));
-        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, LiteralText.EMPTY, w ->
+        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, ScreenTexts.EMPTY, w ->
             options.children().add(options.children().size() - 1, new PairEntry(this, options, "", "", mapApplier, keyPredicate, valPredicate))
         )));
         return options;
@@ -59,7 +59,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
 
             this.key = key;
             this.val = val;
-            this.keyTextField = new TextFieldWidget(client.textRenderer, 0, 0, textWidth, 18, new LiteralText(""));
+            this.keyTextField = new TextFieldWidget(client.textRenderer, 0, 0, textWidth, 18, ScreenTexts.EMPTY);
             this.keyTextField.setTextPredicate(keyPredicate);
             this.keyTextField.setMaxLength(256);
             this.keyTextField.setText(key);
@@ -71,7 +71,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
             });
             screen.addListener(this.keyTextField);
 
-            this.valTextField = new TextFieldWidget(client.textRenderer, 0, 0, textWidth, 18, new LiteralText(""));
+            this.valTextField = new TextFieldWidget(client.textRenderer, 0, 0, textWidth, 18, ScreenTexts.EMPTY);
             this.valTextField.setTextPredicate(valPredicate);
             this.valTextField.setMaxLength(256);
             this.valTextField.setText(val);
@@ -83,7 +83,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
             });
             screen.addListener(this.valTextField);
 
-            this.removeButton = new ButtonWidget(0, 0, 20, 20, new LiteralText("X"), w -> {
+            this.removeButton = new ButtonWidget(0, 0, 20, 20, Text.of("X"), w -> {
                 consumer.apply(this.key, null, null);
                 screen.children().remove(this.keyTextField);
                 screen.children().remove(this.valTextField);

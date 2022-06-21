@@ -61,16 +61,7 @@ public abstract class AbstractProvider<T> {
         this.player = player;
         this.object = t;
 
-        setContext(world, pos, player, t);
         init();
-    }
-
-    /**
-     * @deprecated override {@link #init()} instead.
-     */
-    @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "1.19")
-    public void setContext(World world, BlockPos pos, PlayerEntity player, T t) {
     }
 
 }

@@ -15,7 +15,7 @@ public class ForgeControllerEnergyProvider extends EnergyProvider<ForgeControlle
 
     @Override
     public long getStored() {
-        return access.getFuel();
+        return (long) access.getFuel();
     }
 
     @Override

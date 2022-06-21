@@ -52,9 +52,9 @@ public class Megane implements IWailaPlugin {
     public void register(IRegistrar r) {
         // --- BLOCK ---
         // Component
-        r.addComponent(new EnergyComponentProvider(), BODY, BLOCK);
-        r.addComponent(new FluidComponentProvider(), BODY, BLOCK);
-        r.addComponent(new CauldronComponentProvider(), BODY, AbstractCauldronBlock.class);
+        r.addComponent(new EnergyComponentProvider(), BODY, BLOCK, 998);
+        r.addComponent(new FluidComponentProvider(), BODY, BLOCK, 999);
+        r.addComponent(new CauldronComponentProvider(), BODY, AbstractCauldronBlock.class, 999);
 
         r.addComponent(new BlockInventoryComponentProvider(), BODY, BLOCK, Integer.MAX_VALUE);
         r.addComponent(new ProgressComponentProvider(), BODY, BLOCK, Integer.MAX_VALUE);

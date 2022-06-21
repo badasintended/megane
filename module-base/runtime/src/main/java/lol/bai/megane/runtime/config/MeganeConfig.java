@@ -173,12 +173,7 @@ public class MeganeConfig {
 
         private boolean enabled = true;
         private boolean expandWhenSneak = false;
-        private final Map<Identifier, Integer> colors = new HashMap<>();
         private final Set<Identifier> blacklist = new HashSet<>();
-
-        public Fluid() {
-            colors.put(id("default"), 0x0D0D59);
-        }
 
         public void setEnabled(boolean enabled) {
             this.enabled = enabled;
@@ -195,10 +190,6 @@ public class MeganeConfig {
 
         public boolean isExpandWhenSneak() {
             return expandWhenSneak;
-        }
-
-        public Map<Identifier, Integer> getColors() {
-            return colors;
         }
 
         @Override
