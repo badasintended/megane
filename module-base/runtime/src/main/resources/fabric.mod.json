@@ -17,9 +17,8 @@
     "megane-runtime.mixins.json"
   ],
   "depends"      : {
-    "fabricloader": ">=0.12.6",
-    "minecraft"   : ">=1.18.2",
-    "wthit"       : ">=4.7.1",
+    "minecraft"   : ">=1.19",
+    "wthit"       : ">=5.4.3",
     "megane-api"  : "*"
   },
   "custom"       : {

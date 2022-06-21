@@ -10,7 +10,7 @@ object deps {
     val yarn = "net.fabricmc:yarn:1.19+build.4:v2"
     val fabricLoader = "net.fabricmc:fabric-loader:0.14.8"
 
-    val wthit = "mcp.mobius.waila:wthit:fabric-5.4.1"
+    val wthit = "mcp.mobius.waila:wthit:fabric-5.4.3"
     val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.56.0+1.19"
     val modmenu = "com.terraformersmc:modmenu:4.0.0"
 

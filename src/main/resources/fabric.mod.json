@@ -19,5 +19,9 @@
   },
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
-  "environment"  : "*"
+  "environment"  : "*",
+  "depends"      : {
+    "minecraft"   : ">=1.19",
+    "wthit"       : ">=5.4.3"
+  }
 }
