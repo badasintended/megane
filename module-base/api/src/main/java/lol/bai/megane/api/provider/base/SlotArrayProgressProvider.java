@@ -1,15 +1,33 @@
 package lol.bai.megane.api.provider.base;
 
 import lol.bai.megane.api.provider.ProgressProvider;
+import lol.bai.megane.api.registry.CommonRegistrar;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Base class for slot array based progress provider.
+ * <p>
+ * Register implementations with {@link CommonRegistrar#addProgress}
+ *
+ * @param <T> type of {@link BlockEntity} this provider for.
+ */
 public abstract class SlotArrayProgressProvider<T> extends ProgressProvider<T> {
 
+    /**
+     * Returns the input slot indexes.
+     */
     protected abstract int[] getInputSlots();
 
+    /**
+     * Returns the output slot indexes.
+     */
     protected abstract int[] getOutputSlots();
 
+    /**
+     * Returns the stack for the specified slot.
+     */
     @NotNull
     protected abstract ItemStack getStack(int slot);
 
