@@ -152,7 +152,7 @@ afterEvaluate {
             optional.project(mrIds.alloyForge)
 //            optional.project(mrIds.create)
 //            optional.project(mrIds.extraGen)
-//            optional.project(mrIds.kibe)
+            optional.project(mrIds.kibe)
         }
     }
 
@@ -181,7 +181,7 @@ afterEvaluate {
 //            addOptional(cfSlugs.dmlSim)
 //            addOptional(cfSlugs.extraGen)
 //            addOptional(cfSlugs.indrev)
-//            addOptional(cfSlugs.kibe)
+            addOptional(cfSlugs.kibe)
 //            addOptional(cfSlugs.lba)
             addOptional(cfSlugs.rebornCore)
             addOptional(cfSlugs.techReborn)

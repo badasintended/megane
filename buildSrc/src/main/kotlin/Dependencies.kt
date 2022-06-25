@@ -11,7 +11,7 @@ object deps {
     val fabricLoader = "net.fabricmc:fabric-loader:0.14.8"
 
     val wthit = "mcp.mobius.waila:wthit:fabric-5.4.3"
-    val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.56.0+1.19"
+    val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.56.3+1.19"
     val modmenu = "com.terraformersmc:modmenu:4.0.0"
 
     val ae2 = "appeng:appliedenergistics2-fabric:11.1.2"
@@ -27,8 +27,8 @@ object deps {
     val stepAttr = "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     val fakePlayer = "dev.cafeteria:fake-player-api:0.3.0"
     val noIndium = "me.luligabi:NoIndium:1.0.2+1.18.2"
-    val kibe = "curse.maven:kibe-388832:3671408"
-    val pal = "io.github.ladysnake:PlayerAbilityLib:1.5.1"
+    val kibe = "curse.maven:kibe-388832:3842006"
+    val pal = "io.github.ladysnake:PlayerAbilityLib:1.6.0"
     val rebornCore = "RebornCore:RebornCore-1.19:5.3.2"
     val techReborn = "TechReborn:TechReborn-1.19:5.3.2"
     val wirelessNet = "curse.maven:wireless-networks-461316:3759595"
