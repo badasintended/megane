@@ -4,6 +4,7 @@ import dev.technici4n.moderndynamics.network.fluid.FluidHost;
 import dev.technici4n.moderndynamics.pipe.FluidPipeBlockEntity;
 import lol.bai.megane.api.provider.FluidProvider;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -24,6 +25,11 @@ public class PipeFluidProvider extends FluidProvider<FluidPipeBlockEntity> {
     @Override
     public @Nullable Fluid getFluid(int slot) {
         return host.getVariant().getFluid();
+    }
+
+    @Override
+    public @Nullable NbtCompound getNbt(int slot) {
+        return host.getVariant().getNbt();
     }
 
     @Override
