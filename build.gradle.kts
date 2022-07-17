@@ -189,6 +189,7 @@ afterEvaluate {
 //            addOptional(cfSlugs.indrev)
             addOptional(cfSlugs.kibe)
 //            addOptional(cfSlugs.lba)
+            addOptional(cfSlugs.luggage)
             addOptional(cfSlugs.modernDynamics)
             addOptional(cfSlugs.rebornCore)
             addOptional(cfSlugs.techReborn)

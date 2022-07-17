@@ -12,6 +12,7 @@ object cfSlugs {
     val indrev = "industrial-revolution"
     val kibe = "kibe"
     val lba = "libblockattributes"
+    val luggage = "luggage"
     val modernDynamics = "modern-dynamics"
     val rebornCore = "reborncore"
     val techReborn = "techreborn"
