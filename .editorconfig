@@ -483,3 +483,6 @@ ij_yaml_spaces_within_brackets = true
 indent_size = 2
 tab_width = 2
 ij_continuation_indent_size = 2
+
+[*.mapping]
+indent_style = tab

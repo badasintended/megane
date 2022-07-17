@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-modern-dynamics",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-modern-dynamics.mixins.json"],
+  "depends"      : {
+    "megane-api"    : "*",
+    "moderndynamics": "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.moderndynamics.MeganeModernDynamics"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

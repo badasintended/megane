@@ -35,6 +35,7 @@ object deps {
     val alloyForgery = "curse.maven:alloy-forgery-438718:3860382"
     val owo = "io.wispforest:owo-lib:0.7.3+1.19"
     val create = "com.simibubi:Create:mc1.18.2_v0.4.1+628"
+    val modernDynamics = "curse.maven:modern-dynamics-552758:3875277"
 
     object lba {
         val core = "alexiil.mc.lib:libblockattributes-core:0.10.2"

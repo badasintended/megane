@@ -12,6 +12,7 @@ object cfSlugs {
     val indrev = "industrial-revolution"
     val kibe = "kibe"
     val lba = "libblockattributes"
+    val modernDynamics = "modern-dynamics"
     val rebornCore = "reborncore"
     val techReborn = "techreborn"
     val wirelessNet = "wireless-networks"
@@ -26,4 +27,5 @@ object mrIds {
     val create = "Xbc0uyRg"
     val extraGen = "VXtwLg17"
     val kibe = "OvlwmUdC"
+    val modernDynamics = "fMpvLrnF"
 }

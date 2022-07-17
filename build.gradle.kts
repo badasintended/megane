@@ -25,7 +25,12 @@ allprojects {
 
     dependencies {
         minecraft(deps.minecraft)
-        mappings(deps.yarn)
+        mappings(loom.layered {
+            mappings(deps.yarn)
+            mappings(rootProject.file("conflict.mapping")) {
+                enigmaMappings()
+            }
+        })
 
         modImplementation(deps.fabricLoader)
     }
@@ -153,6 +158,7 @@ afterEvaluate {
 //            optional.project(mrIds.create)
             optional.project(mrIds.extraGen)
             optional.project(mrIds.kibe)
+            optional.project(mrIds.modernDynamics)
         }
     }
 
@@ -183,6 +189,7 @@ afterEvaluate {
 //            addOptional(cfSlugs.indrev)
             addOptional(cfSlugs.kibe)
 //            addOptional(cfSlugs.lba)
+            addOptional(cfSlugs.modernDynamics)
             addOptional(cfSlugs.rebornCore)
             addOptional(cfSlugs.techReborn)
             addOptional(cfSlugs.wirelessNet)
