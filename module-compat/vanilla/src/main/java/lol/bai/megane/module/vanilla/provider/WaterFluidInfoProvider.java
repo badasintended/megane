@@ -6,7 +6,7 @@ import net.minecraft.text.Text;
 
 public class WaterFluidInfoProvider extends FluidInfoProvider<WaterFluid> {
 
-    private static final Text NAME = Text.literal("block.minecraft.water");
+    private static final Text NAME = Text.translatable("block.minecraft.water");
 
     @Override
     public int getColor() {

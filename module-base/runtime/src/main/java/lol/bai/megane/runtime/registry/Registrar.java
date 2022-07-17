@@ -103,4 +103,9 @@ public enum Registrar implements CommonRegistrar, ClientRegistrar {
             }
         });
     }
+
+    @Override
+    public <T extends Fluid> void addFluidInfo(T fluid, FluidInfoProvider<T> provider) {
+        FLUID_INFO.add(fluid, provider);
+    }
 }
