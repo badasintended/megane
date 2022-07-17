@@ -3,6 +3,7 @@ package lol.bai.megane.module.ae2;
 import appeng.blockentity.AEBaseInvBlockEntity;
 import appeng.blockentity.misc.InscriberBlockEntity;
 import appeng.blockentity.misc.VibrationChamberBlockEntity;
+import appeng.blockentity.networking.CreativeEnergyCellBlockEntity;
 import appeng.blockentity.networking.EnergyCellBlockEntity;
 import appeng.blockentity.storage.SkyStoneTankBlockEntity;
 import lol.bai.megane.api.MeganeModule;
@@ -19,6 +20,7 @@ public class MeganeAppliedEnergistics2 implements MeganeModule {
     @Override
     public void registerCommon(CommonRegistrar registrar) {
         registrar.addEnergy(EnergyCellBlockEntity.class, new PowerStorageEnergyProvider<>());
+        registrar.addEnergy(CreativeEnergyCellBlockEntity.class, new PowerStorageEnergyProvider<>());
 
         registrar.addItem(AEBaseInvBlockEntity.class, new BaseItemProvider());
         registrar.addFluid(SkyStoneTankBlockEntity.class, new SkyStoneTankFluidProvider());

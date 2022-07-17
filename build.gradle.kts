@@ -148,10 +148,10 @@ afterEvaluate {
 
             required.project(mrIds.wthit)
 
-//            optional.project(mrIds.ae2)
+            optional.project(mrIds.ae2)
             optional.project(mrIds.alloyForge)
 //            optional.project(mrIds.create)
-//            optional.project(mrIds.extraGen)
+            optional.project(mrIds.extraGen)
             optional.project(mrIds.kibe)
         }
     }
@@ -175,17 +175,17 @@ afterEvaluate {
 
             addRequirement(cfSlugs.wthit)
 
-//            addOptional(cfSlugs.ae2)
+            addOptional(cfSlugs.ae2)
             addOptional(cfSlugs.alloyForge)
 //            addOptional(cfSlugs.create)
 //            addOptional(cfSlugs.dmlSim)
-//            addOptional(cfSlugs.extraGen)
+            addOptional(cfSlugs.extraGen)
 //            addOptional(cfSlugs.indrev)
             addOptional(cfSlugs.kibe)
 //            addOptional(cfSlugs.lba)
             addOptional(cfSlugs.rebornCore)
             addOptional(cfSlugs.techReborn)
-//            addOptional(cfSlugs.wirelessNet)
+            addOptional(cfSlugs.wirelessNet)
         }
     }
 }
