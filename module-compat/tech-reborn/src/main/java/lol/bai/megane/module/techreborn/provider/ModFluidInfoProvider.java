@@ -1,6 +1,8 @@
 package lol.bai.megane.module.techreborn.provider;
 
+import lol.bai.megane.api.provider.FluidInfoProvider;
 import lol.bai.megane.api.registry.ClientRegistrar;
+import net.minecraft.text.Text;
 import techreborn.init.ModFluids;
 
 import static techreborn.init.ModFluids.BERYLLIUM;
@@ -86,8 +88,17 @@ public class ModFluidInfoProvider {
     }
 
     private void register(ModFluids modFluid, int color) {
-        registrar.addFluidInfo(modFluid.getFluid(), color, modFluid.getBlock().getName());
-        registrar.addFluidInfo(modFluid.getFlowingFluid(), color, modFluid.getBlock().getName());
+        registrar.addFluidInfo(modFluid.getFluid(), new FluidInfoProvider<>() {
+            @Override
+            public int getColor() {
+                return color;
+            }
+
+            @Override
+            public Text getName() {
+                return modFluid.getBlock().getName();
+            }
+        });
     }
 
 }

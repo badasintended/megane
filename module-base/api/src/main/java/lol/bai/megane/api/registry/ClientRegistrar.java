@@ -60,6 +60,14 @@ public interface ClientRegistrar {
     void addFluidInfo(Fluid fluid, int color, Text name);
 
     /**
+     * Registers static fluid info for specified fluid.
+     *
+     * @param fluid the fluid
+     * @param provider the provider instance
+     */
+    <T extends Fluid> void addFluidInfo(T fluid, FluidInfoProvider<T> provider);
+
+    /**
      * Registers dynamic fluid info for specified fluid class.
      *
      * @param clazz    the class of the fluid
