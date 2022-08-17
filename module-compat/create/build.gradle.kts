@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
-    modImpl(deps.create)
+    modImpl(deps.create) {
+        exclude("dev.emi:emi")
+    }
     modImpl(deps.fabricApi)
 }

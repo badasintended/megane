@@ -14,4 +14,5 @@ dependencies {
     implementation("fabric-loom:fabric-loom.gradle.plugin:0.12.+")
     implementation("com.modrinth.minotaur:Minotaur:2.2.1")
     implementation("com.github.deirn:CurseForgeGradle:c693018f92")
+    implementation("com.google.code.gson:gson:2.9.1")
 }
