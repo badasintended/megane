@@ -21,6 +21,7 @@ allprojects {
     repositories {
         badasintended()
         cursemaven()
+        modrinth()
     }
 
     dependencies {
@@ -118,6 +119,10 @@ subprojects.forEach {
     tasks.remapJar {
         dependsOn("${it.path}:remapJar")
     }
+}
+
+tasks.create<FetchLatestVersionsTask>("fetchLatestVersions") {
+    group = "verification"
 }
 
 afterEvaluate {

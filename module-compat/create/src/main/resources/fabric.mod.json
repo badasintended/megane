@@ -5,6 +5,7 @@
   "authors"      : ["deirn"],
   "license"      : "MIT",
   "icon"         : "assets/megane/icon.png",
+  "mixins"       : ["megane-create.mixins.json"],
   "depends"      : {
     "megane-api"   : "*",
     "create": "*"

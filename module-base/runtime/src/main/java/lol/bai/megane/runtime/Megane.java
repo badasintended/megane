@@ -122,8 +122,9 @@ public class Megane implements IWailaPlugin {
                             LOGGER.info("[megane] Loading {} from {}", className, modId);
                             MeganeModule entry = (MeganeModule) Class.forName(className).getDeclaredConstructor().newInstance();
                             entry.registerCommon(Registrar.INSTANCE);
-                            if (loader.getEnvironmentType() == EnvType.CLIENT)
+                            if (loader.getEnvironmentType() == EnvType.CLIENT) {
                                 entry.registerClient(Registrar.INSTANCE);
+                            }
                         } catch (Throwable t) {
                             LOGGER.error("[megane] error when loading {} from {}", className, modId);
                             t.printStackTrace();

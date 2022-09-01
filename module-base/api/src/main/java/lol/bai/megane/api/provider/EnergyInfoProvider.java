@@ -1,8 +1,7 @@
 package lol.bai.megane.api.provider;
 
-import javax.annotation.Nullable;
-
 import lol.bai.megane.api.registry.ClientRegistrar;
+import lol.bai.megane.api.util.BarFormat;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.text.Text;
 
@@ -35,14 +34,22 @@ public abstract class EnergyInfoProvider<T> extends AbstractProvider<T> {
     }
 
     /**
+     * Returns the format of the number on the bar.
+     */
+    public BarFormat getFormat() {
+        return BarFormat.FRACTION;
+    }
+
+    /**
      * Returns the color of the energy bar.
      */
     public abstract int getColor();
 
     /**
-     * Returns the unit of the energy, or {@code null} if it doesn't have one.
+     * Returns the unit of the energy.
      */
-    @Nullable
-    public abstract String getUnit();
+    public String getUnit() {
+        return "E";
+    }
 
 }

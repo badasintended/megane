@@ -5,7 +5,7 @@ repositories {
 dependencies {
     runtimeOnly(namedProject("vanilla"))
 
-    modImpl(deps.alloyForgery)
+    modImpl(deps.alloyForge)
     modImpl(deps.fabricApi)
     modImpl(deps.owo)
 }
