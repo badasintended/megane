@@ -191,7 +191,7 @@ afterEvaluate {
 //            addOptional(cfSlugs.create)
 //            addOptional(cfSlugs.dmlSim)
             addOptional(cfSlugs.extraGen)
-//            addOptional(cfSlugs.indrev)
+            addOptional(cfSlugs.indrev)
             addOptional(cfSlugs.kibe)
 //            addOptional(cfSlugs.lba)
             addOptional(cfSlugs.luggage)
