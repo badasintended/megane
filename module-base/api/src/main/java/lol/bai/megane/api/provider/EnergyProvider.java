@@ -29,7 +29,7 @@ public abstract class EnergyProvider<T> extends AbstractProvider<T> {
     /**
      * Returns how much the capacity of the storage.
      * <p>
-     * Return {@code -1} to mark this as unlimited capacity.
+     * Return {@code -1} to mark this doesn't have a capacity.
      */
     public abstract long getMax();
 

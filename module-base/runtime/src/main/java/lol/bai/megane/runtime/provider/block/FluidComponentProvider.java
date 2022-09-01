@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import lol.bai.megane.api.provider.FluidInfoProvider;
-import lol.bai.megane.runtime.component.BarComponent;
+import lol.bai.megane.api.util.BarFormat;
+import lol.bai.megane.runtime.component.StorageAmountComponent;
 import lol.bai.megane.runtime.registry.Registrar;
 import mcp.mobius.waila.api.IBlockAccessor;
 import mcp.mobius.waila.api.ITooltip;
@@ -60,7 +61,7 @@ public class FluidComponentProvider extends BlockComponentProvider {
 
         int color;
         if (nbt != null && provider != null) {
-            color = provider.getColor();
+            color = provider.getColor() & 0xFFFFFF;
         } else if (colors.containsKey(id)) {
             color = colors.get(id);
         } else {
@@ -73,7 +74,7 @@ public class FluidComponentProvider extends BlockComponentProvider {
 
         tooltip.addLine(new PairComponent(
             new WrappedComponent(provider == null ? fluidName(fluid) : provider.getName()),
-            new BarComponent(color, stored, max, "mB", expand)));
+            new StorageAmountComponent(BarFormat.FRACTION, color, stored, max, "mB", expand)));
     }
 
     @Override

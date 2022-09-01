@@ -2,12 +2,9 @@ package lol.bai.megane.module.create.provider;
 
 import com.simibubi.create.content.contraptions.fluids.tank.FluidTankTileEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.fluid.FluidTank;
-import lol.bai.megane.api.provider.FluidProvider;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.nbt.NbtCompound;
-import org.jetbrains.annotations.Nullable;
+import io.github.fabricators_of_create.porting_lib.util.FluidStack;
 
-public class FluidTankFluidProvider<T extends FluidTankTileEntity> extends FluidProvider<T> {
+public class FluidTankFluidProvider<T extends FluidTankTileEntity> extends FluidStackProvider<T> {
 
     FluidTank tank;
 
@@ -22,18 +19,8 @@ public class FluidTankFluidProvider<T extends FluidTankTileEntity> extends Fluid
     }
 
     @Override
-    public @Nullable Fluid getFluid(int slot) {
-        return tank.getFluid().getFluid();
-    }
-
-    @Override
-    public @Nullable NbtCompound getNbt(int slot) {
-        return tank.getFluid().getTag();
-    }
-
-    @Override
-    public double getStored(int slot) {
-        return droplets(tank.getFluid().getAmount());
+    FluidStack getFluidStack(int slot) {
+        return tank.getFluid();
     }
 
     @Override

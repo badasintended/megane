@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import lol.bai.megane.api.provider.EnergyInfoProvider;
-import lol.bai.megane.runtime.component.BarComponent;
+import lol.bai.megane.api.util.BarFormat;
+import lol.bai.megane.runtime.component.StorageAmountComponent;
 import lol.bai.megane.runtime.config.MeganeConfig;
 import lol.bai.megane.runtime.registry.Registrar;
 import mcp.mobius.waila.api.IBlockAccessor;
@@ -69,7 +70,7 @@ public class EnergyComponentProvider extends BlockComponentProvider {
             } else {
                 color = provider == null
                     ? colors.computeIfAbsent(MODID, c -> 0x710C00)
-                    : provider.getColor();
+                    : provider.getColor() & 0xFFFFFF;
                 colors.put(key, color);
                 CONFIG.save();
             }
@@ -87,7 +88,7 @@ public class EnergyComponentProvider extends BlockComponentProvider {
 
             tooltip.addLine(new PairComponent(
                 new WrappedComponent(provider != null ? provider.getName() : ENERGY_NAME),
-                new BarComponent(color, stored, max, unit, expand)));
+                new StorageAmountComponent(provider != null ? provider.getFormat() : BarFormat.FRACTION, color, stored, max, unit, expand)));
         }
     }
 
