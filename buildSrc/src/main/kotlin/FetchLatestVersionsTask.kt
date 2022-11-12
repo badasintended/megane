@@ -4,6 +4,8 @@ import org.gradle.api.tasks.TaskAction
 import version.CurseForgeVersionFetcher
 import version.ModrinthVersionFetcher
 import version.VersionFetcher
+import java.awt.Toolkit
+import java.awt.datatransfer.StringSelection
 import java.net.http.HttpClient
 import java.util.*
 import kotlin.reflect.KProperty
@@ -12,7 +14,13 @@ import kotlin.reflect.full.memberProperties
 abstract class FetchLatestVersionsTask : DefaultTask() {
     @TaskAction
     fun run() {
+        val output = StringBuilder()
         val http = HttpClient.newHttpClient()
+
+        fun out(line: String = "") {
+            output.appendLine(line)
+            println(line)
+        }
 
         class VersionFetcherDsl<T>(
             val versionFetcher: VersionFetcher<T>
@@ -20,7 +28,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fun fetch(name: KProperty<*>, project: String, mc: String = versions.minecraft, parser: (T) -> String) {
                 val res = versionFetcher.getLatestVersionFor(http, project, mc)
                 if (res != null) {
-                    println("val ${name.name} = \"${parser(res)}\"")
+                    out("val ${name.name} = \"${parser(res)}\"")
                 } else {
                     throw GradleException("Failed to get version for ${name}")
                 }
@@ -33,11 +41,15 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
 
         fetcher(ModrinthVersionFetcher) {
             fetch(deps::wthit, mrIds.wthit) { "mcp.mobius.waila:wthit:${it.version_number}" }
-            println()
+            out()
 
             fetch(deps::ae2, mrIds.ae2, "1.19.1") { "appeng:appliedenergistics2-fabric:${it.version_number.removePrefix("fabric-")}" }
             fetch(deps::alloyForge, mrIds.alloyForge, "1.19") { it.maven }
-            fetch(deps::create, mrIds.create, "1.18.2") { "com.simibubi:Create:${it.version_number.removePrefix("create-1.18.2-")}" }
+            fetch(deps::create, mrIds.create, "1.18.2") {
+                "com.simibubi.create:create-fabric-${
+                    it.version_number.removePrefix("create-fabric-").replaceFirst('-', ':')
+                }"
+            }
             fetch(deps::clothConfig, mrIds.clothConfig) { "me.shedaniel.cloth:cloth-config-fabric:${it.version_number}" }
             fetch(deps::extraGen, mrIds.extraGen, "1.19") { it.maven }
             fetch(deps::fabricApi, mrIds.fabricApi) { "net.fabricmc.fabric-api:fabric-api:${it.version_number}" }
@@ -50,7 +62,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(deps::patchouli, mrIds.patchouli) { "vazkii.patchouli:Patchouli:${it.version_number.toUpperCase(Locale.ROOT)}" }
         }
 
-        println()
+        out()
 
         fetcher(CurseForgeVersionFetcher) {
             fetch(deps::dmlSim, cfIds.dmlSim, "1.18.2") { it.maven }
@@ -61,15 +73,17 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(deps::techReborn, cfIds.techReborn) { "TechReborn:TechReborn-1.19:${it.download.fileName.removePrefix("TechReborn-")}" }
             fetch(deps::wirelessNet, cfIds.wirelessNet, "1.19") { it.maven }
 
-            println("\nobject lba {")
+            out("\nobject lba {")
             deps.lba::class.memberProperties.forEach { module ->
                 @Suppress("UNCHECKED_CAST")
                 fetch(module as KProperty<String>, cfIds.lba, "1.18.2") {
                     "alexiil.mc.lib:libblockattributes-${module.name}:${it.download.fileName.removePrefix("libblockattributes-all-")}"
                 }
             }
-            println("}")
+            out("}")
         }
+
+        Toolkit.getDefaultToolkit().systemClipboard.setContents(StringSelection(output.toString()), null)
     }
 }
 

@@ -1,3 +1,4 @@
+import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.exclude
 
@@ -45,11 +46,17 @@ object deps {
     val magna = "com.github.GabrielOlvH:magna:0.5.2"
     val stepAttr = "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     val fakePlayer = "dev.cafeteria:fake-player-api:0.5.0"
+    val mixinExtras = "com.github.LlamaLad7:MixinExtras:0.1.1-rc.4"
 }
 
-fun DependencyHandlerScope.modImpl(dep: String) {
+fun DependencyHandlerScope.modImpl(dep: String, dependencyConfiguration: ExternalModuleDependency.() -> Unit = {}) {
     "modImplementation"(dep) {
         if (!dep.startsWith("net.fabricmc.fabric-api")) exclude(group = "net.fabricmc.fabric-api")
-        exclude(group = "mezz.jei")
+        dependencyConfiguration()
     }
+}
+
+fun ExternalModuleDependency.exclude(dep: String) {
+    val (group, module) = dep.split(':', limit = 2)
+    exclude(group, module)
 }
