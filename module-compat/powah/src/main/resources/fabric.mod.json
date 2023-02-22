@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane-powah",
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "license"      : "MIT",
+  "icon"         : "assets/megane/icon.png",
+  "depends"      : {
+    "megane-api": "*",
+    "powah"     : "*"
+  },
+  "custom"       : {
+    "megane:modules": [
+      "lol.bai.megane.module.powah.MeganePowah"
+    ],
+    "modmenu"       : {
+      "parent": "megane"
+    }
+  }
+}

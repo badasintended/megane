@@ -23,6 +23,7 @@ object cfSlugs {
     val lba = "libblockattributes"
     val luggage = "luggage"
     val modernDynamics = "modern-dynamics"
+    val powah = "powah-rearchitected"
     val rebornCore = "reborncore"
     val techReborn = "techreborn"
     val wirelessNet = "wireless-networks"
@@ -34,6 +35,7 @@ object mrIds {
 
     val ae2 = "XxWD5pD3"
     val alloyForge = "jhl28YkY"
+    val architectury = "lhGA9TYQ"
     val create = "Xbc0uyRg"
     val clothConfig = "9s6osm5g"
     val extraGen = "VXtwLg17"
@@ -45,4 +47,5 @@ object mrIds {
     val noIndium = "Hv40r83o"
     val owo = "ccKDOlHs"
     val patchouli = "nU0bVIaL"
+    val powah = "KZO4S4DO"
 }

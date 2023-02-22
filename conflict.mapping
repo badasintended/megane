@@ -1,2 +1,6 @@
 CLASS net/minecraft/class_1735
 	METHOD method_7682 yarn_isEnabled ()Z
+
+CLASS net/minecraft/class_465
+	METHOD method_2389 yarn_drawBackground (Lnet/minecraft/class_4587;FII)V
+	METHOD method_2388 yarn_drawForeground (Lnet/minecraft/class_4587;II)V

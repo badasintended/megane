@@ -45,6 +45,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
 
             fetch(deps::ae2, mrIds.ae2, "1.19.1") { "appeng:appliedenergistics2-fabric:${it.version_number.removePrefix("fabric-")}" }
             fetch(deps::alloyForge, mrIds.alloyForge, "1.19") { it.maven }
+            fetch(deps::architectury, mrIds.architectury) { "dev.architectury:architectury-fabric:${it.version_number.removeSuffix("+fabric")}" }
             fetch(deps::create, mrIds.create, "1.18.2") {
                 "com.simibubi.create:create-fabric-${
                     it.version_number.removePrefix("create-fabric-").replaceFirst('-', ':')
@@ -60,6 +61,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(deps::noIndium, mrIds.noIndium, "1.19") { "me.luligabi:NoIndium:${it.version_number}" }
             fetch(deps::owo, mrIds.owo, "1.19") { "io.wispforest:owo-lib:${it.version_number}" }
             fetch(deps::patchouli, mrIds.patchouli) { "vazkii.patchouli:Patchouli:${it.version_number.toUpperCase(Locale.ROOT)}" }
+            fetch(deps::powah, mrIds.powah) { it.maven }
         }
 
         out()

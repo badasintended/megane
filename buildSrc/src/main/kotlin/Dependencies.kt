@@ -26,6 +26,7 @@ object deps {
     val noIndium = "me.luligabi:NoIndium:1.1.0+1.19"
     val owo = "io.wispforest:owo-lib:0.7.3+1.19"
     val patchouli = "vazkii.patchouli:Patchouli:1.19.2-76-FABRIC"
+    val powah = "maven.modrinth:KZO4S4DO:3.0.7-fabric"
 
     val dmlSim = "curse.maven:cursemod-508931:3785658"
     val indrev = "curse.maven:cursemod-391708:3940035"
@@ -47,6 +48,8 @@ object deps {
     val stepAttr = "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     val fakePlayer = "dev.cafeteria:fake-player-api:0.5.0"
     val mixinExtras = "com.github.LlamaLad7:MixinExtras:0.1.1-rc.4"
+    val portingLib = "io.github.fabricators_of_create:Porting-Lib:1.2.783-beta+1.18.2"
+    val registrate = "com.tterrag.registrate_fabric:Registrate:MC1.18.2-1.1.10"
 }
 
 fun DependencyHandlerScope.modImpl(dep: String, dependencyConfiguration: ExternalModuleDependency.() -> Unit = {}) {
