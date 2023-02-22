@@ -12,7 +12,7 @@ import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.fusion.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.ElectricFurnaceBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;

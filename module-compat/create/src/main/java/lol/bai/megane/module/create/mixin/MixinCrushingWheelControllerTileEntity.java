@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.simibubi.create.content.contraptions.components.crusher.CrushingWheelControllerTileEntity;
 import com.simibubi.create.content.contraptions.processing.ProcessingRecipe;
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import lol.bai.megane.module.create.provider.CrushingWheelControllerProgressProvider;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +21,7 @@ public abstract class MixinCrushingWheelControllerTileEntity implements Crushing
 
     @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "OptionalIsPresent"})
     @Inject(method = "itemInserted", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void megane_storeRecipeDuration(ItemStack stack, CallbackInfo ci, Optional<ProcessingRecipe<RecipeWrapper>> recipe) {
+    private void megane_storeRecipeDuration(ItemStack stack, CallbackInfo ci, Optional<ProcessingRecipe<?>> recipe) {
         recipeDuration = recipe.isPresent() ? recipe.get().getProcessingDuration() : 0;
     }
 

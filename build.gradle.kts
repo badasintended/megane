@@ -164,6 +164,7 @@ afterEvaluate {
             optional.project(mrIds.extraGen)
             optional.project(mrIds.kibe)
             optional.project(mrIds.modernDynamics)
+            optional.project(mrIds.powah)
         }
     }
 
@@ -196,6 +197,7 @@ afterEvaluate {
             addOptional(cfSlugs.lba)
             addOptional(cfSlugs.luggage)
             addOptional(cfSlugs.modernDynamics)
+            addOptional(cfSlugs.powah)
             addOptional(cfSlugs.rebornCore)
             addOptional(cfSlugs.techReborn)
             addOptional(cfSlugs.wirelessNet)
