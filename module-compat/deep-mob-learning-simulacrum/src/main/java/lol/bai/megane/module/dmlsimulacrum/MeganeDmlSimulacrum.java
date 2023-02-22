@@ -1,7 +1,7 @@
 package lol.bai.megane.module.dmlsimulacrum;
 
-import io.github.projectet.dmlSimulacrum.block.entity.SimulationChamberEntity;
-import io.github.projectet.dmlSimulacrum.dmlSimulacrum;
+import dev.nathanpb.dml.DeepMobLearningKt;
+import dev.nathanpb.dml.simulacrum.block.chamber.BlockEntitySimulationChamber;
 import lol.bai.megane.api.MeganeModule;
 import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
@@ -13,14 +13,14 @@ public class MeganeDmlSimulacrum implements MeganeModule {
 
     @Override
     public void registerCommon(CommonRegistrar registrar) {
-        registrar.addEnergy(SimulationChamberEntity.class, new SimulationChamberEnergyProvider());
+        registrar.addEnergy(BlockEntitySimulationChamber.class, new SimulationChamberEnergyProvider());
 
-        registrar.addProgress(SimulationChamberEntity.class, new SimulationChamberProgressProvider());
+        registrar.addProgress(BlockEntitySimulationChamber.class, new SimulationChamberProgressProvider());
     }
 
     @Override
     public void registerClient(ClientRegistrar registrar) {
-        registrar.addEnergyInfo(dmlSimulacrum.MOD_ID, 0xC01414, "E");
+        registrar.addEnergyInfo(DeepMobLearningKt.MOD_ID, 0xC01414, "E");
     }
 
 }

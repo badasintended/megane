@@ -8,18 +8,16 @@ import com.tterrag.registrate.fabric.SimpleFlowableFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import lol.bai.megane.api.provider.FluidInfoProvider;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 public class SimpleFlowableFluidInfoProvider extends FluidInfoProvider<SimpleFlowableFluid> {
 
-    private final static Entry NONE = new Entry(0x0, new LiteralText("ERROR PLZ REPORT"));
+    private final static Entry NONE = new Entry(0x0, Text.of("ERROR PLZ REPORT"));
 
     private final static Map<FluidEntry<?>, Entry> MAP = Map.of(
-        AllFluids.TEA, new Entry(0xC56A4D, new TranslatableText("fluid.create.tea")),
-        AllFluids.HONEY, new Entry(0xF0A90E, new TranslatableText("block.create.honey")),
-        AllFluids.CHOCOLATE, new Entry(0x8E4137, new TranslatableText("block.create.chocolate"))
+        AllFluids.TEA, new Entry(0xC56A4D, Text.translatable("fluid.create.tea")),
+        AllFluids.HONEY, new Entry(0xF0A90E, Text.translatable("block.create.honey")),
+        AllFluids.CHOCOLATE, new Entry(0x8E4137, Text.translatable("block.create.chocolate"))
     );
 
     private final static Map<Fluid, Entry> CACHE = new HashMap<>();
@@ -53,6 +51,7 @@ public class SimpleFlowableFluidInfoProvider extends FluidInfoProvider<SimpleFlo
     }
 
     private record Entry(int color, Text name) {
+
     }
 
 }

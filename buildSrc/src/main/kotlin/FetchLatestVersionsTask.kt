@@ -43,19 +43,15 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(deps::wthit, mrIds.wthit) { "mcp.mobius.waila:wthit:${it.version_number}" }
             out()
 
-            fetch(deps::ae2, mrIds.ae2, "1.19.1") { "appeng:appliedenergistics2-fabric:${it.version_number.removePrefix("fabric-")}" }
-            fetch(deps::alloyForge, mrIds.alloyForge, "1.19") { it.maven }
+            fetch(deps::ae2, mrIds.ae2) { "appeng:appliedenergistics2-fabric:${it.version_number.removePrefix("fabric-")}" }
+            fetch(deps::alloyForge, mrIds.alloyForge) { it.maven }
             fetch(deps::architectury, mrIds.architectury) { "dev.architectury:architectury-fabric:${it.version_number.removeSuffix("+fabric")}" }
-            fetch(deps::create, mrIds.create, "1.18.2") {
-                "com.simibubi.create:create-fabric-${
-                    it.version_number.removePrefix("create-fabric-").replaceFirst('-', ':')
-                }"
-            }
-            fetch(deps::clothConfig, mrIds.clothConfig) { "me.shedaniel.cloth:cloth-config-fabric:${it.version_number}" }
+            fetch(deps::create, mrIds.create) { "com.simibubi.create:create-fabric-1.19.2:${it.version_number}" }
+            fetch(deps::clothConfig, mrIds.clothConfig) { "me.shedaniel.cloth:cloth-config-fabric:${it.version_number.removeSuffix("+fabric")}" }
             fetch(deps::extraGen, mrIds.extraGen, "1.19") { it.maven }
             fetch(deps::fabricApi, mrIds.fabricApi) { "net.fabricmc.fabric-api:fabric-api:${it.version_number}" }
             fetch(deps::flk, mrIds.flk) { "net.fabricmc:fabric-language-kotlin:${it.version_number}" }
-            fetch(deps::kibe, mrIds.kibe, "1.19") { it.maven }
+            fetch(deps::kibe, mrIds.kibe) { it.maven }
             fetch(deps::modernDynamics, mrIds.modernDynamics) { it.maven }
             fetch(deps::modmenu, mrIds.modmenu) { "com.terraformersmc:modmenu:${it.version_number}" }
             fetch(deps::noIndium, mrIds.noIndium, "1.19") { "me.luligabi:NoIndium:${it.version_number}" }
@@ -67,7 +63,6 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
         out()
 
         fetcher(CurseForgeVersionFetcher) {
-            fetch(deps::dmlSim, cfIds.dmlSim, "1.18.2") { it.maven }
             fetch(deps::indrev, cfIds.indrev) { it.maven }
             fetch(deps::luggage, cfIds.luggage) { it.maven }
             fetch(deps::pal, cfIds.pal) { "io.github.ladysnake:PlayerAbilityLib:${it.download.fileName.removePrefix("pal-")}" }
@@ -78,7 +73,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             out("\nobject lba {")
             deps.lba::class.memberProperties.forEach { module ->
                 @Suppress("UNCHECKED_CAST")
-                fetch(module as KProperty<String>, cfIds.lba, "1.18.2") {
+                fetch(module as KProperty<String>, cfIds.lba) {
                     "alexiil.mc.lib:libblockattributes-${module.name}:${it.download.fileName.removePrefix("libblockattributes-all-")}"
                 }
             }

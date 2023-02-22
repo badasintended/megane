@@ -1,3 +1,7 @@
+repositories {
+    shedaniel()
+}
+
 dependencies {
     runtimeOnly(namedProject("reborn-core"))
 

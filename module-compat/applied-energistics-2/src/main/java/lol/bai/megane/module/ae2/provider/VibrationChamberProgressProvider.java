@@ -16,7 +16,7 @@ public class VibrationChamberProgressProvider extends BaseProgressProvider<Vibra
 
     @Override
     public int getPercentage() {
-        return 100 - (int) (getObject().getBurnTime() / getObject().getMaxBurnTime() * 100);
+        return remainingPercentage(getObject().getRemainingFuelTicks(), getObject().getFuelItemFuelTicks());
     }
 
 }

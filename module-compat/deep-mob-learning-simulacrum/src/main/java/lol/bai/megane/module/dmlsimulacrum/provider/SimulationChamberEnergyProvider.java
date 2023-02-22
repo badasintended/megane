@@ -1,18 +1,18 @@
 package lol.bai.megane.module.dmlsimulacrum.provider;
 
-import io.github.projectet.dmlSimulacrum.block.entity.SimulationChamberEntity;
+import dev.nathanpb.dml.simulacrum.block.chamber.BlockEntitySimulationChamber;
 import lol.bai.megane.api.provider.EnergyProvider;
 
-public class SimulationChamberEnergyProvider extends EnergyProvider<SimulationChamberEntity> {
+public class SimulationChamberEnergyProvider extends EnergyProvider<BlockEntitySimulationChamber> {
 
     @Override
     public long getStored() {
-        return getObject().energyStorage.getAmount();
+        return getObject().getEnergyStorage().getAmount();
     }
 
     @Override
     public long getMax() {
-        return getObject().energyStorage.getCapacity();
+        return getObject().getEnergyStorage().getCapacity();
     }
 
 }

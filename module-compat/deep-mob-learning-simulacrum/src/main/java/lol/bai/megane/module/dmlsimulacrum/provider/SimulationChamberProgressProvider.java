@@ -1,11 +1,11 @@
 package lol.bai.megane.module.dmlsimulacrum.provider;
 
-import io.github.projectet.dmlSimulacrum.block.entity.SimulationChamberEntity;
+import dev.nathanpb.dml.simulacrum.block.chamber.BlockEntitySimulationChamber;
 import lol.bai.megane.api.provider.base.SlotArrayProgressProvider;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class SimulationChamberProgressProvider extends SlotArrayProgressProvider<SimulationChamberEntity> {
+public class SimulationChamberProgressProvider extends SlotArrayProgressProvider<BlockEntitySimulationChamber> {
 
     private static final int[] inputSlots = {0, 1};
     private static final int[] outputSlots = {2, 3};
@@ -27,7 +27,7 @@ public class SimulationChamberProgressProvider extends SlotArrayProgressProvider
 
     @Override
     public int getPercentage() {
-        return getObject().percentDone;
+        return getObject().getPercentDone();
     }
 
 }

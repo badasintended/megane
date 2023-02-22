@@ -160,7 +160,8 @@ afterEvaluate {
 
             optional.project(mrIds.ae2)
             optional.project(mrIds.alloyForge)
-//            optional.project(mrIds.create)
+            optional.project(mrIds.create)
+            optional.project(mrIds.dml)
             optional.project(mrIds.extraGen)
             optional.project(mrIds.kibe)
             optional.project(mrIds.modernDynamics)
@@ -189,8 +190,8 @@ afterEvaluate {
 
             addOptional(cfSlugs.ae2)
             addOptional(cfSlugs.alloyForge)
-//            addOptional(cfSlugs.create)
-//            addOptional(cfSlugs.dmlSim)
+            addOptional(cfSlugs.create)
+            addOptional(cfSlugs.dml)
             addOptional(cfSlugs.extraGen)
             addOptional(cfSlugs.indrev)
             addOptional(cfSlugs.kibe)

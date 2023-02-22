@@ -9,7 +9,6 @@ repositories {
 }
 
 dependencies {
-    modImpl(deps.dmlSim)
     modImpl(deps.fabricApi)
     modImpl(deps.trEnergy)
     modImpl(deps.flk)

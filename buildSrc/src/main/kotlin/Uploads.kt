@@ -1,7 +1,7 @@
 object cfIds {
     val megane = "408118"
 
-    val dmlSim = "508931"
+    val dml = "398614"
     val indrev = "391708"
     val lba = "317995"
     val luggage = "594709"
@@ -16,7 +16,7 @@ object cfSlugs {
     val ae2 = "applied-energistics-2"
     val alloyForge = "alloy-forgery"
     val create = "create-fabric"
-    val dmlSim = "deep-mob-learning-simulacrum"
+    val dml = "deep-mob-learning-refabricated"
     val extraGen = "extra-generators"
     val indrev = "industrial-revolution"
     val kibe = "kibe"
@@ -37,6 +37,7 @@ object mrIds {
     val alloyForge = "jhl28YkY"
     val architectury = "lhGA9TYQ"
     val create = "Xbc0uyRg"
+    val dml = "osuPHzT3"
     val clothConfig = "9s6osm5g"
     val extraGen = "VXtwLg17"
     val fabricApi = "P7dR8mSH"
