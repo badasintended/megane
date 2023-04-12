@@ -14,8 +14,8 @@ import mcp.mobius.waila.api.ITooltip;
 import mcp.mobius.waila.api.component.PairComponent;
 import mcp.mobius.waila.api.component.WrappedComponent;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
-import net.minecraft.util.registry.Registry;
 
 import static lol.bai.megane.runtime.util.Keys.E_HAS;
 import static lol.bai.megane.runtime.util.Keys.E_MAX;
@@ -47,10 +47,10 @@ public class EnergyComponentProvider extends BlockComponentProvider {
             String key;
             List<EnergyInfoProvider> providers = Registrar.ENERGY_INFO.get(accessor.getBlockEntity());
             if (providers.isEmpty()) {
-                key = Registry.BLOCK.getId(accessor.getBlock()).getNamespace();
+                key = Registries.BLOCK.getId(accessor.getBlock()).getNamespace();
                 providers = Registrar.ENERGY_INFO.get(key);
             } else {
-                key = Registry.BLOCK_ENTITY_TYPE.getId(accessor.getBlockEntity().getType()).toString();
+                key = Registries.BLOCK_ENTITY_TYPE.getId(accessor.getBlockEntity().getType()).toString();
             }
 
             boolean expand = accessor.getPlayer().isSneaking() && energy.isExpandWhenSneak();

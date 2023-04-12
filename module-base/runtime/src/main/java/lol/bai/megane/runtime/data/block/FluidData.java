@@ -10,7 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import static lol.bai.megane.runtime.util.Keys.F_HAS;
 import static lol.bai.megane.runtime.util.Keys.F_ID;
@@ -42,7 +42,7 @@ public class FluidData extends BlockData {
                     if (fluid == null || fluid == Fluids.EMPTY) {
                         continue;
                     }
-                    data.putInt(F_ID + i, Registry.FLUID.getRawId(fluid));
+                    data.putInt(F_ID + i, Registries.FLUID.getRawId(fluid));
                     data.putDouble(F_STORED + i, provider.getStored(j));
                     data.putDouble(F_MAX + i, provider.getMax(j));
 

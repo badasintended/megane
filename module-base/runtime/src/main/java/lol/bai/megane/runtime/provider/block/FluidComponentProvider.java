@@ -12,9 +12,9 @@ import mcp.mobius.waila.api.component.PairComponent;
 import mcp.mobius.waila.api.component.WrappedComponent;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,7 +71,7 @@ public class FluidComponentProvider extends BlockComponentProvider {
                 if (stored == 0)
                     continue;
                 double max = data.getDouble(F_MAX + i);
-                Fluid fluid = Registry.FLUID.get(data.getInt(F_ID + i));
+                Fluid fluid = Registries.FLUID.get(data.getInt(F_ID + i));
                 NbtCompound nbt = data.contains(F_NBT) ? data.getCompound(F_NBT) : null;
                 addFluid(tooltip, accessor, fluid, nbt, stored, max);
             }

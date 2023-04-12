@@ -11,13 +11,12 @@ import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
-
-import static net.minecraft.util.registry.Registry.ENTITY_TYPE;
 
 public abstract class EntityData implements IServerDataProvider<Entity> {
 
@@ -43,7 +42,7 @@ public abstract class EntityData implements IServerDataProvider<Entity> {
     @Override
     public void appendServerData(NbtCompound data, IServerAccessor<Entity> accessor, IPluginConfig config) {
         Entity entity = accessor.getTarget();
-        if (!baseConfig.get().isEnabled() || baseConfig.get().getBlacklist().contains(ENTITY_TYPE.getId(entity.getType()))) {
+        if (!baseConfig.get().isEnabled() || baseConfig.get().getBlacklist().contains(Registries.ENTITY_TYPE.getId(entity.getType()))) {
             return;
         }
 

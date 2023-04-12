@@ -16,7 +16,6 @@ import mcp.mobius.waila.gui.widget.value.BooleanValue;
 import mcp.mobius.waila.gui.widget.value.InputValue;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 import static lol.bai.megane.runtime.config.widget.Side.AND;
@@ -63,7 +62,7 @@ public class MeganeConfigScreen extends ConfigScreen {
     }
 
     private static ButtonEntry button(String type, ButtonWidget.PressAction pressAction) {
-        return new ButtonEntry(tlKey(type), new ButtonWidget(0, 0, 100, 20, ScreenTexts.EMPTY, pressAction));
+        return new ButtonEntry(tlKey(type), 100, 20, pressAction);
     }
 
     private static BooleanValue bool(String type, boolean value, boolean defaultValue, Consumer<Boolean> consumer) {

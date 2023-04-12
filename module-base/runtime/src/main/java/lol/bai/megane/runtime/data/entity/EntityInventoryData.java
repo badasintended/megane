@@ -10,8 +10,7 @@ import mcp.mobius.waila.api.IServerAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-
-import static net.minecraft.util.registry.Registry.ITEM;
+import net.minecraft.registry.Registries;
 
 public class EntityInventoryData extends EntityData {
 
@@ -35,7 +34,7 @@ public class EntityInventoryData extends EntityData {
                     if (stack.isEmpty()) {
                         continue;
                     }
-                    data.putInt(Keys.I_ID + i, ITEM.getRawId(stack.getItem()));
+                    data.putInt(Keys.I_ID + i, Registries.ITEM.getRawId(stack.getItem()));
                     data.putInt(Keys.I_COUNT + i, stack.getCount());
                     NbtCompound nbt = stack.getNbt();
                     data.put(Keys.I_NBT + i, nbt == null || !MeganeUtils.config().entityInventory.isNbt() ? MeganeUtils.EMPTY_TAG : nbt);

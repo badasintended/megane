@@ -6,8 +6,8 @@ import mcp.mobius.waila.api.ITooltipComponent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ProgressComponent implements ITooltipComponent {
 
@@ -36,7 +36,7 @@ public class ProgressComponent implements ITooltipComponent {
         int progressPixel = (int) (data.getInt(Keys.P_PERCENT) / 100F * 22);
 
         for (int i = 0; i < inputCount; i++) {
-            ItemStack stack = new ItemStack(Registry.ITEM.get(data.getInt(Keys.P_I_ID + i)), data.getInt(Keys.P_I_COUNT + i));
+            ItemStack stack = new ItemStack(Registries.ITEM.get(data.getInt(Keys.P_I_ID + i)), data.getInt(Keys.P_I_COUNT + i));
             stack.setNbt(data.getCompound(Keys.P_I_NBT + i));
             if (stack.isEmpty()) {
                 inputCount--;
@@ -50,7 +50,7 @@ public class ProgressComponent implements ITooltipComponent {
         MeganeUtils.drawTexture(matrices, ARROW, x + 2 + (inputCount * 18), y + 1, progressPixel, 16, 0, 0, progressPixel / 22F, 0.5F, 0xFFFFFF);
 
         for (int i = 0; i < outputCount; i++) {
-            ItemStack stack = new ItemStack(Registry.ITEM.get(data.getInt(Keys.P_O_ID + i)), data.getInt(Keys.P_O_COUNT + i));
+            ItemStack stack = new ItemStack(Registries.ITEM.get(data.getInt(Keys.P_O_ID + i)), data.getInt(Keys.P_O_COUNT + i));
             stack.setNbt(data.getCompound(Keys.P_O_NBT + i));
             MeganeUtils.drawStack(stack, x + (inputCount * 18) + 26 + (i * 18), y + 1);
         }

@@ -7,7 +7,7 @@ import mcp.mobius.waila.api.IBlockAccessor;
 import mcp.mobius.waila.api.IBlockComponentProvider;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.ITooltip;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 public abstract class BlockComponentProvider implements IBlockComponentProvider {
 
@@ -20,7 +20,7 @@ public abstract class BlockComponentProvider implements IBlockComponentProvider 
     protected abstract void append(ITooltip tooltip, IBlockAccessor accessor);
 
     private void appendInternal(ITooltip tooltip, IBlockAccessor accessor) {
-        if (baseConfig.get().isEnabled() && !baseConfig.get().getBlacklist().contains(Registry.BLOCK.getId(accessor.getBlock()))) {
+        if (baseConfig.get().isEnabled() && !baseConfig.get().getBlacklist().contains(Registries.BLOCK.getId(accessor.getBlock()))) {
             append(tooltip, accessor);
         }
     }

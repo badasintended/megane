@@ -9,6 +9,7 @@ import lol.bai.megane.runtime.util.TriConsumer;
 import mcp.mobius.waila.gui.screen.ConfigScreen;
 import mcp.mobius.waila.gui.widget.ButtonEntry;
 import mcp.mobius.waila.gui.widget.ConfigListWidget;
+import mcp.mobius.waila.util.DisplayUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -39,9 +40,9 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
     public ConfigListWidget getOptions() {
         ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, MeganeUtils.CONFIG::save);
         this.map.forEach((key, val) -> options.add(new PairEntry(this, options, keyStr.apply(key), valStr.apply(val), mapApplier, keyPredicate, valPredicate)));
-        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, ScreenTexts.EMPTY, w ->
+        options.add(new ButtonEntry("config.megane.add", 100, 20, w ->
             options.children().add(options.children().size() - 1, new PairEntry(this, options, "", "", mapApplier, keyPredicate, valPredicate))
-        )));
+        ));
         return options;
     }
 
@@ -83,7 +84,7 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
             });
             screen.addListener(this.valTextField);
 
-            this.removeButton = new ButtonWidget(0, 0, 20, 20, Text.of("X"), w -> {
+            this.removeButton = DisplayUtil.createButton(0, 0, 20, 20, Text.of("X"), w -> {
                 consumer.apply(this.key, null, null);
                 screen.children().remove(this.keyTextField);
                 screen.children().remove(this.valTextField);
@@ -97,16 +98,16 @@ public class MapConfigScreen<K, V> extends ConfigScreen {
         public void render(MatrixStack matrices, int index, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float deltaTime) {
             super.render(matrices, index, rowTop, rowLeft, width, height, mouseX, mouseY, hovered, deltaTime);
 
-            this.keyTextField.x = rowLeft;
-            this.keyTextField.y = rowTop + (height - keyTextField.getHeight()) / 2;
+            this.keyTextField.setX(rowLeft);
+            this.keyTextField.setY(rowTop + (height - keyTextField.getHeight()) / 2);
             this.keyTextField.render(matrices, mouseX, mouseY, deltaTime);
 
-            this.valTextField.x = rowLeft + textWidth + 4;
-            this.valTextField.y = keyTextField.y;
+            this.valTextField.setX(rowLeft + textWidth + 4);
+            this.valTextField.setY(keyTextField.getY());
             this.valTextField.render(matrices, mouseX, mouseY, deltaTime);
 
-            this.removeButton.x = rowLeft + (textWidth + 2) * 2;
-            this.removeButton.y = rowTop + (height - removeButton.getHeight()) / 2;
+            this.removeButton.setX(rowLeft + (textWidth + 2) * 2);
+            this.removeButton.setY(rowTop + (height - removeButton.getHeight()) / 2);
             this.removeButton.render(matrices, mouseX, mouseY, deltaTime);
         }
 

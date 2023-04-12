@@ -11,13 +11,12 @@ import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.IServerDataProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-
-import static net.minecraft.util.registry.Registry.BLOCK;
 
 public abstract class BlockData implements IServerDataProvider<BlockEntity> {
 
@@ -44,7 +43,7 @@ public abstract class BlockData implements IServerDataProvider<BlockEntity> {
     public void appendServerData(NbtCompound data, IServerAccessor<BlockEntity> accessor, IPluginConfig config) {
         BlockEntity blockEntity = accessor.getTarget();
 
-        if (!baseConfig.get().isEnabled() || baseConfig.get().getBlacklist().contains(BLOCK.getId(blockEntity.getCachedState().getBlock()))) {
+        if (!baseConfig.get().isEnabled() || baseConfig.get().getBlacklist().contains(Registries.BLOCK.getId(blockEntity.getCachedState().getBlock()))) {
             return;
         }
 

@@ -9,7 +9,7 @@ import mcp.mobius.waila.api.IServerAccessor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 import static lol.bai.megane.runtime.util.Keys.P_HAS;
 import static lol.bai.megane.runtime.util.Keys.P_I_COUNT;
@@ -69,7 +69,7 @@ public class ProgressData extends BlockData {
             return i;
         }
         NbtCompound tag = stack.getNbt();
-        data.putInt(itemId + i, Registry.ITEM.getRawId(stack.getItem()));
+        data.putInt(itemId + i, Registries.ITEM.getRawId(stack.getItem()));
         data.putInt(countId + i, stack.getCount());
         data.put(nbtId + i, tag == null ? EMPTY_TAG : tag);
         i++;

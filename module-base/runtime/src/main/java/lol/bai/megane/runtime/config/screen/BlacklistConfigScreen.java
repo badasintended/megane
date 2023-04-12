@@ -6,6 +6,7 @@ import lol.bai.megane.runtime.util.MeganeUtils;
 import mcp.mobius.waila.gui.screen.ConfigScreen;
 import mcp.mobius.waila.gui.widget.ButtonEntry;
 import mcp.mobius.waila.gui.widget.ConfigListWidget;
+import mcp.mobius.waila.util.DisplayUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -27,9 +28,9 @@ public class BlacklistConfigScreen extends ConfigScreen {
     public ConfigListWidget getOptions() {
         ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, MeganeUtils.CONFIG::save);
         this.set.forEach(value -> options.add(new SetEntry(this, options, value, this.set)));
-        options.add(new ButtonEntry("config.megane.add", new ButtonWidget(0, 0, 100, 20, ScreenTexts.EMPTY, w ->
+        options.add(new ButtonEntry("config.megane.add", 100, 20, w ->
             options.children().add(options.children().size() - 1, new SetEntry(this, options, null, set))
-        )));
+        ));
         return options;
     }
 
@@ -53,7 +54,7 @@ public class BlacklistConfigScreen extends ConfigScreen {
                     set.add(this.value);
             });
 
-            this.removeButton = new ButtonWidget(0, 0, 20, 20, Text.of("X"), w -> {
+            this.removeButton = DisplayUtil.createButton(0, 0, 20, 20, Text.of("X"), w -> {
                 set.remove(this.value);
                 screen.children().remove(this.textField);
                 screen.children().remove(w);
@@ -68,12 +69,12 @@ public class BlacklistConfigScreen extends ConfigScreen {
         public void render(MatrixStack matrices, int index, int rowTop, int rowLeft, int width, int height, int mouseX, int mouseY, boolean hovered, float deltaTime) {
             super.render(matrices, index, rowTop, rowLeft, width, height, mouseX, mouseY, hovered, deltaTime);
 
-            this.textField.x = rowLeft;
-            this.textField.y = rowTop;
+            this.textField.setX(rowLeft);
+            this.textField.setY(rowTop);
             this.textField.render(matrices, mouseX, mouseY, deltaTime);
 
-            this.removeButton.x = rowLeft + textField.getWidth() + 2;
-            this.removeButton.y = rowTop + (height - removeButton.getHeight()) / 2;
+            this.removeButton.setX(rowLeft + textField.getWidth() + 2);
+            this.removeButton.setY(rowTop + (height - removeButton.getHeight()) / 2);
             this.removeButton.render(matrices, mouseX, mouseY, deltaTime);
         }
 

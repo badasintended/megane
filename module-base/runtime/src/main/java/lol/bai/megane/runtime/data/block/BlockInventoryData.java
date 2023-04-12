@@ -9,6 +9,7 @@ import mcp.mobius.waila.api.IServerAccessor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 
 import static lol.bai.megane.runtime.util.Keys.I_COUNT;
 import static lol.bai.megane.runtime.util.Keys.I_HAS;
@@ -17,7 +18,6 @@ import static lol.bai.megane.runtime.util.Keys.I_NBT;
 import static lol.bai.megane.runtime.util.Keys.I_SHOW;
 import static lol.bai.megane.runtime.util.Keys.I_SIZE;
 import static lol.bai.megane.runtime.util.MeganeUtils.EMPTY_TAG;
-import static net.minecraft.util.registry.Registry.ITEM;
 
 public class BlockInventoryData extends BlockData {
 
@@ -41,7 +41,7 @@ public class BlockInventoryData extends BlockData {
                     if (stack.isEmpty()) {
                         continue;
                     }
-                    data.putInt(I_ID + i, ITEM.getRawId(stack.getItem()));
+                    data.putInt(I_ID + i, Registries.ITEM.getRawId(stack.getItem()));
                     data.putInt(I_COUNT + i, stack.getCount());
                     NbtCompound nbt = stack.getNbt();
                     data.put(I_NBT + i, nbt == null || !MeganeUtils.config().inventory.isNbt() ? EMPTY_TAG : nbt);

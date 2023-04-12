@@ -51,7 +51,7 @@ public class StatusEffectComponent implements ITooltipComponent {
             StatusEffect statusEffect = StatusEffect.byRawId(data.getInt(Keys.S_ID + i));
             if (statusEffect != null) {
                 Sprite sprite = manager.getSprite(statusEffect);
-                RenderSystem.setShaderTexture(0, sprite.getAtlas().getId());
+                RenderSystem.setShaderTexture(0, sprite.getAtlasId());
                 DrawableHelper.drawSprite(matrices, x + 20 * i, y, 0, 18, 18, sprite);
                 MeganeUtils.textRenderer().drawWithShadow(matrices, lv, x + 20 + (20 * i) - MeganeUtils.textRenderer().getWidth(lv), y + 20 - MeganeUtils.textRenderer().fontHeight, 0xFFFFFF);
             } else {

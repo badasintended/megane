@@ -12,8 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-
-import static net.minecraft.util.registry.Registry.ITEM;
+import net.minecraft.registry.Registries;
 
 public class InventoryComponent implements ITooltipComponent {
 
@@ -31,7 +30,7 @@ public class InventoryComponent implements ITooltipComponent {
 
         stacks.clear();
         for (int i = 0; i < size; i++) {
-            Item item = ITEM.get(data.getInt(Keys.I_ID + i));
+            Item item = Registries.ITEM.get(data.getInt(Keys.I_ID + i));
             int count = showCount ? data.getInt(Keys.I_COUNT + i) : 1;
             NbtCompound nbt = (NbtCompound) data.get(Keys.I_NBT + i);
             if (count <= 0)

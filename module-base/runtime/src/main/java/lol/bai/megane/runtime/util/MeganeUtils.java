@@ -25,9 +25,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -104,7 +104,7 @@ public final class MeganeUtils {
 
     @Environment(EnvType.CLIENT)
     public static Text fluidName(Fluid fluid) {
-        Identifier id = Registry.FLUID.getId(fluid);
+        Identifier id = Registries.FLUID.getId(fluid);
         return Text.translatable("block." + id.getNamespace() + "." + id.getPath());
     }
 
@@ -117,7 +117,7 @@ public final class MeganeUtils {
         matrices.push();
 
         RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
         RenderSystem.setShaderTexture(0, id);
 
         int a = 0xFF;
