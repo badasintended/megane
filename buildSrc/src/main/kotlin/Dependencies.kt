@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.exclude
 
 object versions {
-    val minecraft = "1.19.3"
+    val minecraft = "1.19.4"
 }
 
 object deps {
