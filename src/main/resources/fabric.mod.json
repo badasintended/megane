@@ -22,6 +22,6 @@
   "environment"  : "*",
   "depends"      : {
     "minecraft"   : ">=1.19",
-    "wthit"       : ">=5.4.3"
+    "wthit"       : ">=5.16.1"
   }
 }

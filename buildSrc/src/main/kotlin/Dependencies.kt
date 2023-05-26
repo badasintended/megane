@@ -11,7 +11,7 @@ object deps {
     val yarn = "net.fabricmc:yarn:1.19.2+build.8:v2"
     val fabricLoader = "net.fabricmc:fabric-loader:0.14.15"
 
-    val wthit = "mcp.mobius.waila:wthit:fabric-5.13.5"
+    val wthit = "mcp.mobius.waila:wthit:fabric-5.16.1"
 
     val ae2 = "appeng:appliedenergistics2-fabric:12.9.2"
     val alloyForge = "maven.modrinth:jhl28YkY:2.0.19+1.19"
