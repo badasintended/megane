@@ -1,7 +1,7 @@
 package lol.bai.megane.runtime.mixin;
 
 import mcp.mobius.waila.api.IBlockComponentProvider;
-import mcp.mobius.waila.api.IServerDataProvider;
+import mcp.mobius.waila.api.IDataProvider;
 import mcp.mobius.waila.api.TooltipPosition;
 import mcp.mobius.waila.plugin.vanilla.provider.FurnaceProvider;
 import mcp.mobius.waila.registry.Registrar;
@@ -21,7 +21,7 @@ public class MixinRegistrar {
     }
 
     @Inject(method = "addBlockData", at = @At("HEAD"), cancellable = true)
-    private <T> void addBlockData(IServerDataProvider<?> provider, Class<T> clazz, CallbackInfo ci) {
+    private <T> void addBlockData(IDataProvider<?> provider, Class<T> clazz, int priority, CallbackInfo ci) {
         if (provider instanceof FurnaceProvider) {
             ci.cancel();
         }
