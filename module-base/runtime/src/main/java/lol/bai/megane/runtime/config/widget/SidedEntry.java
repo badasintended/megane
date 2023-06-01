@@ -1,5 +1,7 @@
 package lol.bai.megane.runtime.config.widget;
 
+import com.google.common.collect.ImmutableList;
+import mcp.mobius.waila.gui.widget.ButtonEntry;
 import mcp.mobius.waila.gui.widget.ConfigListWidget;
 import mcp.mobius.waila.gui.widget.value.ConfigValue;
 import net.minecraft.client.gui.Element;
@@ -17,36 +19,27 @@ public class SidedEntry extends ConfigValue<Object> {
     private Element listener = null;
     private Text title = ScreenTexts.EMPTY;
     private String description = "megane.empty";
-    private Runnable save = () -> {
-    };
+    private Runnable save = () -> {};
 
-    private int x;
-    private int y;
-    private int w;
-    private int h;
-    private int sideWidth;
+    public SidedEntry(Side side, ConfigValue<?> value) {
+        super("", value.getValue(), null, null);
+        this.entry = value;
+        this.side = side;
+        this.listener = value.getListener();
+        this.title = value.getTitle();
+        this.description = value.getDescription();
+        this.save = value::save;
+    }
 
-    public SidedEntry(Side side, ConfigListWidget.Entry entry) {
-        super("", null, null, null);
+    public SidedEntry(Side side, ButtonEntry entry) {
+        super("", "", null, null);
         this.entry = entry;
         this.side = side;
-
-        if (entry instanceof ConfigValue<?> value) {
-            this.listener = value.getListener();
-            this.title = value.getTitle();
-            this.description = value.getDescription();
-            this.save = value::save;
-        }
     }
 
     @Override
     protected void drawValue(MatrixStack matrices, int entryWidth, int entryHeight, int x, int y, int mouseX, int mouseY, boolean hovered, float partialTicks) {
-        this.x = x;
-        this.y = y;
-        this.w = entryWidth;
-        this.h = entryHeight;
-
-        sideWidth = client.textRenderer.getWidth(side.text);
+        int sideWidth = client.textRenderer.getWidth(side.text);
         float sideY = y + (entryHeight - client.textRenderer.fontHeight) / 2f;
 
         this.entry.render(matrices, 0, y, x + sideWidth + 3, entryWidth - (sideWidth + 3), entryHeight, mouseX, mouseY, hovered, partialTicks);
@@ -59,6 +52,32 @@ public class SidedEntry extends ConfigValue<Object> {
     }
 
     @Override
+    public boolean isValueValid() {
+        return !(entry instanceof ConfigValue<?> value) || value.isValueValid();
+    }
+
+    @Override
+    protected void gatherChildren(ImmutableList.Builder<Element> children) {
+        entry.children().forEach(children::add);
+    }
+
+    @Override
+    public boolean match(String filter) {
+        entry.category = category;
+        if (entry instanceof ButtonEntry button)
+            return button.match(filter);
+        if (entry instanceof ConfigValue<?> value)
+            return value.match(filter);
+        return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        entry.tick();
+    }
+
+    @Override
     public void save() {
         save.run();
     }
@@ -66,11 +85,6 @@ public class SidedEntry extends ConfigValue<Object> {
     @Override
     public Element getListener() {
         return listener;
-    }
-
-    @Override
-    public boolean isMouseOver(double mouseX, double mouseY) {
-        return x + sideWidth + 3 < mouseX && mouseX <= x + w && y < mouseY && mouseY <= y + h;
     }
 
     @Override
@@ -86,11 +100,6 @@ public class SidedEntry extends ConfigValue<Object> {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return entry.mouseClicked(mouseX, mouseY, button);
     }
 
 }
