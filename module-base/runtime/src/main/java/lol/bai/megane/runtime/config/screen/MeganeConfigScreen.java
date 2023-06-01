@@ -13,6 +13,7 @@ import mcp.mobius.waila.gui.widget.ButtonEntry;
 import mcp.mobius.waila.gui.widget.CategoryEntry;
 import mcp.mobius.waila.gui.widget.ConfigListWidget;
 import mcp.mobius.waila.gui.widget.value.BooleanValue;
+import mcp.mobius.waila.gui.widget.value.ConfigValue;
 import mcp.mobius.waila.gui.widget.value.InputValue;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -74,8 +75,12 @@ public class MeganeConfigScreen extends ConfigScreen {
         return new InputValue<>(tlKey(type), t, defaultValue, consumer, validator);
     }
 
-    private static SidedEntry sided(Side side, ConfigListWidget.Entry entry) {
+    private static SidedEntry sided(Side side, ButtonEntry entry) {
         return new SidedEntry(side, entry);
+    }
+
+    private static SidedEntry sided(Side side, ConfigValue<?> value) {
+        return new SidedEntry(side, value);
     }
 
     @Override
