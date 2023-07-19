@@ -1,3 +1,7 @@
+repositories {
+    bbkr()
+}
+
 dependencies {
     runtimeOnly(namedProject("tech-reborn"))
 

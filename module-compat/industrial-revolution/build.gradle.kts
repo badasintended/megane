@@ -1,4 +1,5 @@
 repositories {
+    bbkr()
     jamieswhiteshirt()
     blamejared()
     buildcraft()

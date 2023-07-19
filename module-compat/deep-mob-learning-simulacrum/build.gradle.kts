@@ -1,4 +1,5 @@
 repositories {
+    bbkr()
     shedaniel()
     cafeteria()
     ladysnake()
