@@ -22,6 +22,7 @@ allprojects {
         badasintended()
         cursemaven()
         modrinth()
+        terraformers()
     }
 
     dependencies {
