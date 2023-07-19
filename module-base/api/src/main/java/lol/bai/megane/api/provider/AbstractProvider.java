@@ -8,7 +8,10 @@ import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Base class to all providers.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class AbstractProvider<T> {
 
     private World world;

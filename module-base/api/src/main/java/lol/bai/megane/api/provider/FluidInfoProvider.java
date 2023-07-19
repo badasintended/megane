@@ -14,7 +14,10 @@ import org.jetbrains.annotations.Nullable;
  * Register implementations with {@link ClientRegistrar#addFluidInfo}
  *
  * @param <T> type of {@link Fluid} this provider for.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class FluidInfoProvider<T> extends AbstractProvider<T> {
 
     @Nullable

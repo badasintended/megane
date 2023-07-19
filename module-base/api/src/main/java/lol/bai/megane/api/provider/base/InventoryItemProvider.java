@@ -16,7 +16,10 @@ import org.jetbrains.annotations.Nullable;
  * Register implementations with {@link CommonRegistrar#addItem}
  *
  * @param <T> type of {@link BlockEntity} or {@link Entity} this provider for.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class InventoryItemProvider<T> extends ItemProvider<T> {
 
     private Inventory inventory;

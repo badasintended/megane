@@ -1,15 +1,15 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.components.mixer.MechanicalMixerTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinOperatingTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
+import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;
 import lol.bai.megane.module.create.mixin.AccessBasinTileEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class BasinProgressProvider extends BaseBasinProgressProvider<BasinTileEntity> {
+public class BasinProgressProvider extends BaseBasinProgressProvider<BasinBlockEntity> {
 
     private AccessBasinTileEntity access;
-    private BasinOperatingTileEntity operator;
+    private BasinOperatingBlockEntity operator;
     private int percentage;
 
     @Override
@@ -18,7 +18,7 @@ public class BasinProgressProvider extends BaseBasinProgressProvider<BasinTileEn
         operator = access.megane_getOperator().orElse(null);
 
         percentage = -1;
-        if (operator instanceof MechanicalMixerTileEntity mixer) {
+        if (operator instanceof MechanicalMixerBlockEntity mixer) {
             percentage = MechanicalMixerProgressProvider.getPercentage(mixer);
         }
 
@@ -36,12 +36,12 @@ public class BasinProgressProvider extends BaseBasinProgressProvider<BasinTileEn
     }
 
     @Override
-    @Nullable BasinTileEntity getBasin() {
+    @Nullable BasinBlockEntity getBasin() {
         return getObject();
     }
 
     @Override
-    @Nullable BasinOperatingTileEntity getOperator() {
+    @Nullable BasinOperatingBlockEntity getOperator() {
         return operator;
     }
 

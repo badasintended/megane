@@ -9,15 +9,23 @@ import lol.bai.megane.api.provider.ItemProvider;
 import lol.bai.megane.api.provider.ProgressProvider;
 import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
+import lol.bai.megane.runtime.data.wrapper.EnergyWrapper;
+import lol.bai.megane.runtime.data.wrapper.FluidWrapper;
+import lol.bai.megane.runtime.data.wrapper.ItemWrapper;
+import lol.bai.megane.runtime.data.wrapper.ProgressWrapper;
+import lol.bai.megane.runtime.util.MeganeUtils;
+import mcp.mobius.waila.api.IRegistrar;
+import mcp.mobius.waila.api.data.EnergyData;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
-import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "deprecation"})
 public enum Registrar implements CommonRegistrar, ClientRegistrar {
 
     INSTANCE;
+
+    public IRegistrar waila;
 
     public static final Registry<EnergyProvider> ENERGY = new Registry<>();
     public static final Registry<FluidProvider> FLUID = new Registry<>();
@@ -29,83 +37,62 @@ public enum Registrar implements CommonRegistrar, ClientRegistrar {
 
     @Override
     public <T> void addEnergy(int priority, Class<T> clazz, EnergyProvider<T> provider) {
-        ENERGY.add(clazz, provider, priority);
+        waila.addBlockData(new EnergyWrapper(provider), clazz, priority);
     }
 
     @Override
     public <T> void addFluid(int priority, Class<T> clazz, FluidProvider<T> provider) {
-        FLUID.add(clazz, provider, priority);
+        waila.addBlockData(new FluidWrapper(provider), clazz, priority);
     }
 
     @Override
     public void addCauldron(Block block, CauldronProvider provider) {
-        CAULDRON.add(block, provider);
+        untranslatable("StaticCauldronProvider", net.minecraft.util.registry.Registry.BLOCK.getId(block));
     }
 
     @Override
     public <T> void addCauldron(int priority, Class<T> clazz, CauldronProvider provider) {
-        CAULDRON.add(clazz, provider, priority);
+        untranslatable("ClassCauldronProvider", clazz);
     }
 
     @Override
     public <T> void addItem(int priority, Class<T> clazz, ItemProvider<T> provider) {
-        INVENTORY.add(clazz, provider, priority);
-
+        waila.addBlockData(new ItemWrapper<>(provider, false), clazz, priority);
+        waila.addEntityData(new ItemWrapper<>(provider, true), clazz, priority);
     }
 
     @Override
     public <T> void addProgress(int priority, Class<T> clazz, ProgressProvider<T> provider) {
-        PROGRESS.add(clazz, provider, priority);
+        waila.addBlockData(new ProgressWrapper(provider), clazz, priority);
     }
 
     @Override
     public void addEnergyInfo(String namespace, int color, String unit, Text name) {
-        ENERGY_INFO.add(namespace, new EnergyInfoProvider() {
-            @Override
-            public Text getName() {
-                return name;
-            }
-
-            @Override
-            public int getColor() {
-                return color;
-            }
-
-            @Nullable
-            @Override
-            public String getUnit() {
-                return unit;
-            }
-        });
+        EnergyData.describe(namespace).color(color).unit(unit).name(name);
     }
 
     @Override
     public <T> void addEnergyInfo(Class<T> clazz, EnergyInfoProvider<T> provider, int priority) {
-        ENERGY_INFO.add(clazz, provider, priority);
+        untranslatable("ClassEnergyInfo", clazz);
     }
 
     @Override
     public <T> void addFluidInfo(Class<T> clazz, FluidInfoProvider<T> provider, int priority) {
-        FLUID_INFO.add(clazz, provider, priority);
+        untranslatable("ClassFluidInfo", clazz);
     }
 
     @Override
     public void addFluidInfo(Fluid fluid, int color, Text name) {
-        FLUID_INFO.add(fluid, new FluidInfoProvider() {
-            @Override
-            public int getColor() {
-                return color;
-            }
-
-            @Override
-            public Text getName() {
-                return name;
-            }
-        });
+        untranslatable("StaticFluidInfo", net.minecraft.util.registry.Registry.FLUID.getId(fluid));
     }
 
     @Override
     public <T extends Fluid> void addFluidInfo(T fluid, FluidInfoProvider<T> provider) {
-        FLUID_INFO.add(fluid, provider);
+        untranslatable("ContextAwareStaticFluidInfo", net.minecraft.util.registry.Registry.FLUID.getId(fluid));
     }
+
+    private void untranslatable(String megane, Object ctx) {
+        MeganeUtils.LOGGER.error("[megane] Unable to translate {} for {}", megane, ctx);
+    }
+
 }

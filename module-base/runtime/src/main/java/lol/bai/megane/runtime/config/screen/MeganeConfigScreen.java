@@ -88,50 +88,50 @@ public class MeganeConfigScreen extends ConfigScreen {
     public ConfigListWidget getOptions() {
         ConfigListWidget options = new ConfigListWidget(this, client, width, height, 32, height - 32, 26, MeganeUtils.CONFIG::save);
         options
-            .with(category("inventory"))
-            .with(sided(AND, bool("enabled", MeganeUtils.config().inventory.isEnabled(), def.inventory.isEnabled(), MeganeUtils.config().inventory::setEnabled)))
-            .with(sided(SERVER, bool("inventory.itemCount", MeganeUtils.config().inventory.isItemCount(), def.inventory.isItemCount(), MeganeUtils.config().inventory::setItemCount)))
-            .with(sided(SERVER, bool("inventory.nbt", MeganeUtils.config().inventory.isNbt(), def.inventory.isNbt(), MeganeUtils.config().inventory::setNbt)))
-            .with(sided(CLIENT, input("inventory.maxWidth", MeganeUtils.config().inventory.getMaxWidth(), def.inventory.getMaxWidth(), MeganeUtils.config().inventory::setMaxWidth, INT)))
-            .with(sided(CLIENT, input("inventory.maxHeight", MeganeUtils.config().inventory.getMaxHeight(), def.inventory.getMaxHeight(), MeganeUtils.config().inventory::setMaxHeight, INT)))
-            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), MeganeUtils.config().inventory.getBlacklist())))))
+//            .with(category("inventory"))
+//            .with(sided(AND, bool("enabled", MeganeUtils.config().inventory.isEnabled(), def.inventory.isEnabled(), MeganeUtils.config().inventory::setEnabled)))
+//            .with(sided(SERVER, bool("inventory.itemCount", MeganeUtils.config().inventory.isItemCount(), def.inventory.isItemCount(), MeganeUtils.config().inventory::setItemCount)))
+//            .with(sided(SERVER, bool("inventory.nbt", MeganeUtils.config().inventory.isNbt(), def.inventory.isNbt(), MeganeUtils.config().inventory::setNbt)))
+//            .with(sided(CLIENT, input("inventory.maxWidth", MeganeUtils.config().inventory.getMaxWidth(), def.inventory.getMaxWidth(), MeganeUtils.config().inventory::setMaxWidth, INT)))
+//            .with(sided(CLIENT, input("inventory.maxHeight", MeganeUtils.config().inventory.getMaxHeight(), def.inventory.getMaxHeight(), MeganeUtils.config().inventory::setMaxHeight, INT)))
+//            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), MeganeUtils.config().inventory.getBlacklist())))))
 
-            .with(category("entityInventory"))
-            .with(sided(AND, bool("enabled", MeganeUtils.config().entityInventory.isEnabled(), def.entityInventory.isEnabled(), MeganeUtils.config().entityInventory::setEnabled)))
-            .with(sided(SERVER, bool("inventory.itemCount", MeganeUtils.config().entityInventory.isItemCount(), def.entityInventory.isItemCount(), MeganeUtils.config().entityInventory::setItemCount)))
-            .with(sided(SERVER, bool("inventory.nbt", MeganeUtils.config().entityInventory.isNbt(), def.entityInventory.isNbt(), MeganeUtils.config().entityInventory::setNbt)))
-            .with(sided(CLIENT, input("inventory.maxWidth", MeganeUtils.config().entityInventory.getMaxWidth(), def.entityInventory.getMaxWidth(), MeganeUtils.config().entityInventory::setMaxWidth, INT)))
-            .with(sided(CLIENT, input("inventory.maxHeight", MeganeUtils.config().entityInventory.getMaxHeight(), def.entityInventory.getMaxHeight(), MeganeUtils.config().entityInventory::setMaxHeight, INT)))
-            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), MeganeUtils.config().entityInventory.getBlacklist())))))
+//            .with(category("entityInventory"))
+//            .with(sided(AND, bool("enabled", MeganeUtils.config().entityInventory.isEnabled(), def.entityInventory.isEnabled(), MeganeUtils.config().entityInventory::setEnabled)))
+//            .with(sided(SERVER, bool("inventory.itemCount", MeganeUtils.config().entityInventory.isItemCount(), def.entityInventory.isItemCount(), MeganeUtils.config().entityInventory::setItemCount)))
+//            .with(sided(SERVER, bool("inventory.nbt", MeganeUtils.config().entityInventory.isNbt(), def.entityInventory.isNbt(), MeganeUtils.config().entityInventory::setNbt)))
+//            .with(sided(CLIENT, input("inventory.maxWidth", MeganeUtils.config().entityInventory.getMaxWidth(), def.entityInventory.getMaxWidth(), MeganeUtils.config().entityInventory::setMaxWidth, INT)))
+//            .with(sided(CLIENT, input("inventory.maxHeight", MeganeUtils.config().entityInventory.getMaxHeight(), def.entityInventory.getMaxHeight(), MeganeUtils.config().entityInventory::setMaxHeight, INT)))
+//            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("inventory.blacklist")), MeganeUtils.config().entityInventory.getBlacklist())))))
 
-            .with(category("energy"))
-            .with(sided(AND, bool("enabled", MeganeUtils.config().energy.isEnabled(), def.energy.isEnabled(), MeganeUtils.config().energy::setEnabled)))
-            .with(sided(CLIENT, bool("expand", MeganeUtils.config().energy.isExpandWhenSneak(), def.energy.isExpandWhenSneak(), MeganeUtils.config().energy::setExpandWhenSneak)))
-            .with(sided(CLIENT, button("energy.unit", w -> client.setScreen(new MapConfigScreen<>(
-                this, tl(tlKey("energy.unit")), MeganeUtils.config().energy.getUnits(), s -> s, s -> s, NAMESPACE, ALL, (prev, key, val) -> {
-                MeganeUtils.config().energy.getUnits().remove(prev);
-                if (key != null && val != null) {
-                    MeganeUtils.config().energy.getUnits().put(key, val);
-                }
-            })))))
-            .with(sided(CLIENT, button("energy.color", w -> client.setScreen(new MapConfigScreen<>(
-                this, tl(tlKey("energy.color")), MeganeUtils.config().energy.getColors(), s -> s, INT2RGB, NAMESPACE, HEX, (prev, key, val) -> {
-                MeganeUtils.config().energy.getColors().remove(prev);
-                if (key != null && val != null) {
-                    MeganeUtils.config().energy.getColors().put(key, Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
-                }
-            })))))
-            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("energy.blacklist")), MeganeUtils.config().energy.getBlacklist())))))
+//            .with(category("energy"))
+//            .with(sided(AND, bool("enabled", MeganeUtils.config().energy.isEnabled(), def.energy.isEnabled(), MeganeUtils.config().energy::setEnabled)))
+//            .with(sided(CLIENT, bool("expand", MeganeUtils.config().energy.isExpandWhenSneak(), def.energy.isExpandWhenSneak(), MeganeUtils.config().energy::setExpandWhenSneak)))
+//            .with(sided(CLIENT, button("energy.unit", w -> client.setScreen(new MapConfigScreen<>(
+//                this, tl(tlKey("energy.unit")), MeganeUtils.config().energy.getUnits(), s -> s, s -> s, NAMESPACE, ALL, (prev, key, val) -> {
+//                MeganeUtils.config().energy.getUnits().remove(prev);
+//                if (key != null && val != null) {
+//                    MeganeUtils.config().energy.getUnits().put(key, val);
+//                }
+//            })))))
+//            .with(sided(CLIENT, button("energy.color", w -> client.setScreen(new MapConfigScreen<>(
+//                this, tl(tlKey("energy.color")), MeganeUtils.config().energy.getColors(), s -> s, INT2RGB, NAMESPACE, HEX, (prev, key, val) -> {
+//                MeganeUtils.config().energy.getColors().remove(prev);
+//                if (key != null && val != null) {
+//                    MeganeUtils.config().energy.getColors().put(key, Integer.parseUnsignedInt(val, 16) & 0xFFFFFF);
+//                }
+//            })))))
+//            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("energy.blacklist")), MeganeUtils.config().energy.getBlacklist())))))
 
-            .with(category("fluid"))
-            .with(sided(AND, bool("enabled", MeganeUtils.config().fluid.isEnabled(), def.fluid.isEnabled(), MeganeUtils.config().fluid::setEnabled)))
-            .with(sided(CLIENT, bool("expand", MeganeUtils.config().fluid.isExpandWhenSneak(), def.fluid.isExpandWhenSneak(), MeganeUtils.config().fluid::setExpandWhenSneak)))
-            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), MeganeUtils.config().fluid.getBlacklist())))))
+//            .with(category("fluid"))
+//            .with(sided(AND, bool("enabled", MeganeUtils.config().fluid.isEnabled(), def.fluid.isEnabled(), MeganeUtils.config().fluid::setEnabled)))
+//            .with(sided(CLIENT, bool("expand", MeganeUtils.config().fluid.isExpandWhenSneak(), def.fluid.isExpandWhenSneak(), MeganeUtils.config().fluid::setExpandWhenSneak)))
+//            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("fluid.blacklist")), MeganeUtils.config().fluid.getBlacklist())))))
 
-            .with(category("progress"))
-            .with(sided(AND, bool("enabled", MeganeUtils.config().progress.isEnabled(), def.progress.isEnabled(), MeganeUtils.config().progress::setEnabled)))
-            .with(sided(CLIENT, bool("progress.showWhenZero", MeganeUtils.config().progress.isShowWhenZero(), def.progress.isShowWhenZero(), MeganeUtils.config().progress::setShowWhenZero)))
-            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), MeganeUtils.config().progress.getBlacklist())))))
+//            .with(category("progress"))
+//            .with(sided(AND, bool("enabled", MeganeUtils.config().progress.isEnabled(), def.progress.isEnabled(), MeganeUtils.config().progress::setEnabled)))
+//            .with(sided(CLIENT, bool("progress.showWhenZero", MeganeUtils.config().progress.isShowWhenZero(), def.progress.isShowWhenZero(), MeganeUtils.config().progress::setShowWhenZero)))
+//            .with(sided(PLUS, button("blacklist", w -> client.setScreen(new BlacklistConfigScreen(this, tl(tlKey("progress.blacklist")), MeganeUtils.config().progress.getBlacklist())))))
 
             .with(category("effect"))
             .with(sided(AND, bool("enabled", MeganeUtils.config().effect.isEnabled(), def.effect.isEnabled(), MeganeUtils.config().effect::setEnabled)))

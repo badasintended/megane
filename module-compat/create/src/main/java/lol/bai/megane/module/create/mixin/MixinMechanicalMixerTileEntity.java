@@ -1,6 +1,6 @@
 package lol.bai.megane.module.create.mixin;
 
-import com.simibubi.create.content.contraptions.components.mixer.MechanicalMixerTileEntity;
+import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 import lol.bai.megane.module.create.provider.MechanicalMixerProgressProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MechanicalMixerTileEntity.class)
+@Mixin(MechanicalMixerBlockEntity.class)
 public abstract class MixinMechanicalMixerTileEntity implements MechanicalMixerProgressProvider.Access {
 
     @Shadow
@@ -18,7 +18,7 @@ public abstract class MixinMechanicalMixerTileEntity implements MechanicalMixerP
     @Unique
     private int recipeTicks;
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/contraptions/components/mixer/MechanicalMixerTileEntity;getBasin()Ljava/util/Optional;"))
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/mixer/MechanicalMixerBlockEntity;getBasin()Ljava/util/Optional;"))
     private void megane_storeRecipeTicks(CallbackInfo ci) {
         recipeTicks = processingTicks;
     }

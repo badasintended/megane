@@ -5,6 +5,10 @@ import lol.bai.megane.api.provider.FluidInfoProvider;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.text.Text;
 
+/**
+ * @deprecated use WTHIT API
+ */
+@Deprecated
 public interface ClientRegistrar {
 
     int DEFAULT_PRIORITY = 1000;

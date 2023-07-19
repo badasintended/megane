@@ -2,10 +2,10 @@ package lol.bai.megane.module.create.provider;
 
 import java.util.List;
 
-import com.simibubi.create.content.contraptions.components.millstone.MillstoneTileEntity;
+import com.simibubi.create.content.kinetics.millstone.MillstoneBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 
-public class MillstoneItemProvider extends ItemStackHandlerItemProvider<MillstoneTileEntity> {
+public class MillstoneItemProvider extends ItemStackHandlerItemProvider<MillstoneBlockEntity> {
 
     @Override
     void appendHandlers(List<ItemStackHandler> handlers) {

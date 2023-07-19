@@ -9,7 +9,10 @@ import net.minecraft.block.entity.BlockEntity;
  * Register implementations with {@link CommonRegistrar#addEnergy}
  *
  * @param <T> type of {@link BlockEntity} this provider for.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class EnergyProvider<T> extends AbstractProvider<T> {
 
     /**

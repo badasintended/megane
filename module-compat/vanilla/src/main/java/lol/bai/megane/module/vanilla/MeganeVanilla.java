@@ -11,14 +11,9 @@ import lol.bai.megane.module.vanilla.provider.EnderChestItemProvider;
 import lol.bai.megane.module.vanilla.provider.FurnaceProgressProvider;
 import lol.bai.megane.module.vanilla.provider.HopperItemProvider;
 import lol.bai.megane.module.vanilla.provider.JukeboxItemProvider;
-import lol.bai.megane.module.vanilla.provider.LavaCauldronProvider;
-import lol.bai.megane.module.vanilla.provider.LavaFluidInfoProvider;
 import lol.bai.megane.module.vanilla.provider.LockableContainerItemProvider;
 import lol.bai.megane.module.vanilla.provider.LootableContainerItemProvider;
 import lol.bai.megane.module.vanilla.provider.PlayerItemProvider;
-import lol.bai.megane.module.vanilla.provider.WaterCauldronProvider;
-import lol.bai.megane.module.vanilla.provider.WaterFluidInfoProvider;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -30,16 +25,11 @@ import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.LavaFluid;
-import net.minecraft.fluid.WaterFluid;
 
 public class MeganeVanilla implements MeganeModule {
 
     @Override
     public void registerCommon(CommonRegistrar registrar) {
-        registrar.addCauldron(Blocks.WATER_CAULDRON, new WaterCauldronProvider());
-        registrar.addCauldron(Blocks.LAVA_CAULDRON, new LavaCauldronProvider());
-
         registrar.addItem(JukeboxBlockEntity.class, new JukeboxItemProvider());
         registrar.addItem(CampfireBlockEntity.class, new CampfireItemProvider());
         registrar.addItem(BeehiveBlockEntity.class, new BeehiveItemProvider());
@@ -58,8 +48,6 @@ public class MeganeVanilla implements MeganeModule {
 
     @Override
     public void registerClient(ClientRegistrar registrar) {
-        registrar.addFluidInfo(WaterFluid.class, new WaterFluidInfoProvider());
-        registrar.addFluidInfo(LavaFluid.class, new LavaFluidInfoProvider());
     }
 
 }

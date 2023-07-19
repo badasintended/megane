@@ -14,7 +14,10 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> type of {@link BlockEntity} this provider for.
  *
  * @see SlotArrayProgressProvider
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class ProgressProvider<T> extends AbstractProvider<T> {
 
     /**

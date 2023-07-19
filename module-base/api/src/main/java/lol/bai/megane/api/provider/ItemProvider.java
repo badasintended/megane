@@ -15,7 +15,10 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> type of {@link BlockEntity} or {@link Entity} this provider for.
  *
  * @see InventoryItemProvider
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class ItemProvider<T> extends AbstractProvider<T> {
 
     /**

@@ -1,10 +1,10 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.components.actors.BlockBreakingKineticTileEntity;
+import com.simibubi.create.content.kinetics.base.BlockBreakingKineticBlockEntity;
 import lol.bai.megane.api.provider.base.IoLessProgressProvider;
 import lol.bai.megane.module.create.mixin.AccessBlockBreakingKineticTileEntity;
 
-public class BlockBreakingProgressProvider extends IoLessProgressProvider<BlockBreakingKineticTileEntity> {
+public class BlockBreakingProgressProvider extends IoLessProgressProvider<BlockBreakingKineticBlockEntity> {
 
     AccessBlockBreakingKineticTileEntity access;
 

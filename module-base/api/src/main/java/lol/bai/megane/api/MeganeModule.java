@@ -3,6 +3,10 @@ package lol.bai.megane.api;
 import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
 
+/**
+ * @deprecated use WTHIT API
+ */
+@Deprecated
 public interface MeganeModule {
 
     /**

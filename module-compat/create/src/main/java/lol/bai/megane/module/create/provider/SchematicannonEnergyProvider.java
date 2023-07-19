@@ -1,9 +1,9 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.schematics.block.SchematicannonTileEntity;
+import com.simibubi.create.content.schematics.cannon.SchematicannonBlockEntity;
 import lol.bai.megane.api.provider.EnergyProvider;
 
-public class SchematicannonEnergyProvider extends EnergyProvider<SchematicannonTileEntity> {
+public class SchematicannonEnergyProvider extends EnergyProvider<SchematicannonBlockEntity> {
 
     @Override
     public long getStored() {

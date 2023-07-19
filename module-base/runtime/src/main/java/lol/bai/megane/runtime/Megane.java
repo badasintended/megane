@@ -6,19 +6,8 @@ import java.util.Optional;
 
 import lol.bai.megane.api.MeganeModule;
 import lol.bai.megane.runtime.data.block.BeaconData;
-import lol.bai.megane.runtime.data.block.BlockInventoryData;
-import lol.bai.megane.runtime.data.block.EnergyData;
-import lol.bai.megane.runtime.data.block.FluidData;
-import lol.bai.megane.runtime.data.block.ProgressData;
-import lol.bai.megane.runtime.data.entity.EntityInventoryData;
 import lol.bai.megane.runtime.data.entity.StatusEffectData;
 import lol.bai.megane.runtime.provider.block.BeaconComponentProvider;
-import lol.bai.megane.runtime.provider.block.BlockInventoryComponentProvider;
-import lol.bai.megane.runtime.provider.block.CauldronComponentProvider;
-import lol.bai.megane.runtime.provider.block.EnergyComponentProvider;
-import lol.bai.megane.runtime.provider.block.FluidComponentProvider;
-import lol.bai.megane.runtime.provider.block.ProgressComponentProvider;
-import lol.bai.megane.runtime.provider.entity.EntityInventoryComponentProvider;
 import lol.bai.megane.runtime.provider.entity.PlayerHeadComponentProvider;
 import lol.bai.megane.runtime.provider.entity.SpawnEggComponentProvider;
 import lol.bai.megane.runtime.provider.entity.StatusEffectComponentProvider;
@@ -32,7 +21,6 @@ import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.CustomValue;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.fabricmc.loader.api.metadata.version.VersionPredicate;
-import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
@@ -52,20 +40,9 @@ public class Megane implements IWailaPlugin {
     public void register(IRegistrar r) {
         // --- BLOCK ---
         // Component
-        r.addComponent(new EnergyComponentProvider(), BODY, BLOCK, 998);
-        r.addComponent(new FluidComponentProvider(), BODY, BLOCK, 999);
-        r.addComponent(new CauldronComponentProvider(), BODY, AbstractCauldronBlock.class, 999);
-
-        r.addComponent(new BlockInventoryComponentProvider(), BODY, BLOCK, Integer.MAX_VALUE);
-        r.addComponent(new ProgressComponentProvider(), BODY, BLOCK, Integer.MAX_VALUE);
         r.addComponent(new BeaconComponentProvider(), BODY, BeaconBlock.class, Integer.MAX_VALUE);
 
-
         // Server Data
-        r.addBlockData(new BlockInventoryData(), BLOCK);
-        r.addBlockData(new EnergyData(), BLOCK);
-        r.addBlockData(new FluidData(), BLOCK);
-        r.addBlockData(new ProgressData(), BLOCK);
         r.addBlockData(new BeaconData(), BeaconBlock.class);
 
         // --- ENTITY ---
@@ -73,15 +50,15 @@ public class Megane implements IWailaPlugin {
         r.addIcon(new PlayerHeadComponentProvider(), PlayerEntity.class);
 
         // Component
-        r.addComponent(new EntityInventoryComponentProvider(), BODY, ENTITY, Integer.MAX_VALUE);
         r.addComponent(new StatusEffectComponentProvider(), BODY, ENTITY, Integer.MAX_VALUE);
 
         // Server Data
-        r.addEntityData(new EntityInventoryData(), ENTITY);
         r.addEntityData(new StatusEffectData(), ENTITY);
 
         // Modules
         FabricLoader loader = FabricLoader.getInstance();
+
+        Registrar.INSTANCE.waila = r;
 
         loader.getAllMods().forEach(mod -> {
             ModMetadata metadata = mod.getMetadata();

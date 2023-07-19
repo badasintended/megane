@@ -12,7 +12,10 @@ import net.minecraft.text.Text;
  * Register implementations with {@link ClientRegistrar#addEnergyInfo}
  *
  * @param <T> type of {@link BlockEntity} this provider for.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class EnergyInfoProvider<T> extends AbstractProvider<T> {
 
     public static final Text DEFAULT_NAME = Text.translatable("megane.energy");

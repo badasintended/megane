@@ -1,13 +1,13 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.schematics.block.SchematicannonTileEntity;
+import com.simibubi.create.content.schematics.cannon.SchematicannonBlockEntity;
 import lol.bai.megane.api.provider.EnergyInfoProvider;
 import lol.bai.megane.api.util.BarFormat;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-public class SchematicannonEnergyInfoProvider extends EnergyInfoProvider<SchematicannonTileEntity> {
+public class SchematicannonEnergyInfoProvider extends EnergyInfoProvider<SchematicannonBlockEntity> {
 
     @Override
     public Text getName() {

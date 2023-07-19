@@ -1,11 +1,11 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.components.millstone.MillingRecipe;
-import com.simibubi.create.content.contraptions.components.millstone.MillstoneTileEntity;
+import com.simibubi.create.content.kinetics.millstone.MillingRecipe;
+import com.simibubi.create.content.kinetics.millstone.MillstoneBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import lol.bai.megane.module.create.mixin.AccessMillstoneProgressProvider;
 
-public class MillstoneProgressProvider extends ItemStackHandlerProgressProvider<MillstoneTileEntity> {
+public class MillstoneProgressProvider extends ItemStackHandlerProgressProvider<MillstoneBlockEntity> {
 
     AccessMillstoneProgressProvider access;
     MillingRecipe recipe;

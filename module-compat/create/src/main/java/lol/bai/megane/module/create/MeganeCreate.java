@@ -1,17 +1,16 @@
 package lol.bai.megane.module.create;
 
-import com.simibubi.create.content.contraptions.components.actors.BlockBreakingKineticTileEntity;
-import com.simibubi.create.content.contraptions.components.crusher.CrushingWheelControllerTileEntity;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerTileEntity;
-import com.simibubi.create.content.contraptions.components.millstone.MillstoneTileEntity;
-import com.simibubi.create.content.contraptions.components.mixer.MechanicalMixerTileEntity;
-import com.simibubi.create.content.contraptions.fluids.tank.CreativeFluidTankTileEntity;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
-import com.simibubi.create.content.logistics.block.vault.ItemVaultTileEntity;
-import com.simibubi.create.content.schematics.block.SchematicTableTileEntity;
-import com.simibubi.create.content.schematics.block.SchematicannonTileEntity;
-import com.tterrag.registrate.fabric.SimpleFlowableFluid;
+import com.simibubi.create.content.fluids.tank.CreativeFluidTankBlockEntity;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.content.kinetics.base.BlockBreakingKineticBlockEntity;
+import com.simibubi.create.content.kinetics.crusher.CrushingWheelControllerBlockEntity;
+import com.simibubi.create.content.kinetics.deployer.DeployerBlockEntity;
+import com.simibubi.create.content.kinetics.millstone.MillstoneBlockEntity;
+import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
+import com.simibubi.create.content.logistics.vault.ItemVaultBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import com.simibubi.create.content.schematics.cannon.SchematicannonBlockEntity;
+import com.simibubi.create.content.schematics.table.SchematicTableBlockEntity;
 import lol.bai.megane.api.MeganeModule;
 import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
@@ -30,39 +29,36 @@ import lol.bai.megane.module.create.provider.MillstoneProgressProvider;
 import lol.bai.megane.module.create.provider.SchematicannonEnergyInfoProvider;
 import lol.bai.megane.module.create.provider.SchematicannonEnergyProvider;
 import lol.bai.megane.module.create.provider.SchematicannonProgressProvider;
-import lol.bai.megane.module.create.provider.SimpleFlowableFluidInfoProvider;
 
 @SuppressWarnings("unused")
 public class MeganeCreate implements MeganeModule {
 
     @Override
     public void registerCommon(CommonRegistrar registrar) {
-        registrar.addFluid(999, CreativeFluidTankTileEntity.class, new CreativeFluidTankFluidProvider());
-        registrar.addFluid(BasinTileEntity.class, new BasinFluidProvider());
-        registrar.addFluid(FluidTankTileEntity.class, new FluidTankFluidProvider<>());
+        registrar.addFluid(999, CreativeFluidTankBlockEntity.class, new CreativeFluidTankFluidProvider());
+        registrar.addFluid(BasinBlockEntity.class, new BasinFluidProvider());
+        registrar.addFluid(FluidTankBlockEntity.class, new FluidTankFluidProvider<>());
 
-        registrar.addEnergy(SchematicannonTileEntity.class, new SchematicannonEnergyProvider());
+        registrar.addEnergy(SchematicannonBlockEntity.class, new SchematicannonEnergyProvider());
 
-        registrar.addProgress(BasinTileEntity.class, new BasinProgressProvider());
-        registrar.addProgress(BlockBreakingKineticTileEntity.class, new BlockBreakingProgressProvider());
-        registrar.addProgress(CrushingWheelControllerTileEntity.class, new CrushingWheelControllerProgressProvider());
-        registrar.addProgress(MechanicalMixerTileEntity.class, new MechanicalMixerProgressProvider());
-        registrar.addProgress(MillstoneTileEntity.class, new MillstoneProgressProvider());
-        registrar.addProgress(SchematicannonTileEntity.class, new SchematicannonProgressProvider());
+        registrar.addProgress(BasinBlockEntity.class, new BasinProgressProvider());
+        registrar.addProgress(BlockBreakingKineticBlockEntity.class, new BlockBreakingProgressProvider());
+        registrar.addProgress(CrushingWheelControllerBlockEntity.class, new CrushingWheelControllerProgressProvider());
+        registrar.addProgress(MechanicalMixerBlockEntity.class, new MechanicalMixerProgressProvider());
+        registrar.addProgress(MillstoneBlockEntity.class, new MillstoneProgressProvider());
+        registrar.addProgress(SchematicannonBlockEntity.class, new SchematicannonProgressProvider());
 
-        registrar.addItem(BasinTileEntity.class, new BasinItemProvider());
-        registrar.addItem(DeployerTileEntity.class, new DeployerItemProvider());
-        registrar.addItem(ItemVaultTileEntity.class, new ItemStackHandlerItemProvider.Single<>(ItemVaultTileEntity::getInventoryOfBlock));
-        registrar.addItem(MillstoneTileEntity.class, new MillstoneItemProvider());
-        registrar.addItem(SchematicannonTileEntity.class, new ItemStackHandlerItemProvider.Single<>(t -> t.inventory));
-        registrar.addItem(SchematicTableTileEntity.class, new ItemStackHandlerItemProvider.Single<>(t -> t.inventory));
+        registrar.addItem(BasinBlockEntity.class, new BasinItemProvider());
+        registrar.addItem(DeployerBlockEntity.class, new DeployerItemProvider());
+        registrar.addItem(ItemVaultBlockEntity.class, new ItemStackHandlerItemProvider.Single<>(ItemVaultBlockEntity::getInventoryOfBlock));
+        registrar.addItem(MillstoneBlockEntity.class, new MillstoneItemProvider());
+        registrar.addItem(SchematicannonBlockEntity.class, new ItemStackHandlerItemProvider.Single<>(t -> t.inventory));
+        registrar.addItem(SchematicTableBlockEntity.class, new ItemStackHandlerItemProvider.Single<>(t -> t.inventory));
     }
 
     @Override
     public void registerClient(ClientRegistrar registrar) {
-        registrar.addFluidInfo(SimpleFlowableFluid.class, new SimpleFlowableFluidInfoProvider());
-
-        registrar.addEnergyInfo(SchematicannonTileEntity.class, new SchematicannonEnergyInfoProvider());
+        registrar.addEnergyInfo(SchematicannonBlockEntity.class, new SchematicannonEnergyInfoProvider());
     }
 
 }

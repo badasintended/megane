@@ -1,10 +1,10 @@
 package lol.bai.megane.module.create.mixin;
 
-import com.simibubi.create.content.contraptions.components.actors.BlockBreakingKineticTileEntity;
+import com.simibubi.create.content.kinetics.base.BlockBreakingKineticBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(BlockBreakingKineticTileEntity.class)
+@Mixin(BlockBreakingKineticBlockEntity.class)
 public interface AccessBlockBreakingKineticTileEntity {
 
     @Accessor("destroyProgress")

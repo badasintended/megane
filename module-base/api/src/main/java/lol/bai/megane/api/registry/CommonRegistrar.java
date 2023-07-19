@@ -7,6 +7,10 @@ import lol.bai.megane.api.provider.ItemProvider;
 import lol.bai.megane.api.provider.ProgressProvider;
 import net.minecraft.block.Block;
 
+/**
+ * @deprecated use WTHIT API
+ */
+@Deprecated
 public interface CommonRegistrar {
 
     int DEFAULT_PRIORITY = 1000;

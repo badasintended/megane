@@ -1,14 +1,14 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.processing.BasinOperatingTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
+import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;
 import lol.bai.megane.module.create.mixin.AccessBasinOperatingTileEntity;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BasinOperatingProgressProvider<T extends BasinOperatingTileEntity> extends BaseBasinProgressProvider<T> {
+public abstract class BasinOperatingProgressProvider<T extends BasinOperatingBlockEntity> extends BaseBasinProgressProvider<T> {
 
     private AccessBasinOperatingTileEntity access;
-    private BasinTileEntity basin;
+    private BasinBlockEntity basin;
 
     @Override
     protected void init() {
@@ -19,7 +19,7 @@ public abstract class BasinOperatingProgressProvider<T extends BasinOperatingTil
     }
 
     @Override
-    @Nullable BasinTileEntity getBasin() {
+    @Nullable BasinBlockEntity getBasin() {
         return basin;
     }
 

@@ -112,7 +112,7 @@ ij_java_keep_blank_lines_before_right_brace = 2
 ij_java_keep_blank_lines_between_package_declaration_and_header = 2
 ij_java_keep_blank_lines_in_code = 2
 ij_java_keep_blank_lines_in_declarations = 2
-ij_java_keep_control_statement_in_one_line = false
+ij_java_keep_control_statement_in_one_line = true
 ij_java_keep_first_column_comment = false
 ij_java_keep_indents_on_empty_lines = false
 ij_java_keep_line_breaks = true
@@ -457,7 +457,7 @@ ij_groovy_while_brace_force = never
 ij_groovy_while_on_new_line = false
 ij_groovy_wrap_long_lines = false
 
-[{*.har, *.json}]
+[*.json]
 indent_size = 2
 tab_width = 2
 ij_continuation_indent_size = 2
@@ -478,11 +478,3 @@ ij_yaml_keep_indents_on_empty_lines = false
 ij_yaml_keep_line_breaks = true
 ij_yaml_spaces_within_braces = true
 ij_yaml_spaces_within_brackets = true
-
-[*.html]
-indent_size = 2
-tab_width = 2
-ij_continuation_indent_size = 2
-
-[*.mapping]
-indent_style = tab

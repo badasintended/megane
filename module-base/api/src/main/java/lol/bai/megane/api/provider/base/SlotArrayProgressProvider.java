@@ -12,7 +12,10 @@ import org.jetbrains.annotations.NotNull;
  * Register implementations with {@link CommonRegistrar#addProgress}
  *
  * @param <T> type of {@link BlockEntity} this provider for.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class SlotArrayProgressProvider<T> extends ProgressProvider<T> {
 
     /**

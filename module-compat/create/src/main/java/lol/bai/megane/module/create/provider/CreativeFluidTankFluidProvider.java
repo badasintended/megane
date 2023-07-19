@@ -1,8 +1,8 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.fluids.tank.CreativeFluidTankTileEntity;
+import com.simibubi.create.content.fluids.tank.CreativeFluidTankBlockEntity;
 
-public class CreativeFluidTankFluidProvider extends FluidTankFluidProvider<CreativeFluidTankTileEntity> {
+public class CreativeFluidTankFluidProvider extends FluidTankFluidProvider<CreativeFluidTankBlockEntity> {
 
     @Override
     public double getStored(int slot) {

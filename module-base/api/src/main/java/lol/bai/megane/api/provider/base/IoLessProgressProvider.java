@@ -4,6 +4,10 @@ import lol.bai.megane.api.provider.ProgressProvider;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @deprecated use WTHIT API
+ */
+@Deprecated
 public abstract class IoLessProgressProvider<T> extends ProgressProvider<T> {
 
     @Override

@@ -4,11 +4,9 @@ import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTankEntity;
 import io.github.lucaargolo.kibe.blocks.miscellaneous.FluidHopperBlockEntity;
 import io.github.lucaargolo.kibe.blocks.tank.TankBlockEntity;
 import io.github.lucaargolo.kibe.blocks.vacuum.VacuumHopperEntity;
-import io.github.lucaargolo.kibe.fluids.miscellaneous.LiquidXpFluid;
 import lol.bai.megane.api.MeganeModule;
 import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
-import lol.bai.megane.module.kibe.provider.ModdedFluidInfoProvider;
 import lol.bai.megane.module.kibe.provider.TankFluidProvider;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -24,7 +22,6 @@ public class MeganeKibe implements MeganeModule {
 
     @Override
     public void registerClient(ClientRegistrar registrar) {
-        registrar.addFluidInfo(LiquidXpFluid.class, new ModdedFluidInfoProvider<>(0x55FF55));
     }
 
 }

@@ -1,12 +1,12 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.components.mixer.MechanicalMixerTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinOperatingTileEntity;
+import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class MechanicalMixerProgressProvider extends BasinOperatingProgressProvider<MechanicalMixerTileEntity> {
+public class MechanicalMixerProgressProvider extends BasinOperatingProgressProvider<MechanicalMixerBlockEntity> {
 
-    static int getPercentage(MechanicalMixerTileEntity mixer) {
+    static int getPercentage(MechanicalMixerBlockEntity mixer) {
         if (mixer.processingTicks < 0) {
             return -1;
         }
@@ -34,7 +34,7 @@ public class MechanicalMixerProgressProvider extends BasinOperatingProgressProvi
     }
 
     @Override
-    @Nullable BasinOperatingTileEntity getOperator() {
+    @Nullable BasinOperatingBlockEntity getOperator() {
         return getObject();
     }
 

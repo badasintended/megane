@@ -1,10 +1,10 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.components.crusher.CrushingWheelControllerTileEntity;
+import com.simibubi.create.content.kinetics.crusher.CrushingWheelControllerBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class CrushingWheelControllerProgressProvider extends ItemStackHandlerProgressProvider<CrushingWheelControllerTileEntity> {
+public class CrushingWheelControllerProgressProvider extends ItemStackHandlerProgressProvider<CrushingWheelControllerBlockEntity> {
 
     Access access;
     int recipeDuration;

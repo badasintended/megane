@@ -5,7 +5,6 @@ import lol.bai.megane.api.registry.ClientRegistrar;
 import lol.bai.megane.api.registry.CommonRegistrar;
 import lol.bai.megane.module.techreborn.provider.GenericMachineProgressProvider;
 import lol.bai.megane.module.techreborn.provider.HardCodedProgressProvider;
-import lol.bai.megane.module.techreborn.provider.ModFluidInfoProvider;
 import techreborn.TechReborn;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
@@ -66,8 +65,6 @@ public class MeganeTechReborn implements MeganeModule {
 
     @Override
     public void registerClient(ClientRegistrar registrar) {
-        new ModFluidInfoProvider(registrar).registerAll();
-
         registrar.addEnergyInfo(TechReborn.MOD_ID, 0x800800, "E");
     }
 

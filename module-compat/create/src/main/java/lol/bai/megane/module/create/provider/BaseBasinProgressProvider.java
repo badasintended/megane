@@ -1,20 +1,20 @@
 package lol.bai.megane.module.create.provider;
 
-import com.simibubi.create.content.contraptions.processing.BasinOperatingTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
+import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseBasinProgressProvider<T> extends ItemStackHandlerProgressProvider<T> {
 
-    private BasinTileEntity basin;
-    private BasinOperatingTileEntity operator;
+    private BasinBlockEntity basin;
+    private BasinOperatingBlockEntity operator;
 
     @Nullable
-    abstract BasinTileEntity getBasin();
+    abstract BasinBlockEntity getBasin();
 
     @Nullable
-    abstract BasinOperatingTileEntity getOperator();
+    abstract BasinOperatingBlockEntity getOperator();
 
     @Override
     protected void init() {

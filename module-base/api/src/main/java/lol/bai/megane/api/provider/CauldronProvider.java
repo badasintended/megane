@@ -7,7 +7,10 @@ import net.minecraft.block.BlockState;
  * Base class to cauldron-base fluid provider.
  * <p>
  * Register implementations with {@link CommonRegistrar#addCauldron}.
+ *
+ * @deprecated use WTHIT API
  */
+@Deprecated
 public abstract class CauldronProvider extends FluidProvider<Void> {
 
     protected final BlockState getState() {
