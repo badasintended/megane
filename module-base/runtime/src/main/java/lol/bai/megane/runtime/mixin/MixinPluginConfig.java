@@ -14,14 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PluginConfig.class)
 public abstract class MixinPluginConfig {
 
-    @Unique
-    private static boolean megane_migrated = false;
-
     @Inject(method = "reload", at = @At("RETURN"), remap = false)
     private static void migrateConfig(CallbackInfo ci) {
-        if (megane_migrated) return;
-
         MeganeConfig config = MeganeUtils.config();
+        if (config.isPluginConfigMigrated()) return;
+
         set(new Identifier("wailax:energy.enabled_block"), config.energy.isEnabled());
         set(new Identifier("wailax:fluid.enabled_block"), config.fluid.isEnabled());
         set(new Identifier("wailax:item.enabled_block"), config.inventory.isEnabled());
@@ -31,7 +28,8 @@ public abstract class MixinPluginConfig {
         MeganeUtils.LOGGER.info("[megane] Migrated plugin config");
 
         save();
-        megane_migrated = true;
+        config.setPluginConfigMigrated(true);
+        MeganeUtils.CONFIG.save();
     }
 
     @Shadow

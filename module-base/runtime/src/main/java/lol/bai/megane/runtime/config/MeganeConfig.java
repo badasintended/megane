@@ -24,6 +24,9 @@ public class MeganeConfig {
     private boolean spawnEgg = true;
     private boolean playerHead = true;
 
+    private boolean pluginConfigMigrated = false;
+    private final Set<Identifier> migratedBlacklist = new HashSet<>();
+
     public int getConfigVersion() {
         return configVersion;
     }
@@ -44,6 +47,14 @@ public class MeganeConfig {
         return playerHead;
     }
 
+    public boolean isPluginConfigMigrated() {
+        return pluginConfigMigrated;
+    }
+
+    public Set<Identifier> getMigratedBlacklist() {
+        return migratedBlacklist;
+    }
+
     public void setCatchServerErrors(boolean catchServerErrors) {
         this.catchServerErrors = catchServerErrors;
     }
@@ -54,6 +65,10 @@ public class MeganeConfig {
 
     public void setPlayerHead(boolean playerHead) {
         this.playerHead = playerHead;
+    }
+
+    public void setPluginConfigMigrated(boolean pluginConfigMigrated) {
+        this.pluginConfigMigrated = pluginConfigMigrated;
     }
 
     public interface Base {

@@ -9,7 +9,7 @@ object versions {
 object deps {
     val minecraft = "com.mojang:minecraft:${versions.minecraft}"
     val yarn = "net.fabricmc:yarn:1.19.2+build.8:v2"
-    val fabricLoader = "net.fabricmc:fabric-loader:0.14.15"
+    val fabricLoader = "net.fabricmc:fabric-loader:0.14.22"
 
     val wthit = "mcp.mobius.waila:wthit:fabric-5.17.0"
 
@@ -55,6 +55,7 @@ object deps {
 fun DependencyHandlerScope.modImpl(dep: String, dependencyConfiguration: ExternalModuleDependency.() -> Unit = {}) {
     "modImplementation"(dep) {
         if (!dep.startsWith("net.fabricmc.fabric-api")) exclude(group = "net.fabricmc.fabric-api")
+        exclude("net.fabricmc:fabric-loader")
         dependencyConfiguration()
     }
 }

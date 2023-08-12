@@ -21,20 +21,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ExtraBlacklistConfig.Adapter.class)
 public abstract class MixinExtraBlacklistConfigAdapter {
 
-    @Unique
-    private boolean megane_migrated = false;
-
     @Shadow
     @Final
     private Identifier tagId;
 
     @Inject(method = "deserialize(Lcom/google/gson/JsonElement;Ljava/lang/reflect/Type;Lcom/google/gson/JsonDeserializationContext;)Lmcp/mobius/waila/plugin/extra/config/ExtraBlacklistConfig;", at = @At("RETURN"), remap = false)
     private void migrateBlacklist(JsonElement json, Type typeOfT, JsonDeserializationContext context, CallbackInfoReturnable<ExtraBlacklistConfig> cir) {
-        if (megane_migrated) return;
+        MeganeConfig config = MeganeUtils.config();
+        if (config.getMigratedBlacklist().contains(tagId)) return;
 
         ExtraBlacklistConfig out = cir.getReturnValue();
         AccessorExtraBlacklistConfig access = (AccessorExtraBlacklistConfig) out;
-        MeganeConfig config = MeganeUtils.config();
 
         if (tagId.equals(new Identifier("waila:extra/energy_blacklist"))) {
             add(out.blocks, access.getBlockIds(), Registry.BLOCK, config.energy.getBlacklist());
@@ -48,7 +45,8 @@ public abstract class MixinExtraBlacklistConfigAdapter {
         }
 
         MeganeUtils.LOGGER.info("[megane] migrated {}", tagId);
-        megane_migrated = true;
+        config.getMigratedBlacklist().add(tagId);
+        MeganeUtils.CONFIG.save();
     }
 
     @Unique
