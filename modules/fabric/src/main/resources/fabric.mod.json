@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id"           : "megane",
+  "includes"     : ["megane-api", "megane-runtime"],
+  "version"      : "${version}",
+  "authors"      : ["deirn"],
+  "contributors" : [
+    "Lyaiya",
+    "qsefthuopq",
+    "StarskyXIII"
+  ],
+  "license"      : "MIT",
+  "icon"         : "megane.png",
+  "mixins"       : [
+    "megane-runtime.mixins.json"
+  ],
+  "depends"      : {
+    "minecraft" : ">=1.19",
+    "wthit"     : ">=5.17"
+  },
+  "custom"       : {
+    "waila:plugins": {
+      "id"         : "megane:plugin",
+      "initializer": "lol.bai.megane.runtime.Megane"
+    }
+  }
+}

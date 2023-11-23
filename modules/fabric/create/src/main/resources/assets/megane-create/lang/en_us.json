@@ -1,0 +1,5 @@
+{
+  "config.waila.plugin_megane"                                : "Megane",
+  "config.waila.plugin_megane.create"                         : "Create",
+  "config.waila.plugin_megane.create.schematicannon.gunpowder": "Show Schematicannon Gunpowder Level"
+}
