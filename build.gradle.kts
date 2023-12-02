@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "lol.bai.megane"
-version = System.getenv("MOD_VERSION") ?: "local"
+version = System.getenv("MOD_VERSION") ?: "999999-local"
 
 allprojects {
     apply(plugin = "java")
@@ -31,6 +31,7 @@ allprojects {
         badasintended()
         cursemaven()
         modrinth()
+        mavenLocal()
     }
 }
 

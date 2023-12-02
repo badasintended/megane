@@ -1,9 +1,9 @@
-metadata {
-    waila("lol.bai.megane.module.techreborn.MeganeTechReborn")
+metadata("lol.bai.megane.module.techreborn") {
+    waila("MeganeTechReborn")
 
     fmj {
         depends(
-            "techreborn" to "*"
+            "techreborn" to any
         )
     }
 }

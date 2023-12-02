@@ -2,12 +2,12 @@ plugins {
     id("lol.bai.explosion")
 }
 
-metadata {
-    waila("lol.bai.megane.module.dmlsimulacrum.MeganeDmlSimulacrum")
+metadata("lol.bai.megane.module.dmlsimulacrum") {
+    waila("MeganeDmlSimulacrum")
 
     fmj {
         depends(
-            "dmlsimulacrum" to "*"
+            "dmlsimulacrum" to any
         )
     }
 }

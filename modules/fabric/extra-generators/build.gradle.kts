@@ -1,9 +1,9 @@
-metadata {
-    waila("lol.bai.megane.module.extragenerators.MeganeExtraGenerators")
+metadata("lol.bai.megane.module.extragenerators") {
+    waila("MeganeExtraGenerators")
 
     fmj {
         depends(
-            "extragenerators" to "*"
+            "extragenerators" to any
         )
     }
 }

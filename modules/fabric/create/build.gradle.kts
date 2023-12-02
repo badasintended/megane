@@ -1,11 +1,10 @@
-metadata {
-    waila("lol.bai.megane.module.create.MeganeCreate")
-    mixin("lol.bai.megane.module.create.mixin")
+metadata("lol.bai.megane.module.create") {
+    waila("MeganeCreate")
+    mixin()
 
     fmj {
-        mixin(true)
         depends(
-            "create" to "*"
+            "create" to any
         )
     }
 }

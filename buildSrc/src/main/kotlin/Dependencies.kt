@@ -9,26 +9,33 @@ object versions {
 
 object deps {
     const val minecraft = "com.mojang:minecraft:${versions.minecraft}"
-    const val fabricLoader = "net.fabricmc:fabric-loader:0.14.24"
+    const val mixinAp = "org.spongepowered:mixin:0.8.5:processor"
 
     object fabric {
-        const val wthit = "mcp.mobius.waila:wthit:fabric-5.19.2"
+        const val loader = "net.fabricmc:fabric-loader:0.14.24"
+
+        object wthit {
+            const val api = "mcp.mobius.waila:wthit-api:fabric-5.999-local"
+            const val runtime = "mcp.mobius.waila:wthit:fabric-5.999-local"
+        }
+
+        const val badpackets = "lol.bai:badpackets:fabric-0.2.3"
 
         const val ae2 = "appeng:appliedenergistics2-fabric:12.9.8"
-        const val alloyForge = "maven.modrinth:jhl28YkY:2.0.20+1.19"
+        const val alloyForge = "maven.modrinth:jhl28YkY:kZQUifqT"
         const val architectury = "dev.architectury:architectury-fabric:6.5.85"
         const val create = "com.simibubi.create:create-fabric-1.19.2:0.5.1-c-build.1160+mc1.19.2"
         const val clothConfig = "me.shedaniel.cloth:cloth-config-fabric:8.3.103"
-        const val extraGen = "maven.modrinth:VXtwLg17:1.2.1-BETA+1.19"
+        const val extraGen = "maven.modrinth:VXtwLg17:2p7qWneI"
         const val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.76.1+1.19.2"
-        const val flk = "net.fabricmc:fabric-language-kotlin:1.10.14+kotlin.1.9.20"
-        const val kibe = "maven.modrinth:OvlwmUdC:1.10.1-BETA+1.19"
-        const val modernDynamics = "maven.modrinth:fMpvLrnF:0.6.1-beta"
+        const val flk = "net.fabricmc:fabric-language-kotlin:1.10.15+kotlin.1.9.21"
+        const val kibe = "maven.modrinth:OvlwmUdC:6GPdTrdx"
+        const val modernDynamics = "maven.modrinth:fMpvLrnF:uSorcoNB"
         const val modmenu = "com.terraformersmc:modmenu:4.2.0-beta.2"
         const val noIndium = "me.luligabi:NoIndium:1.1.0+1.19"
         const val owo = "io.wispforest:owo-lib:0.9.3+1.19"
         const val patchouli = "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
-        const val powah = "maven.modrinth:KZO4S4DO:4.0.11-fabric"
+        const val powah = "maven.modrinth:KZO4S4DO:uK9hCoDv"
 
         const val dml = "curse.maven:cursemod-398614:4437241"
         const val indrev = "curse.maven:cursemod-391708:4020957"
@@ -37,12 +44,6 @@ object deps {
         const val rebornCore = "RebornCore:RebornCore-1.19:5.4.0"
         const val techReborn = "TechReborn:TechReborn-1.19:5.4.0"
         const val wirelessNet = "curse.maven:cursemod-461316:3876132"
-
-        object lba {
-            const val core = "alexiil.mc.lib:libblockattributes-core:0.11.1"
-            const val fluids = "alexiil.mc.lib:libblockattributes-fluids:0.11.1"
-            const val items = "alexiil.mc.lib:libblockattributes-items:0.11.1"
-        }
 
         const val trEnergy = "teamreborn:energy:2.2.0"
         const val libgui = "io.github.cottonmc:LibGui:6.0.1+1.19"
@@ -53,8 +54,31 @@ object deps {
     }
 
     object forge {
-        const val forge = "net.minecraftforge:forge:${versions.minecraft}-43.2.8"
-        const val wthit = "mcp.mobius.waila:wthit:forge-5.17.0"
+        const val forge = "net.minecraftforge:forge:${versions.minecraft}-43.3.5"
+
+        object wthit {
+            const val api = "mcp.mobius.waila:wthit-api:forge-5.999-local"
+            const val runtime = "mcp.mobius.waila:wthit:forge-5.999-local"
+        }
+
+        const val badpackets = "lol.bai:badpackets:forge-0.2.3"
+
+        const val ae2 = "appeng:appliedenergistics2-forge:12.9.8"
+        const val create = "maven.modrinth:LNytGWDc:Vfzp1Xaz"
+        const val ie = "maven.modrinth:tIm2nV03:7Mm7llLR"
+        const val rs = "maven.modrinth:KDvYkUg3:q3LiZwUb"
+        const val jei = "maven.modrinth:u6dRKJwZ:6ImKQVtc"
+
+        object mekanism {
+            const val core = "mekanism:Mekanism:1.19.2-10.3.9.13"
+            const val generators = "mekanism:Mekanism:1.19.2-10.3.9.13:generators"
+        }
+
+        object thermal {
+            const val cofhCore = "maven.modrinth:OWSRM4vD:ssRHxD6e"
+            const val foundation = "maven.modrinth:Xvg6q5Wp:kaIOIjDc"
+            const val expansion = "maven.modrinth:hmD6rrUJ:W9opx6mY"
+        }
     }
 }
 

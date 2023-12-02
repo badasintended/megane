@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id"           : "megane",
-  "includes"     : ["megane-api", "megane-runtime"],
+  "provides"     : ["megane-api", "megane-runtime"],
   "version"      : "${version}",
   "authors"      : ["deirn"],
   "contributors" : [

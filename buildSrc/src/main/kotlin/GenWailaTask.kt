@@ -1,5 +1,4 @@
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
+import com.fasterxml.jackson.databind.json.JsonMapper
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -9,12 +8,12 @@ import org.gradle.kotlin.dsl.creating
 import org.gradle.kotlin.dsl.getValue
 import java.io.File
 
-fun GenMetadata.waila(initializer: String) {
-    val genWailaTask by project.tasks.creating(GenWailaTask::class) {
-        this.initializer.set(initializer)
+fun Metadata.waila(initializer: String) {
+    val genWaila by project.tasks.creating(GenWailaTask::class) {
+        this.initializer.set("${pkg}.${initializer}")
     }
 
-    depend(genWailaTask)
+    task.dependsOn(genWaila)
 }
 
 @Suppress("LeakingThis")
@@ -34,14 +33,14 @@ abstract class GenWailaTask : DefaultTask() {
 
     @TaskAction
     fun generate() {
-        val json = JsonObject().apply {
-            add("megane:${project.name}", JsonObject().apply {
-                addProperty("initializer", initializer.get())
-            })
+        val mapper = JsonMapper()
+        val node = mapper.createObjectNode().apply {
+            putObject("megane:${project.name}").apply {
+                put("initializer", initializer.get())
+            }
         }
 
-        val out = GsonBuilder().setPrettyPrinting().create().toJson(json)
-        output.get().writeText(out)
+        mapper.writeValue(output.get(), node)
     }
 
 }

@@ -1,11 +1,10 @@
-metadata {
-    waila("lol.bai.megane.module.moderndynamics.MeganeModernDynamics")
-    mixin("lol.bai.megane.module.moderndynamics.mixin")
+metadata("lol.bai.megane.module.moderndynamics") {
+    waila("MeganeModernDynamics")
+    mixin()
 
     fmj {
-        mixin(true)
         depends(
-            "moderndynamics" to "*"
+            "moderndynamics" to any
         )
     }
 }

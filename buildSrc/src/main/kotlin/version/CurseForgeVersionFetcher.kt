@@ -1,26 +1,26 @@
 package version
 
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ObjectNode
 import java.net.http.HttpClient
 
 object CurseForgeVersionFetcher : VersionFetcher<CurseForgeVersionFetcher.Mod> {
 
-    override fun getLatestVersionFor(http: HttpClient, project: String, minecraft: String): Mod? {
+    override fun getLatestVersionFor(http: HttpClient, project: String, minecraft: String, loader: String): Mod? {
         val res = http.getString(
-            "https://api.cfwidget.com/${project}",
+            "https://api.cfwidget.com/minecraft/mc-mods/${project}",
             "version" to minecraft,
-            "loader" to "fabric"
+            "loader" to loader
         )
 
-        val json = JsonParser.parseString(res.body())
-        if (!json.isJsonObject) return null
+        val json = ObjectMapper().readTree(res.body())
+        if (!json.isObject) return null
 
-        val obj = json.asJsonObject
+        val obj = json as ObjectNode
         return if (!obj.has("download")) null else Mod(obj)
     }
 
-    class Mod(json: JsonObject) : JsonFacade(json) {
+    class Mod(json: ObjectNode) : JsonFacade(json) {
         val id by int()
         val title by string()
         val download by nested(::Downlaod)
@@ -28,7 +28,7 @@ object CurseForgeVersionFetcher : VersionFetcher<CurseForgeVersionFetcher.Mod> {
         val maven get() = "curse.maven:cursemod-${id}:${download.id}"
     }
 
-    class Downlaod(json: JsonObject) : JsonFacade(json) {
+    class Downlaod(json: ObjectNode) : JsonFacade(json) {
         val id by int()
         val name by string()
 

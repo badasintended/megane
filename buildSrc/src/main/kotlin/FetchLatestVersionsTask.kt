@@ -1,4 +1,5 @@
 import deps.fabric
+import deps.forge
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
@@ -27,10 +28,11 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
         }
 
         class VersionFetcherDsl<T>(
-            val versionFetcher: VersionFetcher<T>
+            val versionFetcher: VersionFetcher<T>,
+            val loader: String
         ) {
             fun fetch(name: KProperty<*>, project: String, mc: String = versions.minecraft, parser: (T) -> String) {
-                val res = versionFetcher.getLatestVersionFor(http, project, mc)
+                val res = versionFetcher.getLatestVersionFor(http, project, mc, loader)
                 if (res != null) {
                     // language=kotlin
                     out("const val ${name.name} = \"${parser(res)}\"")
@@ -40,19 +42,24 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             }
         }
 
-        fun <T> fetcher(versionFetcher: VersionFetcher<T>, action: VersionFetcherDsl<T>.() -> Unit) {
-            action(VersionFetcherDsl(versionFetcher))
+        fun <T> fetcher(versionFetcher: VersionFetcher<T>, loader: String, action: VersionFetcherDsl<T>.() -> Unit) {
+            action(VersionFetcherDsl(versionFetcher, loader))
         }
 
         out("\nobject fabric {")
-        fetcher(ModrinthVersionFetcher) {
-            fetch(fabric::wthit, mrIds.wthit) { "mcp.mobius.waila:wthit:${it.version_number}" }
+        fetcher(ModrinthVersionFetcher, "fabric") {
+            out("\nobject wthit {")
+            fetch(fabric.wthit::api, mrIds.wthit) { "mcp.mobius.waila:wthit-api:${it.version_number}" }
+            fetch(fabric.wthit::runtime, mrIds.wthit) { "mcp.mobius.waila:wthit:${it.version_number}" }
+            out("}\n")
+
+            fetch(fabric::badpackets, mrIds.badpackets) { "lol.bai:badpackets:${it.version_number}" }
             out()
 
             fetch(fabric::ae2, mrIds.ae2) { "appeng:appliedenergistics2-fabric:${it.version_number.removePrefix("fabric-")}" }
             fetch(fabric::alloyForge, mrIds.alloyForge) { it.maven }
             fetch(fabric::architectury, mrIds.architectury) { "dev.architectury:architectury-fabric:${it.version_number.removeSuffix("+fabric")}" }
-            fetch(fabric::create, mrIds.create) { "com.simibubi.create:create-fabric-1.19.2:${it.version_number}" }
+            fetch(fabric::create, mrIds.createFabric) { "com.simibubi.create:create-fabric-1.19.2:${it.version_number}" }
             fetch(fabric::clothConfig, mrIds.clothConfig) { "me.shedaniel.cloth:cloth-config-fabric:${it.version_number.removeSuffix("+fabric")}" }
             fetch(fabric::extraGen, mrIds.extraGen, "1.19") { it.maven }
             fetch(fabric::fabricApi, mrIds.fabricApi) { "net.fabricmc.fabric-api:fabric-api:${it.version_number}" }
@@ -65,10 +72,8 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(fabric::patchouli, mrIds.patchouli) { "vazkii.patchouli:Patchouli:${it.version_number.toUpperCase(Locale.ROOT)}" }
             fetch(fabric::powah, mrIds.powah) { it.maven }
         }
-
         out()
-
-        fetcher(CurseForgeVersionFetcher) {
+        fetcher(CurseForgeVersionFetcher, "fabric") {
             fetch(fabric::dml, cfIds.dml) { it.maven }
             fetch(fabric::indrev, cfIds.indrev) { it.maven }
             fetch(fabric::luggage, cfIds.luggage) { it.maven }
@@ -76,6 +81,35 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(fabric::rebornCore, cfIds.rebornCore) { "RebornCore:RebornCore-1.19:${it.download.fileName.removePrefix("RebornCore-")}" }
             fetch(fabric::techReborn, cfIds.techReborn) { "TechReborn:TechReborn-1.19:${it.download.fileName.removePrefix("TechReborn-")}" }
             fetch(fabric::wirelessNet, cfIds.wirelessNet, "1.19") { it.maven }
+        }
+        out("}")
+
+        out("\nobject forge {")
+        fetcher(ModrinthVersionFetcher, "forge") {
+            out("\nobject wthit {")
+            fetch(forge.wthit::api, mrIds.wthit) { "mcp.mobius.waila:wthit-api:${it.version_number}" }
+            fetch(forge.wthit::runtime, mrIds.wthit) { "mcp.mobius.waila:wthit:${it.version_number}" }
+            out("}\n")
+
+            fetch(forge::badpackets, mrIds.badpackets) { "lol.bai:badpackets:${it.version_number}" }
+            out()
+
+            fetch(forge::ae2, mrIds.ae2) { "appeng:appliedenergistics2-forge:${it.version_number.removePrefix("forge-")}" }
+            fetch(forge::create, mrIds.createForge) { it.maven }
+            fetch(forge::ie, mrIds.ie) { it.maven }
+            fetch(forge::rs, mrIds.rs) { it.maven }
+            fetch(forge::jei, mrIds.jei) { it.maven }
+
+            out("\nobject mekanism {")
+            fetch(forge.mekanism::core, mrIds.mekCore) { "mekanism:Mekanism:1.19.2-${it.version_number}" }
+            fetch(forge.mekanism::generators, mrIds.mekCore) { "mekanism:Mekanism:1.19.2-${it.version_number}:generators" }
+            out("}")
+
+            out("\nobject thermal {")
+            fetch(forge.thermal::cofhCore, mrIds.cofhCore) { it.maven }
+            fetch(forge.thermal::foundation, mrIds.thermalFoundation) { it.maven }
+            fetch(forge.thermal::expansion, mrIds.thermalExpansion) { it.maven }
+            out("}")
         }
         out("}")
 

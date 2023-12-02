@@ -1,6 +1,6 @@
 package version
 
-import com.google.gson.JsonObject
+import com.fasterxml.jackson.databind.node.ObjectNode
 import java.net.URI
 import java.net.URLEncoder
 import java.net.http.HttpClient
@@ -28,31 +28,31 @@ fun HttpRequest.Builder.uri(url: String, vararg queries: Pair<String, String>): 
 
 interface VersionFetcher<T> {
 
-    fun getLatestVersionFor(http: HttpClient, project: String, minecraft: String): T?
+    fun getLatestVersionFor(http: HttpClient, project: String, minecraft: String, loader: String): T?
 
 }
 
 abstract class JsonFacade(
-    private val json: JsonObject
+    private val json: ObjectNode
 ) {
 
     class int {
         operator fun getValue(facade: JsonFacade, property: KProperty<*>): Int {
-            return facade.json[property.name].asInt
+            return facade.json[property.name].asInt()
         }
     }
 
     class string {
         operator fun getValue(facade: JsonFacade, property: KProperty<*>): String {
-            return facade.json[property.name].asString
+            return facade.json[property.name].asText()
         }
     }
 
     class nested<T : JsonFacade>(
-        val factory: (JsonObject) -> T
+        val factory: (ObjectNode) -> T
     ) {
         operator fun getValue(facade: JsonFacade, property: KProperty<*>): T {
-            return factory(facade.json[property.name].asJsonObject)
+            return factory(facade.json[property.name] as ObjectNode)
         }
     }
 

@@ -1,27 +1,42 @@
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import com.fasterxml.jackson.databind.json.JsonMapper
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.creating
+import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.getValue
 import java.io.File
 
-fun GenMetadata.mixin(pkg: String) {
-    val genMixinTask by project.tasks.creating(GenMixinTask::class) {
-        this.pkg.set(pkg)
-        this.pkgDir.set(project.file("src/main/java/" + pkg.replace(".", "/")))
+fun Metadata.mixin(
+    refmapFn: (SourceSet, String) -> Unit = { _, _ -> },
+    configFn: (String) -> Unit = { _ -> }
+) {
+    val sourceSets = project.extensions.getByType<SourceSetContainer>()
+    refmapFn(sourceSets["main"], "megane-${project.name}.refmap.json")
+    configFn("megane-${project.name}.mixins.json")
+
+    val mixinPkg = "${pkg}.mixin"
+    val mixinJson = "megane-${project.name}.mixins.json"
+    val genMixin by project.tasks.creating(GenMixinTask::class) {
+        id.set(this@mixin.id)
+        pkg.set(mixinPkg)
+        pkgDir.set(project.file("src/main/java/" + mixinPkg.replace(".", "/")))
+        output.set(project.file("src/generated/resources/${mixinJson}"))
     }
 
-    depend(genMixinTask)
+    prop[GenMixinTask.JSON] = mixinJson
+    task.dependsOn(genMixin)
 }
 
-@Suppress("LeakingThis")
 abstract class GenMixinTask : DefaultTask() {
+
+    companion object {
+        const val JSON = "mixin.json"
+    }
+
+    @get:Input
+    abstract val id: Property<String>
 
     @get:Input
     abstract val pkg: Property<String>
@@ -34,8 +49,6 @@ abstract class GenMixinTask : DefaultTask() {
 
     init {
         group = "megane"
-
-        output.convention(project.file("src/generated/resources/megane-${project.name}.mixins.json"))
     }
 
     @TaskAction
@@ -43,29 +56,29 @@ abstract class GenMixinTask : DefaultTask() {
         val main = pkgDir.get().listFiles { it -> it.extension == "java" } ?: arrayOf()
         val client = pkgDir.get().resolve("client").listFiles { it -> it.extension == "java" } ?: arrayOf()
 
-        val json = JsonObject().apply {
-            addProperty("required", true)
-            addProperty("minVersion", "0.8")
-            addProperty("package", pkg.get())
-            addProperty("compatibilityLevel", "JAVA_8")
+        val mapper = JsonMapper()
+        val node = mapper.createObjectNode().apply {
+            put("required", true)
+            put("minVersion", "0.8")
+            put("package", pkg.get())
+            put("compatibilityLevel", "JAVA_8")
 
-            add("injectors", JsonObject().apply {
-                addProperty("defaultRequire", 1)
-            })
+            putObject("injectors").apply {
+                put("defaultRequire", 1)
+            }
 
-            add("mixins", JsonArray().apply {
+            putArray("mixins").apply {
                 main.forEach { add(it.nameWithoutExtension) }
-            })
+            }
 
-            add("client", JsonArray().apply {
+            putArray("client").apply {
                 client.forEach { add("client.${it.nameWithoutExtension}") }
-            })
+            }
 
-            addProperty("refmap", "megane-${project.name}.refmap.json")
+            put("refmap", "${id.get()}.refmap.json")
         }
 
-        val out = GsonBuilder().setPrettyPrinting().create().toJson(json)
-        output.get().writeText(out)
+        mapper.writeValue(output.get(), node)
     }
 
 }

@@ -1,12 +1,11 @@
-metadata {
-    waila("lol.bai.megane.module.alloyforgery.MeganeAlloyForgery")
-    mixin("lol.bai.megane.module.alloyforgery.mixin")
+metadata("lol.bai.megane.module.alloyforgery") {
+    waila("MeganeAlloyForgery")
+    mixin()
 
     fmj {
-        mixin(true)
         contributors("StarskyXIII")
         depends(
-            "alloy_forgery" to "*"
+            "alloy_forgery" to any
         )
     }
 }

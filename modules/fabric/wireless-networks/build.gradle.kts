@@ -1,9 +1,9 @@
-metadata {
-    waila("lol.bai.megane.module.wirelessnetworks.MeganeWirelessNetworks")
+metadata("lol.bai.megane.module.wirelessnetworks") {
+    waila("MeganeWirelessNetworks")
 
     fmj {
         depends(
-            "wirelessnetworks" to "*"
+            "wirelessnetworks" to any
         )
     }
 }

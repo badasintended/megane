@@ -1,7 +1,3 @@
-import groovy.json.JsonGenerator
-import groovy.json.JsonSlurper
-import java.nio.charset.StandardCharsets
-
 plugins {
     id("fabric-loom") version "1.3.+"
 }
@@ -13,9 +9,12 @@ allprojects {
         minecraft(deps.minecraft)
         mappings(loom.officialMojangMappings())
 
-        modImplementation(deps.fabricLoader)
-        modImplementation(deps.fabric.wthit)
+        modImplementation(deps.fabric.loader)
         modImplementation(deps.fabric.fabricApi)
+
+        modCompileOnly(deps.fabric.wthit.api)
+        modRuntimeOnly(deps.fabric.wthit.runtime)
+        modRuntimeOnly(deps.fabric.badpackets)
     }
 
     loom {
@@ -47,6 +46,7 @@ repositories {
 
 dependencies {
     modImplementation(deps.fabric.modmenu)
+    modImplementation(deps.fabric.wthit.runtime)
 }
 
 loom {

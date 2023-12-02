@@ -1,30 +1,36 @@
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import com.fasterxml.jackson.databind.json.JsonMapper
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.creating
 import org.gradle.kotlin.dsl.getValue
 import java.io.File
 
-fun GenMetadata.fmj(fn: GenFmjTask.() -> Unit) {
-    val genFmjTask by project.tasks.creating(GenFmjTask::class) {
+fun Metadata.fmj(fn: GenFmjTask.() -> Unit) {
+    val genFmj by project.tasks.creating(GenFmjTask::class) {
+        id.set(this@fmj.id)
+        mixin.set(prop[GenMixinTask.JSON] as? String)
+
         fn(this)
     }
 
-    depend(genFmjTask)
+    task.dependsOn(genFmj)
 }
 
 @Suppress("LeakingThis")
 abstract class GenFmjTask : DefaultTask() {
 
+    @get:Internal
+    val any = "*"
+
     @get:Input
-    abstract val mixin: Property<Boolean>
+    abstract val id: Property<String>
+
+    @get:Input
+    @get:Optional
+    abstract val mixin: Property<String>
 
     @get:Input
     abstract val contributors: ListProperty<String>
@@ -38,53 +44,51 @@ abstract class GenFmjTask : DefaultTask() {
     init {
         group = "megane"
 
-        mixin.convention(false)
         contributors.convention(listOf())
         depends.convention(mapOf())
 
         output.convention(project.file("src/generated/resources/fabric.mod.json"))
     }
 
-    fun mixin(v: Boolean) = mixin.set(v)
     fun contributors(vararg v: String) = contributors.addAll(*v)
     fun depends(vararg v: Pair<String, String>) = v.forEach { depends.put(it.first, it.second) }
 
     @TaskAction
     fun generate() {
-        val json = JsonObject().apply {
-            addProperty("schemaVersion", 1)
-            addProperty("id", "megane-${project.name}")
-            addProperty("version", "${project.version}")
+        val mapper = JsonMapper()
+        val node = mapper.createObjectNode().apply {
+            put("schemaVersion", 1)
+            put("id", id.get())
+            put("version", "${project.version}")
 
-            add("authors", JsonArray().apply {
+            putArray("authors").apply {
                 add("deirn")
-            })
+            }
 
-            if (contributors.get().isNotEmpty()) add("contributors", JsonArray().apply {
+            if (contributors.get().isNotEmpty()) putArray("contributors").apply {
                 contributors.get().forEach(::add)
-            })
+            }
 
-            addProperty("license", "MIT")
-            addProperty("icon", "megane.png")
+            put("license", "MIT")
+            put("icon", "megane.png")
 
-            if (mixin.get()) add("mixins", JsonArray().apply {
-                add("megane-${project.name}.mixins.json")
-            })
+            if (mixin.isPresent) putArray("mixins").apply {
+                add(mixin.get())
+            }
 
-            add("depends", JsonObject().apply {
-                addProperty("wthit", "*")
-                depends.get().forEach(::addProperty)
-            })
+            putObject("depends").apply {
+                put("wthit", "*")
+                depends.get().forEach(::put)
+            }
 
-            add("custom", JsonObject().apply {
-                add("modmenu", JsonObject().apply {
-                    addProperty("parent", "megane")
-                })
-            })
+            putObject("custom").apply {
+                putObject("modmenu").apply {
+                    put("parent", "megane")
+                }
+            }
         }
 
-        val out = GsonBuilder().setPrettyPrinting().create().toJson(json)
-        output.get().writeText(out)
+        mapper.writeValue(output.get(), node)
     }
 
 }

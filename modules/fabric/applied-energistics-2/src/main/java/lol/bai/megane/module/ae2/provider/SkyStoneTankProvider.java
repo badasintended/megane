@@ -17,7 +17,7 @@ public class SkyStoneTankProvider implements IDataProvider<SkyStoneTankBlockEnti
             var variant = storage.variant;
 
             res.add(FluidData.of(FluidData.Unit.DROPLETS, 1)
-                .add(variant.getFluid(), variant.getNbt(), storage.amount / 81.0, storage.getCapacity()));
+                .add(variant.getFluid(), variant.getNbt(), storage.amount, storage.getCapacity()));
         });
     }
 
