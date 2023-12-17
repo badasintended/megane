@@ -3,6 +3,7 @@ metadata("lol.bai.megane.module.create") {
     mixin(mixin::add, mixin::config)
     forgeFml()
     packMcmeta()
+    language()
 
     modsToml {
         depends(

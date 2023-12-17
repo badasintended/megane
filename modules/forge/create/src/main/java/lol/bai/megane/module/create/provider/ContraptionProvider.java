@@ -19,13 +19,13 @@ import mcp.mobius.waila.api.component.ItemComponent;
 import mcp.mobius.waila.api.data.FluidData;
 import mcp.mobius.waila.api.data.ItemData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 public class ContraptionProvider implements IEntityComponentProvider, IDataProvider<AbstractContraptionEntity> {
@@ -44,12 +44,12 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
 
             AbstractContraptionEntity entity = accessor.getEntity();
             var origin = accessor.getEntityHitResult().getLocation();
-            var viewVec = accessor.getViewVector();
-            var remaining = accessor.getMaxCastDistance() - accessor.getCastOrigin().distanceTo(origin);
+            var viewVec = accessor.getRayCastDirection();
+            var remaining = accessor.getRayCastMaxDistance() - accessor.getRayCastOrigin().distanceTo(origin);
             var max = origin.add(viewVec.x * remaining, viewVec.y * remaining, viewVec.z * remaining);
 
-            var localOrigin = entity.toLocalVector(origin, (float) accessor.getPartialFrame());
-            var localMax = entity.toLocalVector(max, (float) accessor.getPartialFrame());
+            var localOrigin = entity.toLocalVector(origin, accessor.getFrameTime());
+            var localMax = entity.toLocalVector(max, accessor.getFrameTime());
 
             lastInfo = BlockGetter.traverseBlocks(localOrigin, localMax, Unit.INSTANCE, (unit, pos) -> {
                 var info = entity.getContraption().getBlocks().get(pos);
@@ -97,7 +97,7 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
         var block = info.state.getBlock();
         tooltip.setLine(WailaConstants.OBJECT_NAME_TAG, formatter.blockName(block.getName().getString()));
         if (config.getBoolean(WailaConstants.CONFIG_SHOW_REGISTRY)) {
-            tooltip.setLine(WailaConstants.REGISTRY_NAME_TAG, formatter.registryName(Registry.BLOCK.getKey(block)));
+            tooltip.setLine(WailaConstants.REGISTRY_NAME_TAG, formatter.registryName(ForgeRegistries.BLOCKS.getKey(block)));
         }
     }
 

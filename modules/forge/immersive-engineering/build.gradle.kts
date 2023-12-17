@@ -1,7 +1,9 @@
 metadata("lol.bai.megane.module.ie") {
     waila("MeganeImmersiveEngineering")
+    mixin(mixin::add, mixin::config)
     forgeFml()
     packMcmeta()
+    language()
 
     modsToml {
         depends(
@@ -11,5 +13,7 @@ metadata("lol.bai.megane.module.ie") {
 }
 
 dependencies {
+    annotationProcessor(deps.mixinAp)
+
     implementation(fg.deobf(deps.forge.ie))
 }

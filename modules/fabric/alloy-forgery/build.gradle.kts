@@ -1,6 +1,7 @@
 metadata("lol.bai.megane.module.alloyforgery") {
     waila("MeganeAlloyForgery")
     mixin()
+    language()
 
     fmj {
         contributors("StarskyXIII")

@@ -1,7 +1,0 @@
-{
-  "config.waila.plugin_megane"                                : "Megane",
-  "config.waila.plugin_megane.create"                         : "Create",
-  "config.waila.plugin_megane.create.schematicannon.gunpowder": "Show Schematicannon Gunpowder Level",
-  "config.waila.plugin_megane.create.contraption"             : "Show Contraption Blocks",
-  "config.waila.plugin_megane.create.contraption_desc"        : "Show the correct blocks for the contraption entity\nOnly limited block tooltips are supported"
-}

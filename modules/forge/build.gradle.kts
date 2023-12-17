@@ -1,3 +1,4 @@
+import groovy.lang.GroovyObject
 import net.minecraftforge.gradle.common.util.RunConfig
 
 plugins {
@@ -11,6 +12,14 @@ allprojects {
 
     minecraft {
         mappings("official", versions.minecraft)
+    }
+
+    mixin {
+        debug.apply {
+            this as GroovyObject
+            setProperty("export", true)
+            setProperty("verbose", true)
+        }
     }
 
     dependencies {
@@ -41,7 +50,6 @@ allprojects {
             expand("version" to project.version)
         }
     }
-
 }
 
 jarJar.enable()
@@ -60,7 +68,6 @@ minecraft {
         create("server", runConfig)
     }
 }
-
 
 afterEvaluate {
     subprojects.forEach { sub ->

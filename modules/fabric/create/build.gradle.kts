@@ -1,6 +1,7 @@
 metadata("lol.bai.megane.module.create") {
     waila("MeganeCreate")
     mixin()
+    language()
 
     fmj {
         depends(

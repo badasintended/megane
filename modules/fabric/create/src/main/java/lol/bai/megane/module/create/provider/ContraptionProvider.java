@@ -44,12 +44,12 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
 
             AbstractContraptionEntity entity = accessor.getEntity();
             var origin = accessor.getEntityHitResult().getLocation();
-            var viewVec = accessor.getViewVector();
-            var remaining = accessor.getMaxCastDistance() - accessor.getCastOrigin().distanceTo(origin);
+            var viewVec = accessor.getRayCastDirection();
+            var remaining = accessor.getRayCastMaxDistance() - accessor.getRayCastOrigin().distanceTo(origin);
             var max = origin.add(viewVec.x * remaining, viewVec.y * remaining, viewVec.z * remaining);
 
-            var localOrigin = entity.toLocalVector(origin, (float) accessor.getPartialFrame());
-            var localMax = entity.toLocalVector(max, (float) accessor.getPartialFrame());
+            var localOrigin = entity.toLocalVector(origin, accessor.getFrameTime());
+            var localMax = entity.toLocalVector(max, accessor.getFrameTime());
 
             lastInfo = BlockGetter.traverseBlocks(localOrigin, localMax, Unit.INSTANCE, (unit, pos) -> {
                 var info = entity.getContraption().getBlocks().get(pos);
