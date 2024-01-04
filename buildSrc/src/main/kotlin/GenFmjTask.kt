@@ -69,7 +69,7 @@ abstract class GenFmjTask : DefaultTask() {
                 contributors.get().forEach(::add)
             }
 
-            put("license", "MIT")
+            put("license", "All Rights Reserved")
             put("icon", "megane.png")
 
             if (mixin.isPresent) putArray("mixins").apply {

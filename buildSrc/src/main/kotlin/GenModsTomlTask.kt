@@ -58,7 +58,7 @@ abstract class GenModsTomlTask : DefaultTask() {
         val node = mapper.createObjectNode().apply {
             put("modLoader", "javafml")
             put("loaderVersion", "[1,)")
-            put("license", "MIT")
+            put("license", "All Rights Reserved")
 
             putArray("mods").addObject().apply {
                 put("modId", id)
