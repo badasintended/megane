@@ -7,6 +7,7 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 
@@ -23,10 +24,9 @@ public class TankProvider<T> implements IDataProvider<T> {
     public void appendData(IDataWriter data, IServerAccessor<T> accessor, IPluginConfig config) {
         data.add(FluidData.class, res -> {
             var tank = tankGetter.apply(accessor.getTarget());
-            var variant = tank.getResource();
 
-            res.add(FluidData.of(FluidData.Unit.DROPLETS, 1)
-                .add(variant.getFluid(), variant.getNbt(), tank.getAmount(), tank.getCapacity()));
+            res.add(FabricFluidData.of(1)
+                .add(tank.getResource(), tank.getAmount(), tank.getCapacity()));
         });
     }
 

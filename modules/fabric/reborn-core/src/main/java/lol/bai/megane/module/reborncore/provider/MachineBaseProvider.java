@@ -5,6 +5,7 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 
 public class MachineBaseProvider implements IDataProvider<MachineBaseBlockEntity> {
@@ -14,8 +15,8 @@ public class MachineBaseProvider implements IDataProvider<MachineBaseBlockEntity
         data.add(FluidData.class, res -> {
             var tank = accessor.getTarget().getTank();
 
-            if (tank != null) res.add(FluidData.of(FluidData.Unit.DROPLETS, 1)
-                .add(tank.getFluid(), tank.getFluidInstance().getTag(), tank.getAmount(), tank.getCapacity()));
+            if (tank != null) res.add(FabricFluidData.of(1)
+                .add(tank.getResource(), tank.getAmount(), tank.getCapacity()));
 
             res.block();
         });

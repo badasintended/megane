@@ -12,6 +12,7 @@ import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
 import mcp.mobius.waila.api.data.ItemData;
 import mcp.mobius.waila.api.data.ProgressData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 
 public class BasinProvider implements IDataProvider<BasinBlockEntity> {
@@ -20,11 +21,11 @@ public class BasinProvider implements IDataProvider<BasinBlockEntity> {
     public void appendData(IDataWriter data, IServerAccessor<BasinBlockEntity> accessor, IPluginConfig config) {
         data.add(FluidData.class, res -> {
             var target = (BasinBlockEntity & AccessBasinBlockEntity) accessor.getTarget();
-            var fluidData = FluidData.of(FluidData.Unit.DROPLETS, 2);
+            var fluidData = FabricFluidData.of(2);
 
             for (SmartFluidTankBehaviour tank : target.getTanks()) {
                 var stack = tank.getPrimaryHandler().getFluid();
-                fluidData.add(stack.getFluid(), stack.getTag(), stack.getAmount(), FluidConstants.BUCKET);
+                fluidData.add(stack.getType(), stack.getAmount(), FluidConstants.BUCKET);
             }
 
             res.add(fluidData);

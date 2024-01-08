@@ -5,6 +5,7 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import owmii.powah.lib.block.ITankHolder;
 import owmii.powah.lib.logistics.fluid.Tank;
@@ -21,7 +22,7 @@ public class TankHolderProvider implements IDataProvider<BlockEntity> {
 
     public static void addTank(IDataWriter.Result<FluidData> res, Tank tank) {
         var size = tank.getTanks();
-        var fluidData = FluidData.of(FluidData.Unit.DROPLETS, size);
+        var fluidData = FabricFluidData.of(size);
 
         for (int i = 0; i < size; i++) {
             var stack = tank.getFluidInTank(i);

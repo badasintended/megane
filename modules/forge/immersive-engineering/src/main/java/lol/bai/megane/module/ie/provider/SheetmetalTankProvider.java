@@ -6,6 +6,7 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
+import mcp.mobius.waila.api.forge.ForgeFluidData;
 
 public class SheetmetalTankProvider implements IDataProvider<SheetmetalTankBlockEntity> {
 
@@ -15,10 +16,8 @@ public class SheetmetalTankProvider implements IDataProvider<SheetmetalTankBlock
             var tank = accessor.getTarget().master();
             if (tank == null) return;
 
-            var stack = tank.tank.getFluid();
-
-            res.add(FluidData.of(FluidData.Unit.MILLIBUCKETS, 1)
-                .add(stack.getFluid(), stack.getTag(), stack.getAmount(), tank.tank.getCapacity()));
+            res.add(ForgeFluidData.of(1)
+                .add(tank.tank.getFluid(), tank.tank.getCapacity()));
         });
     }
 

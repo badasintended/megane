@@ -7,6 +7,7 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 import me.steven.indrev.components.FluidComponent;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,9 +26,9 @@ public class FluidComponentHolderProvider<T> implements IDataProvider<T> {
             var component = getter.apply(accessor.getTarget());
             if (component == null) return;
 
-            var fluidData = FluidData.of(FluidData.Unit.DROPLETS, component.getTankCount());
+            var fluidData = FabricFluidData.of(component.getTankCount());
             for (var part : component.parts) {
-                fluidData.add(part.getResource().getFluid(), part.getResource().getNbt(), part.getAmount(), part.getCapacity());
+                fluidData.add(part.getResource(), part.getAmount(), part.getCapacity());
             }
 
             res.add(fluidData);

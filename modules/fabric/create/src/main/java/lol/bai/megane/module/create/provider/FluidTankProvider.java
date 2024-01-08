@@ -7,6 +7,7 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.FluidData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 
 public class FluidTankProvider implements IDataProvider<FluidTankBlockEntity> {
 
@@ -17,8 +18,8 @@ public class FluidTankProvider implements IDataProvider<FluidTankBlockEntity> {
             var tank = accessor.getTarget().getControllerBE().getTankInventory();
             var stack = tank.getFluid();
 
-            res.add(FluidData.of(FluidData.Unit.DROPLETS, 1)
-                .add(stack.getFluid(), stack.getTag(), creative ? Double.POSITIVE_INFINITY : stack.getAmount(), creative ? Double.POSITIVE_INFINITY : tank.getCapacity()));
+            res.add(FabricFluidData.of(1)
+                .add(stack.getType(), creative ? Double.POSITIVE_INFINITY : stack.getAmount(), creative ? Double.POSITIVE_INFINITY : tank.getCapacity()));
         });
     }
 

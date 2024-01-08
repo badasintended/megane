@@ -15,6 +15,7 @@ import mcp.mobius.waila.api.data.EnergyData;
 import mcp.mobius.waila.api.data.FluidData;
 import mcp.mobius.waila.api.data.ItemData;
 import mcp.mobius.waila.api.data.ProgressData;
+import mcp.mobius.waila.api.fabric.FabricFluidData;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import org.jetbrains.annotations.Nullable;
@@ -62,10 +63,9 @@ public class GeneratorProvider<T extends AbstractGeneratorBlockEntity<T>, F> imp
 
         if (fluidGetter != null) data.add(FluidData.class, res -> {
             var storage = fluidGetter.apply(accessor.getTarget());
-            var resource = storage.getResource();
 
-            res.add(FluidData.of(FluidData.Unit.DROPLETS, 1)
-                .add(resource.getFluid(), resource.getNbt(), storage.getAmount(), storage.getCapacity()));
+            res.add(FabricFluidData.of(1)
+                .add(storage.getResource(), storage.getAmount(), storage.getCapacity()));
         });
 
         data.add(ProgressData.class, res -> {

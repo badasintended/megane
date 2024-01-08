@@ -18,6 +18,7 @@ import mcp.mobius.waila.api.WailaConstants;
 import mcp.mobius.waila.api.component.ItemComponent;
 import mcp.mobius.waila.api.data.FluidData;
 import mcp.mobius.waila.api.data.ItemData;
+import mcp.mobius.waila.api.forge.ForgeFluidData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -152,9 +153,8 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
             if (storage == null) return;
 
             var tank = storage.getFluidHandler();
-            var stack = tank.getFluidInTank(0);
-            res.add(FluidData.of(FluidData.Unit.MILLIBUCKETS, 1)
-                .add(stack.getFluid(), stack.getTag(), stack.getAmount(), tank.getTankCapacity(0)));
+            res.add(ForgeFluidData.of(1)
+                .add(tank.getFluidInTank(0), tank.getTankCapacity(0)));
         });
     }
 
