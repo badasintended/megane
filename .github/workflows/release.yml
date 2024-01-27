@@ -18,7 +18,7 @@ jobs:
         with:
           cache-read-only: ${{ github.repository != 'badasintended/megane' }}
       - run: chmod +x gradlew
-      - run: ./gradlew build publishMods --max-workers=8
+      - run: ./gradlew build publishMods --max-workers=4
         env:
           MOD_VERSION: ${{ steps.vars.outputs.version }}
           CURSEFORGE_API: ${{ secrets.CURSEFORGE_API }}
