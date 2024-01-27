@@ -125,7 +125,7 @@ afterEvaluate {
     }
 
     publishMods {
-        file.set(tasks.jar.get().archiveFile)
+        file.set(tasks.remapJar.get().archiveFile)
     }
 }
 
