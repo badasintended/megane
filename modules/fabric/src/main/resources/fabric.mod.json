@@ -9,7 +9,7 @@
     "qsefthuopq",
     "StarskyXIII"
   ],
-  "license"      : "MIT",
+  "license"      : "All Rights Reserved",
   "icon"         : "megane.png",
   "mixins"       : [
     "megane-runtime.mixins.json"

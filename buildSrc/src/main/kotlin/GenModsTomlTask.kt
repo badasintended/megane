@@ -11,7 +11,7 @@ import org.gradle.kotlin.dsl.creating
 import org.gradle.kotlin.dsl.getValue
 import java.io.File
 
-fun Metadata.modsToml(fn: GenModsTomlTask.() -> Unit) {
+fun Metadata.modsToml(fn: GenModsTomlTask.() -> Unit = {}) {
     val genModsToml by project.tasks.creating(GenModsTomlTask::class) {
         id.set(this@modsToml.id)
 

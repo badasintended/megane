@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.databind.json.JsonMapper
+import com.squareup.javapoet.*
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
@@ -7,14 +8,22 @@ import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.getValue
 import java.io.File
+import javax.lang.model.element.Modifier
 
-fun Metadata.mixin(
-    refmapFn: (SourceSet, String) -> Unit = { _, _ -> },
-    configFn: (String) -> Unit = { _ -> }
-) {
+fun Metadata.mixin(fn: GenMixinConfig.() -> Unit = { }) {
     val sourceSets = project.extensions.getByType<SourceSetContainer>()
-    refmapFn(sourceSets["main"], "megane-${project.name}.refmap.json")
-    configFn("megane-${project.name}.mixins.json")
+    var requireExp: String? = null
+
+    fn(object : GenMixinConfig {
+        override fun callback(refmapFn: (SourceSet, String) -> Unit, configFn: (String) -> Unit) {
+            refmapFn(sourceSets["main"], "megane-${project.name}.refmap.json")
+            configFn("megane-${project.name}.mixins.json")
+        }
+
+        override fun require(vararg expressions: String) {
+            requireExp = expressions.joinToString(separator = " && ")
+        }
+    })
 
     val mixinPkg = "${pkg}.mixin"
     val mixinJson = "megane-${project.name}.mixins.json"
@@ -22,11 +31,28 @@ fun Metadata.mixin(
         id.set(this@mixin.id)
         pkg.set(mixinPkg)
         pkgDir.set(project.file("src/main/java/" + mixinPkg.replace(".", "/")))
-        output.set(project.file("src/generated/resources/${mixinJson}"))
+        mixinJsonOutput.set(project.file("src/generated/resources/${mixinJson}"))
+
+        if (requireExp != null) {
+            mixinPluginOutput.set(project.file("src/generated/java/"))
+            require.set(requireExp)
+        }
     }
 
     prop[GenMixinTask.JSON] = mixinJson
     task.dependsOn(genMixin)
+}
+
+interface GenMixinConfig {
+    fun callback(
+        refmapFn: (SourceSet, String) -> Unit = { _, _ -> },
+        configFn: (String) -> Unit = { _ -> }
+    )
+
+    fun require(vararg expressions: String)
+
+    fun forgeMod(id: String) = "net.minecraftforge.fml.loading.FMLLoader.getLoadingModList().getModFileById(\"${id}\") != null"
+    fun fabricMod(id: String) = "net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(\"${id}\")"
 }
 
 abstract class GenMixinTask : DefaultTask() {
@@ -45,7 +71,15 @@ abstract class GenMixinTask : DefaultTask() {
     abstract val pkgDir: Property<File>
 
     @get:OutputFile
-    abstract val output: Property<File>
+    abstract val mixinJsonOutput: Property<File>
+
+    @get:OutputDirectory
+    @get:Optional
+    abstract val mixinPluginOutput: Property<File>
+
+    @get:Input
+    @get:Optional
+    abstract val require: Property<String>
 
     init {
         group = "megane"
@@ -76,9 +110,71 @@ abstract class GenMixinTask : DefaultTask() {
             }
 
             put("refmap", "${id.get()}.refmap.json")
+
+            if (require.isPresent) {
+                put("plugin", "${pkg.get()}.MixinConfigPlugin")
+            }
         }
 
-        mapper.writeValue(output.get(), node)
+        mapper.writeValue(mixinJsonOutput.get(), node)
+
+        if (require.isPresent) {
+            val classNodeName = ClassName.bestGuess("org.objectweb.asm.tree.ClassNode")
+            val iMixinInfoName = ClassName.bestGuess("org.spongepowered.asm.mixin.extensibility.IMixinInfo")
+
+            val type = TypeSpec.classBuilder("MixinConfigPlugin")
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                .addSuperinterface(ClassName.bestGuess("org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin"))
+                .addMethod(MethodSpec.methodBuilder("shouldApplyMixin")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(TypeName.BOOLEAN)
+                    .addParameter(String::class.java, "targetClassName")
+                    .addParameter(String::class.java, "mixinClassName")
+                    .addStatement("return \$L", require.get())
+                    .build())
+                .addMethod(MethodSpec.methodBuilder("onLoad")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(TypeName.VOID)
+                    .addParameter(String::class.java, "mixinPackage")
+                    .build())
+                .addMethod(MethodSpec.methodBuilder("getRefMapperConfig")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(String::class.java)
+                    .addStatement("return null")
+                    .build())
+                .addMethod(MethodSpec.methodBuilder("acceptTargets")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(TypeName.VOID)
+                    .addParameter(ParameterizedTypeName.get(Set::class.java, String::class.java), "myTargets")
+                    .addParameter(ParameterizedTypeName.get(Set::class.java, String::class.java), "otherTargets")
+                    .build())
+                .addMethod(MethodSpec.methodBuilder("getMixins")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(ParameterizedTypeName.get(List::class.java, String::class.java))
+                    .addStatement("return null")
+                    .build())
+                .addMethod(MethodSpec.methodBuilder("preApply")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(TypeName.VOID)
+                    .addParameter(String::class.java, "targetClassName")
+                    .addParameter(classNodeName, "targetClass")
+                    .addParameter(String::class.java, "mixinClassName")
+                    .addParameter(iMixinInfoName, "mixinInfo")
+                    .build())
+                .addMethod(MethodSpec.methodBuilder("postApply")
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(TypeName.VOID)
+                    .addParameter(String::class.java, "targetClassName")
+                    .addParameter(classNodeName, "targetClass")
+                    .addParameter(String::class.java, "mixinClassName")
+                    .addParameter(iMixinInfoName, "mixinInfo")
+                    .build())
+                .build()
+
+            JavaFile.builder(pkg.get(), type)
+                .build()
+                .writeTo(mixinPluginOutput.get())
+        }
     }
 
 }

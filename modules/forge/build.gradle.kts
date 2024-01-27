@@ -52,8 +52,6 @@ allprojects {
     }
 }
 
-jarJar.enable()
-
 minecraft {
     runs {
         val runConfig = Action<RunConfig> {
@@ -69,21 +67,65 @@ minecraft {
     }
 }
 
-afterEvaluate {
-    subprojects.forEach { sub ->
-        dependencies {
-            compileOnly(sub)
+tasks {
+    val build by getting
 
-            jarJar(project(sub.path)) {
-                isTransitive = false
-                jarJar.ranged(this, "[0, 999999)")
+    val mergeWaila by creating(MergeWailaTask::class) {
+        output.set(layout.buildDirectory.file("mergeWaila/waila_plugins.json"))
+    }
+
+    val jar by getting(Jar::class) {
+        archiveClassifier.set("dev")
+    }
+
+    val fatJar by creating(Jar::class) {
+        dependsOn(jar)
+        dependsOn(mergeWaila)
+        build.dependsOn(this)
+
+        archiveClassifier.set("")
+
+        from(mergeWaila.output)
+        from(zipTree(jar.archiveFile))
+
+        subprojects.forEach { sub ->
+            val subJar = sub.tasks.getByName<Jar>("jar")
+            dependsOn(subJar)
+
+            from(zipTree(subJar.archiveFile)) {
+                include("**/*.class")
+                exclude("**/Main.class")
+
+                include("*.mixins.json")
+                include("*.refmap.json")
+                include("assets/**")
             }
         }
+    }
 
-        sourceSets {
-            main {
-                runtimeClasspath += sub.sourceSets.main.get().runtimeClasspath
+    subprojects {
+        afterEvaluate {
+            val mixinJson = metadata?.let { it.prop[GenMixinTask.JSON] as? String }
+
+            if (mixinJson != null) {
+                val otherJson = fatJar.manifest.attributes["MixinConfigs"]?.toString()
+
+                fatJar.manifest.attributes(
+                    "MixinConfigs" to if (otherJson == null) mixinJson else "${otherJson},${mixinJson}"
+                )
             }
+
+            val genWaila by tasks.getting(GenWailaTask::class)
+            mergeWaila.dependsOn(genWaila)
+            mergeWaila.input.add(genWaila.output)
+        }
+    }
+}
+
+subprojects.forEach { sub ->
+    sourceSets {
+        main {
+            runtimeClasspath += sub.sourceSets.main.get().runtimeClasspath
         }
     }
 }

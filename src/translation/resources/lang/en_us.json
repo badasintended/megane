@@ -23,8 +23,9 @@
       "config.waila.plugin_megane.create.contraption_desc"        : "Show the correct blocks for the contraption entity\nOnly limited block tooltips are supported"
     },
     "immersive-engineering": {
-      "config.waila.plugin_megane.ie"                 : "Immersive Engineering",
-      "config.waila.plugin_megane.ie.metal_press_mold": "Show Metal Press Mold"
+      "config.waila.plugin_megane.ie"                  : "Immersive Engineering",
+      "config.waila.plugin_megane.ie.metal_press_mold" : "Show Metal Press Mold",
+      "config.waila.plugin_megane.ie.assembler_recipes": "Show Assembler Recipes"
     }
   }
 }

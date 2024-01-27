@@ -2,7 +2,7 @@ modLoader = "javafml"
 loaderVersion = "[1,)"
 issueTrackerURL = "https://github.com/badasintended/megane/issues"
 displayURL = "https://github.com/badasintended/megane"
-license = "MIT"
+license = "All Rights Reserved"
 
 [[mods]]
 modId = "megane"
@@ -10,7 +10,7 @@ version = "${version}"
 displayName = "Megane"
 description = "WTHIT plugin that shows more tooltip than you'll ever want."
 authors = "deirn"
-logoFile = "megane.jpg"
+logoFile = "megane.png"
 
 [[dependencies.megane]]
 modId = "wthit"

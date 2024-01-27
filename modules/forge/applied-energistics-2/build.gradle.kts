@@ -1,14 +1,16 @@
 metadata("lol.bai.megane.module.ae2") {
-    waila("MeganeAppliedEnergistics2")
-    mixin(mixin::add, mixin::config)
+    waila("MeganeAppliedEnergistics2") {
+        required("ae2")
+    }
+
+    mixin {
+        callback(mixin::add, mixin::config)
+        require(forgeMod("ae2"))
+    }
+
     forgeFml()
     packMcmeta()
-
-    modsToml {
-        depends(
-            "ae2" to any
-        )
-    }
+    modsToml()
 }
 
 repositories {

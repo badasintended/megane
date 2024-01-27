@@ -1,15 +1,17 @@
 metadata("lol.bai.megane.module.create") {
-    waila("MeganeCreate")
-    mixin(mixin::add, mixin::config)
+    waila("MeganeCreate") {
+        required("create")
+    }
+
+    mixin {
+        callback(mixin::add, mixin::config)
+        require(forgeMod("create"))
+    }
+
     forgeFml()
     packMcmeta()
     language()
-
-    modsToml {
-        depends(
-            "create" to any
-        )
-    }
+    modsToml()
 }
 
 dependencies {
