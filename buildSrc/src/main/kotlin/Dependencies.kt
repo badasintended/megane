@@ -15,8 +15,8 @@ object deps {
         const val loader = "net.fabricmc:fabric-loader:0.14.24"
 
         object wthit {
-            const val api = "mcp.mobius.waila:wthit-api:fabric-5.999-local"
-            const val runtime = "mcp.mobius.waila:wthit:fabric-5.999-local"
+            const val api = "mcp.mobius.waila:wthit-api:fabric-5.20.0"
+            const val runtime = "mcp.mobius.waila:wthit:fabric-5.20.0"
         }
 
         const val badpackets = "lol.bai:badpackets:fabric-0.2.3"
@@ -57,8 +57,8 @@ object deps {
         const val forge = "net.minecraftforge:forge:${versions.minecraft}-43.3.5"
 
         object wthit {
-            const val api = "mcp.mobius.waila:wthit-api:forge-5.999-local"
-            const val runtime = "mcp.mobius.waila:wthit:forge-5.999-local"
+            const val api = "mcp.mobius.waila:wthit-api:forge-5.20.0"
+            const val runtime = "mcp.mobius.waila:wthit:forge-5.20.0"
         }
 
         const val badpackets = "lol.bai:badpackets:forge-0.2.3"
