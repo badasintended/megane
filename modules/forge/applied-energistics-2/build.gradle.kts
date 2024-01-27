@@ -10,7 +10,10 @@ metadata("lol.bai.megane.module.ae2") {
 
     forgeFml()
     packMcmeta()
-    modsToml()
+
+    modsToml {
+        depends("ae2" to any)
+    }
 }
 
 repositories {

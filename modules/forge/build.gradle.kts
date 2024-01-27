@@ -1,9 +1,48 @@
 import groovy.lang.GroovyObject
+import me.modmuss50.mpp.ReleaseType
 import net.minecraftforge.gradle.common.util.RunConfig
 
 plugins {
     id("net.minecraftforge.gradle") version "[6.0.16, 6.2)"
     id("org.spongepowered.mixin") version "0.7.+"
+
+    id("me.modmuss50.mod-publish-plugin")
+}
+
+publishMods {
+    changelog.set("https://github.com/badasintended/megane/releases/tag/${project.version}")
+    type.set(ReleaseType.STABLE)
+    modLoaders.add("forge")
+
+    val curseForgeApi = providers.environmentVariable("CURSEFORGE_API")
+    val modrinthToken = providers.environmentVariable("MODRINTH_TOKEN")
+    dryRun.set(!(curseForgeApi.isPresent && modrinthToken.isPresent))
+
+    curseforge {
+        projectId.set("965089")
+        accessToken.set(curseForgeApi)
+        minecraftVersions.add("1.19.2")
+
+        requires(cfSlugs.wthitForge)
+        optional(
+            cfSlugs.ae2,
+            cfSlugs.createForge,
+            cfSlugs.ie
+        )
+    }
+
+    modrinth {
+        projectId.set("pcvCiEEP")
+        accessToken.set(modrinthToken)
+        minecraftVersions.add("1.19.2")
+
+        requires(mrIds.wthit)
+        optional(
+            mrIds.ae2,
+            mrIds.createForge,
+            mrIds.ie
+        )
+    }
 }
 
 allprojects {
@@ -120,6 +159,10 @@ tasks {
             mergeWaila.input.add(genWaila.output)
         }
     }
+
+    project.publishMods {
+        file.set(fatJar.archiveFile)
+    }
 }
 
 subprojects.forEach { sub ->
@@ -141,5 +184,11 @@ subprojects.forEach { sub ->
             val mixin = metadata?.let { it.prop[GenMixinTask.JSON] as? String }
             if (mixin != null) args("--mixin.config", mixin)
         }
+    }
+}
+
+subprojects {
+    base {
+        archivesName.set("megane-forge-${project.name}")
     }
 }

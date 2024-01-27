@@ -64,7 +64,7 @@ abstract class GenModsTomlTask : DefaultTask() {
                 put("modId", id)
                 put("version", "${project.version}")
                 put("authors", "deirn")
-                put("logoFile", "megane.jpg")
+                put("logoFile", "megane.png")
 
                 if (contributors.get().isNotEmpty()) {
                     put("credits", contributors.get().joinToString(separator = ", "))

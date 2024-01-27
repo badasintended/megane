@@ -11,7 +11,10 @@ metadata("lol.bai.megane.module.ie") {
     forgeFml()
     packMcmeta()
     language()
-    modsToml()
+
+    modsToml{
+        depends("immersiveengineering" to any)
+    }
 }
 
 dependencies {

@@ -11,7 +11,10 @@ metadata("lol.bai.megane.module.create") {
     forgeFml()
     packMcmeta()
     language()
-    modsToml()
+
+    modsToml{
+        depends("create" to any)
+    }
 }
 
 dependencies {

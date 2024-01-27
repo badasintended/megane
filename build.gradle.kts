@@ -3,6 +3,7 @@ import java.nio.charset.StandardCharsets
 plugins {
     java
     id("lol.bai.explosion") version "0.1.0" apply false
+    id("me.modmuss50.mod-publish-plugin") version "0.4.5" apply false
 }
 
 group = "lol.bai.megane"

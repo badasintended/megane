@@ -14,12 +14,15 @@ object cfIds {
 }
 
 object cfSlugs {
-    val wthit = "wthit"
+    val wthitFabric = "wthit"
+    val wthitForge = "wthit-forge"
     val ae2 = "applied-energistics-2"
     val alloyForge = "alloy-forgery"
     val createFabric = "create-fabric"
+    val createForge = "create"
     val dml = "deep-mob-learning-refabricated"
     val extraGen = "extra-generators"
+    val ie = "immersive-engineering"
     val indrev = "industrial-revolution"
     val kibe = "kibe"
     val lba = "libblockattributes"
@@ -39,8 +42,8 @@ object mrIds {
     val ae2 = "XxWD5pD3"
     val alloyForge = "jhl28YkY"
     val architectury = "lhGA9TYQ"
-    val createForge = "LNytGWDc"
     val createFabric = "Xbc0uyRg"
+    val createForge = "LNytGWDc"
     val dml = "osuPHzT3"
     val clothConfig = "9s6osm5g"
     val cofhCore = "OWSRM4vD"

@@ -275,3 +275,7 @@ ij_json_wrap_long_lines = false
 
 [{*.kt,*.kts}]
 ij_continuation_indent_size = 4
+
+[{*.yml,*.yaml}]
+indent_size = 2
+tab_width = 2
