@@ -15,6 +15,6 @@ logoFile = "megane.png"
 [[dependencies.megane]]
 modId = "wthit"
 mandatory = true
-versionRange = "[5.19,)"
+versionRange = "[5.20,)"
 ordering = "NONE"
 side = "BOTH"

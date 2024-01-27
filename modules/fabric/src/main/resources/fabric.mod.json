@@ -16,7 +16,7 @@
   ],
   "depends"      : {
     "minecraft" : ">=1.19",
-    "wthit"     : ">=5.17"
+    "wthit"     : ">=5.20"
   },
   "custom"       : {
     "waila:plugins": {
