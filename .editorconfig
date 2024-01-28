@@ -279,3 +279,12 @@ ij_continuation_indent_size = 4
 [{*.yml,*.yaml}]
 indent_size = 2
 tab_width = 2
+
+[*.html]
+indent_size = 2
+tab_width = 2
+ij_continuation_indent_size = 2
+ij_html_align_attributes = true
+
+[*.md]
+ij_markdown_min_lines_around_header = 0

@@ -2,7 +2,7 @@
 [![Fabric Downloads](http://cf.way2muchnoise.eu/full_408118.svg?badge_style=for_the_badge)](https://www.curseforge.com/minecraft/mc-mods/megane)
 [![Discord](https://img.shields.io/discord/711835441376264242?color=5865F2&logo=discord&logoColor=FFFFFF&style=for-the-badge)](https://bai.lol/discord)
 
-Megane is a [WTHIT](https://www.curseforge.com/minecraft/mc-mods/wthit) plugin that adds compatibility to other mods.
+Megane is a collection of [WTHIT](https://www.curseforge.com/minecraft/mc-mods/wthit) plugins that adds compatibility to other mods.
 
 ## Culture
 Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses
