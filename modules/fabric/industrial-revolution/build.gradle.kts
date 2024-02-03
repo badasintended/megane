@@ -14,6 +14,7 @@ repositories {
     blamejared()
     buildcraft()
     cafeteria()
+    draylar()
     jitpack()
 }
 
@@ -25,6 +26,5 @@ dependencies {
     modImplementation(deps.fabric.patchouli)
     modImplementation(deps.fabric.magna)
     modImplementation(deps.fabric.stepAttr)
-    modImplementation(deps.fabric.fakePlayer)
     modImplementation(deps.fabric.noIndium)
 }

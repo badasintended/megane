@@ -17,8 +17,8 @@ public class MillstoneProvider implements IDataProvider<MillstoneBlockEntity> {
             var target = accessor.getTarget();
 
             res.add(ItemData.of(config)
-                .getter(target.inputInv::getStackInSlot, target.inputInv.getSlots())
-                .getter(target.outputInv::getStackInSlot, target.outputInv.getSlots()));
+                .getter(target.inputInv::getStackInSlot, target.inputInv.getSlotCount())
+                .getter(target.outputInv::getStackInSlot, target.outputInv.getSlotCount()));
         });
 
         data.add(ProgressData.class, res -> {
@@ -28,13 +28,13 @@ public class MillstoneProvider implements IDataProvider<MillstoneBlockEntity> {
 
             var progressData = ProgressData.ratio(1 - ((float) target.timer / recipe.getProcessingDuration()));
 
-            progressData.ensureInputSpace(target.inputInv.getSlots());
-            for (int i = 0; i < target.inputInv.getSlots(); i++) {
+            progressData.ensureInputSpace(target.inputInv.getSlotCount());
+            for (int i = 0; i < target.inputInv.getSlotCount(); i++) {
                 progressData.input(target.inputInv.getStackInSlot(i));
             }
 
-            progressData.ensureOutputSpace(target.outputInv.getSlots());
-            for (int i = 0; i < target.outputInv.getSlots(); i++) {
+            progressData.ensureOutputSpace(target.outputInv.getSlotCount());
+            for (int i = 0; i < target.outputInv.getSlotCount(); i++) {
                 progressData.output(target.outputInv.getStackInSlot(i));
             }
 

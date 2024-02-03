@@ -57,8 +57,8 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
                 if (info == null) return null;
 
                 var world = accessor.getWorld();
-                var shape = info.state.getShape(world, pos);
-                var hit = world.clipWithInteractionOverride(localOrigin, localMax, pos.immutable(), shape, info.state);
+                var shape = info.state().getShape(world, pos);
+                var hit = world.clipWithInteractionOverride(localOrigin, localMax, pos.immutable(), shape, info.state());
                 if (hit == null) return null;
 
                 return info;
@@ -73,7 +73,7 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
         var info = getInfo(accessor);
         if (info == null) return;
 
-        ctx.addImmediate(new Context(info.pos));
+        ctx.addImmediate(new Context(info.pos()));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
         var info = getInfo(accessor);
         if (info == null) return null;
 
-        return new ItemComponent(info.state.getBlock());
+        return new ItemComponent(info.state().getBlock());
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
         if (info == null) return;
 
         var formatter = IWailaConfig.get().getFormatter();
-        var block = info.state.getBlock();
+        var block = info.state().getBlock();
         tooltip.setLine(WailaConstants.OBJECT_NAME_TAG, formatter.blockName(block.getName().getString()));
         if (config.getBoolean(WailaConstants.CONFIG_SHOW_REGISTRY)) {
             tooltip.setLine(WailaConstants.REGISTRY_NAME_TAG, formatter.registryName(ForgeRegistries.BLOCKS.getKey(block)));
@@ -111,7 +111,7 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
         var ctx = data.get(Context.class);
         if (ctx == null) return;
 
-        if (!ctx.localPos.equals(info.pos)) {
+        if (!ctx.localPos.equals(info.pos())) {
             data.invalidate(ItemData.class);
             data.invalidate(FluidData.class);
         }
@@ -125,7 +125,7 @@ public class ContraptionProvider implements IEntityComponentProvider, IDataProvi
         if (info == null) return;
 
         tooltip.setLine(WailaConstants.MOD_NAME_TAG,
-            IWailaConfig.get().getFormatter().modName(IModInfo.get(info.state.getBlock()).getName()));
+            IWailaConfig.get().getFormatter().modName(IModInfo.get(info.state().getBlock()).getName()));
     }
 
     @Override

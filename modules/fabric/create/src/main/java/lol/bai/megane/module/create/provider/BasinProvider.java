@@ -36,7 +36,7 @@ public class BasinProvider implements IDataProvider<BasinBlockEntity> {
             var itemData = ItemData.of(config);
 
             for (SmartInventory inv : target.getInvs()) {
-                itemData.getter(inv::getStackInSlot, inv.getSlots());
+                itemData.getter(inv::getStackInSlot, inv.getSlotCount());
             }
 
             res.add(itemData);
@@ -53,7 +53,7 @@ public class BasinProvider implements IDataProvider<BasinBlockEntity> {
             var progressData = ProgressData.ratio(1 - ((float) mixer.processingTicks / recipeTicks));
 
             for (SmartInventory inv : target.getInvs()) {
-                for (int i = 0; i < inv.getSlots(); i++) {
+                for (int i = 0; i < inv.getSlotCount(); i++) {
                     progressData.input(inv.getStackInSlot(i));
                 }
             }

@@ -23,7 +23,7 @@ public class MechanicalMixerProvider implements IDataProvider<MechanicalMixerBlo
             var basin = target.megane_getBasin();
 
             if (basin.isPresent()) for (SmartInventory inv : basin.get().getInvs()) {
-                for (int i = 0; i < inv.getSlots(); i++) {
+                for (int i = 0; i < inv.getSlotCount(); i++) {
                     progressData.input(inv.getStackInSlot(i));
                 }
             }

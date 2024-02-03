@@ -15,7 +15,7 @@ public class SchematicTableProvider implements IDataProvider<SchematicTableBlock
             var inventory = accessor.getTarget().inventory;
 
             res.add(ItemData.of(config)
-                .getter(inventory::getStackInSlot, inventory.getSlots()));
+                .getter(inventory::getStackInSlot, inventory.getSlotCount()));
         });
     }
 

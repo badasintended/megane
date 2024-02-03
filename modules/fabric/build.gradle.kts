@@ -1,7 +1,7 @@
 import me.modmuss50.mpp.ReleaseType
 
 plugins {
-    id("fabric-loom") version "1.3.+"
+    id("fabric-loom") version "1.5.+"
 
     id("me.modmuss50.mod-publish-plugin")
 }
@@ -26,10 +26,10 @@ publishMods {
             cfSlugs.ae2,
             cfSlugs.createFabric,
             cfSlugs.dml,
-            cfSlugs.extraGen,
+//            cfSlugs.extraGen,
             cfSlugs.indrev,
             cfSlugs.kibe,
-            cfSlugs.luggage,
+//            cfSlugs.luggage,
             cfSlugs.modernDynamics,
             cfSlugs.powah,
             cfSlugs.rebornCore,
@@ -49,7 +49,7 @@ publishMods {
             mrIds.ae2,
             mrIds.createFabric,
             mrIds.dml,
-            mrIds.extraGen,
+//            mrIds.extraGen,
             mrIds.kibe,
             mrIds.modernDynamics,
             mrIds.powah,
@@ -132,5 +132,21 @@ afterEvaluate {
 subprojects {
     base {
         archivesName.set("megane-fabric-${project.name}")
+    }
+
+    configurations {
+        create("decompile")
+    }
+
+    loom {
+        addRemapConfiguration("modDecompile") {
+            targetConfigurationName.set("decompile")
+            onCompileClasspath.set(true)
+            onRuntimeClasspath.set(true)
+        }
+    }
+
+    tasks {
+        create<DecompileDependenciesTask>("decompileDependencies")
     }
 }

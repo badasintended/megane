@@ -27,7 +27,7 @@ public class SchematicannonProvider implements IBlockComponentProvider, IDataPro
             var inventory = accessor.getTarget().inventory;
 
             res.add(ItemData.of(config)
-                .getter(inventory::getStackInSlot, inventory.getSlots()));
+                .getter(inventory::getStackInSlot, inventory.getSlotCount()));
         });
 
         data.add(ProgressData.class, res -> {
@@ -35,8 +35,8 @@ public class SchematicannonProvider implements IBlockComponentProvider, IDataPro
             var inventory = target.inventory;
             var progressData = ProgressData.ratio((float) target.blocksPlaced / target.blocksToPlace);
 
-            progressData.ensureInputSpace(inventory.getSlots());
-            for (int i = 0; i < inventory.getSlots(); i++) {
+            progressData.ensureInputSpace(inventory.getSlotCount());
+            for (int i = 0; i < inventory.getSlotCount(); i++) {
                 progressData.input(inventory.getStackInSlot(i));
             }
 

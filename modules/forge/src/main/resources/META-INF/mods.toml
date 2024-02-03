@@ -8,13 +8,13 @@ license = "All Rights Reserved"
 modId = "megane"
 version = "${version}"
 displayName = "Megane"
-description = "WTHIT plugin that shows more tooltip than you'll ever want."
+description = "A collection of WTHIT plugins that adds compatibility to other mods."
 authors = "deirn"
 logoFile = "megane.png"
 
 [[dependencies.megane]]
 modId = "wthit"
 mandatory = true
-versionRange = "[5.20,)"
+versionRange = "[8.6,)"
 ordering = "NONE"
 side = "BOTH"

@@ -4,80 +4,78 @@ import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.kotlin.dsl.exclude
 
 object versions {
-    const val minecraft = "1.19.2"
+    const val minecraft = "1.20.1"
 }
 
 object deps {
     const val minecraft = "com.mojang:minecraft:${versions.minecraft}"
-    const val mixinAp = "org.spongepowered:mixin:0.8.5:processor"
+    const val mixinAp = "net.fabricmc:sponge-mixin:0.12.5+mixin.0.8.5"
 
     object fabric {
-        const val loader = "net.fabricmc:fabric-loader:0.14.24"
+        const val loader = "net.fabricmc:fabric-loader:0.15.6"
 
         object wthit {
-            const val api = "mcp.mobius.waila:wthit-api:fabric-5.20.0"
-            const val runtime = "mcp.mobius.waila:wthit:fabric-5.20.0"
+            const val api = "mcp.mobius.waila:wthit-api:fabric-8.6.0"
+            const val runtime = "mcp.mobius.waila:wthit:fabric-8.6.0"
         }
 
-        const val badpackets = "lol.bai:badpackets:fabric-0.2.3"
+        const val badpackets = "lol.bai:badpackets:fabric-0.4.3"
 
-        const val ae2 = "appeng:appliedenergistics2-fabric:12.9.8"
-        const val alloyForge = "maven.modrinth:jhl28YkY:kZQUifqT"
-        const val architectury = "dev.architectury:architectury-fabric:6.5.85"
-        const val create = "com.simibubi.create:create-fabric-1.19.2:0.5.1-c-build.1160+mc1.19.2"
-        const val clothConfig = "me.shedaniel.cloth:cloth-config-fabric:8.3.103"
+        const val ae2 = "appeng:appliedenergistics2-fabric:15.0.20"
+        const val alloyForge = "maven.modrinth:jhl28YkY:j3GoCoCc"
+        const val architectury = "dev.architectury:architectury-fabric:9.1.12"
+        const val create = "com.simibubi.create:create-fabric-1.20.1:0.5.1-d-build.1161+mc1.20.1"
+        const val clothConfig = "me.shedaniel.cloth:cloth-config-fabric:11.1.118"
         const val extraGen = "maven.modrinth:VXtwLg17:2p7qWneI"
-        const val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.76.1+1.19.2"
-        const val flk = "net.fabricmc:fabric-language-kotlin:1.10.15+kotlin.1.9.21"
-        const val kibe = "maven.modrinth:OvlwmUdC:6GPdTrdx"
-        const val modernDynamics = "maven.modrinth:fMpvLrnF:uSorcoNB"
-        const val modmenu = "com.terraformersmc:modmenu:4.2.0-beta.2"
-        const val noIndium = "me.luligabi:NoIndium:1.1.0+1.19"
-        const val owo = "io.wispforest:owo-lib:0.9.3+1.19"
-        const val patchouli = "vazkii.patchouli:Patchouli:1.19.2-77-FABRIC"
-        const val powah = "maven.modrinth:KZO4S4DO:uK9hCoDv"
+        const val fabricApi = "net.fabricmc.fabric-api:fabric-api:0.91.0+1.20.1"
+        const val flk = "net.fabricmc:fabric-language-kotlin:1.10.17+kotlin.1.9.22"
+        const val kibe = "maven.modrinth:OvlwmUdC:fhSgEP7Z"
+        const val modernDynamics = "maven.modrinth:fMpvLrnF:dLMmaJID"
+        const val modmenu = "com.terraformersmc:modmenu:7.2.2"
+        const val noIndium = "me.luligabi:NoIndium:1.1.0+1.20"
+        const val owo = "io.wispforest:owo-lib:0.11.2+1.20"
+        const val patchouli = "vazkii.patchouli:Patchouli:1.20.1-84-FABRIC"
+        const val powah = "maven.modrinth:KZO4S4DO:5r9RUzX9"
 
-        const val dml = "curse.maven:cursemod-398614:4437241"
-        const val indrev = "curse.maven:cursemod-391708:4020957"
+        const val dml = "curse.maven:cursemod-398614:5032813"
+        const val indrev = "curse.maven:cursemod-391708:4742613"
         const val luggage = "curse.maven:cursemod-594709:4284469"
-        const val pal = "io.github.ladysnake:PlayerAbilityLib:1.6.0"
-        const val rebornCore = "RebornCore:RebornCore-1.19:5.4.0"
-        const val techReborn = "TechReborn:TechReborn-1.19:5.4.0"
-        const val wirelessNet = "curse.maven:cursemod-461316:3876132"
+        const val pal = "io.github.ladysnake:PlayerAbilityLib:1.8.0"
+        const val rebornCore = "RebornCore:RebornCore-1.20:5.8.7"
+        const val techReborn = "TechReborn:TechReborn-1.20:5.8.7"
+        const val wirelessNet = "curse.maven:cursemod-461316:4610810"
 
         const val trEnergy = "teamreborn:energy:2.2.0"
-        const val libgui = "io.github.cottonmc:LibGui:6.0.1+1.19"
-        const val magna = "com.github.GabrielOlvH:magna:0.5.2"
-        const val stepAttr = "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-        const val fakePlayer = "dev.cafeteria:fake-player-api:0.5.0"
-        const val mixinExtras = "io.github.llamalad7:mixinextras-fabric:0.2.1"
+        const val libgui = "io.github.cottonmc:LibGui:8.1.1+1.20.1"
+        const val magna = "dev.draylar:magna:1.10.0+1.20.1"
+        const val stepAttr = "com.github.emilyploszaj:step-height-entity-attribute:v1.2.0"
     }
 
     object forge {
-        const val forge = "net.minecraftforge:forge:${versions.minecraft}-43.3.5"
+        const val forge = "net.minecraftforge:forge:${versions.minecraft}-47.2.20"
 
         object wthit {
-            const val api = "mcp.mobius.waila:wthit-api:forge-5.20.0"
-            const val runtime = "mcp.mobius.waila:wthit:forge-5.20.0"
+            const val api = "mcp.mobius.waila:wthit-api:forge-8.6.0"
+            const val runtime = "mcp.mobius.waila:wthit:forge-8.6.0"
         }
 
-        const val badpackets = "lol.bai:badpackets:forge-0.2.3"
+        const val badpackets = "lol.bai:badpackets:forge-0.4.3"
 
-        const val ae2 = "appeng:appliedenergistics2-forge:12.9.8"
-        const val create = "maven.modrinth:LNytGWDc:Vfzp1Xaz"
-        const val ie = "maven.modrinth:tIm2nV03:7Mm7llLR"
-        const val rs = "maven.modrinth:KDvYkUg3:q3LiZwUb"
-        const val jei = "maven.modrinth:u6dRKJwZ:6ImKQVtc"
+        const val ae2 = "appeng:appliedenergistics2-forge:15.0.20"
+        const val create = "maven.modrinth:LNytGWDc:HNYrbfZZ"
+        const val ie = "maven.modrinth:tIm2nV03:uqGFpLXw"
+        const val rs = "maven.modrinth:KDvYkUg3:ZITLFjjf"
+        const val jei = "maven.modrinth:u6dRKJwZ:HU1FUi8s"
 
         object mekanism {
-            const val core = "mekanism:Mekanism:1.19.2-10.3.9.13"
-            const val generators = "mekanism:Mekanism:1.19.2-10.3.9.13:generators"
+            const val core = "mekanism:Mekanism:1.20.1-10.4.5.19"
+            const val generators = "mekanism:Mekanism:1.20.1-10.4.5.19:generators"
         }
 
         object thermal {
-            const val cofhCore = "maven.modrinth:OWSRM4vD:ssRHxD6e"
-            const val foundation = "maven.modrinth:Xvg6q5Wp:kaIOIjDc"
-            const val expansion = "maven.modrinth:hmD6rrUJ:W9opx6mY"
+            const val cofhCore = "maven.modrinth:OWSRM4vD:C1iOYlLu"
+            const val foundation = "maven.modrinth:Xvg6q5Wp:dUiPDb6I"
+            const val expansion = "maven.modrinth:hmD6rrUJ:kg4h60cQ"
         }
     }
 }

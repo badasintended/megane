@@ -28,6 +28,5 @@ dependencies {
         exclude("me.luligabi:NoIndium")
     }
 
-    modImplementation(deps.fabric.mixinExtras)
     modImplementation(deps.fabric.noIndium)
 }

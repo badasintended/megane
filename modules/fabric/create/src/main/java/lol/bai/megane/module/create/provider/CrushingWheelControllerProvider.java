@@ -21,8 +21,8 @@ public class CrushingWheelControllerProvider implements IDataProvider<CrushingWh
 
             var progressData = ProgressData.ratio(1 - (inventory.remainingTime / recipeDuration));
 
-            progressData.ensureInputSpace(inventory.getSlots());
-            for (int i = 0; i < inventory.getSlots(); i++) {
+            progressData.ensureInputSpace(inventory.getSlotCount());
+            for (int i = 0; i < inventory.getSlotCount(); i++) {
                 progressData.input(inventory.getStackInSlot(i));
             }
 

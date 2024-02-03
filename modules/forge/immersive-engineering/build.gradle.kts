@@ -12,7 +12,7 @@ metadata("lol.bai.megane.module.ie") {
     packMcmeta()
     language()
 
-    modsToml{
+    modsToml {
         depends("immersiveengineering" to any)
     }
 }
@@ -21,4 +21,5 @@ dependencies {
     annotationProcessor(deps.mixinAp)
 
     implementation(fg.deobf(deps.forge.ie))
+    decompile(fg.deobf(deps.forge.ie))
 }

@@ -2,6 +2,7 @@ import org.gradle.kotlin.dsl.maven
 import org.gradle.api.artifacts.dsl.RepositoryHandler as Repo
 
 fun Repo.badasintended() = maven("https://maven.bai.lol")
+fun Repo.fabric() = maven("https://maven.fabricmc.net")
 fun Repo.bbkr() = maven("https://server.bbkr.space/artifactory/libs-release")
 fun Repo.shedaniel() = maven("https://maven.shedaniel.me/")
 fun Repo.modmaven() = maven("https://modmaven.dev")
@@ -15,6 +16,7 @@ fun Repo.wispforest() = maven("https://maven.wispforest.io")
 fun Repo.devos() = maven("https://mvn.devos.one/snapshots")
 fun Repo.tterrag() = maven("https://maven.tterrag.com")
 fun Repo.terraformers() = maven("https://maven.terraformersmc.com/releases")
+fun Repo.draylar() = maven("https://maven.draylar.dev/releases")
 
 fun Repo.cursemaven() = maven("https://cursemaven.com") {
     content {

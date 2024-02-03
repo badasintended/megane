@@ -15,7 +15,7 @@ public class ItemVaultProvider implements IDataProvider<ItemVaultBlockEntity> {
             var inventory = accessor.getTarget().getInventoryOfBlock();
 
             res.add(ItemData.of(config)
-                .getter(inventory::getStackInSlot, inventory.getSlots()));
+                .getter(inventory::getStackInSlot, inventory.getSlotCount()));
         });
     }
 

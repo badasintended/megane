@@ -49,6 +49,10 @@ allprojects {
     apply(plugin = "net.minecraftforge.gradle")
     apply(plugin = "org.spongepowered.mixin")
 
+    repositories {
+        fabric()
+    }
+
     minecraft {
         mappings("official", versions.minecraft)
     }
@@ -166,6 +170,12 @@ tasks {
 }
 
 subprojects.forEach { sub ->
+    dependencies {
+        implementation(project(sub.path)) {
+            isTransitive = false
+        }
+    }
+
     sourceSets {
         main {
             runtimeClasspath += sub.sourceSets.main.get().runtimeClasspath
@@ -190,5 +200,13 @@ subprojects.forEach { sub ->
 subprojects {
     base {
         archivesName.set("megane-forge-${project.name}")
+    }
+
+    configurations {
+        create("decompile")
+    }
+
+    tasks {
+        create<DecompileDependenciesTask>("decompileDependencies")
     }
 }

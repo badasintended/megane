@@ -1,27 +1,14 @@
 {
   "schemaVersion": 1,
   "id"           : "megane",
-  "provides"     : ["megane-api", "megane-runtime"],
   "version"      : "${version}",
+  "name"         : "Megane",
+  "description"  : "A collection of WTHIT plugins that adds compatibility to other mods.",
   "authors"      : ["deirn"],
-  "contributors" : [
-    "Lyaiya",
-    "qsefthuopq",
-    "StarskyXIII"
-  ],
   "license"      : "All Rights Reserved",
   "icon"         : "megane.png",
-  "mixins"       : [
-    "megane-runtime.mixins.json"
-  ],
   "depends"      : {
-    "minecraft" : ">=1.19",
-    "wthit"     : ">=5.20"
-  },
-  "custom"       : {
-    "waila:plugins": {
-      "id"         : "megane:plugin",
-      "initializer": "lol.bai.megane.runtime.Megane"
-    }
+    "minecraft": ">=1.20.1",
+    "wthit"    : ">=8.6"
   }
 }

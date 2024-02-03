@@ -1,20 +1,24 @@
 package lol.bai.megane.module.ie;
 
-import blusunrize.immersiveengineering.common.blocks.metal.AssemblerBlockEntity;
+import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE;
 import blusunrize.immersiveengineering.common.blocks.metal.CapacitorCreativeBlockEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.DynamoBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.metal.MetalPressBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.metal.SheetmetalTankBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.metal.SiloBlockEntity;
 import blusunrize.immersiveengineering.common.blocks.metal.ThermoelectricGenBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.stone.CokeOvenBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.stone.FurnaceLikeBlockEntity;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.AdvBlastFurnaceLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.AlloySmelterLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.AssemblerLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.BlastFurnaceLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.CokeOvenLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.MetalPressLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.SheetmetalTankLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.SiloLogic;
 import blusunrize.immersiveengineering.common.util.inventory.IIEInventory;
 import lol.bai.megane.module.ie.provider.AssemblerProvider;
 import lol.bai.megane.module.ie.provider.CokeOvenProvider;
-import lol.bai.megane.module.ie.provider.FurnaceLikeProvider;
+import lol.bai.megane.module.ie.provider.FurnaceProvider;
 import lol.bai.megane.module.ie.provider.IEInventoryProvider;
 import lol.bai.megane.module.ie.provider.MetalPressProvider;
+import lol.bai.megane.module.ie.provider.MultiblockProvider;
 import lol.bai.megane.module.ie.provider.SheetmetalTankProvider;
 import lol.bai.megane.module.ie.provider.SiloProvider;
 import mcp.mobius.waila.api.IRegistrar;
@@ -37,19 +41,26 @@ public class MeganeImmersiveEngineering implements IWailaPlugin {
         registrar.addBlockData(new BlockingDataProvider<>(EnergyData.class), ThermoelectricGenBlockEntity.class, 900);
 
         registrar.addBlockData(new IEInventoryProvider(), IIEInventory.class);
-        registrar.addBlockData(new CokeOvenProvider(), CokeOvenBlockEntity.class);
-        registrar.addBlockData(new FurnaceLikeProvider(), FurnaceLikeBlockEntity.class);
-        registrar.addBlockData(new SiloProvider(), SiloBlockEntity.class);
-        registrar.addBlockData(new SheetmetalTankProvider(), SheetmetalTankBlockEntity.class);
+
+        var multiblockProvider = new MultiblockProvider();
+        registrar.addComponent(multiblockProvider, TooltipPosition.BODY, IMultiblockBE.class);
+        registrar.addBlockData(multiblockProvider, IMultiblockBE.class);
+
+        MultiblockProvider.addData(new CokeOvenProvider(), CokeOvenLogic.State.class);
+        MultiblockProvider.addData(new FurnaceProvider<>(BlastFurnaceLogic.State::getStateView), BlastFurnaceLogic.State.class);
+        MultiblockProvider.addData(new FurnaceProvider<>(AdvBlastFurnaceLogic.State::getStateView), AdvBlastFurnaceLogic.State.class);
+        MultiblockProvider.addData(new FurnaceProvider<>(AlloySmelterLogic.State::getStateView), AlloySmelterLogic.State.class);
+        MultiblockProvider.addData(new SiloProvider(), SiloLogic.State.class);
+        MultiblockProvider.addData(new SheetmetalTankProvider(), SheetmetalTankLogic.State.class);
 
         registrar.addFeatureConfig(CONFIG_SHOW_METAL_PRESS_MOLD, true);
-        registrar.addComponent(new MetalPressProvider(), TooltipPosition.BODY, MetalPressBlockEntity.class);
+        MultiblockProvider.addBody(new MetalPressProvider(), MetalPressLogic.State.class);
 
         var assemblerProvider = new AssemblerProvider();
         registrar.addFeatureConfig(CONFIG_SHOW_ASSEMBLER_RECIPES, false);
         registrar.addDataType(AssemblerProvider.DATA, AssemblerProvider.Data.class, AssemblerProvider.Data::new);
-        registrar.addBlockData(assemblerProvider, AssemblerBlockEntity.class);
-        registrar.addComponent(assemblerProvider, TooltipPosition.BODY, AssemblerBlockEntity.class);
+        MultiblockProvider.addData(assemblerProvider, AssemblerLogic.State.class);
+        MultiblockProvider.addBody(assemblerProvider, AssemblerLogic.State.class);
     }
 
 }
