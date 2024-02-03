@@ -114,7 +114,10 @@ afterEvaluate {
     subprojects.forEach {
         dependencies {
             implementation(project(path = it.path, configuration = "namedElements"))
-            include(it)
+
+            include(project(it.path)) {
+                isTransitive = false
+            }
         }
 
         sourceSets {
