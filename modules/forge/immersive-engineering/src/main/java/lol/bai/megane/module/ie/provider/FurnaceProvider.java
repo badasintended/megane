@@ -38,9 +38,9 @@ public class FurnaceProvider<S extends IMultiblockState & FurnaceHandler.IFurnac
             var stateView = (FurnaceHandler<?>.StateView & AccessFurnaceHandlerStateView) containerDataFunction.apply(state);
             var processStep = (float) FurnaceHandler.StateView.getProcess(stateView);
             var processMax = (float) FurnaceHandler.StateView.getMaxProcess(stateView);
-            if (processStep == 0) return;
+            if (processMax == 0) return;
 
-            var ratio = processStep / processMax;
+            var ratio = (processMax - processStep) / processMax;
             var progressData = ProgressData.ratio(ratio)
                 .itemGetter(inventory::getStackInSlot);
 

@@ -9,9 +9,11 @@ import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.AlloySmel
 import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.AssemblerLogic;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.BlastFurnaceLogic;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.CokeOvenLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.DieselGeneratorLogic;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.MetalPressLogic;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.SheetmetalTankLogic;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.logic.SiloLogic;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.process.ProcessContext;
 import blusunrize.immersiveengineering.common.util.inventory.IIEInventory;
 import lol.bai.megane.module.ie.provider.AssemblerProvider;
 import lol.bai.megane.module.ie.provider.CokeOvenProvider;
@@ -19,6 +21,7 @@ import lol.bai.megane.module.ie.provider.FurnaceProvider;
 import lol.bai.megane.module.ie.provider.IEInventoryProvider;
 import lol.bai.megane.module.ie.provider.MetalPressProvider;
 import lol.bai.megane.module.ie.provider.MultiblockProvider;
+import lol.bai.megane.module.ie.provider.ProcessProvider;
 import lol.bai.megane.module.ie.provider.SheetmetalTankProvider;
 import lol.bai.megane.module.ie.provider.SiloProvider;
 import mcp.mobius.waila.api.IRegistrar;
@@ -36,15 +39,17 @@ public class MeganeImmersiveEngineering implements IWailaPlugin {
     @Override
     public void register(IRegistrar registrar) {
         EnergyData.describe("immersiveengineering").unit("IF");
-        registrar.addBlockData(EnergyData.newInfiniteProvider(), CapacitorCreativeBlockEntity.class, 900);
-        registrar.addBlockData(new BlockingDataProvider<>(EnergyData.class), DynamoBlockEntity.class, 900);
-        registrar.addBlockData(new BlockingDataProvider<>(EnergyData.class), ThermoelectricGenBlockEntity.class, 900);
-
-        registrar.addBlockData(new IEInventoryProvider(), IIEInventory.class);
 
         var multiblockProvider = new MultiblockProvider();
         registrar.addComponent(multiblockProvider, TooltipPosition.BODY, IMultiblockBE.class);
-        registrar.addBlockData(multiblockProvider, IMultiblockBE.class);
+        registrar.addBlockData(multiblockProvider, IMultiblockBE.class, 100);
+
+        registrar.addBlockData(EnergyData.newInfiniteProvider(), CapacitorCreativeBlockEntity.class, 900);
+        registrar.addBlockData(new BlockingDataProvider<>(EnergyData.class), DynamoBlockEntity.class, 900);
+        registrar.addBlockData(new BlockingDataProvider<>(EnergyData.class), ThermoelectricGenBlockEntity.class, 900);
+        MultiblockProvider.addData(new BlockingDataProvider<>(EnergyData.class), DieselGeneratorLogic.State.class);
+
+        registrar.addBlockData(new IEInventoryProvider(), IIEInventory.class);
 
         MultiblockProvider.addData(new CokeOvenProvider(), CokeOvenLogic.State.class);
         MultiblockProvider.addData(new FurnaceProvider<>(BlastFurnaceLogic.State::getStateView), BlastFurnaceLogic.State.class);
@@ -52,6 +57,7 @@ public class MeganeImmersiveEngineering implements IWailaPlugin {
         MultiblockProvider.addData(new FurnaceProvider<>(AlloySmelterLogic.State::getStateView), AlloySmelterLogic.State.class);
         MultiblockProvider.addData(new SiloProvider(), SiloLogic.State.class);
         MultiblockProvider.addData(new SheetmetalTankProvider(), SheetmetalTankLogic.State.class);
+        MultiblockProvider.addData(new ProcessProvider<>(), ProcessContext.class);
 
         registrar.addFeatureConfig(CONFIG_SHOW_METAL_PRESS_MOLD, true);
         MultiblockProvider.addBody(new MetalPressProvider(), MetalPressLogic.State.class);
