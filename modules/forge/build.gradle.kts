@@ -3,7 +3,7 @@ import me.modmuss50.mpp.ReleaseType
 import net.minecraftforge.gradle.common.util.RunConfig
 
 plugins {
-    id("net.minecraftforge.gradle") version "[6.0.16, 6.2)"
+    id("net.neoforged.gradle") version "6.0.+"
     id("org.spongepowered.mixin") version "0.7.+"
 
     id("me.modmuss50.mod-publish-plugin")
@@ -46,7 +46,7 @@ publishMods {
 }
 
 allprojects {
-    apply(plugin = "net.minecraftforge.gradle")
+    apply(plugin = "net.neoforged.gradle")
     apply(plugin = "org.spongepowered.mixin")
 
     repositories {

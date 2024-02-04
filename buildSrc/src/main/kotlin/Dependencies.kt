@@ -52,7 +52,7 @@ object deps {
     }
 
     object forge {
-        const val forge = "net.minecraftforge:forge:${versions.minecraft}-47.2.20"
+        const val forge = "net.neoforged:forge:${versions.minecraft}-47.1.97"
 
         object wthit {
             const val api = "mcp.mobius.waila:wthit-api:forge-8.6.0"
