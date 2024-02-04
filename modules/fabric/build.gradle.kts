@@ -18,7 +18,7 @@ publishMods {
     curseforge {
         projectId.set("408118")
         accessToken.set(curseForgeApi)
-        minecraftVersions.add("1.19.2")
+        minecraftVersions.add("1.20.1")
 
         requires(cfSlugs.wthitFabric)
         optional(
@@ -41,7 +41,7 @@ publishMods {
     modrinth {
         projectId.set("ZNk5S5U6")
         accessToken.set(modrinthToken)
-        minecraftVersions.add("1.19.2")
+        minecraftVersions.add("1.20.1")
 
         requires(mrIds.wthit)
         optional(

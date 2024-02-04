@@ -13,6 +13,7 @@ publishMods {
     changelog.set("https://github.com/badasintended/megane/releases/tag/${project.version}")
     type.set(ReleaseType.STABLE)
     modLoaders.add("forge")
+    modLoaders.add("neoforge")
 
     val curseForgeApi = providers.environmentVariable("CURSEFORGE_API")
     val modrinthToken = providers.environmentVariable("MODRINTH_TOKEN")
@@ -21,7 +22,7 @@ publishMods {
     curseforge {
         projectId.set("965089")
         accessToken.set(curseForgeApi)
-        minecraftVersions.add("1.19.2")
+        minecraftVersions.add("1.20.1")
 
         requires(cfSlugs.wthitForge)
         optional(
@@ -34,7 +35,7 @@ publishMods {
     modrinth {
         projectId.set("pcvCiEEP")
         accessToken.set(modrinthToken)
-        minecraftVersions.add("1.19.2")
+        minecraftVersions.add("1.20.1")
 
         requires(mrIds.wthit)
         optional(
