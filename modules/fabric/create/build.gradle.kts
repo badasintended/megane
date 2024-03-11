@@ -12,6 +12,7 @@ metadata("lol.bai.megane.module.create") {
 
 repositories {
     devos()
+    devosSnapshots()
     tterrag()
     shedaniel()
     jamieswhiteshirt()
