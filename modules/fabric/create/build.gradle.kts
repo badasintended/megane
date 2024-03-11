@@ -17,6 +17,7 @@ repositories {
     jamieswhiteshirt()
     cafeteria()
     ladysnake()
+    fuzs()
     jitpack()
 }
 

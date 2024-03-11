@@ -16,6 +16,7 @@ fun Repo.wispforest() = maven("https://maven.wispforest.io")
 fun Repo.devos() = maven("https://mvn.devos.one/snapshots")
 fun Repo.tterrag() = maven("https://maven.tterrag.com")
 fun Repo.terraformers() = maven("https://maven.terraformersmc.com/releases")
+fun Repo.fuzs() = maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/")
 fun Repo.draylar() = maven("https://maven.draylar.dev/releases")
 
 fun Repo.cursemaven() = maven("https://cursemaven.com") {
