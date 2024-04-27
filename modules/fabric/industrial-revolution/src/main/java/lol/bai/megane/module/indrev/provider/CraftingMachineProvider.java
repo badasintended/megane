@@ -21,7 +21,19 @@ public class CraftingMachineProvider implements IDataProvider<CraftingMachineBlo
                 ratio = Math.max(ratio, current / max);
             }
 
-            res.add(ProgressData.ratio(ratio));
+            if (ratio > 0) {
+                var progressData = ProgressData.ratio(ratio);
+
+                var inventoryComponent = accessor.getTarget().getInventoryComponent();
+                if (inventoryComponent != null) {
+                    var inventory = inventoryComponent.getInventory();
+                    progressData.itemGetter(inventory::getItem)
+                        .input(inventory.getInputSlots())
+                        .output(inventory.getOutputSlots());
+                }
+
+                res.add(progressData);
+            }
         });
     }
 

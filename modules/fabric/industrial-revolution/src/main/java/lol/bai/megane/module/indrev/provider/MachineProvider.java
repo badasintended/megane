@@ -5,7 +5,6 @@ import mcp.mobius.waila.api.IDataWriter;
 import mcp.mobius.waila.api.IPluginConfig;
 import mcp.mobius.waila.api.IServerAccessor;
 import mcp.mobius.waila.api.data.EnergyData;
-import mcp.mobius.waila.api.data.FluidData;
 import mcp.mobius.waila.api.data.ItemData;
 import me.steven.indrev.api.machines.Tier;
 import me.steven.indrev.blockentities.MachineBlockEntity;
@@ -31,10 +30,6 @@ public class MachineProvider implements IDataProvider<MachineBlockEntity<?>> {
 
             var inventory = component.getInventory();
             res.add(ItemData.of(config).vanilla(inventory));
-        });
-
-        data.add(FluidData.class, res -> {
-
         });
     }
 
