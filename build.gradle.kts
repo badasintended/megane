@@ -9,6 +9,8 @@ plugins {
 group = "lol.bai.megane"
 version = System.getenv("MOD_VERSION") ?: "999999-local"
 
+rootProject.initializeDependencies()
+
 allprojects {
     apply(plugin = "java")
 

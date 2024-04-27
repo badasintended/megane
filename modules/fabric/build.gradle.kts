@@ -60,6 +60,12 @@ publishMods {
 allprojects {
     apply(plugin = "fabric-loom")
 
+    configurations.all {
+        resolutionStrategy {
+            force(deps.fabric.loader)
+        }
+    }
+
     dependencies {
         minecraft(deps.minecraft)
         mappings(loom.officialMojangMappings())
