@@ -15,6 +15,7 @@ Megane is a collection of [WTHIT](https://modrinth.com/mod/wthit) plugins that a
 - [Extra Generators](https://modrinth.com/mod/VXtwLg17)
 - [Industrial Revolution](https://www.curseforge.com/minecraft/mc-mods/industrial-revolution)
 - [Kibe](https://modrinth.com/mod/OvlwmUdC)
+- [Lapis Reserve](https://www.curseforge.com/minecraft/mc-mods/lapis-reserve)
 - [Luggage](https://www.curseforge.com/minecraft/mc-mods/luggage)
 - [Modern Dynamics](https://modrinth.com/mod/fMpvLrnF)
 - [Powah!](https://modrinth.com/mod/KZO4S4DO)

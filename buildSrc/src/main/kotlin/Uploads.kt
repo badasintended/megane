@@ -1,4 +1,4 @@
-@file:Suppress("ClassName")
+@file:Suppress("ClassName", "MayBeConstant")
 
 object cfIds {
     val megane = "408118"
@@ -11,6 +11,7 @@ object cfIds {
     val rebornCore = "237903"
     val techReborn = "233564"
     val wirelessNet = "461316"
+    val lapisReserve = "399679"
 }
 
 object cfSlugs {
@@ -32,6 +33,7 @@ object cfSlugs {
     val rebornCore = "reborncore"
     val techReborn = "techreborn"
     val wirelessNet = "wireless-networks"
+    val lapisReserve = "lapis-reserve"
 }
 
 object mrIds {

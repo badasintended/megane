@@ -52,6 +52,7 @@ object deps {
         val rebornCore by json()
         val techReborn by json()
         val wirelessNet by json()
+        val lapisReserve by json()
 
         const val trEnergy = "teamreborn:energy:2.2.0"
         const val libgui = "io.github.cottonmc:LibGui:6.0.1+1.19"
@@ -80,6 +81,7 @@ object deps {
         val ie by json()
         val rs by json()
         val jei by json()
+        val lapisReserve by json()
 
         object mekanism : DependencyPath {
             override val prefix = "forge.mekanism"

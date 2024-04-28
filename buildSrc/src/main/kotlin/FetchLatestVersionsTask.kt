@@ -73,7 +73,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(fabric::modmenu, mrIds.modmenu) { "com.terraformersmc:modmenu:${it.version_number}" }
             fetch(fabric::noIndium, mrIds.noIndium, "1.19") { "me.luligabi:NoIndium:${it.version_number}" }
             fetch(fabric::owo, mrIds.owo, "1.19") { "io.wispforest:owo-lib:${it.version_number}" }
-            fetch(fabric::patchouli, mrIds.patchouli) { "vazkii.patchouli:Patchouli:${it.version_number.toUpperCase(Locale.ROOT)}" }
+            fetch(fabric::patchouli, mrIds.patchouli) { "vazkii.patchouli:Patchouli:${it.version_number.uppercase(Locale.ROOT)}" }
             fetch(fabric::powah, mrIds.powah) { it.maven }
         }
 
@@ -85,6 +85,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(fabric::rebornCore, cfIds.rebornCore) { "RebornCore:RebornCore-1.19:${it.download.fileName.removePrefix("RebornCore-")}" }
             fetch(fabric::techReborn, cfIds.techReborn) { "TechReborn:TechReborn-1.19:${it.download.fileName.removePrefix("TechReborn-")}" }
             fetch(fabric::wirelessNet, cfIds.wirelessNet, "1.19") { it.maven }
+            fetch(fabric::lapisReserve, cfIds.lapisReserve, "1.19.2") { it.maven }
         }
 
         fetcher(ModrinthVersionFetcher, "forge", forge.wthit) {
@@ -111,6 +112,10 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(forge.thermal::cofhCore, mrIds.cofhCore) { it.maven }
             fetch(forge.thermal::foundation, mrIds.thermalFoundation) { it.maven }
             fetch(forge.thermal::expansion, mrIds.thermalExpansion) { it.maven }
+        }
+
+        fetcher(CurseForgeVersionFetcher, "forge", forge) {
+            fetch(forge::lapisReserve, cfIds.lapisReserve, "1.19.2") { it.maven }
         }
 
         mapper

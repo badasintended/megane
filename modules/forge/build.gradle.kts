@@ -27,7 +27,8 @@ publishMods {
         optional(
             cfSlugs.ae2,
             cfSlugs.createForge,
-            cfSlugs.ie
+            cfSlugs.ie,
+            cfSlugs.lapisReserve
         )
     }
 
@@ -154,9 +155,10 @@ tasks {
                 )
             }
 
-            val genWaila by tasks.getting(GenWailaTask::class)
-            mergeWaila.dependsOn(genWaila)
-            mergeWaila.input.add(genWaila.output)
+            tasks.withType(GenWailaTask::class) {
+                mergeWaila.dependsOn(this)
+                mergeWaila.input.add(output)
+            }
         }
     }
 
@@ -166,9 +168,11 @@ tasks {
 }
 
 subprojects.forEach { sub ->
+    val subMain = sub.sourceSets.main.get()
+
     sourceSets {
         main {
-            runtimeClasspath += sub.sourceSets.main.get().runtimeClasspath
+            runtimeClasspath += subMain.runtimeClasspath + subMain.output
         }
     }
 }
