@@ -36,6 +36,7 @@ publishMods {
             cfSlugs.techReborn,
             cfSlugs.wirelessNet,
             cfSlugs.lapisReserve,
+            cfSlugs.resourceChickens,
         )
     }
 

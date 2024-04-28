@@ -20,6 +20,7 @@ Megane is a collection of [WTHIT](https://modrinth.com/mod/wthit) plugins that a
 - [Modern Dynamics](https://modrinth.com/mod/fMpvLrnF)
 - [Powah!](https://modrinth.com/mod/KZO4S4DO)
 - [Reborn Core](https://www.curseforge.com/minecraft/mc-mods/reborncore)
+- [Resource Chickens](https://www.curseforge.com/minecraft/mc-mods/resource-chickens)
 - [Tech Reborn](https://www.curseforge.com/minecraft/mc-mods/techreborn)
 - [Wireless Networks](https://www.curseforge.com/minecraft/mc-mods/wireless-networks)
 

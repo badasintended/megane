@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.ivy
 import org.gradle.kotlin.dsl.maven
 import org.gradle.api.artifacts.dsl.RepositoryHandler as Repo
 
@@ -26,5 +27,19 @@ fun Repo.cursemaven() = maven("https://cursemaven.com") {
 fun Repo.modrinth() = maven("https://api.modrinth.com/maven") {
     content {
         includeGroup("maven.modrinth")
+    }
+}
+
+fun Repo.curseApi() = ivy("https://www.curseforge.com/api/v1/mods") {
+    patternLayout {
+        artifact("[module]/files/[revision]/download")
+    }
+
+    metadataSources {
+        artifact()
+    }
+
+    content {
+        includeGroup("curse.api")
     }
 }

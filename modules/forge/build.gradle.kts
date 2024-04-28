@@ -28,7 +28,8 @@ publishMods {
             cfSlugs.ae2,
             cfSlugs.createForge,
             cfSlugs.ie,
-            cfSlugs.lapisReserve
+            cfSlugs.lapisReserve,
+            cfSlugs.resourceChickens,
         )
     }
 
@@ -41,7 +42,7 @@ publishMods {
         optional(
             mrIds.ae2,
             mrIds.createForge,
-            mrIds.ie
+            mrIds.ie,
         )
     }
 }

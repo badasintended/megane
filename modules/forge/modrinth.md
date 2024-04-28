@@ -12,6 +12,7 @@ Megane is a collection of [WTHIT](https://modrinth.com/mod/wthit) plugins that a
 - [Create](https://modrinth.com/mod/LNytGWDc)
 - [Immersive Engineering](https://modrinth.com/mod/tIm2nV03)
 - [Lapis Reserve](https://www.curseforge.com/minecraft/mc-mods/lapis-reserve)
+- [Resource Chickens](https://www.curseforge.com/minecraft/mc-mods/resource-chickens)
 
 Have other mods to suggest? Open an issue on [GitHub](https://github.com/badasintended/megane/issues).
 

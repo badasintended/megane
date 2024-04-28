@@ -26,6 +26,7 @@ object CurseForgeVersionFetcher : VersionFetcher<CurseForgeVersionFetcher.Mod> {
         val download by nested(::Downlaod)
 
         val maven get() = "curse.maven:cursemod-${id}:${download.id}"
+        val api get() = "curse.api:${id}:${download.id}"
     }
 
     class Downlaod(json: ObjectNode) : JsonFacade(json) {

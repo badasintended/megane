@@ -86,6 +86,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(fabric::techReborn, cfIds.techReborn) { "TechReborn:TechReborn-1.19:${it.download.fileName.removePrefix("TechReborn-")}" }
             fetch(fabric::wirelessNet, cfIds.wirelessNet, "1.19") { it.maven }
             fetch(fabric::lapisReserve, cfIds.lapisReserve, "1.19.2") { it.maven }
+            fetch(fabric::resourceChickens, cfIds.resourceChickens, "1.19.2") { it.api }
         }
 
         fetcher(ModrinthVersionFetcher, "forge", forge.wthit) {
@@ -116,6 +117,7 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
 
         fetcher(CurseForgeVersionFetcher, "forge", forge) {
             fetch(forge::lapisReserve, cfIds.lapisReserve, "1.19.2") { it.maven }
+            fetch(forge::resourceChickens, cfIds.resourceChickens, "1.19.2") { it.api }
         }
 
         mapper

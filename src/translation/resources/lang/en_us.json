@@ -4,14 +4,33 @@
   },
 
   "fabric": {
-    "alloy-forgery": {
+    "alloy-forgery"    : {
       "megane.alloy_forgery.fuel": "Fuel"
     },
-    "create"       : {
+
+    "create"           : {
       "config.waila.plugin_megane.create"                         : "Create",
       "config.waila.plugin_megane.create.schematicannon.gunpowder": "Show Schematicannon Gunpowder Level",
       "config.waila.plugin_megane.create.contraption"             : "Show Contraption Blocks",
       "config.waila.plugin_megane.create.contraption_desc"        : "Show the correct blocks for the contraption entity\nOnly limited block tooltips are supported"
+    },
+
+    "resource-chickens": {
+      "megane.resource_chickens.next_drop"                     : "Next Drop",
+      "megane.resource_chickens.gain"                          : "Gain",
+      "megane.resource_chickens.growth"                        : "Growth",
+      "megane.resource_chickens.strength"                      : "Strength",
+      "megane.resource_chickens.conversion"                    : "Conversion",
+      "megane.resource_chickens.progress"                      : "Progress",
+
+      "config.waila.plugin_megane.resource_chickens"           : "Resource Chickens",
+      "config.waila.plugin_megane.resource_chickens.gain"      : "Show Gain",
+      "config.waila.plugin_megane.resource_chickens.growth"    : "Show Growth",
+      "config.waila.plugin_megane.resource_chickens.strength"  : "Show Stregth",
+      "config.waila.plugin_megane.resource_chickens.grow"      : "Show Nest Grow Timer",
+      "config.waila.plugin_megane.resource_chickens.drop"      : "Show Drop Timer",
+      "config.waila.plugin_megane.resource_chickens.food"      : "Show Nest Food Level",
+      "config.waila.plugin_megane.resource_chickens.conversion": "Show Conversion Progress"
     }
   },
 
@@ -22,10 +41,29 @@
       "config.waila.plugin_megane.create.contraption"             : "Show Contraption Blocks",
       "config.waila.plugin_megane.create.contraption_desc"        : "Show the correct blocks for the contraption entity\nOnly limited block tooltips are supported"
     },
+
     "immersive-engineering": {
       "config.waila.plugin_megane.ie"                  : "Immersive Engineering",
       "config.waila.plugin_megane.ie.metal_press_mold" : "Show Metal Press Mold",
       "config.waila.plugin_megane.ie.assembler_recipes": "Show Assembler Recipes"
+    },
+
+    "resource-chickens"    : {
+      "megane.resource_chickens.next_drop"                     : "Next Drop",
+      "megane.resource_chickens.gain"                          : "Gain",
+      "megane.resource_chickens.growth"                        : "Growth",
+      "megane.resource_chickens.strength"                      : "Strength",
+      "megane.resource_chickens.conversion"                    : "Conversion",
+      "megane.resource_chickens.progress"                      : "Progress",
+
+      "config.waila.plugin_megane.resource_chickens"           : "Resource Chickens",
+      "config.waila.plugin_megane.resource_chickens.gain"      : "Show Gain",
+      "config.waila.plugin_megane.resource_chickens.growth"    : "Show Growth",
+      "config.waila.plugin_megane.resource_chickens.strength"  : "Show Stregth",
+      "config.waila.plugin_megane.resource_chickens.grow"      : "Show Nest Grow Timer",
+      "config.waila.plugin_megane.resource_chickens.drop"      : "Show Drop Timer",
+      "config.waila.plugin_megane.resource_chickens.food"      : "Show Nest Food Level",
+      "config.waila.plugin_megane.resource_chickens.conversion": "Show Conversion Progress"
     }
   }
 }

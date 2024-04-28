@@ -25,6 +25,7 @@
   "fabric.techReborn" : "TechReborn:TechReborn-1.19:5.4.0",
   "fabric.wirelessNet" : "curse.maven:cursemod-461316:3876132",
   "fabric.lapisReserve" : "curse.maven:cursemod-399679:3345208",
+  "fabric.resourceChickens" : "curse.api:632145:4985700",
   "forge.wthit.api" : "mcp.mobius.waila:wthit-api:forge-5.25.0",
   "forge.wthit.runtime" : "mcp.mobius.waila:wthit:forge-5.25.0",
   "forge.badpackets" : "lol.bai:badpackets:forge-0.2.3",
@@ -38,5 +39,6 @@
   "forge.thermal.cofhCore" : "maven.modrinth:OWSRM4vD:ssRHxD6e",
   "forge.thermal.foundation" : "maven.modrinth:Xvg6q5Wp:kaIOIjDc",
   "forge.thermal.expansion" : "maven.modrinth:hmD6rrUJ:W9opx6mY",
-  "forge.lapisReserve" : "curse.maven:cursemod-399679:3787247"
+  "forge.lapisReserve" : "curse.maven:cursemod-399679:3787247",
+  "forge.resourceChickens" : "curse.api:632145:5088913"
 }
