@@ -2,6 +2,7 @@ import org.gradle.kotlin.dsl.ivy
 import org.gradle.kotlin.dsl.maven
 import org.gradle.api.artifacts.dsl.RepositoryHandler as Repo
 
+fun Repo.minecraft() = maven("https://libraries.minecraft.net")
 fun Repo.badasintended() = maven("https://maven.bai.lol")
 fun Repo.bbkr() = maven("https://server.bbkr.space/artifactory/libs-release")
 fun Repo.shedaniel() = maven("https://maven.shedaniel.me/")

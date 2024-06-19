@@ -2,7 +2,7 @@ import java.nio.charset.StandardCharsets
 
 plugins {
     java
-    id("lol.bai.explosion") version "0.1.0" apply false
+    id("lol.bai.explosion") version "0.2.0" apply false
     id("me.modmuss50.mod-publish-plugin") version "0.4.5" apply false
 }
 
@@ -30,11 +30,17 @@ allprojects {
     }
 
     repositories {
-        mavenCentral()
+        mavenCentral {
+            content {
+                excludeGroupByRegex("org.lwjgl")
+            }
+        }
+
         badasintended()
         cursemaven()
         modrinth()
         mavenLocal()
+        minecraft()
     }
 }
 

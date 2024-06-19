@@ -13,6 +13,8 @@ object cfIds {
     val wirelessNet = "461316"
     val lapisReserve = "399679"
     val resourceChickens = "632145"
+    val productiveBees = "377897"
+    val top = "245211"
 }
 
 object cfSlugs {
@@ -36,6 +38,7 @@ object cfSlugs {
     val wirelessNet = "wireless-networks"
     val lapisReserve = "lapis-reserve"
     val resourceChickens = "resource-chickens"
+    val productiveBees = "productivebees"
 }
 
 object mrIds {

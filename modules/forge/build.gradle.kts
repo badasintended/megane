@@ -3,9 +3,8 @@ import me.modmuss50.mpp.ReleaseType
 import net.minecraftforge.gradle.common.util.RunConfig
 
 plugins {
-    id("net.minecraftforge.gradle") version "[6.0.16, 6.2)"
-    id("org.spongepowered.mixin") version "0.7.+"
-
+    id("net.minecraftforge.gradle") version "6.0.25"
+    id("org.spongepowered.mixin") version "0.7.38"
     id("me.modmuss50.mod-publish-plugin")
 }
 
@@ -96,7 +95,9 @@ allprojects {
 minecraft {
     runs {
         val runConfig = Action<RunConfig> {
+            ideaModule(rootProject.name + project.path.replace(':', '.') + ".main")
             workingDirectory(file("run"))
+            jvmArgs("-XX:+AllowEnhancedClassRedefinition")
 
             mods.create("megane") {
                 source(sourceSets["main"])

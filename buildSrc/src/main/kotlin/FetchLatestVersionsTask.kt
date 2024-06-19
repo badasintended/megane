@@ -14,7 +14,7 @@ import java.net.http.HttpClient
 import java.util.*
 import kotlin.reflect.KProperty
 
-@Suppress("LeakingThis")
+@Suppress("LeakingThis", "DuplicatedCode")
 abstract class FetchLatestVersionsTask : DefaultTask() {
     @get:InputFile
     abstract val output: Property<File>
@@ -85,8 +85,8 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
             fetch(fabric::rebornCore, cfIds.rebornCore) { "RebornCore:RebornCore-1.19:${it.download.fileName.removePrefix("RebornCore-")}" }
             fetch(fabric::techReborn, cfIds.techReborn) { "TechReborn:TechReborn-1.19:${it.download.fileName.removePrefix("TechReborn-")}" }
             fetch(fabric::wirelessNet, cfIds.wirelessNet, "1.19") { it.maven }
-            fetch(fabric::lapisReserve, cfIds.lapisReserve, "1.19.2") { it.maven }
-            fetch(fabric::resourceChickens, cfIds.resourceChickens, "1.19.2") { it.api }
+            fetch(fabric::lapisReserve, cfIds.lapisReserve) { it.maven }
+            fetch(fabric::resourceChickens, cfIds.resourceChickens) { it.api }
         }
 
         fetcher(ModrinthVersionFetcher, "forge", forge.wthit) {
@@ -116,8 +116,10 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
         }
 
         fetcher(CurseForgeVersionFetcher, "forge", forge) {
-            fetch(forge::lapisReserve, cfIds.lapisReserve, "1.19.2") { it.maven }
-            fetch(forge::resourceChickens, cfIds.resourceChickens, "1.19.2") { it.api }
+            fetch(forge::lapisReserve, cfIds.lapisReserve) { it.maven }
+            fetch(forge::resourceChickens, cfIds.resourceChickens) { it.api }
+            fetch(forge::productiveBees, cfIds.productiveBees) { it.maven }
+            fetch(forge::top, cfIds.top) { it.maven }
         }
 
         mapper

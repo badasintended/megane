@@ -84,6 +84,8 @@ object deps {
         val jei by json()
         val lapisReserve by json()
         val resourceChickens by json()
+        val productiveBees by json()
+        val top by json()
 
         object mekanism : DependencyPath {
             override val prefix = "forge.mekanism"

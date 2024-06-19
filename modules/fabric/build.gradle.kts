@@ -1,8 +1,7 @@
 import me.modmuss50.mpp.ReleaseType
 
 plugins {
-    id("fabric-loom") version "1.5.+"
-
+    id("fabric-loom") version "1.6.12"
     id("me.modmuss50.mod-publish-plugin")
 }
 

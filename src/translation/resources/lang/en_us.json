@@ -48,6 +48,31 @@
       "config.waila.plugin_megane.ie.assembler_recipes": "Show Assembler Recipes"
     },
 
+    "productive-bees"      : {
+      "megane.productive_bees.bee.type"                            : "Type",
+      "megane.productive_bees.bee.productivity"                    : "Productivity",
+      "megane.productive_bees.bee.tolerance"                       : "Tolerance",
+      "megane.productive_bees.bee.behavior"                        : "Behavior",
+      "megane.productive_bees.bee.endurance"                       : "Endurance",
+      "megane.productive_bees.bee.temper"                          : "Temper",
+
+      "megane.productive_bees.hive.cooldown"                       : "Temper",
+      "megane.productive_bees.hive.can_repopulate"                 : "Can Repopulate",
+
+      "config.waila.plugin_megane.productive_bees"                 : "Productive Bees",
+
+      "config.waila.plugin_megane.productive_bees.bee_type"        : "Show Bee Type",
+      "config.waila.plugin_megane.productive_bees.bee_productivity": "Show Bee Productivity",
+      "config.waila.plugin_megane.productive_bees.bee_tolerance"   : "Show Bee Tolerance",
+      "config.waila.plugin_megane.productive_bees.bee_behavior"    : "Show Bee Behavior",
+      "config.waila.plugin_megane.productive_bees.bee_endurance"   : "Show Bee Endurance",
+      "config.waila.plugin_megane.productive_bees.bee_temper"      : "Show Bee Temper",
+
+      "config.waila.plugin_megane.productive_bees.hive_honey_level": "Show Beehive Honey Level",
+      "config.waila.plugin_megane.productive_bees.hive_occupants"  : "Show Beehive Occupants",
+      "config.waila.plugin_megane.productive_bees.hive_cooldown"   : "Show Solitary Nest Cooldown"
+    },
+
     "resource-chickens"    : {
       "megane.resource_chickens.next_drop"                     : "Next Drop",
       "megane.resource_chickens.gain"                          : "Gain",

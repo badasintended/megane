@@ -18,4 +18,5 @@ repositories {
 
 dependencies {
     implementation(fg.deobf(deps.forge.resourceChickens))
+    runtimeOnly(fg.deobf(deps.forge.top))
 }
