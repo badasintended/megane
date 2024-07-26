@@ -105,8 +105,8 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
         }
 
         fetcher(ModrinthVersionFetcher, "forge", forge.mekanism) {
-            fetch(forge.mekanism::core, mrIds.mekCore) { "mekanism:Mekanism:1.20.1-${it.version_number}" }
-            fetch(forge.mekanism::generators, mrIds.mekCore) { "mekanism:Mekanism:1.20.1-${it.version_number}:generators" }
+            fetch(forge.mekanism::core, mrIds.mekCore) { "mekanism:Mekanism:${versions.minecraft}-${it.version_number}" }
+            fetch(forge.mekanism::generators, mrIds.mekCore) { "mekanism:Mekanism:${versions.minecraft}-${it.version_number}:generators" }
         }
 
         fetcher(ModrinthVersionFetcher, "forge", forge.thermal) {
