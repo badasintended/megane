@@ -15,7 +15,7 @@ public class StrictEnergyProvider implements IDataProvider<BlockEntity> {
         var count = handler.getEnergyContainerCount();
         var stored = 0.0;
         var max = 0.0;
-        for (int i = 0; i < count; i++) {
+        for (var i = 0; i < count; i++) {
             stored += handler.getEnergy(i).doubleValue();
             max += handler.getMaxEnergy(i).doubleValue();
         }

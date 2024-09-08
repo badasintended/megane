@@ -48,6 +48,14 @@
       "config.waila.plugin_megane.ie.assembler_recipes": "Show Assembler Recipes"
     },
 
+    "mekanism"             : {
+      "megane.mekanism.owner"                       : "Owner",
+
+      "config.waila.plugin_megane.mekanism"         : "Mekanism",
+      "config.waila.plugin_megane.mekanism.chemical": "Show Block Chemical Contents",
+      "config.waila.plugin_megane.mekanism.security": "Show Block Security"
+    },
+
     "productive-bees"      : {
       "megane.productive_bees.bee.type"                            : "Type",
       "megane.productive_bees.bee.productivity"                    : "Productivity",

@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-public class FluidProvider  implements IDataProvider<BlockEntity>, LookingAtHelper {
+public class FluidProvider implements IDataProvider<BlockEntity>, LookingAtHelper {
 
     private FluidData.PlatformDependant<FluidStack> fluidData;
 

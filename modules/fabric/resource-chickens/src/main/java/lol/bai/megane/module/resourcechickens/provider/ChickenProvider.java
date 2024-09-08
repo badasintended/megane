@@ -74,7 +74,7 @@ public class ChickenProvider implements IEntityComponentProvider, IDataProvider<
         }
 
         if (config.getBoolean(MeganeResourceChickens.CONFIG_SHOW_CONVERSION) && chicken.conversionProgress != 0) {
-            data.addImmediate(new Mutation(chicken.conversionProgress, chicken.conversionType));
+            data.addImmediate(new Mutation(chicken.conversionProgress, chicken.chickenDataCONV.ID));
         }
     }
 
