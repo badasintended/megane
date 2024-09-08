@@ -46,53 +46,34 @@ publishMods {
     }
 }
 
-allprojects {
-    apply(plugin = "net.minecraftforge.gradle")
-    apply(plugin = "org.spongepowered.mixin")
+dependencies {
+    minecraft(deps.forge.forge)
 
-    minecraft {
-        mappings("official", versions.minecraft)
-    }
+    compileOnly(fg.deobf(deps.forge.wthit.api))
+    runtimeOnly(fg.deobf(deps.forge.wthit.runtime))
+    runtimeOnly(fg.deobf(deps.forge.badpackets))
+    runtimeOnly(fg.deobf(deps.forge.jei))
+    annotationProcessor(deps.mixinAp)
 
-    mixin {
-        debug.apply {
-            this as GroovyObject
-            setProperty("export", true)
-            setProperty("verbose", true)
-        }
-    }
+    implementation(fg.deobf(deps.forge.ae2))
 
-    dependencies {
-        minecraft(deps.forge.forge)
+    implementation(fg.deobf(deps.forge.create))
 
-        compileOnly(fg.deobf(deps.forge.wthit.api))
-        runtimeOnly(fg.deobf(deps.forge.wthit.runtime))
-        runtimeOnly(fg.deobf(deps.forge.badpackets))
+    implementation(fg.deobf(deps.forge.ie))
 
-        runtimeOnly(fg.deobf(deps.forge.jei))
-    }
+    implementation(fg.deobf(deps.forge.lapisReserve))
 
-    sourceSets {
-        main {
-            java.srcDir("src/generated/java")
-            resources.srcDir("src/generated/resources")
-        }
-    }
+    implementation(fg.deobf(deps.forge.mekanism.core))
 
-    tasks.jar {
-        finalizedBy("reobfJar")
-    }
+    implementation(fg.deobf(deps.forge.productiveBees))
 
-    tasks.processResources {
-        inputs.property("version", project.version)
-
-        filesMatching("META-INF/mods.toml") {
-            expand("version" to project.version)
-        }
-    }
+    implementation(fg.deobf(deps.forge.resourceChickens))
+    runtimeOnly(fg.deobf(deps.forge.top))
 }
 
 minecraft {
+    mappings("official", versions.minecraft)
+
     runs {
         val runConfig = Action<RunConfig> {
             ideaModule(rootProject.name + project.path.replace(':', '.') + ".main")
@@ -109,92 +90,24 @@ minecraft {
     }
 }
 
-tasks {
-    val build by getting
+mixin {
+    add(sourceSets.main.get(), "megane.refmap.json")
+    config("megane.mixins.json")
 
-    val mergeWaila by creating(MergeWailaTask::class) {
-        output.set(layout.buildDirectory.file("mergeWaila/waila_plugins.json"))
-    }
-
-    val jar by getting(Jar::class) {
-        archiveClassifier.set("dev")
-    }
-
-    val fatJar by creating(Jar::class) {
-        dependsOn(jar)
-        dependsOn(mergeWaila)
-        build.dependsOn(this)
-
-        archiveClassifier.set("")
-
-        from(mergeWaila.output)
-        from(zipTree(jar.archiveFile))
-
-        subprojects.forEach { sub ->
-            val subJar = sub.tasks.getByName<Jar>("jar")
-            dependsOn(subJar)
-
-            from(zipTree(subJar.archiveFile)) {
-                include("**/*.class")
-                exclude("**/Main.class")
-
-                include("*.mixins.json")
-                include("*.refmap.json")
-                include("assets/**")
-            }
-        }
-    }
-
-    subprojects {
-        afterEvaluate {
-            val mixinJson = metadata?.let { it.prop[GenMixinTask.JSON] as? String }
-
-            if (mixinJson != null) {
-                val otherJson = fatJar.manifest.attributes["MixinConfigs"]?.toString()
-
-                fatJar.manifest.attributes(
-                    "MixinConfigs" to if (otherJson == null) mixinJson else "${otherJson},${mixinJson}"
-                )
-            }
-
-            tasks.withType(GenWailaTask::class) {
-                mergeWaila.dependsOn(this)
-                mergeWaila.input.add(output)
-            }
-        }
-    }
-
-    project.publishMods {
-        file.set(fatJar.archiveFile)
+    debug.apply {
+        this as GroovyObject
+        setProperty("export", true)
     }
 }
 
-subprojects.forEach { sub ->
-    val subMain = sub.sourceSets.main.get()
-
-    sourceSets {
-        main {
-            runtimeClasspath += subMain.runtimeClasspath + subMain.output
-        }
-    }
+tasks.jar {
+    finalizedBy("reobfJar")
 }
 
-val thisProject = project
-subprojects.forEach { sub ->
-    sub.afterEvaluate {
-        thisProject.minecraft.runs.configureEach {
-            mods.create("megane-${sub.name}".replace("-", "_")) {
-                source(sourceSets["main"])
-            }
+tasks.processResources {
+    inputs.property("version", project.version)
 
-            val mixin = metadata?.let { it.prop[GenMixinTask.JSON] as? String }
-            if (mixin != null) args("--mixin.config", mixin)
-        }
-    }
-}
-
-subprojects {
-    base {
-        archivesName.set("megane-forge-${project.name}")
+    filesMatching("META-INF/mods.toml") {
+        expand("version" to project.version)
     }
 }

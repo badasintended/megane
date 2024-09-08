@@ -1,4 +1,7 @@
 {
+  "megane.alloy_forgery.fuel": "燃料",
+
+
   "config.waila.megane"                 : "Megane",
   "config.megane.side.server"           : "§7這個選項將會隨伺服器設定而多載",
   "config.megane.side.and"              : "§7用戶端與伺服器端需要使用相同的值",

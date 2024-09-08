@@ -1,0 +1,92 @@
+{
+  "megane:alloy-forgery"               : {
+    "initializer": "lol.bai.megane.module.alloyforgery.MeganeAlloyForgery",
+    "required"   : {
+      "alloy_forgery": "*"
+    }
+  },
+  "megane:applied-energistics-2"       : {
+    "initializer": "lol.bai.megane.module.ae2.MeganeAppliedEnergistics2",
+    "required"   : {
+      "ae2": "*"
+    }
+  },
+  "megane:create"                      : {
+    "initializer": "lol.bai.megane.module.create.MeganeCreate",
+    "required"   : {
+      "create": "*"
+    }
+  },
+  "megane:deep-mob-learning-simulacrum": {
+    "initializer": "lol.bai.megane.module.dmlsimulacrum.MeganeDmlSimulacrum",
+    "required"   : {
+      "dmlsimulacrum": "*"
+    }
+  },
+  "megane:extra-generators"            : {
+    "initializer": "lol.bai.megane.module.extragenerators.MeganeExtraGenerators",
+    "required"   : {
+      "extragenerators": "*"
+    }
+  },
+  "megane:industrial-revolution"       : {
+    "initializer": "lol.bai.megane.module.indrev.MeganeIndustrialRevolution",
+    "required"   : {
+      "indrev": "*"
+    }
+  },
+  "megane:kibe"                        : {
+    "initializer": "lol.bai.megane.module.kibe.MeganeKibe",
+    "required"   : {
+      "kibe": "*"
+    }
+  },
+  "megane:lapis-reserve"               : {
+    "initializer": "lol.bai.megane.module.lapisreserve.MeganeLapisReserve",
+    "required"   : {
+      "lapisreserve": "*"
+    }
+  },
+  "megane:luggage"                     : {
+    "initializer": "lol.bai.megane.module.luggage.MeganeLuggage",
+    "required"   : {
+      "luggage": "*"
+    }
+  },
+  "megane:modern-dynamics"             : {
+    "initializer": "lol.bai.megane.module.moderndynamics.MeganeModernDynamics",
+    "required"   : {
+      "moderndynamics": "*"
+    }
+  },
+  "megane:powah"                       : {
+    "initializer": "lol.bai.megane.module.powah.MeganePowah",
+    "required"   : {
+      "powah": "*"
+    }
+  },
+  "megane:reborn-core"                 : {
+    "initializer": "lol.bai.megane.module.reborncore.MeganeRebornCore",
+    "required"   : {
+      "reborncore": "*"
+    }
+  },
+  "megane:resource-chickens"           : {
+    "initializer": "lol.bai.megane.module.resourcechickens.MeganeResourceChickens",
+    "required"   : {
+      "resourcechickens": "*"
+    }
+  },
+  "megane:tech-reborn"                 : {
+    "initializer": "lol.bai.megane.module.techreborn.MeganeTechReborn",
+    "required"   : {
+      "techreborn": "*"
+    }
+  },
+  "megane:wireless-networks"           : {
+    "initializer": "lol.bai.megane.module.wirelessnetworks.MeganeWirelessNetworks",
+    "required"   : {
+      "wirelessnetworks": "*"
+    }
+  }
+}

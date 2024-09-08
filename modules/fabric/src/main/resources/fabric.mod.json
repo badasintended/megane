@@ -12,7 +12,8 @@
   "license"      : "All Rights Reserved",
   "icon"         : "megane.png",
   "mixins"       : [
-    "megane-runtime.mixins.json"
+    "megane-runtime.mixins.json",
+    "megane.mixins.json"
   ],
   "depends"      : {
     "minecraft" : ">=1.19",

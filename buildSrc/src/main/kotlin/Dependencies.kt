@@ -15,6 +15,21 @@ object deps {
     const val minecraft = "com.mojang:minecraft:${versions.minecraft}"
     const val mixinAp = "org.spongepowered:mixin:0.8.5:processor"
 
+    object common : DependencyPath {
+        override val prefix = "common"
+
+        object wthit : DependencyPath {
+            override val prefix = "common.wthit"
+
+            val api by json()
+            val runtime by json()
+        }
+
+        const val mixin = "org.spongepowered:mixin:0.8.5"
+        const val asmTree = "org.ow2.asm:asm-tree:9.6"
+        const val fabricLoaderEnv = "lol.bai:fabric-loader-environment:0.0.1"
+    }
+
     object fabric : DependencyPath {
         override val prefix = "fabric"
 

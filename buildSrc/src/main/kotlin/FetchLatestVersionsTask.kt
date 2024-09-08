@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.databind.json.JsonMapper
+import deps.common
 import deps.fabric
 import deps.forge
 import org.gradle.api.DefaultTask
@@ -50,6 +51,11 @@ abstract class FetchLatestVersionsTask : DefaultTask() {
 
         fun <T> fetcher(versionFetcher: VersionFetcher<T>, loader: String, path: DependencyPath, action: VersionFetcherDsl<T>.() -> Unit) {
             action(VersionFetcherDsl(versionFetcher, loader, path))
+        }
+
+        fetcher(ModrinthVersionFetcher, "fabric", common.wthit) {
+            fetch(common.wthit::api, mrIds.wthit) { "mcp.mobius.waila:wthit-api:${it.version_number.replace("fabric", "mojmap")}" }
+            fetch(common.wthit::runtime, mrIds.wthit) { "mcp.mobius.waila:wthit:${it.version_number.replace("fabric", "mojmap")}" }
         }
 
         fetcher(ModrinthVersionFetcher, "fabric", fabric.wthit) {

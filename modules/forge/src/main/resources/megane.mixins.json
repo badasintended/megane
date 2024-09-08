@@ -1,0 +1,29 @@
+{
+  "required"          : true,
+  "minVersion"        : "0.8",
+  "package"           : "lol.bai.megane.mixin",
+  "plugin"            : "lol.bai.megane.mixin.MixinConfigPlugin",
+  "refmap"            : "megane.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins"            : [
+    "ae2.MixinWthitModule1",
+    "create.AccessBasinBlockEntity",
+    "create.AccessBasinOperatingBlockEntity",
+    "create.AccessBlockBreakingKineticTileEntity",
+    "create.AccessContraption",
+    "create.AccessMillstoneProgressProvider",
+    "create.AccessMountedStorageManager",
+    "create.MixinCrushingWheelControllerBlockEntity",
+    "create.MixinMechanicalMixerBlockEntity",
+    "ie.AccessFurnaceLikeBlockEntity",
+    "ie.MixinFurnaceLikeBlockEntitySlots",
+    "mekanism.AccessBasicInventorySlot",
+    "mekanism.AccessLookingAtUtils",
+    "mekanism.MixinMekanismWTHITPlugin"
+  ],
+  "client"            : [
+  ],
+  "injectors"         : {
+    "defaultRequire": 1
+  }
+}

@@ -1,4 +1,6 @@
 {
+  "common.wthit.api" : "mcp.mobius.waila:wthit-api:mojmap-5.30.1",
+  "common.wthit.runtime" : "mcp.mobius.waila:wthit:mojmap-5.30.1",
   "fabric.wthit.api" : "mcp.mobius.waila:wthit-api:fabric-5.30.1",
   "fabric.wthit.runtime" : "mcp.mobius.waila:wthit:fabric-5.30.1",
   "fabric.badpackets" : "lol.bai:badpackets:fabric-0.2.3",

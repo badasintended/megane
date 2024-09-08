@@ -1,0 +1,24 @@
+{
+  "required"          : true,
+  "minVersion"        : "0.8",
+  "package"           : "lol.bai.megane.mixin",
+  "plugin"            : "lol.bai.megane.mixin.MixinConfigPlugin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins"            : [
+    "ae2.MixinWthitModule1",
+    "alloyforgery.AccessorForgeControllerBlockEntity",
+    "create.AccessBasinBlockEntity",
+    "create.AccessBasinOperatingBlockEntity",
+    "create.AccessBlockBreakingKineticTileEntity",
+    "create.AccessContraption",
+    "create.AccessMillstoneProgressProvider",
+    "create.AccessMountedStorageManager",
+    "create.MixinCrushingWheelControllerBlockEntity",
+    "create.MixinMechanicalMixerBlockEntity"
+  ],
+  "client"            : [
+  ],
+  "injectors"         : {
+    "defaultRequire": 1
+  }
+}

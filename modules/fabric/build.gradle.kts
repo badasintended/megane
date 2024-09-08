@@ -3,6 +3,7 @@ import me.modmuss50.mpp.ReleaseType
 plugins {
     id("fabric-loom") version "1.6.12"
     id("me.modmuss50.mod-publish-plugin")
+    id("lol.bai.explosion")
 }
 
 publishMods {
@@ -58,89 +59,101 @@ publishMods {
     }
 }
 
-allprojects {
-    apply(plugin = "fabric-loom")
-
-    configurations.all {
-        resolutionStrategy {
-            force(deps.fabric.loader)
-        }
+configurations.all {
+    resolutionStrategy {
+        force(deps.fabric.loader)
     }
-
-    dependencies {
-        minecraft(deps.minecraft)
-        mappings(loom.officialMojangMappings())
-
-        modImplementation(deps.fabric.loader)
-        modImplementation(deps.fabric.fabricApi)
-
-        modCompileOnly(deps.fabric.wthit.api)
-        modRuntimeOnly(deps.fabric.wthit.runtime)
-        modRuntimeOnly(deps.fabric.badpackets)
-    }
-
-    loom {
-        interfaceInjection.enableDependencyInterfaceInjection.set(false)
-
-        mixin {
-            defaultRefmapName.set("megane-${project.name}.refmap.json")
-        }
-    }
-
-    sourceSets {
-        main {
-            resources.srcDir("src/generated/resources")
-        }
-    }
-
-    tasks.processResources {
-        inputs.property("version", project.version)
-
-        filesMatching("fabric.mod.json") {
-            expand("version" to project.version)
-        }
-    }
-}
-
-repositories {
-    terraformers()
 }
 
 dependencies {
+    minecraft(deps.minecraft)
+    mappings(loom.officialMojangMappings())
+
+    modImplementation(deps.fabric.loader)
+    modImplementation(deps.fabric.fabricApi)
     modImplementation(deps.fabric.modmenu)
     modImplementation(deps.fabric.wthit.runtime)
+    modRuntimeOnly(deps.fabric.badpackets)
+
+    modImplementation(deps.fabric.alloyForge)
+    modImplementation(deps.fabric.owo)
+
+    modImplementation(deps.fabric.ae2) {
+        exclude("curse.maven:jade-324717")
+        exclude("mezz.jei:jei-${versions.minecraft}-fabric")
+    }
+
+    modImplementation(deps.fabric.create) {
+        exclude("dev.emi:emi")
+        exclude("com.github.LlamaLad7:MixinExtras")
+        exclude("com.github.llamalad7.mixinextras:mixinextras-fabric")
+        exclude("me.luligabi:NoIndium")
+    }
+    modImplementation(deps.fabric.mixinExtras)
+    modImplementation(deps.fabric.noIndium)
+
+    modImplementation(explosion.fabric(deps.fabric.dml))
+    modImplementation(deps.fabric.flk)
+    modImplementation(deps.fabric.clothConfig)
+
+    modImplementation(deps.fabric.extraGen)
+    modImplementation(deps.fabric.trEnergy)
+    modImplementation(deps.fabric.flk)
+
+    modImplementation(deps.fabric.indrev)
+    modImplementation(deps.fabric.flk)
+    modImplementation(deps.fabric.trEnergy)
+    modImplementation(deps.fabric.libgui)
+    modImplementation(deps.fabric.patchouli)
+    modImplementation(deps.fabric.magna)
+    modImplementation(deps.fabric.stepAttr)
+    modImplementation(deps.fabric.fakePlayer)
+    modImplementation(deps.fabric.noIndium)
+
+    modImplementation(deps.fabric.kibe)
+    modImplementation(deps.fabric.flk)
+    modImplementation(deps.fabric.pal)
+
+    modImplementation(deps.fabric.lapisReserve)
+
+    modImplementation(deps.fabric.luggage)
+
+    modImplementation(deps.fabric.modernDynamics)
+    modImplementation(deps.fabric.trEnergy)
+
+    modImplementation(deps.fabric.powah)
+    modImplementation(deps.fabric.trEnergy)
+    modImplementation(deps.fabric.architectury)
+    modImplementation(deps.fabric.clothConfig)
+
+    modImplementation(deps.fabric.rebornCore)
+
+    modImplementation(deps.fabric.resourceChickens)
+
+    modImplementation(deps.fabric.techReborn)
+
+    modImplementation(deps.fabric.wirelessNet)
+    modImplementation(deps.fabric.trEnergy)
+    modImplementation(deps.fabric.libgui)
 }
 
 loom {
     runs.configureEach {
         ideConfigGenerated(true)
+        vmArgs("-XX:+AllowEnhancedClassRedefinition")
+    }
+}
+
+tasks.processResources {
+    inputs.property("version", project.version)
+
+    filesMatching("fabric.mod.json") {
+        expand("version" to project.version)
     }
 }
 
 afterEvaluate {
-    subprojects.forEach {
-        dependencies {
-            implementation(project(path = it.path, configuration = "namedElements"))
-
-            include(project(it.path)) {
-                isTransitive = false
-            }
-        }
-
-        sourceSets {
-            main {
-                runtimeClasspath += it.sourceSets.main.get().runtimeClasspath
-            }
-        }
-    }
-
     publishMods {
         file.set(tasks.remapJar.get().archiveFile)
-    }
-}
-
-subprojects {
-    base {
-        archivesName.set("megane-fabric-${project.name}")
     }
 }

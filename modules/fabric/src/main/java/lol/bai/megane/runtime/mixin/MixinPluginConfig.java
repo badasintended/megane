@@ -26,7 +26,7 @@ public abstract class MixinPluginConfig {
 
         MeganeUtils.LOGGER.info("[megane] Migrated plugin config");
 
-        save();
+        write();
         config.setPluginConfigMigrated(true);
         MeganeUtils.CONFIG.save();
     }
@@ -37,9 +37,8 @@ public abstract class MixinPluginConfig {
     }
 
     @Shadow
-    public static void save() {
+    public static void write() {
         throw new AssertionError();
     }
-
 
 }

@@ -1,0 +1,44 @@
+{
+  "megane:applied-energistics-2": {
+    "initializer": "lol.bai.megane.module.ae2.MeganeAppliedEnergistics2",
+    "required"   : {
+      "ae2": "*"
+    }
+  },
+  "megane:create"               : {
+    "initializer": "lol.bai.megane.module.create.MeganeCreate",
+    "required"   : {
+      "create": "*"
+    }
+  },
+  "megane:immersive-engineering": {
+    "initializer": "lol.bai.megane.module.ie.MeganeImmersiveEngineering",
+    "required"   : {
+      "immersiveengineering": "*"
+    }
+  },
+  "megane:lapis-reserve"        : {
+    "initializer": "lol.bai.megane.module.lapisreserve.MeganeLapisReserve",
+    "required"   : {
+      "lapisreserve": "*"
+    }
+  },
+  "megane:mekanism"             : {
+    "initializer": "lol.bai.megane.module.mekanism.MeganeMekaninsm",
+    "required"   : {
+      "mekanism": "*"
+    }
+  },
+  "megane:productive-bees"      : {
+    "initializer": "lol.bai.megane.module.productivebees.MeganeProductiveBees",
+    "required"   : {
+      "productivebees": "*"
+    }
+  },
+  "megane:resource-chickens"    : {
+    "initializer": "lol.bai.megane.module.resourcechickens.MeganeResourceChickens",
+    "required"   : {
+      "resourcechickens": "*"
+    }
+  }
+}
