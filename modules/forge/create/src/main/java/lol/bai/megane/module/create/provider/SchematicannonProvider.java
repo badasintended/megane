@@ -51,7 +51,7 @@ public class SchematicannonProvider implements IBlockComponentProvider, IDataPro
         SchematicannonBlockEntity be = accessor.getBlockEntity();
         if (be == null) return;
 
-        var fuel = be.fuelLevel;
+        var fuel = be.remainingFuel / (float) be.getShotsPerGunpowder();
         var text = Component.literal((fuel * 100) + "%");
 
         tooltip.addLine(new PairComponent(
