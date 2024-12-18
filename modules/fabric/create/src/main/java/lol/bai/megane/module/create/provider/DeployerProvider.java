@@ -11,8 +11,13 @@ public class DeployerProvider implements IDataProvider<DeployerBlockEntity> {
 
     @Override
     public void appendData(IDataWriter data, IServerAccessor<DeployerBlockEntity> accessor, IPluginConfig config) {
-        data.add(ItemData.class, res -> res.add(ItemData.of(config)
-            .add(accessor.getTarget().getPlayer().getMainHandItem())));
+        data.add(ItemData.class, res -> {
+            var fakePlayer = accessor.getTarget().getPlayer();
+            if (fakePlayer == null)
+                return;
+
+            res.add(ItemData.of(config).add(fakePlayer.getMainHandItem()));
+        });
     }
 
 }
